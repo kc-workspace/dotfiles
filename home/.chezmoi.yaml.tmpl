@@ -4,15 +4,15 @@ encryption: gpg
 gpg:
   recipient: '14089557+kamontat@users.noreply.github.com'
 
-sourceDir: "$HOME/.local/share/chezmoi"
-destDir: "$HOME"
+sourceDir: "~/.local/share/chezmoi"
+destDir: "~"
 
 ## https://www.chezmoi.io/user-guide/daily-operations/#automatically-commit-and-push-changes-to-your-repo
 git:
   autoAdd: true
   autoCommit: true
   autoPush: true
-  commitMessageTemplate: 'perf(core): update source state change'
+  commitMessageTemplateFile: 'assets/templates/COMMIT_MESSAGE.tmpl'
 
 progress: true
 
@@ -21,6 +21,8 @@ add:
 
 edit:
   apply: false
+  command: "code"
+  args: ["--wait"]
 
 update:
   apply: true
