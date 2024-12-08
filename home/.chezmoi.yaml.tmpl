@@ -13,8 +13,9 @@ destDir: "~"
 git:
   autoAdd: true
   autoCommit: true
-  autoPush: true
-  commitMessageTemplateFile: 'assets/templates/COMMIT_MESSAGE.tmpl'
+  autoPush: false
+  ## relative to chezmoiroot path
+  commitMessageTemplateFile: "../internal/COMMIT_MESSAGE.tmpl"
 
 progress: true
 
@@ -22,7 +23,8 @@ add:
   encrypt: true
 
 edit:
-  apply: false
+  apply: true
+  watch: true
   command: "code-insiders"
   args: ["--wait"]
 

@@ -1,0 +1,36 @@
+{{- with .chezmoi.status }}
+
+perf(core): update source state change
+
+{{- with .Ordinary }}
+
+Files updated:
+{{ range . -}}
+{{ if and (eq .X 'A') (eq .Y '.') -}}Add {{ .Path | targetRelPath }}
+{{ else if and (eq .X 'D') (eq .Y '.') -}}Remove {{ .Path | targetRelPath }}
+{{ else if and (eq .X 'M') (eq .Y '.') -}}Update {{ .Path | targetRelPath }}
+{{ else }}{{with (printf "unsupported XY: %q" (printf "%c%c" .X .Y)) }}{{ fail . }}{{ end }}
+{{ end }}
+{{- end -}}
+{{- end -}}
+
+{{- with .RenamedOrCopied }}
+
+Files changed:
+{{ range . -}}
+{{ if and (eq .X 'R') (eq .Y '.') }}Change attributes of {{ .Path | targetRelPath }}
+{{ else if and (eq .X 'C') (eq .Y '.') -}}Copy {{ .OrigPath | targetRelPath }} to {{ .Path | targetRelPath }}
+{{ else }}{{with (printf "unsupported XY: %q" (printf "%c%c" .X .Y)) }}{{ fail . }}{{ end }}
+{{ end }}
+{{- end -}}
+{{- end -}}
+
+{{- range .Unmerged -}}
+{{ fail "unmerged files" }}
+{{- end -}}
+
+{{- range .Untracked -}}
+{{ fail "untracked files" }}
+{{- end -}}
+
+{{- end -}}
