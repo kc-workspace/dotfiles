@@ -1,0 +1,75 @@
+## Setup starship prompt
+eval "$(starship init zsh)"
+
+## Setup zdharma-continuum/zinit
+ZINIT_HOME="$HOME/.zinit"
+source "$ZINIT_HOME/zinit.zsh"
+
+## Configure zdharma-continuum/zinit
+zinit wait"0" lucid for \
+    atinit"ZINIT[COMPINIT_OPTS]=-C; zicompinit; zicdreplay" \
+    zdharma-continuum/fast-syntax-highlighting \
+    blockf \
+    zsh-users/zsh-completions \
+    atload"!_zsh_autosuggest_start" \
+    zsh-users/zsh-autosuggestions
+
+### lets you jump to custom directories in zsh
+zinit ice as"program" pick"wd.sh" src"wd.plugin.zsh"
+zinit load "mfaerevaag/wd"
+
+### add alias tips when run full command
+### add pair symbol (), {}, [] etc.
+### add color to man page
+### add thefuck support
+### enhance version of ls
+zinit wait"1" lucid for \
+    "djui/alias-tips" \
+    "hlissner/zsh-autopair" \
+    "ael-code/zsh-colored-man-pages" \
+    "laggardkernel/zsh-thefuck" \
+    "supercrabtree/k"
+
+### utilties for macos (https://github.com/unixorn/tumult.plugin.zsh#included-scripts)
+zinit ice wait="2" lucid autoload
+zinit load "unixorn/tumult.plugin.zsh"
+
+## Reinitiate compinit
+autoload -Uz compinit && compinit
+
+autoload -U +X bashcompinit && bashcompinit
+complete -o nospace -C /opt/homebrew/bin/terraform terraform
+
+## add docker cli
+docker_bin="$HOME/.docker/bin"
+test -d "$docker_bin" &&
+    PATH="$PATH:$docker_bin"
+unset docker_bin
+
+## add homebrew auto-completion
+brew_comp="/opt/homebrew/share/zsh/site-functions"
+test -d "$brew_comp" &&
+    fpath+=("$brew_comp")
+export HOMEBREW_NO_ANALYTICS=1
+
+# Created by `pipx` on 2023-06-16 08:24:54
+export PATH="$PATH:/Users/kamontat/.local/bin"
+
+## Setup asdf
+source "$HOME/.asdf/asdf.sh"
+fpath=("$ASDF_DIR/completions" $fpath)
+
+## Setup mise
+# eval "$($HOME/.local/bin/mise activate zsh)"
+
+## Setup java home
+source ~/.asdf/plugins/java/set-java-home.zsh
+## Setup flutter root
+eval "$(asdf flutter setup)"
+
+# Setup bit
+case ":$PATH:" in
+  *":/Users/kamontat/bin:"*) ;;
+  *) export PATH="$PATH:/Users/kamontat/bin" ;;
+esac
+# bit end

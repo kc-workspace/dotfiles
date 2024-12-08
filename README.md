@@ -10,6 +10,7 @@ This is my personal dotfiles (configuration and settings for each program).
   - [To update local machine from remote repository](#to-update-local-machine-from-remote-repository)
   - [To apply state to your local machine](#to-apply-state-to-your-local-machine)
   - [To add new file from local machine](#to-add-new-file-from-local-machine)
+  - [To remove file from current source](#to-remove-file-from-current-source)
 
 ## Configuration
 
@@ -100,4 +101,21 @@ sequenceDiagram
 ```bash
 chezmoi add "<filepath>"
 chezmoi add --encrypt "<filepath>"
+```
+
+### To remove file from current source
+
+This will only remove file from source directory, not target directory
+
+```mermaid
+sequenceDiagram
+  participant T as Target directory
+  participant S as Source directory
+  participant L as Local repository
+  participant R as Remote repository
+  S -> S: remove file/folder
+```
+
+```bash
+chezmoi forget "<filepath>"
 ```
