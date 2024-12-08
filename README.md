@@ -48,7 +48,7 @@ sequenceDiagram
 
 ```bash
 ## chezmoi init kamontat --apply
-chezmoi init <repo> [--apply]
+chezmoi init "<repo>" [--apply]
 ```
 
 ### To update local machine from remote repository
@@ -88,6 +88,16 @@ chezmoi apply
 
 ### To add new file from local machine
 
+```mermaid
+sequenceDiagram
+  participant T as Target directory
+  participant S as Source directory
+  participant L as Local repository
+  participant R as Remote repository
+  T -> S: add [with encrypt (optionally)]
+```
+
 ```bash
-chezmoi add <filepath>
+chezmoi add "<filepath>"
+chezmoi add --encrypt "<filepath>"
 ```
