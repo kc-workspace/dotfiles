@@ -1,3 +1,9 @@
+# shellcheck disable=SC1091,SC2148
+
+## Required:
+##   - starship
+##   - zinit ($HOME/.zinit directory)
+
 ## Setup starship prompt
 eval "$(starship init zsh)"
 
@@ -14,7 +20,7 @@ zinit wait"0" lucid for \
     atload"!_zsh_autosuggest_start" \
     zsh-users/zsh-autosuggestions
 
-### lets you jump to custom directories in zsh
+### Setup wd cli
 zinit ice as"program" pick"wd.sh" src"wd.plugin.zsh"
 zinit load "mfaerevaag/wd"
 
@@ -36,40 +42,55 @@ zinit load "unixorn/tumult.plugin.zsh"
 
 ## Reinitiate compinit
 autoload -Uz compinit && compinit
-
 autoload -U +X bashcompinit && bashcompinit
-complete -o nospace -C /opt/homebrew/bin/terraform terraform
 
-## add docker cli
+# Setup home bin
+home_bin="$HOME/bin"
+if [ -d "$home_bin" ]; then
+    PATH="$PATH:$home_bin"
+fi
+unset home_bin
+
+## Setup docker cli
 docker_bin="$HOME/.docker/bin"
-test -d "$docker_bin" &&
+if [ -d "$docker_bin" ]; then
     PATH="$PATH:$docker_bin"
+fi
 unset docker_bin
 
-## add homebrew auto-completion
-brew_comp="/opt/homebrew/share/zsh/site-functions"
-test -d "$brew_comp" &&
-    fpath+=("$brew_comp")
+## Setup homebrew
 export HOMEBREW_NO_ANALYTICS=1
-
-# Created by `pipx` on 2023-06-16 08:24:54
-export PATH="$PATH:/Users/kamontat/.local/bin"
+## Setup homebrew auto-completion
+brew_comp="/opt/homebrew/share/zsh/site-functions"
+if [ -d "$docker_bin" ]; then
+    fpath+=("$brew_comp")
+fi
+unset brew_comp
 
 ## Setup asdf
-source "$HOME/.asdf/asdf.sh"
-fpath=("$ASDF_DIR/completions" $fpath)
+asdf_home="$HOME/.asdf"
+if [ -d "$asdf_home" ]; then
+    source "$asdf_home/asdf.sh"
+    fpath+=("$ASDF_DIR/completions")
+fi
+unset asdf_home
 
 ## Setup mise
-# eval "$($HOME/.local/bin/mise activate zsh)"
+mise="$HOME/.local/bin/mise"
+if [ -f "$mise" ]; then
+    eval "$("$mise" activate zsh)"
+fi
+unset mise
 
-## Setup java home
-source ~/.asdf/plugins/java/set-java-home.zsh
-## Setup flutter root
-eval "$(asdf flutter setup)"
-
-# Setup bit
-case ":$PATH:" in
-  *":/Users/kamontat/bin:"*) ;;
-  *) export PATH="$PATH:/Users/kamontat/bin" ;;
-esac
-# bit end
+## Setup java home (asdf)
+if asdf current java >/dev/null 2>&1; then
+    java_plugin="$HOME/.asdf/plugins/java"
+    if [ -f "$java_plugin" ]; then
+        source "$java_plugin/set-java-home.zsh"
+    fi
+    unset java_plugin
+fi
+## Setup flutter root (asdf)
+if asdf current flutter >/dev/null 2>&1; then
+    eval "$(asdf flutter setup)"
+fi
