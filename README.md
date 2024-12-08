@@ -11,6 +11,7 @@ This is my personal dotfiles (configuration and settings for each program).
   - [To apply state to your local machine](#to-apply-state-to-your-local-machine)
   - [To add new file from local machine](#to-add-new-file-from-local-machine)
   - [To remove file from current source](#to-remove-file-from-current-source)
+- [To do list](#to-do-list)
 
 ## Configuration
 
@@ -119,3 +120,9 @@ sequenceDiagram
 ```bash
 chezmoi forget "<filepath>"
 ```
+
+## To do list
+
+- [ ] - Add dockerfile and publish to ghrc
+- [ ] - Add dependabot to upgrade dependencies
+- [ ] - Add more dotfiles to manage by chezmoi
