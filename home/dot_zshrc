@@ -76,11 +76,11 @@ fi
 unset asdf_home
 
 ## Setup mise
-mise="$HOME/.local/bin/mise"
-if [ -f "$mise" ]; then
-    eval "$("$mise" activate zsh)"
-fi
-unset mise
+# mise="$HOME/.local/bin/mise"
+# if [ -f "$mise" ]; then
+#     eval "$("$mise" activate zsh)"
+# fi
+# unset mise
 
 ## Setup java home (asdf)
 if asdf current java >/dev/null 2>&1; then
