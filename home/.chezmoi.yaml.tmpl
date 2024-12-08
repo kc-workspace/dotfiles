@@ -3,7 +3,8 @@
 encryption: gpg
 gpg:
   recipient: '014089557+kamontat@users.noreply.github.com'
-  args = ["--quiet"]
+  args:
+    - "--quiet"
 
 sourceDir: "~/.local/share/chezmoi"
 destDir: "~"
@@ -22,7 +23,7 @@ add:
 
 edit:
   apply: false
-  command: "code"
+  command: "code-insiders"
   args: ["--wait"]
 
 update:
