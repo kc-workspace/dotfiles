@@ -1,5 +1,26 @@
 # Changelog
 
+## [0.1.0](https://github.com/kc-workspace/dotfiles/compare/v0.0.1...v0.1.0) (2024-12-09)
+
+
+### Features
+
+* cancel previous actions when new publish or release trigger ([4e8029d](https://github.com/kc-workspace/dotfiles/commit/4e8029d689d57f5ce7257a1c6b24e617e74cfe9f))
+* cancel previous github actions when new publish or release trigger ([#5](https://github.com/kc-workspace/dotfiles/issues/5)) ([4e8029d](https://github.com/kc-workspace/dotfiles/commit/4e8029d689d57f5ce7257a1c6b24e617e74cfe9f))
+
+
+### Bug Fixes
+
+* change directory owner when copy to docker ([e1d867f](https://github.com/kc-workspace/dotfiles/commit/e1d867f0b83e3347da8a9930a52792d296dc17d1))
+* remove legacy env syntax in dockerfile ([#6](https://github.com/kc-workspace/dotfiles/issues/6)) ([61cffd9](https://github.com/kc-workspace/dotfiles/commit/61cffd9b387252257ceddb9433206ef5bf51e14b))
+* update deprecate dockerfile ([1e1da06](https://github.com/kc-workspace/dotfiles/commit/1e1da060783cbb1a89be1307af9f0de2bdcc4ce9))
+* update docker to remove legacy features ([77dd725](https://github.com/kc-workspace/dotfiles/commit/77dd725bfadc50e06083499bc06ebfb6c9b6c8dd))
+
+
+### Performance Improvements
+
+* update dockerfile to usable ([6b548a3](https://github.com/kc-workspace/dotfiles/commit/6b548a30135fa58d2e239f29053797fe4011b535))
+
 ## 0.0.1 (2024-12-09)
 
 
