@@ -56,8 +56,7 @@ jobs:
       - name: Build & Push docker image
         uses: docker/build-push-action@v6
         with:
-          platforms: linux/amd64
-          # platforms: linux/amd64,linux/arm64/v8,linux/arm/v7
+          platforms: linux/amd64,linux/arm64/v8,linux/arm/v7
           push: true
           sbom: true
           provenance: mode=max
