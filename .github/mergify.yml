@@ -1,0 +1,39 @@
+pull_request_rules:
+  - name: Convert wip to draft PR
+    conditions:
+      - label=wip
+    actions:
+      edit:
+        draft: true
+      label:
+        remove:
+          - wip
+  - name: Make sure PR are up to date before merging with rebase
+    conditions: []
+    actions:
+      rebase:
+  - name: Automatic merge owner
+    conditions:
+      - author = kamontat
+      - check-success = main
+    actions:
+      merge:
+  - name: Automatic merge personal bot
+    conditions:
+      - author = kc-bot
+      - check-success = main
+      - "label != autorelease: pending"
+    actions:
+      merge:
+  - name: Automatic merge autorelease when approved by owner
+    conditions:
+      - "label = autorelease: pending"
+      - approved-reviews-by = kamontat
+    actions:
+      merge:
+  - name: Automatic merge dependabot
+    conditions:
+      - author = dependabot[bot]
+      - check-success = main
+    actions:
+      merge:
