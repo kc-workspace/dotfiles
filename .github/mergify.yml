@@ -9,11 +9,11 @@ pull_request_rules:
         remove:
           - wip
   - name: Outdate PR
-    description: Make sure PR are up to date before merging with rebase (ignore release-please pr)
+    description: Make sure PR are up to date before merging with update (ignore release-please pr)
     conditions:
       - "label != autorelease: pending"
     actions:
-      rebase:
+      update:
   - name: Owner
     description: automatically owner pr when ci passed
     conditions:
