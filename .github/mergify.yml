@@ -9,11 +9,21 @@ pull_request_rules:
         remove:
           - wip
   - name: Outdate PR
-    description: Make sure PR are up to date before merging with update (ignore release-please pr)
+    description: Make sure PR are up to date before merging with update (ignore release-please, and dependabot pr)
     conditions:
       - "label != autorelease: pending"
+      - "author != dependabot[bot]"
     actions:
       update:
+  - name: Label Conflict PR
+    description: Add a label to a pull request with conflict to spot it easily
+    conditions:
+      - conflict
+      - -closed
+    actions:
+      label:
+        toggle:
+          - conflict
   - name: Owner
     description: automatically owner pr when ci passed
     conditions:
