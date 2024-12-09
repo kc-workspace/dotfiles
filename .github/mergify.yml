@@ -12,28 +12,26 @@ pull_request_rules:
     conditions: []
     actions:
       rebase:
-  - name: Automatic merge owner
+  - name: Owner
+    description: automatically owner pr when ci passed
     conditions:
       - author = kamontat
       - check-success = main
     actions:
       merge:
-  - name: Automatic merge personal bot
+  - name: Owner bot
+    description: automatically merge bot pr when not autorelease
     conditions:
       - author = kc-bot
+      - author = dependabot[bot]
       - check-success = main
       - "label != autorelease: pending"
     actions:
       merge:
-  - name: Automatic merge autorelease when approved by owner
+  - name: Release bot
+    description: automatically merge release pr when got approved by owner
     conditions:
       - "label = autorelease: pending"
       - approved-reviews-by = kamontat
-    actions:
-      merge:
-  - name: Automatic merge dependabot
-    conditions:
-      - author = dependabot[bot]
-      - check-success = main
     actions:
       merge:
