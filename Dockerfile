@@ -6,8 +6,7 @@ ENV USER kamontat
 ENV TIMEZONE "Asia/Bangkok"
 
 # Setup time zones and install linux dependencies needed for build.
-RUN ln -snf "/usr/share/zoneinfo/$TIMEZONE" /etc/localtime \
-  && echo $TIMEZONE > /etc/timezones \
+RUN sudo timedatectl set-timezone "$TIMEZONE" \
   && apt update && apt install -y sudo curl \
   && apt clean
 
@@ -22,11 +21,11 @@ RUN useradd -ms /bin/bash $USER && \
 
 # Assume the user.
 USER $USER
-ENV USER_HOME /home/$USER
+ENV USER_HOME="/home/$USER"
 WORKDIR $USER_HOME
 
 # Setup the chezmoi directory.
-ENV CHEZMOI_HOME $USER_HOME/.local/share/chezmoi
+ENV CHEZMOI_HOME="$USER_HOME/.local/share/chezmoi"
 
 # Install chezmoi binary.
 RUN mkdir -p $CHEZMOI_HOME \
@@ -39,5 +38,5 @@ COPY . $CHEZMOI_HOME
 # Apply chezmoi source state and configuration.
 RUN $USER_HOME/bin/chezmoi init --apply
 
-# Start fish shell.
-CMD zsh
+# Start zsh shell.
+CMD ["zsh"]
