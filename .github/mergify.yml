@@ -8,8 +8,10 @@ pull_request_rules:
       label:
         remove:
           - wip
-  - name: Make sure PR are up to date before merging with rebase
-    conditions: []
+  - name: Outdate PR
+    description: Make sure PR are up to date before merging with rebase (ignore release-please pr)
+    conditions:
+      - "label != autorelease: pending"
     actions:
       rebase:
   - name: Owner
