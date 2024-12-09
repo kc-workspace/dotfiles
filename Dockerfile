@@ -35,7 +35,7 @@ ENV CHEZMOI_BIN="$USER_HOME/bin"
 ENV PATH="$CHEZMOI_BIN:$PATH"
 
 ## Copy the dotfiles
-COPY . $CHEZMOI_HOME
+COPY --chown=$USER . $CHEZMOI_HOME
 
 ## Install chezmoi binary
 RUN mkdir -p "$CHEZMOI_HOME" \
