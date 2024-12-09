@@ -2,8 +2,8 @@
 FROM ubuntu:noble
 
 # Set build environment variables.
-ENV USER kamontat
-ENV TIMEZONE "Asia/Bangkok"
+ENV USER="kamontat"
+ENV TIMEZONE="Asia/Bangkok"
 
 # Setup time zones and install linux dependencies needed for build.
 RUN sudo timedatectl set-timezone "$TIMEZONE" \
