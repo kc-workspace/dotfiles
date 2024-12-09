@@ -123,6 +123,6 @@ chezmoi forget "<filepath>"
 
 ## To do list
 
-- [ ] - Add dockerfile and publish to ghrc
 - [ ] - Add dependabot to upgrade dependencies
+- [ ] - Add ci to release and publish docker image
 - [ ] - Add more dotfiles to manage by chezmoi
