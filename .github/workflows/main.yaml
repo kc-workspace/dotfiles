@@ -1,0 +1,35 @@
+name: Main CI
+
+on:
+  push:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  INSTALL_CLI: /tmp/chezmoi.sh
+  CHEZMOI_BIN: /tmp/bin
+  CHEZMOI: /tmp/bin/chezmoi
+
+jobs:
+  main:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set up repository
+        uses: actions/checkout@v4
+      - name: Cache chezmoi
+        id: cache
+        uses: actions/cache@v4
+        with:
+          path: $CHEZMOI_BIN
+          key: chezmoi-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('.chezmoiversion') }}
+      - name: Download chezmoi install script
+        if: steps.cache.outputs.cache-hit != 'true'
+        run: curl -fsLSo $INSTALL_CLI get.chezmoi.io
+      - name: Install chezmoi
+        if: steps.cache.outputs.cache-hit != 'true'
+        run: sh "$INSTALL_CLI" -d -b "$CHEZMOI_BIN" -t "v$(cat .chezmoiversion)"
+      - name: Get chezmoi version
+        run: $CHEZMOI --version
+## TODO: Add installation testing
