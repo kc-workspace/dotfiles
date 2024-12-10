@@ -16,6 +16,7 @@ jobs:
       contents: read
       packages: write
       attestations: write
+      id-token: write
     steps:
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
@@ -54,14 +55,26 @@ jobs:
           labels: ${{ steps.meta.outputs.labels }}
           annotations: ${{ steps.meta.outputs.annotations }}
       - name: Build & Push docker image
+        id: docker-push
         uses: docker/build-push-action@v6
         with:
           platforms: linux/amd64,linux/arm64/v8,linux/arm/v7
           push: true
-          sbom: true
-          provenance: mode=max
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
           annotations: ${{ steps.meta.outputs.annotations }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
+
+      - name: Attest Docker Hub
+        uses: actions/attest-build-provenance@v2
+        with:
+          subject-name: index.docker.io/kamontat/dotfiles
+          subject-digest: ${{ steps.docker-push.outputs.digest }}
+          push-to-registry: true
+      - name: Attest GitHub Container Registry
+        uses: actions/attest-build-provenance@v2
+        with:
+          subject-name: ghcr.io/kc-workspace/dotfiles
+          subject-digest: ${{ steps.docker-push.outputs.digest }}
+          push-to-registry: true

@@ -4,8 +4,14 @@
 ##   - starship
 ##   - zinit ($HOME/.zinit directory)
 
-## Setup starship prompt
-eval "$(starship init zsh)"
+## Reinitiate compinit
+autoload -Uz compinit && compinit
+autoload -U +X bashcompinit && bashcompinit
+
+setopt histignorealldups sharehistory
+export HISTSIZE=1000
+export SAVEHIST=1000
+export HISTFILE="$HOME/.zsh_history"
 
 ## Setup zdharma-continuum/zinit
 ZINIT_HOME="$HOME/.zinit"
@@ -13,12 +19,12 @@ source "$ZINIT_HOME/zinit.zsh"
 
 ## Configure zdharma-continuum/zinit
 zinit wait"0" lucid for \
-    atinit"ZINIT[COMPINIT_OPTS]=-C; zicompinit; zicdreplay" \
-    zdharma-continuum/fast-syntax-highlighting \
-    blockf \
-    zsh-users/zsh-completions \
-    atload"!_zsh_autosuggest_start" \
-    zsh-users/zsh-autosuggestions
+  atinit"ZINIT[COMPINIT_OPTS]=-C; zicompinit; zicdreplay" \
+  zdharma-continuum/fast-syntax-highlighting \
+  blockf \
+  zsh-users/zsh-completions \
+  atload"!_zsh_autosuggest_start" \
+  zsh-users/zsh-autosuggestions
 
 ### Setup wd cli
 zinit ice as"program" pick"wd.sh" src"wd.plugin.zsh"
@@ -30,31 +36,33 @@ zinit load "mfaerevaag/wd"
 ### add thefuck support
 ### enhance version of ls
 zinit wait"1" lucid for \
-    "djui/alias-tips" \
-    "hlissner/zsh-autopair" \
-    "ael-code/zsh-colored-man-pages" \
-    "laggardkernel/zsh-thefuck" \
-    "supercrabtree/k"
+  "djui/alias-tips" \
+  "hlissner/zsh-autopair" \
+  "ael-code/zsh-colored-man-pages" \
+  "laggardkernel/zsh-thefuck" \
+  "supercrabtree/k"
 
 ### utilties for macos (https://github.com/unixorn/tumult.plugin.zsh#included-scripts)
 zinit ice wait="2" lucid autoload
 zinit load "unixorn/tumult.plugin.zsh"
 
-## Reinitiate compinit
-autoload -Uz compinit && compinit
-autoload -U +X bashcompinit && bashcompinit
+## Setup starship prompt
+zinit ice as"command" from"gh-r" \
+          atclone"./starship init zsh > init.zsh; ./starship completions zsh > _starship" \
+          atpull"%atclone" src"init.zsh"
+zinit light starship/starship
 
 # Setup home bin
 home_bin="$HOME/bin"
 if [ -d "$home_bin" ]; then
-    PATH="$PATH:$home_bin"
+  PATH="$PATH:$home_bin"
 fi
 unset home_bin
 
 ## Setup docker cli
 docker_bin="$HOME/.docker/bin"
 if [ -d "$docker_bin" ]; then
-    PATH="$PATH:$docker_bin"
+  PATH="$PATH:$docker_bin"
 fi
 unset docker_bin
 
@@ -63,15 +71,15 @@ export HOMEBREW_NO_ANALYTICS=1
 ## Setup homebrew auto-completion
 brew_comp="/opt/homebrew/share/zsh/site-functions"
 if [ -d "$docker_bin" ]; then
-    fpath+=("$brew_comp")
+  fpath+=("$brew_comp")
 fi
 unset brew_comp
 
 ## Setup asdf
 asdf_home="$HOME/.asdf"
 if [ -d "$asdf_home" ]; then
-    source "$asdf_home/asdf.sh"
-    fpath+=("$ASDF_DIR/completions")
+  source "$asdf_home/asdf.sh"
+  fpath+=("$ASDF_DIR/completions")
 fi
 unset asdf_home
 
@@ -84,13 +92,13 @@ unset asdf_home
 
 ## Setup java home (asdf)
 if asdf current java >/dev/null 2>&1; then
-    java_plugin="$HOME/.asdf/plugins/java"
-    if [ -f "$java_plugin" ]; then
-        source "$java_plugin/set-java-home.zsh"
-    fi
-    unset java_plugin
+  java_plugin="$HOME/.asdf/plugins/java"
+  if [ -f "$java_plugin" ]; then
+    source "$java_plugin/set-java-home.zsh"
+  fi
+  unset java_plugin
 fi
 ## Setup flutter root (asdf)
 if asdf current flutter >/dev/null 2>&1; then
-    eval "$(asdf flutter setup)"
+  eval "$(asdf flutter setup)"
 fi

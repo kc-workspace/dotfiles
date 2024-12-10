@@ -1,5 +1,5 @@
-# Use Ubuntu LTS
-FROM ubuntu:noble
+# Use Ubuntu latest LTS
+FROM ubuntu:latest
 
 ## Set build environment variables.
 ENV USER="kamontat"
@@ -8,11 +8,12 @@ ENV DEBIAN_FRONTEND=noninteractive
 
 ## Setup os dependencies
 RUN apt update && apt upgrade \
-  && apt install -y sudo curl zsh tzdata \
+  && apt install -y sudo curl zsh tzdata gpg \
   && apt clean
 
 ## Setup startup shell
-RUN chsh -s /usr/bin/zsh
+ENV SHELL="/usr/bin/zsh"
+RUN chsh -s $SHELL
 
 ## Add a new user to the sudo group
 RUN useradd -ms /bin/bash $USER && \
@@ -37,13 +38,12 @@ ENV PATH="$CHEZMOI_BIN:$PATH"
 ## Copy the dotfiles
 COPY --chown=$USER . $CHEZMOI_HOME
 
-## Install chezmoi binary
+## Prepare directories
 RUN mkdir -p "$CHEZMOI_HOME" \
   && mkdir -p "$CHEZMOI_BIN" \
-  && sh -c "$(curl -fsLS git.io/chezmoi)" -- -b "$CHEZMOI_BIN" -t "v$(cat $CHEZMOI_VERSION_FILE)"
+  && mv "$CHEZMOI_HOME/scripts/entrypoint.sh" "$CHEZMOI_BIN/entrypoint.sh"
 
-## Apply chezmoi source state and configuration
-RUN $USER_HOME/bin/chezmoi init --apply
+## Prepare chezmoi binary
+RUN sh -c "$(curl -fsLS git.io/chezmoi)" -- -b "$CHEZMOI_BIN" -t "v$(cat $CHEZMOI_VERSION_FILE)"
 
-## Start zsh shell
-CMD ["zsh"]
+ENTRYPOINT [ "entrypoint.sh" ]
