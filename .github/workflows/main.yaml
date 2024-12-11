@@ -17,8 +17,6 @@ jobs:
     steps:
       - name: Set up repository
         uses: actions/checkout@v4
-        with:
-	  fetch-depth: 0
       - name: Set up 1Password CLI
         uses: 1password/install-cli-action@v1
       - name: Check 1Password account
@@ -45,11 +43,11 @@ jobs:
         run: scripts/setup-full.sh
         env:
           OP_SERVICE_ACCOUNT_TOKEN: ${{ secrets.OP_SERVICE_ACCOUNT_TOKEN }}
-          CHEZMOI_ARGUMENTS: --apply
+          CHEZMOI_ARGUMENTS: --apply --source "${{ github.workspace }}"
       - name: Check status
-        run: chezmoi status
+        run: chezmoi status --source "${{ github.workspace }}"
       - name: Check managed files and directories
-        run: chezmoi managed --path-style absolute --tree
+        run: chezmoi managed --path-style absolute --tree --source "${{ github.workspace }}"
       - name: Purge chezmoi configuration and data
         if: always()
-        run: chezmoi purge --force --verbose
+        run: chezmoi purge --force --verbose --source "${{ github.workspace }}"
