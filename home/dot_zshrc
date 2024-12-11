@@ -2,7 +2,7 @@
 
 ## Required:
 ##   - starship
-##   - zinit ($HOME/.zinit directory)
+##   - zinit
 
 ## Reinitiate compinit
 autoload -Uz compinit && compinit
@@ -14,7 +14,7 @@ export SAVEHIST=1000
 export HISTFILE="$HOME/.zsh_history"
 
 ## Setup zdharma-continuum/zinit
-ZINIT_HOME="$HOME/.zinit"
+ZINIT_HOME="$HOME/.local/share/zinit/zinit.git"
 source "$ZINIT_HOME/zinit.zsh"
 
 ## Configure zdharma-continuum/zinit
