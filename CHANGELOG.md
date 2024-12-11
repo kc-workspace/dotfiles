@@ -1,5 +1,41 @@
 # Changelog
 
+## [0.2.0](https://github.com/kc-workspace/dotfiles/compare/v0.1.0...v0.2.0) (2024-12-11)
+
+
+### Features
+
+* add asdf installation as well ([673bb2b](https://github.com/kc-workspace/dotfiles/commit/673bb2b53c66e089ec342edadce554f429335b70))
+* add asdf with plugins ([3845bb2](https://github.com/kc-workspace/dotfiles/commit/3845bb2d60e8475f7c3987400d70622e2249332a))
+* add docker minimal that remove encrypted file from chezmoi ([b0fef33](https://github.com/kc-workspace/dotfiles/commit/b0fef33bfd75231333b53fdf496dfda479e01ed1))
+* install zinit when start apply ([f40193a](https://github.com/kc-workspace/dotfiles/commit/f40193a5216e388e5dd57357c972d221314634ee))
+* **script:** improve entrypoint scripts to support minimal docker image and optional 1password gpg ([2674dda](https://github.com/kc-workspace/dotfiles/commit/2674dda296edef6289db6b276a26674ef62699cd))
+* upgrade docker file and entrypoint to support gpg from 1password ([b9bce42](https://github.com/kc-workspace/dotfiles/commit/b9bce42998c9d320e504c2d258661cb75c228f56))
+
+
+### Bug Fixes
+
+* add apt install zsh when run scripts before everything else ([ab6dd31](https://github.com/kc-workspace/dotfiles/commit/ab6dd311ce75e0b149aadf16b7359d9a69ec9e6e))
+* do not upgrade dependencies on github actions ([a28d485](https://github.com/kc-workspace/dotfiles/commit/a28d4856a2b193fbb0380bd5a0a7828a98a1e52a))
+* move CHEZMOI_ARGUMENTS from dockerfile to *.sh script ([9022693](https://github.com/kc-workspace/dotfiles/commit/90226938d393efd8e1dda7556dca33c8f0520e9e))
+* move data directory inside root directory ([b7abff7](https://github.com/kc-workspace/dotfiles/commit/b7abff7bb3618a0a8e7327021ad503e999a28e4c))
+
+
+### Performance Improvements
+
+* **config:** 1password will support service account in docker image ([c5737f4](https://github.com/kc-workspace/dotfiles/commit/c5737f41f1672894ff3695fde4d14e1c1f047d74))
+* **core:** update source state change ([1dd6862](https://github.com/kc-workspace/dotfiles/commit/1dd6862e3c5779c47380645ffdf4a283b681dbf8))
+* **core:** update source state change ([d1cd2df](https://github.com/kc-workspace/dotfiles/commit/d1cd2dfde083482a413b9fe7ca5fdb3390a8ce56))
+* **core:** update source state change ([2c3ae18](https://github.com/kc-workspace/dotfiles/commit/2c3ae18772836e2ad4cd14962077d7e84b4e271c))
+* **core:** update source state change ([a1c60ae](https://github.com/kc-workspace/dotfiles/commit/a1c60aeddfe013dddcd2e45aaeef3d0a9b8fea47))
+* **core:** update source state change ([eb70347](https://github.com/kc-workspace/dotfiles/commit/eb703479cfa6962559ef92ea5730b835cdcf87df))
+* **docker:** add vim ([dd2bfe6](https://github.com/kc-workspace/dotfiles/commit/dd2bfe61627a549799b83c9105501d8676e36994))
+* **docker:** improve image but significately increase docker image size (~300MB to ~600MB) ([d9cb939](https://github.com/kc-workspace/dotfiles/commit/d9cb939f51a33cfca0c7c6661be9057d1d7b99ea))
+* **script:** quiet import gpg key ([c2086e2](https://github.com/kc-workspace/dotfiles/commit/c2086e23698bb147f582c3ab063f4976dbd308e2))
+* **script:** remove gpg private key after decrypt file ([23b2128](https://github.com/kc-workspace/dotfiles/commit/23b212863cbd42f3209eb18abbf5154e653adbcf))
+* update dockerfile with new sudo rules ([35550cc](https://github.com/kc-workspace/dotfiles/commit/35550cc72f9ba05762d60caf0e1a73a5560e3d92))
+* update zinit git repository path from ~/.zinit to ~/.local/share/zinit/zinit.git ([6f5fcb8](https://github.com/kc-workspace/dotfiles/commit/6f5fcb831354d1bbc2cf1bd5e4f568bf9e102e0a))
+
 ## [0.1.0](https://github.com/kc-workspace/dotfiles/compare/v0.0.1...v0.1.0) (2024-12-09)
 
 
