@@ -43,7 +43,7 @@ jobs:
         run: scripts/setup-full.sh
         env:
           OP_SERVICE_ACCOUNT_TOKEN: ${{ secrets.OP_SERVICE_ACCOUNT_TOKEN }}
-          CHEZMOI_ARGUMENTS: --apply --source ${{ github.workspace }} --debug --verbose
+          CHEZMOI_ARGUMENTS: --apply --source ${{ github.workspace }}
       - name: Check chezmoi status
         run: chezmoi status --init --source ${{ github.workspace }}
       - name: Check managed files and directories
