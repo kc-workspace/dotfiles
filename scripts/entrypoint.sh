@@ -10,4 +10,9 @@ minimal | min | m) bash setup-minimal.sh ;;
 *) printf 'Invalid input mode: %s\n' "$KCDF_MODE" >&2 && exit 2 ;;
 esac
 
-exec "$SHELL"
+if [ $# -gt 1 ]; then
+  shift
+  "$@"
+else
+  exec "$SHELL"
+fi

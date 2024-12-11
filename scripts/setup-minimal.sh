@@ -4,11 +4,13 @@ set -e
 
 echo "# Initiate chezmoi with minimal mode
 
-On this mode, all encrypted file will be removed.
-Neither 1password nor gpg will automatically install on this mode.
+On this mode, we will removed all encrypted file.
 "
+
+set -x
 
 ## Delete all asc file
 find "${CHEZMOI_HOME:?}" -name "*.asc" -exec rm {} \;
 ## Apply chezmoi configuration
-chezmoi apply
+# shellcheck disable=SC2086
+chezmoi init $CHEZMOI_ARGUMENTS
