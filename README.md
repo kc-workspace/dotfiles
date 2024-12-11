@@ -14,6 +14,7 @@ This is my personal dotfiles (configuration and settings for each program).
 - [Docker](#docker)
   - [Build docker image](#build-docker-image)
   - [Run docker image](#run-docker-image)
+  - [To verify docker image](#to-verify-docker-image)
 
 ## Configuration
 
@@ -157,4 +158,44 @@ Alternatively, you can start without mode and manually set up chezmoi using `set
 ```bash
 docker run -it --rm kamontat/dotfiles:latest
 setup-full.sh
+```
+
+### To verify docker image
+
+All docker image have attestations. You can verify the integrity and provenance
+of an artifact using its associated cryptographically signed attestations.
+
+The output of the verify command should contains as following information:
+
+- Verify status: `✓ Verification succeeded!`
+- **Repository** where image was created
+- **Workflow** and **Git Reference** where image was created
+
+To verify Docker Hub image:
+
+```bash
+# gh attestation verify oci://kamontat/dotfiles:latest --owner kc-workspace
+$ gh attestation verify "oci://kamontat/dotfiles:<tag-name>" --owner kc-workspace
+
+...
+✓ Verification succeeded!
+...
+```
+
+To verify GitHub Container Registry image:
+
+```bash
+## Add read:packages scope to read image from ghcr.
+## You may need to login first: https://cli.github.com/manual/gh_auth_login
+$ gh auth refresh --scopes "read:packages"
+
+# gh auth token | docker login "ghcr.io" --username "kamontat" --password-stdin
+$ gh auth token | docker login "ghcr.io" --username "<username>" --password-stdin
+
+# gh attestation verify "oci://ghcr.io/kc-workspace/dotfiles:latest" --owner kc-workspace
+$ gh attestation verify "oci://ghcr.io/kc-workspace/dotfiles:<tag-name>" --owner kc-workspace
+
+...
+✓ Verification succeeded!
+...
 ```
