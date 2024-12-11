@@ -3,63 +3,51 @@ FROM ubuntu:latest
 
 ## Set build environment variables.
 ENV USER="kamontat"
-ENV USER_HOME="/home/$USER"
 ENV TZ="Asia/Bangkok"
 ENV SHELL="/usr/bin/zsh"
 ENV EDITOR="vim"
 
+## Must matched with .chezmoiversion file
 ENV CHEZMOI_VERSION="2.55.0"
+
+ENV USER_HOME="/home/$USER"
 ENV CHEZMOI_HOME="$USER_HOME/.local/share/chezmoi"
 ENV CHEZMOI_BIN="$USER_HOME/bin"
-
 ENV DEBIAN_FRONTEND=noninteractive
 ENV DOCKER=true
-ENV KCDF_MODE=full
 
-## Setup os dependencies
-RUN apt update \
-  && apt install -y tzdata curl gpg vim \
-  && apt clean
-
-RUN curl -sS https://downloads.1password.com/linux/keys/1password.asc \
-  | gpg --dearmor --output /usr/share/keyrings/1password-archive-keyring.gpg \
-  && echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/1password-archive-keyring.gpg] https://downloads.1password.com/linux/debian/$(dpkg --print-architecture) stable main" \
-  | tee /etc/apt/sources.list.d/1password.list \
-  && mkdir -p /etc/debsig/policies/AC2D62742012EA22/ \
-  && curl -sS https://downloads.1password.com/linux/debian/debsig/1password.pol \
-  | tee /etc/debsig/policies/AC2D62742012EA22/1password.pol \
-  && mkdir -p /usr/share/debsig/keyrings/AC2D62742012EA22 \
-  && curl -sS https://downloads.1password.com/linux/keys/1password.asc \
-  | gpg --dearmor --output /usr/share/debsig/keyrings/AC2D62742012EA22/debsig.gpg \
-  && apt update && apt upgrade \
-  && apt install -y sudo zsh 1password-cli \
+## Setup os dependencies:
+## - tzdata - set timezone
+## - curl   - required by chezmoi
+## - zsh    - login shell
+## - vim    - for modify file in docker
+## - sudo   - prevent accident root command executes
+## - gpg    - for encrypt & decrypt file
+RUN apt update && apt upgrade -y \
+  && apt install -y tzdata curl zsh vim sudo gpg \
   && apt clean
 
 ## Setup startup shell
 RUN chsh -s $SHELL
 
-## Add a new user to the sudo group
+## Setup user with sudo configured
 RUN useradd --create-home --uid 5000 --group sudo --shell $SHELL $USER \
   && echo "%$USER ALL=(ALL) NOPASSWD:ALL" >"/etc/sudoers.d/$USER-group"
-
-## Assume the user
 USER $USER
 WORKDIR $USER_HOME
-## Prepare directories
+
+## Prepare && Install chezmoi
+ENV PATH="$CHEZMOI_BIN:$PATH"
 RUN mkdir -p "$CHEZMOI_HOME" \
   && mkdir -p "$CHEZMOI_BIN" \
-  && touch "$HOME/.zshrc"
-## Install chezmoi
-RUN sh -c "$(curl -fsLS git.io/chezmoi)" -- -b "$CHEZMOI_BIN" -t "v$CHEZMOI_VERSION"
-ENV PATH="$CHEZMOI_BIN:$PATH"
-
-## Install essential linux dependencies
-# COPY ./setup/linux/deps /tmp/deps
-# RUN /tmp/deps/install.sh
+  && touch "$HOME/.zshrc" \
+  && sh -c "$(curl -fsLS git.io/chezmoi)" -- -b "$CHEZMOI_BIN" -t "v$CHEZMOI_VERSION"
 
 ## Copy the dotfiles
 COPY --chown=$USER . $CHEZMOI_HOME
-
+## Configure dotfiles
 RUN mv $CHEZMOI_HOME/scripts/*.sh "$CHEZMOI_BIN" \
-  && rm -r "$CHEZMOI_HOME/.github" "$CHEZMOI_HOME/.git"
+  && rm -r "$CHEZMOI_HOME/.github" "$CHEZMOI_HOME/.git" \
+  && chezmoi init
+
 ENTRYPOINT [ "entrypoint.sh" ]

@@ -94,71 +94,71 @@ jobs:
           subject-digest: ${{ steps.docker-push.outputs.digest }}
           push-to-registry: true
 
-  publish-minimal:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Set up QEMU
-        uses: docker/setup-qemu-action@v3
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v3
+  # publish-minimal:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: Set up QEMU
+  #       uses: docker/setup-qemu-action@v3
+  #     - name: Set up Docker Buildx
+  #       uses: docker/setup-buildx-action@v3
 
-      - name: Login to Docker Hub
-        uses: docker/login-action@v3
-        with:
-          username: ${{ secrets.DH_USERNAME }}
-          password: ${{ secrets.DH_TOKEN }}
-      - name: Login to GitHub Container Registry
-        uses: docker/login-action@v3
-        with:
-          registry: ghcr.io
-          username: ${{ github.repository_owner }}
-          password: ${{ secrets.GITHUB_TOKEN }}
+  #     - name: Login to Docker Hub
+  #       uses: docker/login-action@v3
+  #       with:
+  #         username: ${{ secrets.DH_USERNAME }}
+  #         password: ${{ secrets.DH_TOKEN }}
+  #     - name: Login to GitHub Container Registry
+  #       uses: docker/login-action@v3
+  #       with:
+  #         registry: ghcr.io
+  #         username: ${{ github.repository_owner }}
+  #         password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Build docker metadata
-        id: meta
-        uses: docker/metadata-action@v5
-        with:
-          images: |
-            ${{ env.DH_NAME }}
-            ${{ env.GH_REGISTRY }}/${{ env.GH_NAME }}
-          flavor: |
-            latest=false
-          tags: |
-            type=raw,value=minimal,enable=${{ github.event_name == 'release' }}
-            type=ref,event=branch,suffix=-minimal
-            type=semver,pattern={{version}},suffix=-minimal
-            type=semver,pattern={{major}}.{{minor}},suffix=-minimal
-            type=sha,suffix=-minimal
-      - name: Validate docker build configuration
-        uses: docker/build-push-action@v6
-        with:
-          file: Dockerfile.minimal
-          call: check
-          tags: ${{ steps.meta.outputs.tags }}
-          labels: ${{ steps.meta.outputs.labels }}
-          annotations: ${{ steps.meta.outputs.annotations }}
-      - name: Build & Push docker image
-        id: docker-push
-        uses: docker/build-push-action@v6
-        with:
-          file: Dockerfile.minimal
-          platforms: ${{ env.PLATFORMS }}
-          push: true
-          tags: ${{ steps.meta.outputs.tags }}
-          labels: ${{ steps.meta.outputs.labels }}
-          annotations: ${{ steps.meta.outputs.annotations }}
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
+  #     - name: Build docker metadata
+  #       id: meta
+  #       uses: docker/metadata-action@v5
+  #       with:
+  #         images: |
+  #           ${{ env.DH_NAME }}
+  #           ${{ env.GH_REGISTRY }}/${{ env.GH_NAME }}
+  #         flavor: |
+  #           latest=false
+  #         tags: |
+  #           type=raw,value=minimal,enable=${{ github.event_name == 'release' }}
+  #           type=ref,event=branch,suffix=-minimal
+  #           type=semver,pattern={{version}},suffix=-minimal
+  #           type=semver,pattern={{major}}.{{minor}},suffix=-minimal
+  #           type=sha,suffix=-minimal
+  #     - name: Validate docker build configuration
+  #       uses: docker/build-push-action@v6
+  #       with:
+  #         file: Dockerfile.minimal
+  #         call: check
+  #         tags: ${{ steps.meta.outputs.tags }}
+  #         labels: ${{ steps.meta.outputs.labels }}
+  #         annotations: ${{ steps.meta.outputs.annotations }}
+  #     - name: Build & Push docker image
+  #       id: docker-push
+  #       uses: docker/build-push-action@v6
+  #       with:
+  #         file: Dockerfile.minimal
+  #         platforms: ${{ env.PLATFORMS }}
+  #         push: true
+  #         tags: ${{ steps.meta.outputs.tags }}
+  #         labels: ${{ steps.meta.outputs.labels }}
+  #         annotations: ${{ steps.meta.outputs.annotations }}
+  #         cache-from: type=gha
+  #         cache-to: type=gha,mode=max
 
-      - name: Attest Docker Hub
-        uses: actions/attest-build-provenance@v2
-        with:
-          subject-name: ${{ env.DH_REGISTRY }}/${{ env.DH_NAME }}
-          subject-digest: ${{ steps.docker-push.outputs.digest }}
-          push-to-registry: true
-      - name: Attest GitHub Container Registry
-        uses: actions/attest-build-provenance@v2
-        with:
-          subject-name: ${{ env.GH_REGISTRY }}/${{ env.GH_NAME }}
-          subject-digest: ${{ steps.docker-push.outputs.digest }}
-          push-to-registry: true
+  #     - name: Attest Docker Hub
+  #       uses: actions/attest-build-provenance@v2
+  #       with:
+  #         subject-name: ${{ env.DH_REGISTRY }}/${{ env.DH_NAME }}
+  #         subject-digest: ${{ steps.docker-push.outputs.digest }}
+  #         push-to-registry: true
+  #     - name: Attest GitHub Container Registry
+  #       uses: actions/attest-build-provenance@v2
+  #       with:
+  #         subject-name: ${{ env.GH_REGISTRY }}/${{ env.GH_NAME }}
+  #         subject-digest: ${{ steps.docker-push.outputs.digest }}
+  #         push-to-registry: true
