@@ -12,8 +12,8 @@ This is my personal dotfiles (configuration and settings for each program).
   - [To add new file from local machine](#to-add-new-file-from-local-machine)
   - [To remove file from current source](#to-remove-file-from-current-source)
 - [Docker](#docker)
-  - [To build full version](#to-build-full-version)
-  - [To build minimal version](#to-build-minimal-version)
+  - [Build docker image](#build-docker-image)
+  - [Run docker image](#run-docker-image)
 - [To do list](#to-do-list)
 
 ## Configuration
@@ -24,11 +24,22 @@ Below are a list of configuration I have on each categories.
 
 ## Prerequisite
 
-1. You need to install chezmoi first: https://www.chezmoi.io/install/
+1. Install [zsh][zsh-url] (if not exist)
+2. Install [python3][python-url] (if not exist)
+3. Install [chezmoi][chezmoi-url]
+4. Install [Gnupg][gnupg-url]
+5. Install 1Password [app][1password-app-url] and [cli][1password-cli-url]
+
+[zsh-url]: https://www.zsh.org
+[python-url]: https://www.python.org/downloads
+[chezmoi-url]: https://www.chezmoi.io/install
+[gnupg-url]: https://www.gnupg.org/download/index.html
+[1password-app-url]: https://1password.com/downloads
+[1password-cli-url]: https://developer.1password.com/docs/cli/get-started
 
 ## Get start
 
-Run `chezmoi init kamontat --apply` to initialize and apply config to your machine.
+Run `chezmoi init kc-workspace --apply` to initialize and apply config to your machine.
 
 ## Useful commands
 
@@ -52,7 +63,7 @@ sequenceDiagram
 ```
 
 ```bash
-## chezmoi init kamontat --apply
+## chezmoi init kc-workspace --apply
 chezmoi init "<repo>" [--apply]
 ```
 
@@ -126,18 +137,27 @@ chezmoi forget "<filepath>"
 
 ## Docker
 
-The full version contains gpg and 1password-cli as well as encrypted files.
-
-### To build full version
+### Build docker image
 
 ```bash
 docker buildx build --tag kamontat/dotfiles:latest .
 ```
 
-### To build minimal version
+### Run docker image
 
-``` bash
-docker buildx build --tag kamontat/dotfiles:minimal --file Dockerfile.minimal .
+You can run docker image on 2 modes: `full` or `minimal`.
+When mode is empty string, it will start shell without any set up.
+You can manually set up using `setup-*.sh` command
+
+```bash
+docker run -it --rm kamontat/dotfiles:latest "<MODE>"
+```
+
+Alternatively, you can start without mode and manually set up chezmoi using `setup-*.sh` command.
+
+```bash
+docker run -it --rm kamontat/dotfiles:latest
+setup-full.sh
 ```
 
 ## To do list
