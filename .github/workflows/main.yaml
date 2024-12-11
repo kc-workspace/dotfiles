@@ -10,6 +10,7 @@ concurrency:
 env:
   INSTALL_CLI: /tmp/chezmoi.sh
   CHEZMOI_BIN: /tmp/bin
+  CHEZMOI_ARGUMENTS: --apply
 
 jobs:
   main:
@@ -43,3 +44,8 @@ jobs:
         run: scripts/setup-full.sh
         env:
           OP_SERVICE_ACCOUNT_TOKEN: ${{ secrets.OP_SERVICE_ACCOUNT_TOKEN }}
+      - name: Try check status
+        run: chezmoi managed --path-style absolute --tree
+      - name: Purge chezmoi configuration and data
+        if: always()
+        run: chezmoi purge --force --verbose
