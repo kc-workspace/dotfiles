@@ -47,7 +47,7 @@ jobs:
       - name: Check chezmoi status
         run: |
           temp="$(mktemp)"
-          chezmoi status --init --source ${{ github.workspace }} |
-            tee "$temp"; grep -qE '[a-z A-Z]+' "$temp"
+          chezmoi status --init --source ${{ github.workspace }} | tee "$temp"
+          ! test -s "$temp"
       - name: Check managed files and directories
         run: chezmoi managed --path-style absolute --tree --source ${{ github.workspace }}
