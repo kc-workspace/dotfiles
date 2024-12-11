@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
-{{ if eq .chezmoi.os "darwin" -}}
+{{- if eq .chezmoi.os "darwin" }}
+
 brew bundle install --file=/dev/stdin <<EOF
 {{ range .packages.darwin.taps -}}
 tap {{ . | quote }}
@@ -12,8 +13,13 @@ brew {{ . | quote }}
 cask {{ . | quote }}
 {{ end -}}
 EOF
-{{ end -}}
 
-{{ if eq .chezmoi.os "linux" }}
+{{- end }}
+
+{{- if eq .chezmoi.os "linux" }}
+{{- if ne (env "GITHUB_ACTIONS") "true" }}
+
 sudo apt update && sudo apt upgrade -y
-{{ end -}}
+
+{{- end }}
+{{- end }}
