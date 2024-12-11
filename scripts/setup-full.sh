@@ -37,7 +37,7 @@ if op whoami; then
     --vault "$GPG_KEY_OP_VAULT" \
     --out-file "$GPG_PATH" >/dev/null
 
-  gpg --import "$GPG_PATH"
+  gpg --quiet --import "$GPG_PATH"
   rm "$GPG_PATH"
 fi
 
