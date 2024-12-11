@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+set -e
+set -x
+
 {{- if eq .chezmoi.os "darwin" }}
 
 brew bundle install --file=/dev/stdin <<EOF
@@ -17,9 +20,11 @@ EOF
 {{- end }}
 
 {{- if eq .chezmoi.os "linux" }}
+
+sudo apt update
+
+sudo apt install -y {{- range .packages.linux.apts }} {{ . | quote }}{{ end }}
 {{- if ne (env "GITHUB_ACTIONS") "true" }}
-
-sudo apt update && sudo apt upgrade -y
-
+sudo apt upgrade -y
 {{- end }}
 {{- end }}

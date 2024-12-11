@@ -30,3 +30,4 @@ packages:
   linux:
     apts:
       - git
+      - zsh
