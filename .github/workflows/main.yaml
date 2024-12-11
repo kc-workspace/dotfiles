@@ -45,6 +45,9 @@ jobs:
           OP_SERVICE_ACCOUNT_TOKEN: ${{ secrets.OP_SERVICE_ACCOUNT_TOKEN }}
           CHEZMOI_ARGUMENTS: --apply --source ${{ github.workspace }}
       - name: Check chezmoi status
-        run: chezmoi status --init --source ${{ github.workspace }}
+        run: |
+          temp="$(mktemp)"
+          chezmoi status --init --source ${{ github.workspace }} |
+            tee "$temp"; grep -qE '[a-z A-Z]+' "$temp"
       - name: Check managed files and directories
         run: chezmoi managed --path-style absolute --tree --source ${{ github.workspace }}
