@@ -27,3 +27,7 @@ edit:
 
 update:
   apply: true
+
+onepassword:
+    mode: "{{ if eq (env "DOCKER") "true" }}service{{ else }}account{{ end }}"
+    prompt: false
