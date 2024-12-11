@@ -45,9 +45,6 @@ jobs:
           OP_SERVICE_ACCOUNT_TOKEN: ${{ secrets.OP_SERVICE_ACCOUNT_TOKEN }}
           CHEZMOI_ARGUMENTS: --apply --source "${{ github.workspace }}"
       - name: Check status
-        run: chezmoi status --source "${{ github.workspace }}"
+        run: chezmoi status --init --source "${{ github.workspace }}"
       - name: Check managed files and directories
         run: chezmoi managed --path-style absolute --tree --source "${{ github.workspace }}"
-      - name: Purge chezmoi configuration and data
-        if: always()
-        run: chezmoi purge --force --verbose --source "${{ github.workspace }}"
