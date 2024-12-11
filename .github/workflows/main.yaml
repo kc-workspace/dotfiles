@@ -14,9 +14,14 @@ env:
 jobs:
   main:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: "~/.local/share/chezmoi"
     steps:
       - name: Set up repository
         uses: actions/checkout@v4
+        with:
+          path: '.'
       - name: Set up 1Password CLI
         uses: 1password/install-cli-action@v1
       - name: Check 1Password account
@@ -43,8 +48,7 @@ jobs:
         run: scripts/setup-full.sh
         env:
           OP_SERVICE_ACCOUNT_TOKEN: ${{ secrets.OP_SERVICE_ACCOUNT_TOKEN }}
-          CHEZMOI_ARGUMENTS: --apply --source "${{ github.workspace }}"
       - name: Check status
-        run: chezmoi status --init --source "${{ github.workspace }}"
+        run: chezmoi status --init
       - name: Check managed files and directories
-        run: chezmoi managed --path-style absolute --tree --source "${{ github.workspace }}"
+        run: chezmoi managed --path-style absolute --tree
