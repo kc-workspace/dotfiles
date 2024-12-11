@@ -10,7 +10,6 @@ concurrency:
 env:
   INSTALL_CLI: /tmp/chezmoi.sh
   CHEZMOI_BIN: /tmp/bin
-  CHEZMOI_ARGUMENTS: --apply
 
 jobs:
   main:
@@ -18,6 +17,8 @@ jobs:
     steps:
       - name: Set up repository
         uses: actions/checkout@v4
+        with:
+	  fetch-depth: 0
       - name: Set up 1Password CLI
         uses: 1password/install-cli-action@v1
       - name: Check 1Password account
@@ -44,6 +45,7 @@ jobs:
         run: scripts/setup-full.sh
         env:
           OP_SERVICE_ACCOUNT_TOKEN: ${{ secrets.OP_SERVICE_ACCOUNT_TOKEN }}
+          CHEZMOI_ARGUMENTS: --apply
       - name: Check status
         run: chezmoi status
       - name: Check managed files and directories
