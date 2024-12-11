@@ -1,5 +1,21 @@
 # Changelog
 
+## [0.2.0](https://github.com/kc-workspace/dotfiles/compare/v0.1.0...v0.2.0) (2024-12-11)
+
+
+### Features
+
+* add docker minimal that remove encrypted file from chezmoi ([b0fef33](https://github.com/kc-workspace/dotfiles/commit/b0fef33bfd75231333b53fdf496dfda479e01ed1))
+* **script:** improve entrypoint scripts to support minimal docker image and optional 1password gpg ([2674dda](https://github.com/kc-workspace/dotfiles/commit/2674dda296edef6289db6b276a26674ef62699cd))
+* upgrade docker file and entrypoint to support gpg from 1password ([b9bce42](https://github.com/kc-workspace/dotfiles/commit/b9bce42998c9d320e504c2d258661cb75c228f56))
+
+
+### Performance Improvements
+
+* **config:** 1password will support service account in docker image ([c5737f4](https://github.com/kc-workspace/dotfiles/commit/c5737f41f1672894ff3695fde4d14e1c1f047d74))
+* **core:** update source state change ([eb70347](https://github.com/kc-workspace/dotfiles/commit/eb703479cfa6962559ef92ea5730b835cdcf87df))
+* update dockerfile with new sudo rules ([35550cc](https://github.com/kc-workspace/dotfiles/commit/35550cc72f9ba05762d60caf0e1a73a5560e3d92))
+
 ## [0.1.0](https://github.com/kc-workspace/dotfiles/compare/v0.0.1...v0.1.0) (2024-12-09)
 
 
