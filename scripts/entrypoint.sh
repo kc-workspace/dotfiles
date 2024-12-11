@@ -23,14 +23,17 @@ elif [[ $KCDF_MODE == full ]]; then
     GPG_KEY_OP_ITEM="yczksozoghyhxlqyecja4zzqm4"
     GPG_KEY_OP_VAULT="64yg7lvccdzebup52w2nmzoady"
     GPG_PATH="/tmp/gpg.asc"
-
+    GPG_FINGERPRINT="$(op item get \
+      "$GPG_KEY_OP_ITEM" \
+      --vault "$GPG_KEY_OP_VAULT" \
+      --field label=Fingerprint)"
     ## Download gpg public & private key from 1password
     op document get \
       "$GPG_KEY_OP_ITEM" \
       --vault "$GPG_KEY_OP_VAULT" \
       --out-file "$GPG_PATH"
 
-    gpg --quiet --import "$GPG_PATH"
+    gpg --quiet --import "$GPG_PATH" >/dev/null
     rm "$GPG_PATH"
 
     unset GPG_KEY_OP_ITEM GPG_KEY_OP_VAULT GPG_PATH
@@ -39,10 +42,16 @@ elif [[ $KCDF_MODE == full ]]; then
   ## Initiate && Apply chezmoi config
   "$CHEZMOI_BIN/chezmoi" init --apply
 
+  if [ -n "$GPG_FINGERPRINT" ]; then
+    gpg --batch --yes --delete-secret-and-public-key "$GPG_FINGERPRINT"
+    unset GPG_FINGERPRINT
+  fi
   unset OP_SERVICE_ACCOUNT_TOKEN
-  exec "$SHELL"
 elif [[ $KCDF_MODE == minimal ]]; then
   ## Initiate && Apply chezmoi config
   "$CHEZMOI_BIN/chezmoi" init --apply
+fi
+
+if [ -z "$GITHUB_ACTIONS" ]; then
   exec "$SHELL"
 fi

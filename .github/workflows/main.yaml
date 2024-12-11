@@ -15,9 +15,17 @@ env:
 jobs:
   main:
     runs-on: ubuntu-latest
+    env:
+      KCDF_MODE: full
     steps:
       - name: Set up repository
         uses: actions/checkout@v4
+      - name: Set up 1Password CLI
+        uses: 1password/install-cli-action@v1
+      - name: Check 1Password account
+        run: op user get --me
+        env:
+          OP_SERVICE_ACCOUNT_TOKEN: ${{ secrets.OP_SERVICE_ACCOUNT_TOKEN }}
       - name: Cache chezmoi
         id: cache
         uses: actions/cache@v4
@@ -32,4 +40,7 @@ jobs:
         run: sh "$INSTALL_CLI" -d -b "$CHEZMOI_BIN" -t "v$(cat .chezmoiversion)"
       - name: Get chezmoi version
         run: $CHEZMOI --version
-## TODO: Add installation testing
+      - name: Try apply chezmoi config
+        run: scripts/entrypoint.sh
+        env:
+          OP_SERVICE_ACCOUNT_TOKEN: ${{ secrets.OP_SERVICE_ACCOUNT_TOKEN }}
