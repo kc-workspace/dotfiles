@@ -13,6 +13,7 @@ ENV CHEZMOI_BIN="$USER_HOME/bin"
 
 ENV DEBIAN_FRONTEND=noninteractive
 ENV DOCKER=true
+ENV KCDF_MODE=full
 
 ## Setup os dependencies
 RUN apt update \
@@ -37,9 +38,8 @@ RUN curl -sS https://downloads.1password.com/linux/keys/1password.asc \
 RUN chsh -s $SHELL
 
 ## Add a new user to the sudo group
-RUN groupadd --gid 5000 $USER \
-  && useradd --create-home --uid 5000 --no-user-group --group $USER --shell $SHELL $USER \
-  && echo '%root ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
+RUN useradd --create-home --uid 5000 --group sudo --shell $SHELL $USER \
+  && echo "%$USER ALL=(ALL) NOPASSWD:ALL" >"/etc/sudoers.d/$USER-group"
 
 ## Assume the user
 USER $USER
@@ -59,5 +59,6 @@ ENV PATH="$CHEZMOI_BIN:$PATH"
 ## Copy the dotfiles
 COPY --chown=$USER . $CHEZMOI_HOME
 
-RUN mv $CHEZMOI_HOME/scripts/*.sh "$CHEZMOI_BIN"
+RUN mv $CHEZMOI_HOME/scripts/*.sh "$CHEZMOI_BIN" \
+  && rm -r "$CHEZMOI_HOME/.github" "$CHEZMOI_HOME/.git"
 ENTRYPOINT [ "entrypoint.sh" ]
