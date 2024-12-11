@@ -11,6 +11,9 @@ This is my personal dotfiles (configuration and settings for each program).
   - [To apply state to your local machine](#to-apply-state-to-your-local-machine)
   - [To add new file from local machine](#to-add-new-file-from-local-machine)
   - [To remove file from current source](#to-remove-file-from-current-source)
+- [Docker](#docker)
+  - [To build full version](#to-build-full-version)
+  - [To build minimal version](#to-build-minimal-version)
 - [To do list](#to-do-list)
 
 ## Configuration
@@ -119,6 +122,22 @@ sequenceDiagram
 
 ```bash
 chezmoi forget "<filepath>"
+```
+
+## Docker
+
+The full version contains gpg and 1password-cli as well as encrypted files.
+
+### To build full version
+
+```bash
+docker buildx build --tag kamontat/dotfiles:latest .
+```
+
+### To build minimal version
+
+``` bash
+docker buildx build --tag kamontat/dotfiles:minimal --file Dockerfile.minimal .
 ```
 
 ## To do list
