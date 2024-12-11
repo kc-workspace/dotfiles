@@ -14,7 +14,6 @@ This is my personal dotfiles (configuration and settings for each program).
 - [Docker](#docker)
   - [Build docker image](#build-docker-image)
   - [Run docker image](#run-docker-image)
-- [To do list](#to-do-list)
 
 ## Configuration
 
@@ -159,9 +158,3 @@ Alternatively, you can start without mode and manually set up chezmoi using `set
 docker run -it --rm kamontat/dotfiles:latest
 setup-full.sh
 ```
-
-## To do list
-
-- [ ] - Add dependabot to upgrade dependencies
-- [ ] - Add ci to release and publish docker image
-- [ ] - Add more dotfiles to manage by chezmoi

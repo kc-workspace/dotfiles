@@ -1,0 +1,32 @@
+## ref: https://www.chezmoi.io/reference/special-files/chezmoidata-format/
+
+packages:
+  darwin:
+    taps:
+      - homebrew/bundle
+    brews:
+      - git
+      - glib
+      - cloc
+      - coreutils
+      - curl
+      - git
+      - graphviz
+      - nmap
+      - openssh
+    casks:
+      - 1password@beta
+      - alfred
+      - brave-browser
+      - docker
+      - font-fira-code-nerd-font
+      - font-jetbrains-mono
+      - gpg-suite
+      - logi-options+
+      - miro
+      - slack
+      - visual-studio-code-insiders
+      - warp
+  linux:
+    apts:
+      - git
