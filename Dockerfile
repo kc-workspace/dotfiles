@@ -6,6 +6,7 @@ ENV USER="kamontat"
 ENV USER_HOME="/home/$USER"
 ENV TZ="Asia/Bangkok"
 ENV SHELL="/usr/bin/zsh"
+ENV EDITOR="vim"
 
 ENV CHEZMOI_VERSION="2.55.0"
 ENV CHEZMOI_HOME="$USER_HOME/.local/share/chezmoi"
@@ -17,7 +18,7 @@ ENV KCDF_MODE=full
 
 ## Setup os dependencies
 RUN apt update \
-  && apt install -y tzdata curl gpg \
+  && apt install -y tzdata curl gpg vim \
   && apt clean
 
 RUN curl -sS https://downloads.1password.com/linux/keys/1password.asc \
