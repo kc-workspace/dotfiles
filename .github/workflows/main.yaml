@@ -44,7 +44,9 @@ jobs:
         run: scripts/setup-full.sh
         env:
           OP_SERVICE_ACCOUNT_TOKEN: ${{ secrets.OP_SERVICE_ACCOUNT_TOKEN }}
-      - name: Try check status
+      - name: Check status
+        run: chezmoi status
+      - name: Check managed files and directories
         run: chezmoi managed --path-style absolute --tree
       - name: Purge chezmoi configuration and data
         if: always()
