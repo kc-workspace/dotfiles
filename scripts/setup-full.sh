@@ -7,6 +7,7 @@ echo "# Initiate chezmoi with full-version mode
 On this mode, we will configure 1password service-account for decrypt file.
 "
 
+: "${CHEZMOI_ARGUMENTS:=--apply}"
 : "${OP_SERVICE_ACCOUNT_TOKEN:=${OP_TOKEN:-${TOKEN}}}"
 export OP_ACCOUNT="my.1password.com"
 export OP_SERVICE_ACCOUNT_TOKEN

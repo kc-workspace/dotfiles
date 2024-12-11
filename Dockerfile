@@ -38,8 +38,6 @@ ENV EDITOR="vim"
 
 ## Must matched with .chezmoiversion file
 ENV CHEZMOI_VERSION="2.55.0"
-## Init arguments (e.g. --one-shot)
-ENV CHEZMOI_ARGUMENTS="--apply"
 
 ENV USER_HOME="/home/$USER"
 ENV USER_BIN="/usr/local/bin"

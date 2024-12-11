@@ -7,6 +7,8 @@ echo "# Initiate chezmoi with minimal mode
 On this mode, we will removed all encrypted file.
 "
 
+: "${CHEZMOI_ARGUMENTS:=--apply}"
+
 set -x
 
 ## Delete all asc file
