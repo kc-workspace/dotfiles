@@ -1,23 +1,6 @@
 # Use Ubuntu latest LTS
 FROM ubuntu:latest
 
-## Set build environment variables.
-ENV USER="kamontat"
-ENV TZ="Asia/Bangkok"
-ENV SHELL="/usr/bin/zsh"
-ENV EDITOR="vim"
-
-## Must matched with .chezmoiversion file
-ENV CHEZMOI_VERSION="2.55.0"
-## Init arguments (e.g. --one-shot)
-ENV CHEZMOI_ARGUMENTS="--apply"
-
-ENV USER_HOME="/home/$USER"
-ENV CHEZMOI_HOME="$USER_HOME/.local/share/chezmoi"
-ENV CHEZMOI_BIN="$USER_HOME/bin"
-ENV DEBIAN_FRONTEND=noninteractive
-ENV DOCKER=true
-
 ## Setup os dependencies:
 ## - tzdata        - set timezone
 ## - curl          - required by chezmoi
@@ -47,6 +30,23 @@ RUN curl -sS https://downloads.1password.com/linux/keys/1password.asc \
   && apt upgrade -y \
   && apt clean
 
+## Set build environment variables.
+ENV USER="kamontat"
+ENV TZ="Asia/Bangkok"
+ENV SHELL="/usr/bin/zsh"
+ENV EDITOR="vim"
+
+## Must matched with .chezmoiversion file
+ENV CHEZMOI_VERSION="2.55.0"
+## Init arguments (e.g. --one-shot)
+ENV CHEZMOI_ARGUMENTS="--apply"
+
+ENV USER_HOME="/home/$USER"
+ENV USER_BIN="/usr/local/bin"
+ENV CHEZMOI_HOME="$USER_HOME/.local/share/chezmoi"
+ENV DEBIAN_FRONTEND=noninteractive
+ENV DOCKER=true
+
 ## Setup startup shell
 RUN chsh -s $SHELL
 
@@ -57,16 +57,15 @@ USER $USER
 WORKDIR $USER_HOME
 
 ## Prepare && Install chezmoi
-ENV PATH="$CHEZMOI_BIN:$PATH"
 RUN mkdir -p "$CHEZMOI_HOME" \
-  && mkdir -p "$CHEZMOI_BIN" \
+  && mkdir -p "$USER_BIN" \
   && touch "$HOME/.zshrc" \
-  && sh -c "$(curl -fsLS git.io/chezmoi)" -- -b "$CHEZMOI_BIN" -t "v$CHEZMOI_VERSION"
+  && sudo sh -c "$(curl -fsLS git.io/chezmoi)" -- -b "$USER_BIN" -t "v$CHEZMOI_VERSION"
 
 ## Copy the dotfiles
 COPY --chown=$USER . $CHEZMOI_HOME
 ## Configure dotfiles
-RUN mv $CHEZMOI_HOME/scripts/*.sh "$CHEZMOI_BIN" \
+RUN sudo mv $CHEZMOI_HOME/scripts/*.sh "$USER_BIN" \
   && rm -rf "$CHEZMOI_HOME/.github" \
   && rm -rf "$CHEZMOI_HOME/.git" \
   && chezmoi init

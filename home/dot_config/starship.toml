@@ -1,0 +1,172 @@
+# Timeout for commands executed by starship (in milliseconds).
+command_timeout = 3000 # 3 seconds
+# Wait 10 milliseconds for starship to check files under the current directory.
+scan_timeout = 30
+# Disable the blank line at the start of the prompt
+add_newline = true
+
+format = """
+$username\
+$directory\
+$vcsh\
+$fossil_branch\
+$fossil_metrics\
+$git_branch\
+$git_commit\
+$git_state\
+$git_metrics\
+$git_status\
+$hg_branch\
+$pijul_channel\
+$package\
+$docker_context\
+$kubernetes\
+$c\
+$cmake\
+$cobol\
+$daml\
+$dart\
+$deno\
+$dotnet\
+$elixir\
+$elm\
+$erlang\
+$fennel\
+$golang\
+$guix_shell\
+$haskell\
+$haxe\
+$helm\
+$java\
+$julia\
+$kotlin\
+$gradle\
+$lua\
+$nim\
+$nodejs\
+$ocaml\
+$opa\
+$perl\
+$php\
+$pulumi\
+$purescript\
+$python\
+$quarto\
+$raku\
+$rlang\
+$red\
+$ruby\
+$rust\
+$scala\
+$solidity\
+$swift\
+$terraform\
+$typst\
+$vlang\
+$vagrant\
+$zig\
+$buf\
+$nix_shell\
+$conda\
+$meson\
+$spack\
+$aws\
+$gcloud\
+$openstack\
+$azure\
+$crystal\
+$direnv\
+$env_var\
+$custom\
+$cmd_duration\
+
+$line_break\
+
+$hostname\
+$localip\
+$os\
+$sudo\
+$shell\
+$shlvl\
+$memory_usage\
+$battery\
+$container\
+$time\
+$jobs\
+$status\
+$character
+"""
+
+[shlvl]
+disabled = true
+format = 'at $shlvl level(s) down '
+
+[localip]
+disabled = true
+ssh_only = false
+format   = '[$localipv4]($style) '
+style    = 'dimmed white'
+
+[username]
+disabled    = false
+show_always = true
+format      = '[@$user]($style) '
+style_root  = 'red'
+style_user  = 'dimmed white'
+
+[hostname]
+disabled    = true
+ssh_only    = false
+trim_at     = '.'
+format      = '[$ssh_symbol$hostname]($style) '
+
+[battery]
+disabled = false
+
+[[battery.display]]
+threshold = 20
+
+[time]
+disabled        = false
+format          = 'at [$time]($style) '
+use_12hr        = false
+utc_time_offset = 'local'
+
+[character]
+disabled       = false
+success_symbol = '[❯](bold green) '
+error_symbol   = '[❯](bold red) '
+
+[status]
+disabled                  = false
+format                    = '[$symbol$status]($style) '
+map_symbol                = true
+pipestatus                = true
+pipestatus_segment_format = '[$status]($style)'
+pipestatus_format         = '\[$pipestatus\] => [$common_meaning$signal_name$maybe_int]($style) '
+
+[os]
+disabled = true
+format   = 'on [$symbol]($style)'
+
+[memory_usage]
+disabled  = false
+threshold = 80
+format    = '[mem ${ram_pct}( | ${swap_pct})]($style) '
+style     = 'dimmed red'
+
+[shell]
+disabled = false
+
+[direnv]
+disabled     = false
+detect_files = ['.envrc']
+
+[kubernetes]
+disabled       = false
+format         = 'via [$symbol$context( \($namespace\))]($style) '
+## `deploys` directory is the kubernetes deployment on cognius repository
+detect_folders = ['deploys']
+
+[sudo]
+disabled = false

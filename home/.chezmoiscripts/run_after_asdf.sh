@@ -2,6 +2,9 @@
 
 set -e
 
+# shellcheck disable=SC1091
+source "$HOME/.asdf/asdf.sh"
+
 asdf update
 
 asdf plugin add 1password https://github.com/kc-workspace/asdf-1password.git
@@ -56,4 +59,3 @@ asdf plugin add yamllint https://github.com/kc-workspace/asdf-yamllint.git
 asdf plugin add yq https://github.com/kc-workspace/asdf-yq.git
 
 asdf plugin update --all
-
