@@ -10,7 +10,6 @@ concurrency:
 env:
   INSTALL_CLI: /tmp/chezmoi.sh
   CHEZMOI_BIN: /tmp/bin
-  CHEZMOI: /tmp/bin/chezmoi
 
 jobs:
   main:
@@ -36,8 +35,10 @@ jobs:
       - name: Install chezmoi
         if: steps.cache.outputs.cache-hit != 'true'
         run: sh "$INSTALL_CLI" -d -b "$CHEZMOI_BIN" -t "v$(cat .chezmoiversion)"
+      - name: Add chezmoi to PATH variable
+        run: echo "$CHEZMOI_BIN" >> "$GITHUB_PATH"
       - name: Get chezmoi version
-        run: $CHEZMOI --version
+        run: chezmoi --version
       - name: Try apply chezmoi config
         run: scripts/setup-full.sh
         env:
