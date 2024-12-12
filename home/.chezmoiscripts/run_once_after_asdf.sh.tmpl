@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+
+set -e
+
+# shellcheck disable=SC1091
+source "$HOME/.asdf/asdf.sh"
+
+asdf update
+
+{{- range $name, $url := .packages.asdf.plugins }}
+
+asdf plugin add {{ $name }} {{ $url }}
+
+{{- end }}
+
+asdf plugin update --all
