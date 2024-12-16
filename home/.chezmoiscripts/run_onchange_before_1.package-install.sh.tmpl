@@ -25,4 +25,5 @@ sudo apt install -y {{- range .packages.linux.apts }} {{ . | quote }}{{ end }}
 {{- if ne (env "GITHUB_ACTIONS") "true" }}
 sudo apt upgrade -y
 {{- end }}
+sudo apt clean
 {{- end }}
