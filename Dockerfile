@@ -10,7 +10,6 @@ FROM ubuntu:latest
 ## - vim           - modify files
 ## - 1password-cli - dotfiles plugins (required by chezmoi)
 ## - git           - dotfiles plugins (required by zinit)
-## - python3       - dotfiles plugins (required by alias-tip)
 ## - file          - dotfiles plugins (required by starship)
 RUN apt update \
   && apt install -y tzdata curl gpg
@@ -26,7 +25,7 @@ RUN curl -sS https://downloads.1password.com/linux/keys/1password.asc \
   && curl -sS https://downloads.1password.com/linux/keys/1password.asc \
   | gpg --dearmor --output /usr/share/debsig/keyrings/AC2D62742012EA22/debsig.gpg \
   && apt update \
-  && apt install -y sudo zsh vim 1password-cli git python3 file \
+  && apt install -y sudo zsh vim 1password-cli git file \
   && apt upgrade -y \
   && apt clean
 
