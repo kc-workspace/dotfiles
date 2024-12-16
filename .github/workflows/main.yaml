@@ -43,7 +43,7 @@ jobs:
         run: scripts/setup-full.sh
         env:
           OP_SERVICE_ACCOUNT_TOKEN: ${{ secrets.OP_SERVICE_ACCOUNT_TOKEN }}
-          CHEZMOI_ARGUMENTS: --apply --source ${{ github.workspace }}
+          CHEZMOI_ARGUMENTS: --apply --source ${{ github.workspace }} --no-tty --no-pager
       - name: Check chezmoi status
         run: |
           temp="$(mktemp)"
