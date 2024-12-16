@@ -7,12 +7,10 @@ FROM ubuntu:latest
 ## - gpg           - for encrypt & decrypt file
 ## - sudo          - prevent accident root command executes
 ## - zsh           - primary login shell
-## - vim           - modify files
 ## - 1password-cli - dotfiles plugins (required by chezmoi)
 ## - git           - dotfiles plugins (required by zinit)
-## - file          - dotfiles plugins (required by starship)
 RUN apt update \
-  && apt install -y tzdata curl gpg
+  && apt install -y tzdata curl gpg sudo zsh
 ## Set up
 RUN curl -sS https://downloads.1password.com/linux/keys/1password.asc \
   | gpg --dearmor --output /usr/share/keyrings/1password-archive-keyring.gpg \
@@ -25,7 +23,7 @@ RUN curl -sS https://downloads.1password.com/linux/keys/1password.asc \
   && curl -sS https://downloads.1password.com/linux/keys/1password.asc \
   | gpg --dearmor --output /usr/share/debsig/keyrings/AC2D62742012EA22/debsig.gpg \
   && apt update \
-  && apt install -y sudo zsh vim 1password-cli git file \
+  && apt install -y 1password-cli git \
   && apt upgrade -y \
   && apt clean
 
