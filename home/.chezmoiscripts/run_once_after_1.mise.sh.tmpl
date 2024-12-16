@@ -6,21 +6,25 @@ if command -v mise >/dev/null; then
   exit 0
 fi
 
+export OP_ACCOUNT="my.1password.com"
+export GITHUB_TOKEN=op://64yg7lvccdzebup52w2nmzoady/GITHUB_TOKEN/password
+
 set -x
 
-## pin mise version
-export MISE_VERSION="v2024.12.11"
 export MISE_INSTALL_PATH="$HOME/.local/bin/mise"
-export MISE_JOBS=1 ## disable parallel
+## disable parallel
+export MISE_JOBS=1
+## Disabled .tool-versions temporary on install script
+export MISE_OVERRIDE_TOOL_VERSIONS_FILENAME=none
 sh "$HOME/.local/share/mise/.install.sh"
 
-## For npm backend
-"$MISE_INSTALL_PATH" install bun nodejs --yes --verbose
-## For go backend
-"$MISE_INSTALL_PATH" install golang
-## For pipx backend
-"$MISE_INSTALL_PATH" install python aqua:astral-sh/uv
-## For cargo backend
-"$MISE_INSTALL_PATH" install rust
-## For anything else
-"$MISE_INSTALL_PATH" install
+COMMANDS=()
+if [[ "$KCDF_MODE" == "full" ]]; then
+  ## Install all tools because github token is set
+  COMMANDS=(op run -- "$MISE_INSTALL_PATH" install --verbose)
+else
+  ## Install only core tools first to avoid github rate limit
+  COMMANDS=("$MISE_INSTALL_PATH" install python)
+fi
+
+"${COMMANDS[@]}"

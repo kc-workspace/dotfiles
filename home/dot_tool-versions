@@ -1,10 +1,12 @@
-aqua:1password/cli          2.30.3
+1password          2.30.3
 aqua:astral-sh/uv           0.5.9
 aqua:aws/aws-cli            2.22.17
 aqua:cert-manager/cmctl     2.1.1
+aqua:cli/cli                2.63.2
 aqua:derailed/popeye        0.21.5
 aqua:eksctl-io/eksctl       0.199.0
 aqua:jqlang/jq              1.7.1
+aqua:neovim/neovim          0.10.2
 aqua:pnpm/pnpm              9.15.0
 bun                         1.1.38
 golang                      1.23.4
@@ -16,13 +18,11 @@ npm:nx                      20.2.2
 npm:prettier                3.4.2
 pipx:copier                 9.4.1
 pipx:yamllint               1.35.1
-python                      3.13.1 2.7.18
+python                      3.13.1
 ruby                        3.3.6
 rust                        1.83.0
 ubi:FiloSottile/mkcert      1.4.4
+ubi:fastfetch-cli/fastfetch 2.31.0
 ubi:grafana/k6              0.55.0
 ubi:mikefarah/yq            4.44.6
 ubi:twpayne/chezmoi         2.56.0
-ubi:fastfetch-cli/fastfetch 2.31.0
-aqua:neovim/neovim          0.10.2
-aqua:cli/cli                2.63.2
