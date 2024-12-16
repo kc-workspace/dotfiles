@@ -34,4 +34,4 @@ fi
 # shellcheck disable=SC2086
 "${COMMANDS[@]}" $MISE_ARGUMENTS
 
-"$MISE_INSTALL_PATH" doctor
+"$MISE_INSTALL_PATH" doctor || exit 0
