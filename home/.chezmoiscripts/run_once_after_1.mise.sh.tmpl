@@ -26,8 +26,10 @@ if [[ "$KCDF_MODE" == "full" ]]; then
   COMMANDS=(op run -- "$MISE_INSTALL_PATH" install)
 else
   ## Install only core tools first to avoid github rate limit
-  COMMANDS=("$MISE_INSTALL_PATH" install python)
+  COMMANDS=("$MISE_INSTALL_PATH" install node bun go python uv rust)
 fi
 
 # shellcheck disable=SC2086
 "${COMMANDS[@]}" $MISE_ARGUMENTS
+
+"$MISE_INSTALL_PATH" doctor
