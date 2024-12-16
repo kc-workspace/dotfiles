@@ -19,7 +19,6 @@ export MISE_JOBS=1
 ## Disabled .tool-versions temporary on install script
 export MISE_OVERRIDE_TOOL_VERSIONS_FILENAME=none
 sh "$MISE_INSTALL_SCRIPT"
-rm "$MISE_INSTALL_SCRIPT"
 
 COMMANDS=()
 if [[ "$KCDF_MODE" == "full" ]]; then
