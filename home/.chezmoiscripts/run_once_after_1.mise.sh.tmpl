@@ -6,8 +6,9 @@ if command -v mise >/dev/null; then
   exit 0
 fi
 
+: "${MISE_ARGUMENTS:-}"
+
 export OP_ACCOUNT="my.1password.com"
-export GITHUB_TOKEN=op://64yg7lvccdzebup52w2nmzoady/GITHUB_TOKEN/password
 
 set -x
 
@@ -20,11 +21,13 @@ sh "$HOME/.local/share/mise/.install.sh"
 
 COMMANDS=()
 if [[ "$KCDF_MODE" == "full" ]]; then
+  export GITHUB_TOKEN=op://64yg7lvccdzebup52w2nmzoady/GITHUB_TOKEN/password
   ## Install all tools because github token is set
-  COMMANDS=(op run -- "$MISE_INSTALL_PATH" install --verbose)
+  COMMANDS=(op run -- "$MISE_INSTALL_PATH" install)
 else
   ## Install only core tools first to avoid github rate limit
   COMMANDS=("$MISE_INSTALL_PATH" install python)
 fi
 
-"${COMMANDS[@]}"
+# shellcheck disable=SC2086
+"${COMMANDS[@]}" $MISE_ARGUMENTS

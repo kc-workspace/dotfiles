@@ -4,8 +4,8 @@ set -e
 
 KCDF_MODE="${1:-}"
 case $KCDF_MODE in
-full-version | full | f) KCDF_MODE=full bash setup-full.sh ;;
-minimal | min | m) KCDF_MODE=minimal bash setup-minimal.sh ;;
+full-version | full | f) bash setup-full.sh ;;
+minimal | min | m) bash setup-minimal.sh ;;
 "") ;;
 *) printf 'Invalid input mode: %s\n' "$KCDF_MODE" >&2 && exit 2 ;;
 esac

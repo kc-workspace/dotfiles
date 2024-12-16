@@ -11,6 +11,7 @@ On this mode, we will configure 1password service-account for decrypt file.
 : "${OP_SERVICE_ACCOUNT_TOKEN:=${OP_TOKEN:-${TOKEN}}}"
 export OP_ACCOUNT="my.1password.com"
 export OP_SERVICE_ACCOUNT_TOKEN
+export KCDF_MODE=full
 
 ## To view items and ids: `op document list`
 GPG_KEY_OP_ITEM="fp3xx4qmu7ocxr2r546q6deocu"
@@ -26,20 +27,21 @@ fi
 
 set -x
 
-if op whoami; then
-  GPG_FINGERPRINT="$(op item get \
-    "$GPG_KEY_OP_ITEM" \
-    --vault "$GPG_KEY_OP_VAULT" \
-    --field label=Fingerprint)"
+## Check is 1password should already login for full mode
+op whoami
 
-  op document get \
-    "$GPG_KEY_OP_ITEM" \
-    --vault "$GPG_KEY_OP_VAULT" \
-    --out-file "$GPG_PATH" >/dev/null
+GPG_FINGERPRINT="$(op item get \
+  "$GPG_KEY_OP_ITEM" \
+  --vault "$GPG_KEY_OP_VAULT" \
+  --field label=Fingerprint)"
 
-  gpg --quiet --import "$GPG_PATH"
-  rm "$GPG_PATH"
-fi
+op document get \
+  "$GPG_KEY_OP_ITEM" \
+  --vault "$GPG_KEY_OP_VAULT" \
+  --out-file "$GPG_PATH" >/dev/null
+
+gpg --quiet --import "$GPG_PATH"
+rm "$GPG_PATH"
 
 ## Apply chezmoi configuration
 # shellcheck disable=SC2086

@@ -8,6 +8,7 @@ On this mode, we will removed all encrypted file.
 "
 
 : "${CHEZMOI_ARGUMENTS:=--apply}"
+export KCDF_MODE=minimal
 
 set -x
 
