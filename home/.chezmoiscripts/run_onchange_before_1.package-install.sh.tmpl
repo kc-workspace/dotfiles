@@ -20,9 +20,9 @@ EOF
 {{- end }}
 
 {{- if eq .chezmoi.os "linux" }}
-{{- if ne (env "GITHUB_ACTIONS") "true" }}
 sudo apt update
 sudo apt install -y {{- range .packages.linux.apts }} {{ . | quote }}{{ end }}
+{{- if ne (env "GITHUB_ACTIONS") "true" }}
 sudo apt upgrade -y
 {{- end }}
 {{- end }}
