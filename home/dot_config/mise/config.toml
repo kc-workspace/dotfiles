@@ -1,0 +1,17 @@
+[settings]
+env_file = ".env"
+disable_backends = ["asdf", "spm", "vfox"]
+disable_default_registry = true
+not_found_auto_install = false
+pin = true
+
+[settings.status]
+show_env = true
+show_tools = true
+missing_tools = "true"
+
+[settings.npm]
+bun = true
+
+[env]
+_.python.venv = { path = "{{ env.HOME }}/.cache/mise/venv", create = true }

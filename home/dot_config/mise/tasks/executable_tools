@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+#MISE description="List tools fullname"
+
+while read -r tool; do
+  mise tool "$tool" --backend
+done <<<"$(mise ls --json --offline | jq -crM '. | keys | .[]')"
