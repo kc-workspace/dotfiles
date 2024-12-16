@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+
+set -e
+
+if command -v mise >/dev/null; then
+  exit 0
+fi
+
+set -x
+
+## pin mise version
+export MISE_VERSION="v2024.12.11"
+export MISE_INSTALL_PATH="$HOME/.local/bin/mise"
+sh "$HOME/.local/share/mise/.install.sh"
+
+## For npm backend
+"$MISE_INSTALL_PATH" install bun nodejs
+## For go backend
+"$MISE_INSTALL_PATH" install golang
+## For pipx backend
+"$MISE_INSTALL_PATH" install python aqua:astral-sh/uv
+## For cargo backend
+"$MISE_INSTALL_PATH" install rust
+## For anything else
+"$MISE_INSTALL_PATH" install

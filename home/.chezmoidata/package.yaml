@@ -1,59 +1,6 @@
 ## ref: https://www.chezmoi.io/reference/special-files/chezmoidata-format/
 
 packages:
-  asdf:
-    plugins:
-      1password: https://github.com/kc-workspace/asdf-1password.git
-      ansible-core: https://github.com/kc-workspace/asdf-ansible-core.git
-      ansible: https://github.com/kc-workspace/asdf-ansible.git
-      argocd: https://github.com/kc-workspace/asdf-argocd.git
-      aws: https://github.com/kc-workspace/asdf-aws.git
-      bun: https://github.com/kc-workspace/asdf-bun.git
-      chezmoi: https://github.com/kc-workspace/asdf-chezmoi.git
-      cloudflared: https://github.com/kc-workspace/asdf-cloudflared.git
-      cmctl: https://github.com/kc-workspace/asdf-cmctl.git
-      codecrafters: https://github.com/kc-workspace/asdf-codecrafters.git
-      consul: https://github.com/kc-workspace/asdf-consul.git
-      cookiecutter: https://github.com/kc-workspace/asdf-cookiecutter.git
-      copier: https://github.com/kc-workspace/asdf-copier.git
-      eksctl: https://github.com/kc-workspace/asdf-eksctl.git
-      fastfetch: https://github.com/kc-workspace/asdf-fastfetch.git
-      flutter: https://github.com/kc-workspace/asdf-flutter.git
-      flux2: https://github.com/kc-workspace/asdf-flux2.git
-      gh: https://github.com/kc-workspace/asdf-gh.git
-      git-chglog: https://github.com/kc-workspace/asdf-git-chglog.git
-      go-jsonnet: https://github.com/kc-workspace/asdf-go-jsonnet.git
-      golang: https://github.com/kc-workspace/asdf-golang.git
-      golangci-lint: https://github.com/kc-workspace/asdf-golangci-lint.git
-      gomplate: https://github.com/kc-workspace/asdf-gomplate.git
-      goreleaser: https://github.com/kc-workspace/asdf-goreleaser.git
-      gradle: https://github.com/kc-workspace/asdf-gradle.git
-      helm: https://github.com/kc-workspace/asdf-helm.git
-      hub: https://github.com/kc-workspace/asdf-hub.git
-      hyperfine: https://github.com/kc-workspace/asdf-hyperfine.git
-      java: https://github.com/halcyon/asdf-java.git
-      jfrog: https://github.com/kc-workspace/asdf-jfrog.git
-      jq: https://github.com/kc-workspace/asdf-jq.git
-      jsonnet-bundler: https://github.com/kc-workspace/asdf-jsonnet-bundler.git
-      k6: https://github.com/kc-workspace/asdf-k6.git
-      kc-tpr: https://github.com/kc-workspace/asdf-kc-tpr.git
-      kind: https://github.com/kc-workspace/asdf-kind.git
-      kops: https://github.com/kc-workspace/asdf-kops.git
-      kubeconform: https://github.com/kc-workspace/asdf-kubeconform.git
-      kubectl: https://github.com/kc-workspace/asdf-kubectl.git
-      maven: https://github.com/kc-workspace/asdf-maven.git
-      mkcert: https://github.com/kc-workspace/asdf-mkcert.git
-      nodejs: https://github.com/asdf-vm/asdf-nodejs.git
-      opentofu: https://github.com/kc-workspace/asdf-opentofu.git
-      operator-sdk: https://github.com/kc-workspace/asdf-operator-sdk.git
-      pomerium: https://github.com/kc-workspace/asdf-pomerium.git
-      popeye: https://github.com/kc-workspace/asdf-popeye.git
-      python: https://github.com/asdf-community/asdf-python.git
-      ruby: https://github.com/asdf-vm/asdf-ruby.git
-      terraform: https://github.com/kc-workspace/asdf-terraform.git
-      terragrunt: https://github.com/kc-workspace/asdf-terragrunt.git
-      yamllint: https://github.com/kc-workspace/asdf-yamllint.git
-      yq: https://github.com/kc-workspace/asdf-yq.git
   darwin:
     taps:
       - homebrew/bundle
@@ -83,7 +30,8 @@ packages:
       - warp
   linux:
     apts:
-      - curl
-      - git
-      - zsh
-      - fastfetch
+      - gpg ## Prerequisite
+      - curl ## Prerequisite
+      - git ## Prerequisite
+      - zsh ## Prerequisite
+      - file ## For starship

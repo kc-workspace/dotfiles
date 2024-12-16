@@ -48,8 +48,8 @@ zinit load "unixorn/tumult.plugin.zsh"
 
 ## Setup starship prompt
 zinit ice as"command" from"gh-r" \
-          atclone"./starship init zsh > init.zsh; ./starship completions zsh > _starship" \
-          atpull"%atclone" src"init.zsh"
+  atclone"./starship init zsh > init.zsh; ./starship completions zsh > _starship" \
+  atpull"%atclone" src"init.zsh"
 zinit light starship/starship
 
 # Setup home bin
@@ -75,30 +75,9 @@ if [ -d "$docker_bin" ]; then
 fi
 unset brew_comp
 
-## Setup asdf
-# asdf_home="$HOME/.asdf"
-# if [ -d "$asdf_home" ]; then
-#   source "$asdf_home/asdf.sh"
-#   fpath+=("$ASDF_DIR/completions")
-# fi
-# unset asdf_home
-
 ## Setup mise
 mise="$HOME/.local/bin/mise"
 if [ -f "$mise" ]; then
-    eval "$("$mise" activate zsh)"
+  eval "$("$mise" activate zsh)"
 fi
 unset mise
-
-## Setup java home (asdf)
-# if asdf current java >/dev/null 2>&1; then
-#   java_plugin="$HOME/.asdf/plugins/java"
-#   if [ -f "$java_plugin" ]; then
-#     source "$java_plugin/set-java-home.zsh"
-#   fi
-#   unset java_plugin
-# fi
-## Setup flutter root (asdf)
-# if asdf current flutter >/dev/null 2>&1; then
-#   eval "$(asdf flutter setup)"
-# fi
