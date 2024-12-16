@@ -8,6 +8,7 @@ fi
 
 : "${MISE_ARGUMENTS:-}"
 
+export MISE_INSTALL_SCRIPT="$HOME/.local/share/mise/install.sh"
 export OP_ACCOUNT="my.1password.com"
 
 set -x
@@ -17,7 +18,8 @@ export MISE_INSTALL_PATH="$HOME/.local/bin/mise"
 export MISE_JOBS=1
 ## Disabled .tool-versions temporary on install script
 export MISE_OVERRIDE_TOOL_VERSIONS_FILENAME=none
-sh "$HOME/.local/share/mise/.install.sh"
+sh "$MISE_INSTALL_SCRIPT"
+rm "$MISE_INSTALL_SCRIPT"
 
 COMMANDS=()
 if [[ "$KCDF_MODE" == "full" ]]; then
