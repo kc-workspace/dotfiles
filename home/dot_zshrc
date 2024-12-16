@@ -59,6 +59,13 @@ if [ -d "$home_bin" ]; then
 fi
 unset home_bin
 
+## Setup mise
+mise="$HOME/.local/bin/mise"
+if [ -f "$mise" ]; then
+  eval "$("$mise" activate zsh)"
+fi
+unset mise
+
 ## Setup docker cli
 docker_bin="$HOME/.docker/bin"
 if [ -d "$docker_bin" ]; then
@@ -74,10 +81,3 @@ if [ -d "$docker_bin" ]; then
   fpath+=("$brew_comp")
 fi
 unset brew_comp
-
-## Setup mise
-mise="$HOME/.local/bin/mise"
-if [ -f "$mise" ]; then
-  eval "$("$mise" activate zsh)"
-fi
-unset mise
