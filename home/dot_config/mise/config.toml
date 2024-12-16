@@ -8,10 +8,7 @@ pin = true
 [settings.status]
 show_env = true
 show_tools = true
-missing_tools = "true"
+missing_tools = "always"
 
 [settings.npm]
 bun = true
-
-[env]
-_.python.venv = { path = "{{ env.HOME }}/.cache/mise/venv", create = true }
