@@ -1,8 +1,8 @@
-# Timeout for commands executed by starship (in milliseconds).
-command_timeout = 3000 # 3 seconds
-# Wait 10 milliseconds for starship to check files under the current directory.
+# Wait 500 milliseconds for commands executed by starship
+command_timeout = 500
+# Wait 30 milliseconds for starship to scan files
 scan_timeout = 30
-# Disable the blank line at the start of the prompt
+# To inserts blank line between shell prompts.
 add_newline = true
 
 format = """
@@ -76,8 +76,6 @@ $openstack\
 $azure\
 $crystal\
 $direnv\
-$env_var\
-$custom\
 $cmd_duration\
 
 $line_break\
@@ -86,8 +84,8 @@ $hostname\
 $localip\
 $os\
 $sudo\
+$env_var\
 $shell\
-$shlvl\
 $memory_usage\
 $battery\
 $container\
@@ -97,28 +95,18 @@ $status\
 $character
 """
 
-[shlvl]
-disabled = true
-format = 'at $shlvl level(s) down '
-
-[localip]
-disabled = true
-ssh_only = false
-format   = '[$localipv4]($style) '
-style    = 'dimmed white'
-
 [username]
-disabled    = false
+disabled = false
 show_always = true
-format      = '[@$user]($style) '
-style_root  = 'red'
-style_user  = 'dimmed white'
+format = '[@$user]($style) '
+style_root = 'red'
+style_user = 'dimmed white'
 
 [hostname]
-disabled    = true
-ssh_only    = false
-trim_at     = '.'
-format      = '[$ssh_symbol$hostname]($style) '
+disabled = true
+ssh_only = false
+trim_at = '.'
+format = '[$ssh_symbol$hostname]($style) '
 
 [battery]
 disabled = false
@@ -127,46 +115,52 @@ disabled = false
 threshold = 20
 
 [time]
-disabled        = false
-format          = 'at [$time]($style) '
-use_12hr        = false
+disabled = false
+format = 'at [$time]($style) '
+use_12hr = false
 utc_time_offset = 'local'
 
 [character]
-disabled       = false
+disabled = false
 success_symbol = '[❯](bold green) '
-error_symbol   = '[❯](bold red) '
+error_symbol = '[❯](bold red) '
 
 [status]
-disabled                  = false
-format                    = '[$symbol$status]($style) '
-map_symbol                = true
-pipestatus                = true
+disabled = false
+format = '[$symbol$status]($style) '
+map_symbol = true
+pipestatus = true
 pipestatus_segment_format = '[$status]($style)'
-pipestatus_format         = '\[$pipestatus\] => [$common_meaning$signal_name$maybe_int]($style) '
+pipestatus_format = '\[$pipestatus\] => [$common_meaning$signal_name$maybe_int]($style) '
 
 [os]
 disabled = true
-format   = 'on [$symbol]($style)'
+format = 'on [$symbol]($style)'
 
 [memory_usage]
-disabled  = false
+disabled = false
 threshold = 80
-format    = '[mem ${ram_pct}( | ${swap_pct})]($style) '
-style     = 'dimmed red'
+format = '[mem ${ram_pct}( | ${swap_pct})]($style) '
+style = 'dimmed red'
 
 [shell]
 disabled = false
 
 [direnv]
-disabled     = false
+disabled = false
 detect_files = ['.envrc']
 
 [kubernetes]
-disabled       = false
-format         = 'via [$symbol$context( \($namespace\))]($style) '
+disabled = false
+format = 'via [$symbol$context( \($namespace\))]($style) '
 ## `deploys` directory is the kubernetes deployment on cognius repository
 detect_folders = ['deploys']
 
 [sudo]
 disabled = false
+
+[localip]
+disabled = true
+
+[shlvl]
+disabled = true

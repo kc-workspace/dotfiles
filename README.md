@@ -21,21 +21,14 @@ This is my personal dotfiles (configuration and settings for each program).
 Below are a list of configuration I have on each categories.
 
 - Zsh configuration
+  - Starship
+- Brew packages
 
 ## Prerequisite
 
-1. Install [zsh][zsh-url] (if not exist)
-2. Install [python3][python-url] (if not exist)
-3. Install [chezmoi][chezmoi-url]
-4. Install [Gnupg][gnupg-url]
-5. Install 1Password [app][1password-app-url] and [cli][1password-cli-url]
+1. Install [chezmoi][chezmoi-url]
 
-[zsh-url]: https://www.zsh.org
-[python-url]: https://www.python.org/downloads
 [chezmoi-url]: https://www.chezmoi.io/install
-[gnupg-url]: https://www.gnupg.org/download/index.html
-[1password-app-url]: https://1password.com/downloads
-[1password-cli-url]: https://developer.1password.com/docs/cli/get-started
 
 ## Get start
 
