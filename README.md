@@ -37,8 +37,10 @@ Below are a list of configuration I have on each categories.
 ## Prerequisite
 
 1. Install [chezmoi][chezmoi-url]
+2. [Optional] Install [gpg][gpg-url] for decrypt files (required on full mode)
 
 [chezmoi-url]: https://www.chezmoi.io/install
+[gpg-url]: https://www.gnupg.org
 
 ## Get start
 
