@@ -1,5 +1,47 @@
 # Changelog
 
+## [0.2.2](https://github.com/kc-workspace/dotfiles/compare/v0.2.1...v0.2.2) (2024-12-17)
+
+
+### Bug Fixes
+
+* **mise:** disable nvim on linux/arm64 machine ([f7a7703](https://github.com/kc-workspace/dotfiles/commit/f7a7703b1a2854bf0005f31398d856f6ad174bd6))
+* **script:** use script to install mise instead of externals install file to avoid persist install script locally ([eeeabf3](https://github.com/kc-workspace/dotfiles/commit/eeeabf3bcbe1b3dd4ecd463ef7af29004595f23b))
+* **tool:** reduce number of tools in default mise ([3e4d05e](https://github.com/kc-workspace/dotfiles/commit/3e4d05ed39ef071afb0b0a6f5fa452a523e7db86))
+
+
+### Performance Improvements
+
+* **core:** update source state change ([bbd4e19](https://github.com/kc-workspace/dotfiles/commit/bbd4e191b7290a7af780ad48e1ab1cbd30560d79))
+* **core:** update source state change ([6211ffa](https://github.com/kc-workspace/dotfiles/commit/6211ffac7ae9749991783ae8bb7d0c211373fb94))
+* **core:** update source state change ([228bea0](https://github.com/kc-workspace/dotfiles/commit/228bea0cd5ac95a678d43aafe59761cdb42d321f))
+* **core:** update source state change ([64387b4](https://github.com/kc-workspace/dotfiles/commit/64387b476ec975a64607bf475247832b4c61f4e4))
+* **core:** update source state change ([7ef0fe0](https://github.com/kc-workspace/dotfiles/commit/7ef0fe0aad0914c75239fa1bba13aa0be96137d6))
+* **core:** update source state change ([56c2de3](https://github.com/kc-workspace/dotfiles/commit/56c2de33937d1661025d9b30f7981e59130d2430))
+* **core:** update source state change ([12bdc93](https://github.com/kc-workspace/dotfiles/commit/12bdc933750dbf70f59845503e99c8f9d27688db))
+* **core:** update source state change ([3f75b7a](https://github.com/kc-workspace/dotfiles/commit/3f75b7a2795f743c3294accd912aa2041b2057bf))
+* **core:** update source state change ([960ad4a](https://github.com/kc-workspace/dotfiles/commit/960ad4ae5dbaa832ed660f65038e0c0b7543ab40))
+* **core:** update source state change ([2702a62](https://github.com/kc-workspace/dotfiles/commit/2702a6248e32e7b0fc395497b7b4d6f9f2019203))
+* **core:** update source state change ([a4fd6e9](https://github.com/kc-workspace/dotfiles/commit/a4fd6e93e85cba0d20d8fc27eecd6e1caed8fdee))
+* **core:** update source state change ([2aeffdb](https://github.com/kc-workspace/dotfiles/commit/2aeffdb784af382525e1637a95e64034c9952e37))
+* **core:** update source state change ([c36fe19](https://github.com/kc-workspace/dotfiles/commit/c36fe19e45d760fa5768e1e3905ce1134f4e7140))
+* **core:** update source state change ([ada4e75](https://github.com/kc-workspace/dotfiles/commit/ada4e75929f2625e09e23229083fa3d89b305144))
+* **core:** update source state change ([b3aba4b](https://github.com/kc-workspace/dotfiles/commit/b3aba4b9e810893d51093942798ee64d635aad8b))
+* **core:** update source state change ([735a093](https://github.com/kc-workspace/dotfiles/commit/735a093efaf06590f9d98c70001a5349e6aa7b5e))
+* **core:** update source state change ([4881595](https://github.com/kc-workspace/dotfiles/commit/48815952118cbcd73bd846c3206a2280f9f63854))
+* **core:** update source state change ([d8ae6c6](https://github.com/kc-workspace/dotfiles/commit/d8ae6c6b389bf33d495457ff9e4f3a2a2964b915))
+* **core:** update source state change ([32ee561](https://github.com/kc-workspace/dotfiles/commit/32ee561b6c24c6c939dc2cdcd6d947e06689ba31))
+* **core:** update source state change ([b268598](https://github.com/kc-workspace/dotfiles/commit/b268598cbcb3c562ab6042d729f07397e68a1d80))
+* **core:** update source state change ([c079dc2](https://github.com/kc-workspace/dotfiles/commit/c079dc243f5a559b039e7da6380170116a7d5a0f))
+* **core:** update source state change ([9fcf78c](https://github.com/kc-workspace/dotfiles/commit/9fcf78c7533b283044cd94f55c3ac03280674b7e))
+* **core:** update source state change ([20477fe](https://github.com/kc-workspace/dotfiles/commit/20477fe5a5b3b8b3f19489a6e50f4795e5e5b17a))
+* **core:** update source state change ([d977e67](https://github.com/kc-workspace/dotfiles/commit/d977e679efd04dddd687289f1395d79710de87b5))
+* **core:** update source state change ([3b11e9e](https://github.com/kc-workspace/dotfiles/commit/3b11e9e153969d01d0cb4feea80f4a941d5a0a8e))
+* **core:** update source state change ([df7c55c](https://github.com/kc-workspace/dotfiles/commit/df7c55ce5e403d4b8966c233ee9527ede06cb8ef))
+* **core:** update source state change ([6abc6da](https://github.com/kc-workspace/dotfiles/commit/6abc6dad0ce19ba0056a079ece2983a2a588991b))
+* **core:** update source state change ([b7dde24](https://github.com/kc-workspace/dotfiles/commit/b7dde2448a1d193170476bf60921998590077536))
+* **packages:** add mac app store and jetbrains toolbox supports ([7582955](https://github.com/kc-workspace/dotfiles/commit/7582955313b8d1ff53e3bdaf6d7611cdd0ab5ab7))
+
 ## [0.2.1](https://github.com/kc-workspace/dotfiles/compare/v0.2.0...v0.2.1) (2024-12-16)
 
 
