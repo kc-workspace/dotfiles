@@ -1,4 +1,0 @@
-.local/share/mise/install.sh:
-  type: file
-  url: https://mise.run
-  refreshPeriod: 336h

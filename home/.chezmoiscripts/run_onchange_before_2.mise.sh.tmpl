@@ -10,10 +10,12 @@ fi
 
 : "${MISE_ARGUMENTS:-}"
 
-export MISE_INSTALL_SCRIPT="$HOME/.local/share/mise/install.sh"
 export OP_ACCOUNT="my.1password.com"
 
 set -x
+
+MISE_INSTALL_SCRIPT="$(mktemp)"
+curl -sSLo "$MISE_INSTALL_SCRIPT" https://mise.run
 
 export MISE_INSTALL_PATH="$HOME/.local/bin/mise"
 ## disable parallel
@@ -21,10 +23,11 @@ export MISE_JOBS=1
 ## Disabled .tool-versions temporary on install script
 export MISE_OVERRIDE_TOOL_VERSIONS_FILENAME=none
 sh "$MISE_INSTALL_SCRIPT"
+rm "$MISE_INSTALL_SCRIPT"
 
 COMMANDS=()
 if [[ "$KCDF_MODE" == "full" ]]; then
-  export GITHUB_TOKEN=op://64yg7lvccdzebup52w2nmzoady/GITHUB_TOKEN/password
+  export GITHUB_TOKEN="op://64yg7lvccdzebup52w2nmzoady/GITHUB_TOKEN/password"
   ## Install all tools because github token is set
   COMMANDS=(op run -- "$MISE_INSTALL_PATH" install)
 else
