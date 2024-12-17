@@ -1,5 +1,39 @@
 # Changelog
 
+## [0.2.1](https://github.com/kc-workspace/dotfiles/compare/v0.2.0...v0.2.1) (2024-12-16)
+
+
+### Bug Fixes
+
+* **docker:** reduce based docker image a little bit ([a24feb7](https://github.com/kc-workspace/dotfiles/commit/a24feb7b5c32d296d6009e9b9edac77bae6b16d7))
+* install script cannot remove otherwise, chezmoi will report mismatches ([af80b04](https://github.com/kc-workspace/dotfiles/commit/af80b04305fcc01854a4c287f007a5d32b41fa97))
+* migrate asdf to mise ([637266a](https://github.com/kc-workspace/dotfiles/commit/637266af7b92737afc890ca9c5754752dce6395e))
+* migrate asdf to mise 2 ([e6e9b22](https://github.com/kc-workspace/dotfiles/commit/e6e9b225f1ab444ba8696f0125ea3c904849055a))
+* **mise:** invalid mise config and remove `env._.python.venv` ([bea6ce4](https://github.com/kc-workspace/dotfiles/commit/bea6ce4e2f893eae153774d196f2468d176e6b43))
+* missing required package in Linux ([03d11f8](https://github.com/kc-workspace/dotfiles/commit/03d11f87b875545283449392e3fde51e197c52cf))
+* **script:** add apt clean after finish ([a99255f](https://github.com/kc-workspace/dotfiles/commit/a99255f803c0b0f971caee48b7dd4b8e4a7d2c2e))
+* **script:** add mise doctor and add more tools when run minimal mode ([bd57445](https://github.com/kc-workspace/dotfiles/commit/bd57445521eef48e4767e4eea94a3cad584ed4de))
+* **script:** ignore error when doctor failed ([2a157ff](https://github.com/kc-workspace/dotfiles/commit/2a157ffed252b209242cb77ad552964797836214))
+* use template instead ([110bbff](https://github.com/kc-workspace/dotfiles/commit/110bbff69cd5e3ad55ea69b2545919803b4788cb))
+
+
+### Performance Improvements
+
+* **config:** add sort number to run scripts ([b6220ea](https://github.com/kc-workspace/dotfiles/commit/b6220eac5dee39cf7e649028513e51a80a40c196))
+* **config:** mise will autoinstall when command not found ([5cb5f47](https://github.com/kc-workspace/dotfiles/commit/5cb5f47993956113ae17c2a9c4f82dc74313b9d9))
+* **config:** refactor .tool-versions file ([8f67197](https://github.com/kc-workspace/dotfiles/commit/8f67197639736ac2e3372c0e13cfb996f4097ca6))
+* **core:** update source state change ([7103cc0](https://github.com/kc-workspace/dotfiles/commit/7103cc0fe2f1dfdc47f085b44dda1118606f169e))
+* **core:** update source state change ([9ef27a2](https://github.com/kc-workspace/dotfiles/commit/9ef27a2248a728c46dfdd5d55ba90bde5af36f35))
+* **core:** update source state change ([2420631](https://github.com/kc-workspace/dotfiles/commit/242063193d8931b24f3ac5d160e6f672b60e174e))
+* **core:** update source state change ([176b246](https://github.com/kc-workspace/dotfiles/commit/176b2467aee480aadf88d57884b725b86905640e))
+* **core:** update source state change ([56fde08](https://github.com/kc-workspace/dotfiles/commit/56fde08be75de9011d9dcb61c60aa21e71d3ae58))
+* **core:** update source state change ([369bf4d](https://github.com/kc-workspace/dotfiles/commit/369bf4d0af895711eca081e2de8ec5ac4da31762))
+* **core:** update source state change ([20a609d](https://github.com/kc-workspace/dotfiles/commit/20a609d942b1c5cd35e7bd2b0052b5ea0ff38f9f))
+* **core:** update source state change ([a271df3](https://github.com/kc-workspace/dotfiles/commit/a271df3fc3c811f67a236bd4b498358467b79eef))
+* **docker:** python3 should be install be mise ([3ad657f](https://github.com/kc-workspace/dotfiles/commit/3ad657faf7d803140d7ce56170d8d299a76b1994))
+* **mise:** clean install script after installed ([a16825b](https://github.com/kc-workspace/dotfiles/commit/a16825b85a49bd0e9647e6702ee346fedbc58d37))
+* **script:** update mise if existed ([5f20995](https://github.com/kc-workspace/dotfiles/commit/5f20995a9c7aca0035b8be1214a5a527cea8f80e))
+
 ## [0.2.0](https://github.com/kc-workspace/dotfiles/compare/v0.1.0...v0.2.0) (2024-12-11)
 
 
