@@ -3,6 +3,7 @@
 set -e
 
 if command -v mise >/dev/null; then
+  set -x
   mise self-update --yes
   exit 0
 fi
