@@ -1,4 +1,6 @@
-# neovim                    0.10.2 ## Not works on linux/arm64
+{{- if and (eq .chezmoi.os "linux") (eq .chezmoi.arch "arm64") }}
+neovim                      0.10.2
+{{- end }}
 1password                   2.30.3
 aws-cli                     2.22.17
 bun                         1.1.38
@@ -32,4 +34,3 @@ ubi:kubernetes-sigs/kind    0.25.0
 ubi:mikefarah/yq            4.44.6
 ubi:twpayne/chezmoi         2.56.0
 uv                          0.5.9
-
