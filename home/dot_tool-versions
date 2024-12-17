@@ -1,15 +1,15 @@
 # neovim                    0.10.2 ## Not works on linux/arm64
 1password                   2.30.3
-aqua:helm/helm              3.16.4
-aqua:kubernetes/kubectl     1.32.0
 aws-cli                     2.22.17
 bun                         1.1.38
 cmctl                       2.1.1
 eksctl                      0.199.0
 github-cli                  2.63.2
 golang                      1.23.4
+helm                        3.16.4
 java                        temurin-17.0.13+11
 jq                          1.7.1
+kubectl                     1.32.0
 nodejs                      22.12.0
 npm:@microsoft/rush         5.147.0
 npm:eslint                  8.57.1
