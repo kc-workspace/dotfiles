@@ -11,13 +11,12 @@ packages:
     taps:
       - homebrew/bundle
     brews:
-      - git
-      - glib
+      - ca-certificates
       - cloc
       - coreutils
       - curl
       - git
-      - graphviz
+      - mas
       - nmap
       - openssh
     casks:
@@ -25,11 +24,10 @@ packages:
       - alfred
       - brave-browser
       - docker
-      - font-fira-code-nerd-font
       - font-jetbrains-mono
+      - font-jetbrains-mono-nerd-font
       - gpg-suite
       - logi-options+
-      - miro
       - setapp
       - slack
       - visual-studio-code-insiders

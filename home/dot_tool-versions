@@ -13,6 +13,7 @@ jq                          1.7.1
 kubectl                     1.31.4
 nodejs                      22.12.0
 npm:@microsoft/rush         5.147.0
+npm:cloc                    2.2.0-cloc
 npm:eslint                  8.57.1
 npm:nx                      20.2.2
 npm:prettier                3.4.2
