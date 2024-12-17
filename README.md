@@ -145,7 +145,7 @@ chezmoi forget "<filepath>"
 ### Build docker image
 
 ```bash
-docker buildx build --tag kamontat/dotfiles:latest .
+docker buildx build --tag kamontat/dotfiles:local .
 ```
 
 ### Run docker image
@@ -155,13 +155,13 @@ When mode is empty string, it will start shell without any set up.
 You can manually set up using `setup-*.sh` command
 
 ```bash
-docker run -it --rm kamontat/dotfiles:latest "<MODE>"
+docker run -it --rm kamontat/dotfiles:local "<MODE>"
 ```
 
 Alternatively, you can start without mode and manually set up chezmoi using `setup-*.sh` command.
 
 ```bash
-docker run -it --rm kamontat/dotfiles:latest
+docker run -it --rm kamontat/dotfiles:local
 setup-full.sh
 ```
 
