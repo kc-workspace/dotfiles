@@ -1,4 +1,10 @@
 ## ref: https://www.chezmoi.io/reference/special-files/chezmoidata-format/
+## Prerequisite command
+## - zsh - Default shell
+## - curl - Install commands in general
+## - gpg - Decrypt chezmoi configurations
+## - git - For zinit plugin manager
+## - file - For starship install command
 
 packages:
   darwin:
@@ -30,8 +36,8 @@ packages:
       - warp
   linux:
     apts:
-      - gpg ## Prerequisite
-      - curl ## Prerequisite
-      - git ## Prerequisite
-      - zsh ## Prerequisite
-      - file ## For starship
+      - gpg
+      - curl
+      - git
+      - zsh
+      - file

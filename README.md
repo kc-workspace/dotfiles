@@ -21,8 +21,18 @@ This is my personal dotfiles (configuration and settings for each program).
 Below are a list of configuration I have on each categories.
 
 - Zsh configuration
-  - Starship
-- Brew packages
+  - [Starship][starship-url] - zsh prompt theme
+  - [zinit][zinit-url] - zsh plugin manager
+- Homebrew packages
+  - You can find list of packages [here][brew-packages-path]
+- Commandline interface (cli)
+  - You can find list of cli [here][cli-tools-path]
+
+[starship-url]: https://starship.rs
+[zinit-url]: https://github.com/zdharma-continuum/zinit
+
+[brew-packages-path]: ./home/.chezmoidata/package.yaml
+[cli-tools-path]: ./home/dot_tool-versions
 
 ## Prerequisite
 
