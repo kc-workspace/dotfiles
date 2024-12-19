@@ -21,7 +21,6 @@ packages:
       - openssh
     casks:
       - 1password@beta
-      - alacritty
       - alfred
       - brave-browser
       - docker
@@ -33,6 +32,7 @@ packages:
       - setapp
       - slack
       - visual-studio-code-insiders
+      - wezterm
     mas:
       - id: 424390742
         name: Compressor

@@ -17,14 +17,12 @@ export HISTFILE="$HOME/.zsh_history"
 ZINIT_HOME="$HOME/.local/share/zinit/zinit.git"
 source "$ZINIT_HOME/zinit.zsh"
 
-## Configure zdharma-continuum/zinit
-zinit wait"0" lucid for \
-  atinit"ZINIT[COMPINIT_OPTS]=-C; zicompinit; zicdreplay" \
-  zdharma-continuum/fast-syntax-highlighting \
-  blockf \
-  zsh-users/zsh-completions \
-  atload"!_zsh_autosuggest_start" \
-  zsh-users/zsh-autosuggestions
+## Setup autocompletions
+zinit light zsh-users/zsh-completions
+## Setup autosuggestions
+zinit light zsh-users/zsh-autosuggestions
+## Setup syntax highlighting
+zinit light zdharma-continuum/fast-syntax-highlighting
 
 ### Setup wd cli
 zinit ice as"program" pick"wd.sh" src"wd.plugin.zsh"
