@@ -46,6 +46,12 @@ zinit wait"1" lucid for \
 zinit ice wait="2" lucid autoload
 zinit load "unixorn/tumult.plugin.zsh"
 
+## Setup atuin
+zinit ice as"command" from"gh-r" bpick"atuin-*.tar.gz" mv"atuin*/atuin -> atuin" \
+  atclone"./atuin init zsh > init.zsh; ./atuin gen-completions --shell zsh > _atuin" \
+  atpull"%atclone" src"init.zsh"
+zinit light atuinsh/atuin
+
 ## Setup starship prompt
 zinit ice as"command" from"gh-r" \
   atclone"./starship init zsh > init.zsh; ./starship completions zsh > _starship" \
