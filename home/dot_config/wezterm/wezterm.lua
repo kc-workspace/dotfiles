@@ -2,7 +2,7 @@ local wezterm = require 'wezterm'
 local config = wezterm.config_builder()
 
 config.color_scheme = 'OneDark (base16)'
-config.exit_behavior = 'CloseOnCleanExit'
+config.exit_behavior = 'Close'
 config.exit_behavior_messaging = 'Brief'
 config.font = wezterm.font('JetBrains Mono')
 config.font_size = 17
