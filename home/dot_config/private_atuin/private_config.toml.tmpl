@@ -88,7 +88,11 @@ style = "auto"
 
 ## use ctrl instead of alt as the shortcut modifier key for numerical UI shortcuts
 ## alt-0 .. alt-9
+{{- if eq .chezmoi.os "darwin" }}
 ctrl_n_shortcuts = true
+{{- else }}
+# ctrl_n_shortcuts = false
+{{- end }}
 
 ## default history list format - can also be specified with the --format arg
 history_format = "{time}\t{command}\t{duration}"
