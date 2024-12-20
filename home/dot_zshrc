@@ -79,11 +79,8 @@ zinit light zdharma-continuum/fast-syntax-highlighting
 
 ## Setup wd cli
 ## https://github.com/mfaerevaag/wd
-zinit ice wait lucid as"command" \
-  cp"wd.sh -> wd" mv"_wd.sh -> _wd" \
-  atpull'!git reset --hard' \
-  atload"zicompinit; zicdreplay" \
-  pick"wd"
+zinit ice wait lucid \
+  as"command" pick"wd.sh" src"wd.plugin.zsh"
 zinit light mfaerevaag/wd
 
 ## Setup macos utilties
