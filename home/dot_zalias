@@ -1,18 +1,23 @@
-alias c="clear"
+alias r="clear"
+alias e="exit"
 
-#   - ls
+#   - cat alternative
+alias c="bat"
+
+#   - ls alternative
 alias l="lsd"
 alias la="lsd --almost-all --long"
 
-#   - find
+#   - find alternative
 alias f="fd"
 
-#   - vim
+#   - vim alternative
 alias v="nvim"
 
 #   - zinit
 alias zis="zinit zstatus"
 alias zit="zinit times"
+alias zir="zinit report --all"
 
 #   - chezmoi
 alias cz="chezmoi"
@@ -22,4 +27,3 @@ alias czi="chezmoi init --apply"
 
 #   - vscode
 alias code="code-insiders"
-
