@@ -20,6 +20,13 @@ unset local_bin
 mise="$HOME/.local/bin/mise"
 if [ -f "$mise" ]; then
   eval "$("$mise" activate zsh)"
+
+  completions="/usr/local/share/zsh/site-functions"
+  if ! [ -f "$completions/_mise" ]; then
+    [ -d "$completions" ] || mkdir -p "$completions"
+    "$mise" completion zsh >"$completions/_mise"
+  fi
+  unset completions
 fi
 unset mise
 

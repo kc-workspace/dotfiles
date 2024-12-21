@@ -78,22 +78,26 @@ zinit light mfaerevaag/wd
 # export ZSH_FAST_ALIAS_TIPS_SUFFIX='$(tput sgr0)]'"
 # zinit light decayofmind/zsh-fast-alias-tips
 
+## Setup alias tooltip (ohmyzsh)
+## https://github.com/ohmyzsh/ohmyzsh/blob/master/plugins/alias-finder
+zinit ice wait lucid atinit"
 zstyle ':omz:plugins:alias-finder' autoload yes
 zstyle ':omz:plugins:alias-finder' longer yes
-zstyle ':omz:plugins:alias-finder' cheaper yes
+zstyle ':omz:plugins:alias-finder' cheaper yes"
 zinit snippet OMZP::alias-finder
 
-zinit wait"2" lucid for \
+zinit wait"1" lucid for \
   OMZP::brew \
-  OMZP::thefuck
+  OMZP::thefuck \
+  OMZP::git \
+  OMZP::colored-man-pages
 
 ## Setup macos utilties
 ## https://github.com/unixorn/tumult.plugin.zsh#included-scripts
-## Setup colored man pages
-## https://github.com/ael-code/zsh-colored-man-pages
-zinit wait"3" lucid light-mode for \
+## Setup autopair characters
+## https://github.com/hlissner/zsh-autopair
+zinit wait"1" lucid light-mode for \
   unixorn/tumult.plugin.zsh \
-  ael-code/zsh-colored-man-pages \
   hlissner/zsh-autopair
 
 ## Setup command syntax highlighting
