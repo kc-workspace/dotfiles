@@ -69,7 +69,7 @@ zinit light atuinsh/atuin
 ## Setup zoxide - cd alternative command
 ## https://github.com/ajeetdsouza/zoxide
 zinit ice wait lucid as"command" from"gh-r" bpick"zoxide-*.tar.gz" \
-  atclone"./zoxide init zsh > init.zsh" \
+  atclone"./zoxide init zsh --cmd d > init.zsh" \
   atpull"%atclone" src"init.zsh"
 zinit light ajeetdsouza/zoxide
 
@@ -88,8 +88,26 @@ zinit light lsd-rs/lsd
 ## Setup nvim - vim alternative command
 ## https://github.com/neovim/neovim
 zinit ice wait lucid as"command" from"gh-r" bpick"nvim-*.tar.gz" \
-  pick"bin/nvim"
+  pick"nvim-*/bin/nvim" atinit"
+export EDITOR=nvim
+export ZVM_VI_EDITOR=nvim"
 zinit light neovim/neovim
+
+## Setup yazi (file manager)
+## https://github.com/sxyazi/yazi
+# shellcheck disable=SC2016
+zinit ice wait lucid as"command" from"gh-r" bpick"yazi-*.zip" \
+  pick"yazi-*/yazi" atload'
+y() {
+  local tmp cwd
+  tmp="$(mktemp -t "yazi-cwd.XXXXXX")"
+  yazi "$@" --cwd-file="$tmp"
+  if cwd="$(command cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
+    builtin cd -- "$cwd"
+  fi
+  rm -f -- "$tmp"
+}'
+zinit light sxyazi/yazi
 
 ## Setup wd cli
 ## https://github.com/mfaerevaag/wd
