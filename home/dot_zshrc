@@ -11,46 +11,13 @@ export SAVEHIST=1000
 export HISTFILE="$HOME/.zsh_history"
 
 ## Setup zsh completion
-zstyle ':completion:*' use-cache on
-zstyle ':completion:*' cache-path ~/.cache/zsh_completion_cache
+zstyle ':completion:*' menu select
+# zstyle ':completion:*' use-cache on
+# zstyle ':completion:*' cache-path ~/.cache/zsh_completion_cache
 
 ## Setup zdharma-continuum/zinit
 ZINIT_HOME="$HOME/.local/share/zinit/zinit.git"
 source "$ZINIT_HOME/zinit.zsh"
-
-### add alias tips when run full command
-### add pair symbol (), {}, [] etc.
-### add color to man page
-### add thefuck support
-### enhance version of ls
-### completions collection
-### autocomplete dialog
-### autosuggestions commands
-# zinit wait for \
-#   djui/alias-tips \
-#   hlissner/zsh-autopair \
-#   ael-code/zsh-colored-man-pages \
-#   laggardkernel/zsh-thefuck \
-#   supercrabtree/k \
-#   zsh-users/zsh-autosuggestions
-
-# zi wait for \
-#   blockf \
-#   atload"zicompinit; zicdreplay" \
-#   marlonrichert/zsh-autocomplete
-#   blockf \
-#   atload"zicompinit; zicdreplay" \
-#   zsh-users/zsh-completions
-
-### Setup wd cli
-# zinit ice as"program" pick"wd.sh" src"wd.plugin.zsh"
-# zinit load "mfaerevaag/wd"
-
-## Setup atuin
-# zinit ice as"command" from"gh-r" bpick"atuin-*.tar.gz" mv"atuin*/atuin -> atuin" \
-#   atclone"./atuin init zsh > init.zsh; ./atuin gen-completions --shell zsh > _atuin" \
-#   atpull"%atclone" src"init.zsh"
-# zinit light atuinsh/atuin
 
 ## Setup starship prompt
 ## https://starship.rs
@@ -61,59 +28,74 @@ zinit light starship/starship
 
 ## Setup autocompletions
 ## https://github.com/marlonrichert/zsh-autocomplete
-zinit ice blockf \
-  atload"
-bindkey '^[[A' .history-search-backward;
-bindkey '^[[B' .history-search-forward;
-bindkey -M menuselect '^I' menu-complete;
-bindkey -M menuselect '$terminfo[kcbt]' reverse-menu-complete;"
-zinit light marlonrichert/zsh-autocomplete
+# zinit ice blockf atload"
+# bindkey -M emacs '^[[A' .history-search-backward;
+# bindkey -M emacs '^[[B' .history-search-forward;
+# bindkey -M menuselect '\t' menu-complete
+# bindkey -M menuselect '^[[A' up-line-or-search;
+# bindkey -M menuselect '^[[B' down-line-or-select;
+# "
+# zinit light marlonrichert/zsh-autocomplete
+
+## Setup completions definitions
+## https://github.com/zsh-users/zsh-completions
+# zinit ice blockf
+# zinit light zsh-users/zsh-completions
+
+## Setup autosuggestions
+## https://github.com/zsh-users/zsh-autosuggestions
+zinit ice atinit"
+export ZSH_AUTOSUGGEST_STRATEGY=(atuin completion)
+"
+zinit light zsh-users/zsh-autosuggestions
+
+## Setup substring history search
+## https://github.com/zsh-users/zsh-history-substring-search
+zinit ice wait lucid atinit"
+export HISTORY_SUBSTRING_SEARCH_PREFIXED=true
+export HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_TIMEOUT=3
+" atload"
+bindkey '^[[A' history-substring-search-up
+bindkey '^[[B' history-substring-search-down"
+zinit load zsh-users/zsh-history-substring-search
+
+## Setup atuin
+## https://github.com/atuinsh/atuin
+zinit ice wait lucid as"command" from"gh-r" bpick"atuin-*.tar.gz" mv"atuin*/atuin -> atuin" \
+  atclone"./atuin init zsh --disable-up-arrow > init.zsh; ./atuin gen-completions --shell zsh > _atuin" \
+  atpull"%atclone" src"init.zsh"
+zinit light atuinsh/atuin
+
+## Setup wd cli
+## https://github.com/mfaerevaag/wd
+zinit ice wait lucid as"command" pick"wd.sh" src"wd.plugin.zsh"
+zinit light mfaerevaag/wd
+
+## Setup alias tooltip
+## https://github.com/decayofmind/zsh-fast-alias-tips
+zinit ice wait lucid from"gh-r" atinit"
+export ZSH_FAST_ALIAS_TIPS_PREFIX='Alias for [$(tput bold)$(tput setaf 1)'
+export ZSH_FAST_ALIAS_TIPS_SUFFIX='$(tput sgr0)]'"
+zinit light decayofmind/zsh-fast-alias-tips
+
+zinit wait"2" lucid for \
+  OMZP::brew \
+  OMZP::thefuck
+
+## Setup macos utilties
+## https://github.com/unixorn/tumult.plugin.zsh#included-scripts
+## Setup colored man pages
+## https://github.com/ael-code/zsh-colored-man-pages
+zinit wait"3" lucid light-mode for \
+  unixorn/tumult.plugin.zsh \
+  ael-code/zsh-colored-man-pages \
+  hlissner/zsh-autopair
+
+## Setup command syntax highlighting
+## Must be on the end of zinit script
+## https://github.com/zsh-users/zsh-syntax-highlighting
+zinit light zsh-users/zsh-syntax-highlighting
 
 ## After setup without turbo mode
 ## We need to use compinit and cdreplay
 zicompinit && zicdreplay
-
-## Setup command syntax highlighting
-zinit ice wait lucid
-zinit light zdharma-continuum/fast-syntax-highlighting
-
-## Setup wd cli
-## https://github.com/mfaerevaag/wd
-zinit ice wait lucid \
-  as"command" pick"wd.sh" src"wd.plugin.zsh"
-zinit light mfaerevaag/wd
-
-## Setup macos utilties
-## https://github.com/unixorn/tumult.plugin.zsh#included-scripts
-zinit ice wait"3" lucid
-zinit light unixorn/tumult.plugin.zsh
-
-## Setup home bin
-home_bin="$HOME/bin"
-if [ -d "$home_bin" ]; then
-  PATH="$PATH:$home_bin"
-fi
-unset home_bin
-
-## Setup mise
-mise="$HOME/.local/bin/mise"
-if [ -f "$mise" ]; then
-  eval "$("$mise" activate zsh)"
-fi
-unset mise
-
-## Setup docker cli
-docker_bin="$HOME/.docker/bin"
-if [ -d "$docker_bin" ]; then
-  PATH="$PATH:$docker_bin"
-fi
-unset docker_bin
-
-## Setup homebrew
-export HOMEBREW_NO_ANALYTICS=1
-## Setup homebrew auto-completion
-brew_comp="/opt/homebrew/share/zsh/site-functions"
-if [ -d "$docker_bin" ]; then
-  fpath+=("$brew_comp")
-fi
-unset brew_comp
