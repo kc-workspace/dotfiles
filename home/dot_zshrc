@@ -61,43 +61,55 @@ zinit load zsh-users/zsh-history-substring-search
 
 ## Setup atuin
 ## https://github.com/atuinsh/atuin
-zinit ice wait lucid as"command" from"gh-r" bpick"atuin-*.tar.gz" mv"atuin*/atuin -> atuin" \
+zinit ice wait lucid as"command" \
+  from"gh-r" bpick"atuin-*.tar.gz" mv"atuin*/atuin -> atuin" pick"atuin" \
   atclone"./atuin init zsh --disable-up-arrow > init.zsh; ./atuin gen-completions --shell zsh > _atuin" \
-  atpull"%atclone" src"init.zsh" pick"atuin"
+  atpull"%atclone" src"init.zsh"
 zinit light atuinsh/atuin
 
 ## Setup zoxide - cd alternative command
 ## https://github.com/ajeetdsouza/zoxide
-zinit ice wait lucid as"command" from"gh-r" bpick"zoxide-*.tar.gz" \
+zinit ice wait lucid as"command" \
+  from"gh-r" bpick"zoxide-*.tar.gz" src"init.zsh" \
   atclone"./zoxide init zsh --cmd d > init.zsh" \
-  atpull"%atclone" src"init.zsh"
+  atpull"%atclone"
 zinit light ajeetdsouza/zoxide
 
 ## Setup fd - find alternative command
 ## https://github.com/sharkdp/fd
-zinit ice wait lucid as"command" from"gh-r" bpick"fd-*.tar.gz" \
-  pick"fd-*/fd"
+zinit ice wait lucid as"command" \
+  from"gh-r" bpick"fd-*.tar.gz" pick"fd-*/fd"
 zinit light sharkdp/fd
 
 ## Setup lsd - ls alternative command
 ## https://github.com/lsd-rs/lsd
-zinit ice wait lucid as"command" from"gh-r" bpick"lsd-*.tar.gz" \
-  pick"lsd-*/lsd"
+zinit ice wait lucid as"command" \
+  from"gh-r" bpick"lsd-*.tar.gz" pick"lsd-*/lsd"
 zinit light lsd-rs/lsd
 
 ## Setup nvim - vim alternative command
 ## https://github.com/neovim/neovim
-zinit ice wait lucid as"command" from"gh-r" bpick"nvim-*.tar.gz" \
-  pick"nvim-*/bin/nvim" atinit"
+zinit ice wait lucid as"command" \
+  from"gh-r" bpick"nvim-*.tar.gz" pick"nvim-*/bin/nvim" \
+  atload"zicompinit; zicdreplay" \
+  atinit"
 export EDITOR=nvim
 export ZVM_VI_EDITOR=nvim"
 zinit light neovim/neovim
 
+## Setup bat - cat alternative command
+## https://github.com/sharkdp/bat
+zinit ice wait lucid as"command" \
+  from"gh-r" bpick"bat-*.tar.gz" pick"bat-*/bat" \
+  mv"bat-*/autocomplete/bat.zsh -> _bat"
+zinit light sharkdp/bat
+
 ## Setup yazi (file manager)
 ## https://github.com/sxyazi/yazi
 # shellcheck disable=SC2016
-zinit ice wait lucid as"command" from"gh-r" bpick"yazi-*.zip" \
-  pick"yazi-*/yazi" atload'
+zinit ice wait lucid as"command" \
+  from"gh-r" bpick"yazi-*.zip" pick"yazi-*/yazi" \
+  atload'
 y() {
   local tmp cwd
   tmp="$(mktemp -t "yazi-cwd.XXXXXX")"
@@ -155,3 +167,7 @@ zinit light zsh-users/zsh-syntax-highlighting
 ## After setup without turbo mode
 ## We need to use compinit and cdreplay
 zicompinit && zicdreplay
+
+if [ -f "$HOME/.zalias" ]; then
+  source "$HOME/.zalias"
+fi
