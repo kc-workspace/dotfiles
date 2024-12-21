@@ -78,6 +78,7 @@ zinit light mfaerevaag/wd
 # export ZSH_FAST_ALIAS_TIPS_SUFFIX='$(tput sgr0)]'"
 # zinit light decayofmind/zsh-fast-alias-tips
 
+zstyle ':omz:plugins:alias-finder' autoload yes
 zstyle ':omz:plugins:alias-finder' longer yes
 zstyle ':omz:plugins:alias-finder' cheaper yes
 zinit snippet OMZP::alias-finder
