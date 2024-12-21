@@ -1,3 +1,37 @@
+[tools]
+"1password" = "2.30.3"
+"aws-cli" = "2.22.17"
+"bun" = "1.1.38"
+"fd" = "10.2.0"
+"fzf" = "0.57.0"
+"github-cli" = "2.63.2"
+"golang" = "1.23.4"
+"helm" = "3.16.4"
+"java" = "temurin-17.0.13+11"
+"jq" = "1.7.1"
+"kubectl" = "1.31.4"
+"lsd" = "1.1.5"
+"nodejs" = "22.12.0"
+"npm:@microsoft/rush" = "5.147.0"
+"npm:cloc" = "2.2.0-cloc"
+"npm:eslint" = "8.57.1"
+"npm:nx" = "20.2.2"
+"npm:prettier" = "3.4.2"
+"pipx:copier" = "9.4.1"
+## https://github.com/nvbn/thefuck/issues/1444
+"pipx:thefuck" = { version = "3.32", uvx_args = "--python 3.11" }
+"pipx:yamllint" = "1.35.1"
+"pnpm" = "9.15.0"
+"python" = "3.13.1"
+"ruby" = "3.3.6"
+"rust" = "1.83.0"
+"ubi:fastfetch-cli/fastfetch" = "2.31.0"
+"ubi:mikefarah/yq" = "4.44.6"
+"ubi:twpayne/chezmoi" = "2.56.0"
+"usage" = "1.7.2"
+"uv" = "0.5.9"
+"zoxide" = "0.9.6"
+
 [settings]
 env_file = ".env"
 disable_backends = ["asdf", "spm", "vfox"]
