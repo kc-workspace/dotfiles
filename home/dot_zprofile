@@ -36,6 +36,11 @@ alias l="lsd"
 alias la="lsd --almost-all --long"
 #   - find
 alias f="fd"
+#   - vim
+alias v="nvim"
+#   - zinit
+alias zis="zinit zstatus"
+alias zit="zinit times"
 #   - chezmoi
 alias cz="chezmoi"
 alias cza="chezmoi add"
