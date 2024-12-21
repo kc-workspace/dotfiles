@@ -1,3 +1,7 @@
+## Use fd     instead of find (f)
+## Use lsd    instead of ls (l)
+## Use zoxide instead of cd (z)
+
 ## Setup home bin
 home_bin="$HOME/bin"
 if [ -d "$home_bin" ]; then
@@ -31,10 +35,12 @@ alias c="clear"
 #   - ls
 alias l="lsd"
 alias la="lsd --almost-all --long"
-
+#   - find
+alias f="fd"
 #   - chezmoi
 alias cz="chezmoi"
 alias cza="chezmoi add"
+alias cze="chezmoi edit"
 alias czi="chezmoi init --apply"
 #   - git
 alias g="git"
