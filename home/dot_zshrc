@@ -147,10 +147,6 @@ zstyle ':omz:plugins:alias-finder' longer yes
 zstyle ':omz:plugins:alias-finder' cheaper yes"
 zinit snippet OMZP::alias-finder
 
-## Setup brew alias and completions
-zinit ice wait"1" lucid atload"zicompinit; zicdreplay"
-zinit snippet OMZP::brew
-
 ## Setup alias and helpers (no completions)
 zinit wait"2" lucid for \
   OMZP::thefuck \
@@ -164,6 +160,14 @@ zinit wait"2" lucid for \
 zinit wait"2" lucid light-mode for \
   unixorn/tumult.plugin.zsh \
   hlissner/zsh-autopair
+
+## Setup brew alias and completions
+brew="${BREW_LOCATION:-}"
+[ -f "$brew" ] || brew="/opt/homebrew/bin/brew"
+[ -f "$brew" ] || brew="/usr/local/bin/brew"
+if [ -f "$brew" ]; then
+  eval "$("$brew" shellenv)"
+fi
 
 ## Setup command syntax highlighting
 ## Must be on the end of zinit script
