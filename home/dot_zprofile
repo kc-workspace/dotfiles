@@ -1,0 +1,55 @@
+## Setup home bin
+home_bin="$HOME/bin"
+if [ -d "$home_bin" ]; then
+  PATH="$PATH:$home_bin"
+fi
+unset home_bin
+
+## Setup local bin
+local_bin="$HOME/.local/bin"
+if [ -d "$local_bin" ]; then
+  PATH="$PATH:$local_bin"
+fi
+unset local_bin
+
+## Setup mise
+mise="$HOME/.local/bin/mise"
+if [ -f "$mise" ]; then
+  eval "$("$mise" activate zsh)"
+fi
+unset mise
+
+## Setup docker cli (on user mode)
+docker_bin="$HOME/.docker/bin"
+if [ -d "$docker_bin" ]; then
+  PATH="$PATH:$docker_bin"
+fi
+unset docker_bin
+
+# Alias
+alias c="clear"
+#   - ls
+alias l="lsd"
+alias la="lsd --almost-all --long"
+
+#   - chezmoi
+alias cz="chezmoi"
+alias cza="chezmoi add"
+alias czi="chezmoi init --apply"
+#   - git
+alias g="git"
+alias gs="git status"
+alias gco="git checkout"
+alias gcom="git checkout main"
+alias ga="git add"
+alias gci="git commit"
+alias gcm="git commit -m"
+alias gd="git diff"
+alias gp="git push"
+alias gP="git pull"
+alias gsp="git stash push"
+alias gsP="git stash pop"
+alias gr="git restore"
+alias grs="git restore --staged"
+#   - vscode
+alias code="code-insiders"
