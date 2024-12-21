@@ -11,7 +11,10 @@ config.line_height = 1.1
 config.macos_window_background_blur = 10
 config.notification_handling = 'AlwaysShow'
 config.scrollback_lines = 10000
+config.send_composed_key_when_left_alt_is_pressed = false
+config.send_composed_key_when_right_alt_is_pressed = false
 config.use_dead_keys = false
+config.use_ime = true
 config.window_background_opacity = 0.85
 config.window_decorations = 'INTEGRATED_BUTTONS | RESIZE'
 
