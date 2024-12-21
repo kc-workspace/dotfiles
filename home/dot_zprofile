@@ -2,31 +2,23 @@
 ## Use lsd    instead of ls (l)
 ## Use zoxide instead of cd (z)
 
-## Setup home bin
-home_bin="$HOME/bin"
-if [ -d "$home_bin" ]; then
-  PATH="$PATH:$home_bin"
-fi
-unset home_bin
-
 ## Setup local bin
-local_bin="$HOME/.local/bin"
-if [ -d "$local_bin" ]; then
-  PATH="$PATH:$local_bin"
-fi
-unset local_bin
+export LOCAL_BIN="$HOME/.local/bin"
+[ -d "$LOCAL_BIN" ] || mkdir "$LOCAL_BIN"
+PATH="$LOCAL_BIN:$PATH"
+
+## Setup local site-functions
+export LOCAL_FUN="$HOME/.local/share/zsh/site-functions"
+[ -d "$LOCAL_FUN" ] || mkdir "$LOCAL_FUN"
+fpath+="$LOCAL_FUN"
 
 ## Setup mise
 mise="$HOME/.local/bin/mise"
 if [ -f "$mise" ]; then
   eval "$("$mise" activate zsh)"
-
-  completions="/usr/local/share/zsh/site-functions"
-  if ! [ -f "$completions/_mise" ]; then
-    [ -d "$completions" ] || mkdir -p "$completions"
-    "$mise" completion zsh >"$completions/_mise"
+  if ! [ -f "$LOCAL_FUN/_mise" ]; then
+    "$mise" completion zsh >"$LOCAL_FUN/_mise"
   fi
-  unset completions
 fi
 unset mise
 
@@ -51,3 +43,5 @@ alias cze="chezmoi edit"
 alias czi="chezmoi init --apply"
 #   - vscode
 alias code="code-insiders"
+
+unset LOCAL_BIN LOCAL_FUN
