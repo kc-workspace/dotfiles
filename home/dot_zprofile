@@ -29,24 +29,4 @@ if [ -d "$docker_bin" ]; then
 fi
 unset docker_bin
 
-# Alias
-alias c="clear"
-#   - ls
-alias l="lsd"
-alias la="lsd --almost-all --long"
-#   - find
-alias f="fd"
-#   - vim
-alias v="nvim"
-#   - zinit
-alias zis="zinit zstatus"
-alias zit="zinit times"
-#   - chezmoi
-alias cz="chezmoi"
-alias cza="chezmoi add"
-alias cze="chezmoi edit"
-alias czi="chezmoi init --apply"
-#   - vscode
-alias code="code-insiders"
-
 unset LOCAL_BIN LOCAL_FUN
