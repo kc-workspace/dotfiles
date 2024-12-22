@@ -8,7 +8,7 @@ if command -v mise >/dev/null; then
   exit 0
 fi
 
-: "${MISE_INSTALL:-node bun go python uv rust}"
+: "${MISE_INSTALL:=node bun go python uv rust}"
 
 set -x
 
