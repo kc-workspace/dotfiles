@@ -1,8 +1,8 @@
-alias r="clear"
+alias c="clear"
 alias e="exit"
 
 #   - cat alternative
-alias c="bat"
+alias p="bat"
 
 #   - ls alternative
 alias l="lsd"
@@ -24,6 +24,7 @@ alias cz="chezmoi"
 alias cza="chezmoi add"
 alias cze="chezmoi edit"
 alias czi="chezmoi init --apply"
+alias czc="chezmoi cd"
 
 #   - vscode
 alias code="code-insiders"
