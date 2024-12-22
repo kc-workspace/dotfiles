@@ -8,9 +8,7 @@ if command -v mise >/dev/null; then
   exit 0
 fi
 
-: "${MISE_ARGUMENTS:-}"
-
-export OP_ACCOUNT="my.1password.com"
+: "${MISE_INSTALL:-node bun go python uv rust}"
 
 set -x
 
@@ -25,17 +23,6 @@ export MISE_OVERRIDE_TOOL_VERSIONS_FILENAME=none
 sh "$MISE_INSTALL_SCRIPT"
 rm "$MISE_INSTALL_SCRIPT"
 
-COMMANDS=()
-if [[ "$KCDF_MODE" == "full" ]]; then
-  export GITHUB_TOKEN="op://64yg7lvccdzebup52w2nmzoady/GITHUB_TOKEN/password"
-  ## Install all tools because github token is set
-  COMMANDS=(op run -- "$MISE_INSTALL_PATH" install)
-else
-  ## Install only core tools first to avoid github rate limit
-  COMMANDS=("$MISE_INSTALL_PATH" install node bun go python uv rust)
-fi
-
 # shellcheck disable=SC2086
-"${COMMANDS[@]}" $MISE_ARGUMENTS
-
+"$MISE_INSTALL_PATH" install $MISE_INSTALL
 "$MISE_INSTALL_PATH" doctor || exit 0
