@@ -68,4 +68,6 @@ _run optional "check chezmoi path" \
 temp="$(mktemp)"
 # shellcheck disable=SC2086
 chezmoi status $CHEZMOI_ARGUMENTS | tee "$temp"
-test -s "$temp" && exit 1
+if test -s "$temp"; then
+  exit 1
+fi
