@@ -2,9 +2,6 @@
 
 set -e
 
-## run mise path to ensure tools are available
-eval "$(mise activate bash)"
-
 printf "\n==============================================
 Verify %s
 ==============================================\n" "commands"
