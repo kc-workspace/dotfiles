@@ -156,6 +156,8 @@ docker buildx build --secret id=GITHUB_TOKEN --tag kamontat/dotfiles:local .
 The docker image will contains all applications need for everyday works without secure information.
 To configure secure information (e.g. gpg, ssh, etc.), run `kdf-setup.sh` command to fully set up the chezmoi.
 
+The `kdf-setup.sh` script will verify the result after finished. To verify manually, use `kdf-verify.sh` script.
+
 ```bash
 ## initiate zsh shell session
 docker run -it --rm kamontat/dotfiles:local

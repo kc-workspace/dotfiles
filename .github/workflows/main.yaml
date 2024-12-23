@@ -52,12 +52,3 @@ jobs:
           CHEZMOI_ARGUMENTS: --force --source ${{ github.workspace }}
           OP_SERVICE_ACCOUNT_TOKEN: ${{ secrets.OP_SERVICE_ACCOUNT_TOKEN }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - name: Verify the result
-        run: >
-          source kdf-setup-secrets.sh;
-          kdf-verify.sh;
-          source kdf-cleanup-secrets.sh;
-        env:
-          CHEZMOI_ARGUMENTS: --source ${{ github.workspace }}
-          OP_SERVICE_ACCOUNT_TOKEN: ${{ secrets.OP_SERVICE_ACCOUNT_TOKEN }}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

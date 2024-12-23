@@ -20,6 +20,8 @@ Install %s
 ==============================================\n" "mise tools"
 mise install
 
+"$PWD/kdf-verify.sh"
+
 # shellcheck disable=SC1091
 source "$PWD/kdf-cleanup-secrets.sh"
 popd
