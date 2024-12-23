@@ -20,6 +20,7 @@ packages:
       ## For cargo backend
       - rust
       ## For chezmoi
+      - chezmoi
       - 1password
       - jq
       - gh
