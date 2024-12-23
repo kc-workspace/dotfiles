@@ -21,16 +21,21 @@ setup_1password() {
   fi
 
   ## Check is signed in
-  op whoami || return $?
+  op whoami
 }
 
 setup_github() {
-  export TOKEN="op://64yg7lvccdzebup52w2nmzoady/GITHUB_TOKEN/password"
-  op run --no-masking -- printenv TOKEN | gh auth login --with-token
-  unset TOKEN
+  if [ -z "$GITHUB_TOKEN" ]; then
+    export TOKEN="op://64yg7lvccdzebup52w2nmzoady/GITHUB_TOKEN/password"
+    op run --no-masking -- printenv TOKEN | gh auth login --with-token
+    unset TOKEN
 
-  GITHUB_TOKEN="$(gh auth token)"
-  export GITHUB_TOKEN
+    GITHUB_TOKEN="$(gh auth token)"
+    export GITHUB_TOKEN
+  fi
+
+  ## Check is signed in
+  gh auth status
 }
 
 setup_gpg() {
