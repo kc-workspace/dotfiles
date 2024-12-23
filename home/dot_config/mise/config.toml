@@ -42,5 +42,7 @@ missing_tools = "always"
 [settings.npm]
 bun = true
 
-[env]
-_.file = '.env'
+## seem like any fields in [env] cause deadlock
+## ref: https://github.com/jdx/mise/discussions/3548
+# [env]
+# _.file = '.env'
