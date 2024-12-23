@@ -11,12 +11,6 @@ if command -v mise >/dev/null; then
 fi
 
 export MISE_INSTALL_PATH="$HOME/.local/bin/mise"
-MIST_TOOLS=(
-  {{ range .packages.mise.tools -}}
-    {{ . | quote }}
-  {{ end -}}
-)
-
 set -x
 
 MISE_INSTALL_SCRIPT="$(mktemp)"
@@ -24,5 +18,6 @@ curl -sSLo "$MISE_INSTALL_SCRIPT" https://mise.run
 sh "$MISE_INSTALL_SCRIPT"
 rm "$MISE_INSTALL_SCRIPT"
 
-"$MISE_INSTALL_PATH" install \
-  --yes --verbose "${MIST_TOOLS[@]}"
+{{ range .packages.mise.tools -}}
+  "$MISE_INSTALL_PATH" install --yes {{ . | quote }}
+{{ end -}}
