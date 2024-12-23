@@ -59,3 +59,5 @@ jobs:
           source cleanup-secrets.sh;
         env:
           CHEZMOI_ARGUMENTS: --source ${{ github.workspace }}
+          OP_SERVICE_ACCOUNT_TOKEN: ${{ secrets.OP_SERVICE_ACCOUNT_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
