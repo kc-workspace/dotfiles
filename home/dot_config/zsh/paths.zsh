@@ -8,7 +8,7 @@ export LOCAL_BIN="$HOME/.local/bin"
 PATH="$LOCAL_BIN:$PATH"
 
 ## Setup local site-functions
-export LOCAL_FUN="$HOME/.local/share/zsh/site-functions"
+export LOCAL_FUN="${ZSH_CACHE_DIR:-$HOME/.local/share}/completions"
 [ -d "$LOCAL_FUN" ] || mkdir "$LOCAL_FUN"
 fpath+="$LOCAL_FUN"
 
