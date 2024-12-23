@@ -5,14 +5,13 @@
 ##   - zinit
 
 ## Setup zsh history
-setopt histignorealldups sharehistory
+setopt HIST_IGNORE_ALL_DUPS SHARE_HISTORY
 export HISTSIZE=1000
 export SAVEHIST=1000
 export HISTFILE="$HOME/.zsh_history"
 
 ## Setup completions settings
-unsetopt nomatch
-setopt extended_glob
+setopt MENU_COMPLETE
 zstyle ':completion:*' verbose yes
 zstyle ':completion:*' menu select
 zstyle ':completion:*' use-cache yes
@@ -56,20 +55,21 @@ zinit light zsh-users/zsh-autosuggestions
 
 ## Setup substring history search
 ## https://github.com/zsh-users/zsh-history-substring-search
-zinit ice atinit"
+zinit ice wait lucid atinit"
 export HISTORY_SUBSTRING_SEARCH_PREFIXED=true
 export HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_TIMEOUT=3
 " atload"
 bindkey '^[[A' history-substring-search-up
 bindkey '^[[B' history-substring-search-down"
-zinit load zsh-users/zsh-history-substring-search
+zinit light zsh-users/zsh-history-substring-search
 
 ## Setup atuin
 ## https://github.com/atuinsh/atuin
-zinit ice as"command" \
+zinit ice wait lucid as"command" \
   from"gh-r" bpick"atuin-*.tar.gz" mv"atuin*/atuin -> atuin" pick"atuin" \
   atclone"./atuin init zsh --disable-up-arrow > init.zsh; ./atuin gen-completions --shell zsh > _atuin" \
-  atpull"%atclone" src"init.zsh"
+  atpull"%atclone" src"init.zsh" \
+  atinit"zicompinit; zicdreplay"
 zinit light atuinsh/atuin
 
 ## Setup zoxide - cd alternative command
