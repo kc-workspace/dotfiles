@@ -18,7 +18,8 @@ packages:
       - python
       - uv
       ## For cargo backend
-      - rust
+      ## FIXME: seem to stuck on github-actions when install
+      # - rust
       ## For chezmoi
       - 1password
       - jq
