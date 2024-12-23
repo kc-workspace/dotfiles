@@ -1,10 +1,9 @@
 #!/usr/bin/env bash
 
+set -e
+
 ## run mise path to ensure tools are available
 eval "$(mise activate bash)"
-
-set -e
-set -x
 
 ## Verify commands
 printf 'mise: ' && command -v mise

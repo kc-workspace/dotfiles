@@ -6,7 +6,6 @@ set -e
 eval "$(mise activate bash)"
 
 pushd "$(dirname "$0")"
-
 # shellcheck disable=SC1091
 source "$PWD/setup-secrets.sh"
 
@@ -18,6 +17,4 @@ chezmoi init --apply --no-pager --no-tty $CHEZMOI_ARGUMENTS
 
 # shellcheck disable=SC1091
 source "$PWD/cleanup-secrets.sh"
-
-set +x
 popd
