@@ -5,12 +5,16 @@ set -e
 ## run mise path to ensure tools are available
 eval "$(mise activate bash)"
 
-## Verify commands
+printf "\n==============================================
+Verify %s
+==============================================\n" "commands"
 printf 'mise: ' && command -v mise
 printf 'chezmoi: ' && command -v chezmoi
 printf 'zsh: ' && command -v zsh
 
-## Verify chezmoi
+printf "\n==============================================
+Verify %s
+==============================================\n" "chezmoi"
 temp="$(mktemp)"
 # shellcheck disable=SC2086
 chezmoi status --no-pager --no-tty $CHEZMOI_ARGUMENTS | tee "$temp"
@@ -19,13 +23,19 @@ if [ -s "$temp" ]; then
   exit 2
 fi
 
-## Verify zsh version
+printf "\n==============================================
+Verify %s
+==============================================\n" "zsh"
 printf 'zsh version: '
 zsh -c 'echo "${ZSH_VERSION:?}"'
 
-## Verify 'lsd' command
+printf "\n==============================================
+Verify %s
+==============================================\n" "tools"
 printf 'list directory: '
 zsh -c 'lsd $HOME'
 
-## Verify mise command
+printf "\n==============================================
+Verify %s
+==============================================\n" "mise health"
 mise doctor
