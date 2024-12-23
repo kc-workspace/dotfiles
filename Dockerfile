@@ -36,6 +36,11 @@ ENV SHELL="/usr/bin/zsh"
 ENV KCDF_REPO="kc-workspace/dotfiles"
 ENV KCDF_BRANCH="main"
 
+## Required because of tab completions duplication
+## ref: https://github.com/zsh-users/zsh-autosuggestions/issues/683
+ENV LC_ALL=en_US.UTF-8
+ENV LANG=en_US.UTF-8
+
 ## Must matched with .chezmoiversion file
 ENV CHEZMOI_VERSION="2.55.0"
 
@@ -65,7 +70,7 @@ COPY --chown=$USER . $CHEZMOI_HOME
 
 ## Configure dotfiles
 ## We purge binary because we will use mise to install it instead
-RUN $USER_BIN/chezmoi init --apply \
+RUN --mount=type=secret,id=github_token,env=GITHUB_TOKEN,required=false $USER_BIN/chezmoi init --apply \
   --no-pager --no-tty \
   --purge-binary --force \
   --exclude=encrypted
