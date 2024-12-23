@@ -26,4 +26,4 @@ MIST_TOOLS=(
 )
 
 "$MISE_INSTALL_PATH" install \
-  --yes "${MIST_TOOLS[@]}" || exit 0
+  --job 1 --yes "${MIST_TOOLS[@]}"
