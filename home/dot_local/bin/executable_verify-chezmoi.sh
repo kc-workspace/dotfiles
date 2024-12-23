@@ -14,7 +14,7 @@ printf 'zsh: ' && command -v zsh
 temp="$(mktemp)"
 # shellcheck disable=SC2086
 chezmoi status --no-pager --no-tty $CHEZMOI_ARGUMENTS | tee "$temp"
-if ! [ -s "$temp" ]; then
+if [ -s "$temp" ]; then
   printf 'chezmoi should be on the clean state' >&2
   exit 2
 fi
