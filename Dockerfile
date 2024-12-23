@@ -6,11 +6,9 @@ FROM ubuntu:latest
 ## - curl          - required by chezmoi
 ## - gpg           - for encrypt & decrypt file
 ## - sudo          - prevent accident root command executes
-## - zsh           - primary login shell
-## - 1password-cli - dotfiles plugins (required by chezmoi)
-## - git           - dotfiles plugins (required by zinit)
+## - 1password-cli - required by chezmoi
 RUN apt update \
-  && apt install -y tzdata curl gpg sudo zsh
+  && apt install -y tzdata curl gpg sudo
 ## Set up
 RUN curl -sS https://downloads.1password.com/linux/keys/1password.asc \
   | gpg --dearmor --output /usr/share/keyrings/1password-archive-keyring.gpg \
@@ -23,22 +21,28 @@ RUN curl -sS https://downloads.1password.com/linux/keys/1password.asc \
   && curl -sS https://downloads.1password.com/linux/keys/1password.asc \
   | gpg --dearmor --output /usr/share/debsig/keyrings/AC2D62742012EA22/debsig.gpg \
   && apt update \
-  && apt install -y 1password-cli git \
+  && apt install -y 1password-cli \
   && apt upgrade -y \
+  && apt clean
+
+## Install required linux dependencies to speed up build docker process
+RUN apt install -y zsh git file \
   && apt clean
 
 ## Set build environment variables.
 ENV USER="kamontat"
 ENV TZ="Asia/Bangkok"
 ENV SHELL="/usr/bin/zsh"
-ENV EDITOR="vim"
+ENV KCDF_REPO="kc-workspace/dotfiles"
+ENV KCDF_BRANCH="main"
 
 ## Must matched with .chezmoiversion file
 ENV CHEZMOI_VERSION="2.55.0"
 
 ENV USER_HOME="/home/$USER"
-ENV USER_BIN="/usr/local/bin"
+ENV USER_BIN="$USER_HOME/.local/bin"
 ENV CHEZMOI_HOME="$USER_HOME/.local/share/chezmoi"
+
 ENV DEBIAN_FRONTEND=noninteractive
 ENV DOCKER=true
 
@@ -54,15 +58,15 @@ WORKDIR $USER_HOME
 ## Prepare && Install chezmoi
 RUN mkdir -p "$CHEZMOI_HOME" \
   && mkdir -p "$USER_BIN" \
-  && touch "$HOME/.zshrc" \
   && sudo sh -c "$(curl -fsLS git.io/chezmoi)" -- -b "$USER_BIN" -t "v$CHEZMOI_VERSION"
 
 ## Copy the dotfiles
 COPY --chown=$USER . $CHEZMOI_HOME
-## Configure dotfiles
-RUN sudo mv $CHEZMOI_HOME/scripts/*.sh "$USER_BIN" \
-  && rm -rf "$CHEZMOI_HOME/.github" \
-  && rm -rf "$CHEZMOI_HOME/.git" \
-  && chezmoi init
 
-ENTRYPOINT [ "entrypoint.sh" ]
+## Configure dotfiles
+## We purge binary because we will use mise to install it instead
+RUN $USER_BIN/chezmoi init --apply \
+  --no-pager --no-tty --purge-binary \
+  --exclude=encrypted
+
+ENTRYPOINT [ "zsh" ]
