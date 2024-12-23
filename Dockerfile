@@ -61,6 +61,7 @@ RUN --mount=type=secret,id=GITHUB_TOKEN,env=GITHUB_TOKEN,required=false $USER_BI
   --purge-binary --force \
   --exclude=encrypted
 
+## FIXME: This only install plugins that don't have wait ice
 RUN zsh -c "source $HOME/.zshrc"
 
 ENTRYPOINT [ "zsh" ]
