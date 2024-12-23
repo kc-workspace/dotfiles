@@ -3,7 +3,7 @@
 set -e
 
 ## run mise path to ensure tools are available
-eval "$(mise activate zsh)"
+eval "$(mise activate bash)"
 
 pushd "$(dirname "$0")"
 
