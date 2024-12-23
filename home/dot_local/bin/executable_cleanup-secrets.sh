@@ -23,7 +23,17 @@ cleanup_gpg() {
   unset GPG_FINGERPRINT
 }
 
+printf "\n==============================================
+Clean up %s
+==============================================\n" "1Password"
 cleanup_1password
 
+printf "\n==============================================
+Clean up %s
+==============================================\n" "GitHub Authentication"
 cleanup_github
+
+printf "\n==============================================
+Clean up %s
+==============================================\n" "GPG key"
 cleanup_gpg

@@ -44,9 +44,20 @@ jobs:
           chezmoi init --apply \
             --no-pager --no-tty \
             --purge-binary --force \
-            --exclude=encrypted
+            --exclude=encrypted \
+            --source ${{ github.workspace }}
       - name: Run full setup
         run: setup-chezmoi.sh
         env:
+          CHEZMOI_ARGUMENTS: --force --source ${{ github.workspace }}
+          OP_SERVICE_ACCOUNT_TOKEN: ${{ secrets.OP_SERVICE_ACCOUNT_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Verify the result
+        run: >
+          source setup-secrets.sh;
+          verify-chezmoi.sh;
+          source cleanup-secrets.sh;
+        env:
+          CHEZMOI_ARGUMENTS: --source ${{ github.workspace }}
           OP_SERVICE_ACCOUNT_TOKEN: ${{ secrets.OP_SERVICE_ACCOUNT_TOKEN }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
