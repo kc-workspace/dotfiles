@@ -2,6 +2,9 @@
 
 set -e
 
+## run mise path to ensure tools are available
+eval "$(mise activate bash)"
+
 pushd "$(dirname "$0")"
 # shellcheck disable=SC1091
 source "$PWD/kdf-setup-secrets.sh"
