@@ -98,13 +98,12 @@ zinit ice as"command" \
   mv"bat-*/autocomplete/bat.zsh -> _bat"
 zinit light sharkdp/bat
 
-## Setup alias tooltip (ohmyzsh)
-## https://github.com/ohmyzsh/ohmyzsh/blob/master/plugins/alias-finder
-zinit ice atinit"
-zstyle ':omz:plugins:alias-finder' autoload yes
-zstyle ':omz:plugins:alias-finder' longer yes
-zstyle ':omz:plugins:alias-finder' cheaper yes"
-zinit snippet OMZP::alias-finder
+## Setup alias tooltip
+## https://github.com/decayofmind/zsh-fast-alias-tips
+zinit ice wait lucid from"gh-r" atinit"
+export ZSH_FAST_ALIAS_TIPS_PREFIX='Alias for [$(tput bold)$(tput setaf 1)'
+export ZSH_FAST_ALIAS_TIPS_SUFFIX='$(tput sgr0)]'"
+zinit light decayofmind/zsh-fast-alias-tips
 
 ## Setup wd cli
 ## https://github.com/mfaerevaag/wd
@@ -137,13 +136,6 @@ y() {
   rm -f -- "$tmp"
 }'
 zinit light sxyazi/yazi
-
-## Setup alias tooltip
-## https://github.com/decayofmind/zsh-fast-alias-tips
-# zinit ice wait lucid from"gh-r" atinit"
-# export ZSH_FAST_ALIAS_TIPS_PREFIX='Alias for [$(tput bold)$(tput setaf 1)'
-# export ZSH_FAST_ALIAS_TIPS_SUFFIX='$(tput sgr0)]'"
-# zinit light decayofmind/zsh-fast-alias-tips
 
 ## Setup alias and helpers (with completions)
 zinit wait"2" lucid atload"zicompinit; zicdreplay" for \
