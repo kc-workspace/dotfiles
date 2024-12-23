@@ -12,6 +12,7 @@ export HISTFILE="$HOME/.zsh_history"
 
 ## Setup completions settings
 unsetopt nomatch
+setopt extended_glob
 zstyle ':completion:*' verbose yes
 zstyle ':completion:*' menu select
 zstyle ':completion:*' use-cache yes
@@ -55,7 +56,7 @@ zinit light zsh-users/zsh-autosuggestions
 
 ## Setup substring history search
 ## https://github.com/zsh-users/zsh-history-substring-search
-zinit ice wait lucid atinit"
+zinit ice atinit"
 export HISTORY_SUBSTRING_SEARCH_PREFIXED=true
 export HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_TIMEOUT=3
 " atload"
@@ -65,7 +66,7 @@ zinit load zsh-users/zsh-history-substring-search
 
 ## Setup atuin
 ## https://github.com/atuinsh/atuin
-zinit ice wait lucid as"command" \
+zinit ice as"command" \
   from"gh-r" bpick"atuin-*.tar.gz" mv"atuin*/atuin -> atuin" pick"atuin" \
   atclone"./atuin init zsh --disable-up-arrow > init.zsh; ./atuin gen-completions --shell zsh > _atuin" \
   atpull"%atclone" src"init.zsh"
@@ -73,48 +74,52 @@ zinit light atuinsh/atuin
 
 ## Setup zoxide - cd alternative command
 ## https://github.com/ajeetdsouza/zoxide
-zinit ice wait lucid as"command" \
+zinit ice as"command" \
   from"gh-r" bpick"zoxide-*.tar.gz" src"init.zsh" \
-  atclone"./zoxide init zsh --cmd d > init.zsh" atpull"%atclone" \
-  atload"zicompinit; zicdreplay"
+  atclone"./zoxide init zsh --cmd d > init.zsh" atpull"%atclone"
 zinit light ajeetdsouza/zoxide
 
 ## Setup fd - find alternative command
 ## https://github.com/sharkdp/fd
-zinit ice wait lucid as"command" \
-  from"gh-r" bpick"fd-*.tar.gz" pick"fd-*/fd" \
-  atload"zicompinit; zicdreplay"
+zinit ice as"command" \
+  from"gh-r" bpick"fd-*.tar.gz" pick"fd-*/fd"
 zinit light sharkdp/fd
 
 ## Setup lsd - ls alternative command
 ## https://github.com/lsd-rs/lsd
-zinit ice wait lucid as"command" \
-  from"gh-r" bpick"lsd-*.tar.gz" pick"lsd-*/lsd" \
-  atload"zicompinit; zicdreplay"
+zinit ice as"command" \
+  from"gh-r" bpick"lsd-*.tar.gz" pick"lsd-*/lsd"
 zinit light lsd-rs/lsd
+
+## Setup bat - cat alternative command
+## https://github.com/sharkdp/bat
+zinit ice as"command" \
+  from"gh-r" bpick"bat-*.tar.gz" pick"bat-*/bat" \
+  mv"bat-*/autocomplete/bat.zsh -> _bat"
+zinit light sharkdp/bat
+
+## Setup alias tooltip (ohmyzsh)
+## https://github.com/ohmyzsh/ohmyzsh/blob/master/plugins/alias-finder
+zinit ice atinit"
+zstyle ':omz:plugins:alias-finder' autoload yes
+zstyle ':omz:plugins:alias-finder' longer yes
+zstyle ':omz:plugins:alias-finder' cheaper yes"
+zinit snippet OMZP::alias-finder
+
+## Setup wd cli
+## https://github.com/mfaerevaag/wd
+zinit ice wait lucid as"command" pick"wd.sh" src"wd.plugin.zsh"
+zinit light mfaerevaag/wd
 
 ## Setup nvim - vim alternative command
 ## https://github.com/neovim/neovim
-zinit ice wait lucid as"command" \
+zinit ice wait lucid as"command" nocompletions \
   from"gh-r" bpick"nvim-*.tar.gz" pick"nvim-*/bin/nvim" \
   atload"zicompinit; zicdreplay" \
   atinit"
 export EDITOR=nvim
 export ZVM_VI_EDITOR=nvim"
 zinit light neovim/neovim
-
-## Setup bat - cat alternative command
-## https://github.com/sharkdp/bat
-zinit ice wait lucid as"command" \
-  from"gh-r" bpick"bat-*.tar.gz" pick"bat-*/bat" \
-  mv"bat-*/autocomplete/bat.zsh -> _bat" \
-  atload"zicompinit; zicdreplay"
-zinit light sharkdp/bat
-
-## Setup wd cli
-## https://github.com/mfaerevaag/wd
-zinit ice wait lucid as"command" pick"wd.sh" src"wd.plugin.zsh"
-zinit light mfaerevaag/wd
 
 ## Setup yazi (file manager)
 ## https://github.com/sxyazi/yazi
@@ -140,13 +145,12 @@ zinit light sxyazi/yazi
 # export ZSH_FAST_ALIAS_TIPS_SUFFIX='$(tput sgr0)]'"
 # zinit light decayofmind/zsh-fast-alias-tips
 
-## Setup alias tooltip (ohmyzsh)
-## https://github.com/ohmyzsh/ohmyzsh/blob/master/plugins/alias-finder
-zinit ice wait lucid atinit"
-zstyle ':omz:plugins:alias-finder' autoload yes
-zstyle ':omz:plugins:alias-finder' longer yes
-zstyle ':omz:plugins:alias-finder' cheaper yes"
-zinit snippet OMZP::alias-finder
+## Setup alias and helpers (with completions)
+zinit wait"2" lucid atload"zicompinit; zicdreplay" for \
+  OMZP::gitignore \
+  OMZP::kubectl \
+  OMZP::helm \
+  OMZP::chezmoi
 
 ## Setup alias and helpers (no completions)
 zinit wait"2" lucid for \
@@ -179,6 +183,12 @@ zinit light zsh-users/zsh-syntax-highlighting
 ## We need to use compinit and cdreplay
 zicompinit && zicdreplay
 
-if [ -f "$HOME/.zalias" ]; then
-  source "$HOME/.zalias"
+if [ -d "$HOME/.config/zsh" ]; then
+  for filepath in "$HOME/.config/zsh"/*.zsh; do
+    if [ -f "$filepath" ]; then
+      # shellcheck disable=SC1090
+      source "$filepath"
+    fi
+  done
+  unset filepath
 fi

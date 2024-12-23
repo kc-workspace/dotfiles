@@ -12,7 +12,7 @@ export LOCAL_FUN="${ZSH_CACHE_DIR:-$HOME/.local/share}/completions"
 [ -d "$LOCAL_FUN" ] || mkdir "$LOCAL_FUN"
 fpath+="$LOCAL_FUN"
 
-## Setup mise
+## Setup mise (cannot use oh-my-zsh plugin)
 mise="$HOME/.local/bin/mise"
 if [ -f "$mise" ]; then
   eval "$("$mise" activate zsh)"
