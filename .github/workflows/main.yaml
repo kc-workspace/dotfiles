@@ -44,7 +44,8 @@ jobs:
           chezmoi init --apply \
             --no-pager --no-tty \
             --purge-binary --force \
-            --exclude=encrypted
+            --exclude=encrypted \
+            --source ${{ github.workspace }}
       - name: Run full setup
         run: setup-chezmoi.sh
         env:
