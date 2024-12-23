@@ -20,7 +20,7 @@ packages:
       ## For cargo backend
       - rust
       ## For zshrc
-      - thefuck
+      - pipx:thefuck
   darwin:
     taps:
       - homebrew/bundle
@@ -74,3 +74,4 @@ packages:
       - zsh
       - file
       - unzip
+      - cloc

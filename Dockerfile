@@ -26,7 +26,7 @@ RUN curl -sS https://downloads.1password.com/linux/keys/1password.asc \
   && apt clean
 
 ## Install required linux dependencies to speed up build docker process
-RUN apt install -y zsh git file \
+RUN apt install -y zsh git file cloc unzip file \
   && apt clean
 
 ## Set build environment variables.
@@ -69,5 +69,7 @@ RUN $USER_BIN/chezmoi init --apply \
   --no-pager --no-tty \
   --purge-binary --force \
   --exclude=encrypted
+
+RUN zsh -c "source $HOME/.zshrc"
 
 ENTRYPOINT [ "zsh" ]

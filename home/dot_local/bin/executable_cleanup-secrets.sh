@@ -2,14 +2,7 @@
 
 set -e
 
-if [ -z "$GITHUB_TOKEN" ] ||
-  [ -z "$OP_SERVICE_ACCOUNT_TOKEN" ] ||
-  [ -z "$GPG_FINGERPRINT" ]; then
-  pushd "$(dirname "$0")"
-  # shellcheck disable=SC1091
-  source "$PWD/setup-secrets.sh"
-  popd
-fi
+export GPG_FINGERPRINT=""
 
 setup_1password() {
   : "${OP_SERVICE_ACCOUNT_TOKEN:=${OP_TOKEN:-${TOKEN}}}"
@@ -54,10 +47,10 @@ cleanup() {
   if [ -n "$GPG_FINGERPRINT" ]; then
     gpg --batch --yes --delete-secret-and-public-key "$GPG_FINGERPRINT"
   fi
-
-  unset GPG_FINGERPRINT OP_SERVICE_ACCOUNT_TOKEN GITHUB_TOKEN
+  unset GPG_FINGERPRINT
 }
 
+setup_1password
 setup_chezmoi
 
 cleanup
