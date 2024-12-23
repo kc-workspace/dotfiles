@@ -7,6 +7,20 @@
 ## - file - For starship install command
 
 packages:
+  mise:
+    tools:
+      ## For npm backend
+      - node
+      - bun
+      ## For go backend
+      - go
+      ## For pipx backend
+      - python
+      - uv
+      ## For cargo backend
+      - rust
+      ## For zshrc
+      - thefuck
   darwin:
     taps:
       - homebrew/bundle
@@ -59,3 +73,4 @@ packages:
       - git
       - zsh
       - file
+      - unzip

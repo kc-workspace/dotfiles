@@ -10,21 +10,20 @@ if command -v mise >/dev/null; then
   exit 0
 fi
 
-: "${MISE_INSTALL:=node bun go python uv rust}"
-
 set -x
+
+export MISE_INSTALL_PATH="$HOME/.local/bin/mise"
 
 MISE_INSTALL_SCRIPT="$(mktemp)"
 curl -sSLo "$MISE_INSTALL_SCRIPT" https://mise.run
-
-export MISE_INSTALL_PATH="$HOME/.local/bin/mise"
-## disable parallel
-export MISE_JOBS=1
-## Disabled .tool-versions temporary on install script
-export MISE_OVERRIDE_TOOL_VERSIONS_FILENAME=none
 sh "$MISE_INSTALL_SCRIPT"
 rm "$MISE_INSTALL_SCRIPT"
 
-# shellcheck disable=SC2086
-"$MISE_INSTALL_PATH" install $MISE_INSTALL
-"$MISE_INSTALL_PATH" doctor || exit 0
+MIST_TOOLS=(
+  {{ range .packages.mise.tools -}}
+    {{ . | quote }}
+  {{ end -}}
+)
+
+"$MISE_INSTALL_PATH" install \
+  --yes --quiet "${MIST_TOOLS[@]}" || exit 0
