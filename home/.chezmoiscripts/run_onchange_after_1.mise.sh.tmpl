@@ -18,7 +18,7 @@ curl -sSLo "$MISE_INSTALL_SCRIPT" https://mise.run
 sh "$MISE_INSTALL_SCRIPT"
 rm "$MISE_INSTALL_SCRIPT"
 
-"$MISE_INSTALL_PATH" ls --outdated
+"$MISE_INSTALL_PATH" ls --outdated --verbose
 
 {{ range .packages.mise.tools -}}
   "$MISE_INSTALL_PATH" install --yes --verbose {{ . | quote }}
