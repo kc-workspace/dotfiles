@@ -11,7 +11,8 @@ if [ -z "$GITHUB_TOKEN" ] ||
   popd
 fi
 
-chezmoi init --apply --no-pager --no-tty
+# shellcheck disable=SC2086
+chezmoi init --apply --no-pager --no-tty $CHEZMOI_ARGUMENTS
 
 pushd "$(dirname "$0")"
 # shellcheck disable=SC1091

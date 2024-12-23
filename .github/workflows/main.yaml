@@ -49,5 +49,6 @@ jobs:
       - name: Run full setup
         run: setup-chezmoi.sh
         env:
+          CHEZMOI_ARGUMENTS: --source ${{ github.workspace }}
           OP_SERVICE_ACCOUNT_TOKEN: ${{ secrets.OP_SERVICE_ACCOUNT_TOKEN }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
