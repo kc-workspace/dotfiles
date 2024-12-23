@@ -145,24 +145,20 @@ chezmoi forget "<filepath>"
 ### Build docker image
 
 ```bash
+## Without GITHUB_TOKEN environment, mise might failed due to rate-limit exceed
 docker buildx build --tag kamontat/dotfiles:local .
+## Assume you have $GITHUB_TOKEN environment set
+docker buildx build --secret id=GITHUB_TOKEN --tag kamontat/dotfiles:local .
 ```
 
 ### Run docker image
 
-You can run docker image on 2 modes: `full` or `minimal`.
-When mode is empty string, it will start shell without any set up.
-You can manually set up using `setup-*.sh` command
+The docker image will contains all applications need for everyday works without secure information.
+To configure secure information (e.g. gpg, ssh, etc.), run `setup-chezmoi.sh` command to fully set up the chezmoi.
 
 ```bash
-docker run -it --rm kamontat/dotfiles:local "<MODE>"
-```
-
-Alternatively, you can start without mode and manually set up chezmoi using `setup-*.sh` command.
-
-```bash
+## initiate zsh shell session
 docker run -it --rm kamontat/dotfiles:local
-setup-full.sh
 ```
 
 ### To verify docker image

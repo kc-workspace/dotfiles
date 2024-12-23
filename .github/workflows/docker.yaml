@@ -81,7 +81,7 @@ jobs:
           cache-from: type=gha
           cache-to: type=gha,mode=max
           secrets: |
-            "github_token=${{ secrets.GITHUB_TOKEN }}"
+            "GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }}"
 
       - name: Attest Docker Hub
         uses: actions/attest-build-provenance@v2

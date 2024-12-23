@@ -70,7 +70,7 @@ COPY --chown=$USER . $CHEZMOI_HOME
 
 ## Configure dotfiles
 ## We purge binary because we will use mise to install it instead
-RUN --mount=type=secret,id=github_token,env=GITHUB_TOKEN,required=false $USER_BIN/chezmoi init --apply \
+RUN --mount=type=secret,id=GITHUB_TOKEN,env=GITHUB_TOKEN,required=false $USER_BIN/chezmoi init --apply \
   --no-pager --no-tty \
   --purge-binary --force \
   --exclude=encrypted
