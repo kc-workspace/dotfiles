@@ -2,6 +2,9 @@
 
 set -e
 
+## run mise path to ensure tools are available
+eval "$(mise activate zsh)"
+
 pushd "$(dirname "$0")"
 
 # shellcheck disable=SC1091
