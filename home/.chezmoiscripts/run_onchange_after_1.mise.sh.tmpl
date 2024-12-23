@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+## mise/config.toml hash : {{ include "dot_config/mise/config.toml" | sha256sum }}
+
 set -e
 
 if command -v mise >/dev/null; then
