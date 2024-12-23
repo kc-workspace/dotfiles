@@ -2,12 +2,13 @@
 FROM ubuntu:latest
 
 ## Setup os dependencies:
-## - tzdata        - set timezone
-## - curl          - required by chezmoi
-## - gpg           - for encrypt & decrypt file
-## - sudo          - prevent accident root command executes
+## - locales - set locales
+## - tzdata  - set timezone
+## - curl    - required by chezmoi
+## - gpg     - for encrypt & decrypt file
+## - sudo    - prevent accident root command executes
 RUN apt update \
-  && apt install -y tzdata curl gpg sudo \
+  && apt install -y locales tzdata curl gpg sudo \
   && apt upgrade -y \
   && apt clean
 
@@ -22,10 +23,13 @@ ENV SHELL="/usr/bin/zsh"
 ENV KCDF_REPO="kc-workspace/dotfiles"
 ENV KCDF_BRANCH="main"
 
-## Required because of tab completions duplication
+## Set up locales (Required because tab completions bug)
 ## ref: https://github.com/zsh-users/zsh-autosuggestions/issues/683
+RUN sed -i '/en_US.UTF-8/s/^# //g' /etc/locale.gen \
+  && locale-gen
 ENV LC_ALL=en_US.UTF-8
 ENV LANG=en_US.UTF-8
+ENV LANGUAGE=en_US:en
 
 ## Must matched with .chezmoiversion file
 ENV CHEZMOI_VERSION="2.55.0"
