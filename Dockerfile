@@ -66,7 +66,8 @@ COPY --chown=$USER . $CHEZMOI_HOME
 ## Configure dotfiles
 ## We purge binary because we will use mise to install it instead
 RUN $USER_BIN/chezmoi init --apply \
-  --no-pager --no-tty --purge-binary \
+  --no-pager --no-tty \
+  --purge-binary --force \
   --exclude=encrypted
 
 ENTRYPOINT [ "zsh" ]
