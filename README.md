@@ -154,7 +154,7 @@ docker buildx build --secret id=GITHUB_TOKEN --tag kamontat/dotfiles:local .
 ### Run docker image
 
 The docker image will contains all applications need for everyday works without secure information.
-To configure secure information (e.g. gpg, ssh, etc.), run `setup-chezmoi.sh` command to fully set up the chezmoi.
+To configure secure information (e.g. gpg, ssh, etc.), run `kdf-setup.sh` command to fully set up the chezmoi.
 
 ```bash
 ## initiate zsh shell session

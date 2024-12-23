@@ -4,7 +4,7 @@ set -e
 
 pushd "$(dirname "$0")"
 # shellcheck disable=SC1091
-source "$PWD/setup-secrets.sh"
+source "$PWD/kdf-setup-secrets.sh"
 
 printf "\n==============================================
 Initiate and Apply %s
@@ -18,5 +18,5 @@ Install %s
 mise install
 
 # shellcheck disable=SC1091
-source "$PWD/cleanup-secrets.sh"
+source "$PWD/kdf-cleanup-secrets.sh"
 popd
