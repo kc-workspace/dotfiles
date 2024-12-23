@@ -19,6 +19,10 @@ packages:
       - uv
       ## For cargo backend
       - rust
+      ## For chezmoi
+      - 1password
+      - jq
+      - gh
       ## For zshrc
       - pipx:thefuck
   darwin:

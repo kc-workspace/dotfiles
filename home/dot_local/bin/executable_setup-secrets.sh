@@ -9,6 +9,7 @@
 set -e
 
 export OP_ACCOUNT="my.1password.com"
+export OP_VAULT="${OP_VAULT:-64yg7lvccdzebup52w2nmzoady}"
 
 setup_1password() {
   : "${OP_SERVICE_ACCOUNT_TOKEN:=${OP_TOKEN:-${TOKEN}}}"
@@ -26,7 +27,7 @@ setup_1password() {
 
 setup_github() {
   if [ -z "$GITHUB_TOKEN" ]; then
-    export TOKEN="op://64yg7lvccdzebup52w2nmzoady/GITHUB_TOKEN/password"
+    export TOKEN="op://$OP_VAULT/GITHUB_TOKEN/password"
     op run --no-masking -- printenv TOKEN | gh auth login --with-token
     unset TOKEN
 
@@ -40,17 +41,16 @@ setup_github() {
 
 setup_gpg() {
   local gpg_key_op_item="fp3xx4qmu7ocxr2r546q6deocu"
-  local gpg_key_op_vault="64yg7lvccdzebup52w2nmzoady"
 
   local gpg_key_path gpg_finger_path
   gpg_key_path="$(mktemp)"
   gpg_finger_path="$(mktemp)"
 
   op item get "$gpg_key_op_item" \
-    --vault "$gpg_key_op_vault" \
+    --vault "$OP_VAULT" \
     --field label=Fingerprint | tee "$gpg_finger_path"
   op document get "$gpg_key_op_item" \
-    --vault "$gpg_key_op_vault" \
+    --vault "$OP_VAULT" \
     --out-file "$gpg_key_path" >/dev/null
   gpg --quiet --import "$gpg_key_path"
 
