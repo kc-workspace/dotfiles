@@ -40,7 +40,13 @@ jobs:
       - name: Get chezmoi version
         run: chezmoi --version
       - name: Apply chezmoi config
-        run: scripts/setup-full.sh
+        run: |
+          chezmoi init --apply \
+            --no-pager --no-tty \
+            --purge-binary --force \
+            --exclude=encrypted
+      - name: Run full setup
+        run: setup-chezmoi.sh
         env:
           OP_SERVICE_ACCOUNT_TOKEN: ${{ secrets.OP_SERVICE_ACCOUNT_TOKEN }}
-          CHEZMOI_ARGUMENTS: --source ${{ github.workspace }} --no-tty --no-pager
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
