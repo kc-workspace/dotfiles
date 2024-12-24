@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.3.1](https://github.com/kc-workspace/dotfiles/compare/v0.3.0...v0.3.1) (2024-12-24)
+
+
+### Bug Fixes
+
+* remove deployment flow for linux/arm/v7 ([040a191](https://github.com/kc-workspace/dotfiles/commit/040a191f70efd940e4b6e5a1a9f2c3ea9936332d))
+
 ## [0.3.0](https://github.com/kc-workspace/dotfiles/compare/v0.2.1...v0.3.0) (2024-12-23)
 
 
