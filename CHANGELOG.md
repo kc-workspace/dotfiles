@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.3.2](https://github.com/kc-workspace/dotfiles/compare/v0.3.1...v0.3.2) (2024-12-28)
+
+
+### Bug Fixes
+
+* **wezterm:** increase opacity of background to avoid missing text ([b84a3aa](https://github.com/kc-workspace/dotfiles/commit/b84a3aad92d065c0bd2a0a8a0c818d5d3b308dd0))
+
+
+### Performance Improvements
+
+* **core:** update source state change ([c704dbe](https://github.com/kc-workspace/dotfiles/commit/c704dbe7a64e215c08c7f03ac890882ccad60c9c))
+
 ## [0.3.1](https://github.com/kc-workspace/dotfiles/compare/v0.3.0...v0.3.1) (2024-12-24)
 
 
