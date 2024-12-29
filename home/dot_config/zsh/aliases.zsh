@@ -28,3 +28,10 @@ alias czc="chezmoi cd"
 
 #   - vscode
 alias code="code-insiders"
+
+#   - kubectl
+alias kd="kubectl --context prd:smt2/d"
+alias ka="kubectl --context prd:smt2/a"
+
+alias hd="helm --kube-context prd:smt2/d"
+alias ha="helm --kube-context prd:smt2/a"
