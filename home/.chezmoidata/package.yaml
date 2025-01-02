@@ -42,7 +42,10 @@ packages:
       - 1password@beta
       - alfred
       - brave-browser
+      - chatgpt
+      - claude
       - docker
+      - firefox@developer-edition
       - font-jetbrains-mono
       - font-jetbrains-mono-nerd-font
       - gpg-suite
