@@ -24,7 +24,7 @@
 
 [settings]
 env_file = ".env"
-disable_backends = ["asdf", "spm", "vfox"]
+disable_backends = ["asdf", "spm"]
 disable_default_registry = true
 not_found_auto_install = true
 pin = true
