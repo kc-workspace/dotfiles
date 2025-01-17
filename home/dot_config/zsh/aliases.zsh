@@ -29,9 +29,13 @@ alias czc="chezmoi cd"
 #   - vscode
 alias code="code-insiders"
 
+#   - aws
+alias asl="aws sso login"
+
 #   - kubectl
 alias kd="kubectl --context prd:smt2/d"
 alias ka="kubectl --context prd:smt2/a"
 
+#   - helm
 alias hd="helm --kube-context prd:smt2/d"
 alias ha="helm --kube-context prd:smt2/a"
