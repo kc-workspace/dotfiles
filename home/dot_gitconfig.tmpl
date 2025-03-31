@@ -83,9 +83,6 @@
 	required = true
 	clean = git-lfs clean -- %f
 
-[includeIf "gitdir:~/Desktop/Enterprise/"]
-  path = ~/.git/work/.gitconfig
-
 [includeIf "gitdir:~/Desktop/Personal/"]
   path = ~/.git/personal/.gitconfig
 
@@ -94,3 +91,12 @@
 
 [includeIf "gitdir:/tmp/"]
   path = ~/.git/personal/.gitconfig
+
+[includeIf "gitdir:~/Desktop/Works/Smartertravel.old"]
+  path = ~/.git/personal/.gitconfig
+
+[includeIf "gitdir:~/Desktop/Works/Smartertravel"]
+  path = ~/.git/works/.gitconfig.st
+
+[includeIf "gitdir:~/Desktop/Works/Rx"]
+  path = ~/.git/works/.gitconfig.rx
