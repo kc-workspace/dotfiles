@@ -1,5 +1,26 @@
 # Changelog
 
+## [0.3.2](https://github.com/kc-workspace/dotfiles/compare/v0.3.1...v0.3.2) (2025-03-31)
+
+
+### Bug Fixes
+
+* **config:** gitconfig includeIf must contains trailling slash ([c4d4b05](https://github.com/kc-workspace/dotfiles/commit/c4d4b056c3ed9f72db6eb50009d76a33d1994bdb))
+* **wezterm:** increase opacity of background to avoid missing text ([b84a3aa](https://github.com/kc-workspace/dotfiles/commit/b84a3aad92d065c0bd2a0a8a0c818d5d3b308dd0))
+
+
+### Performance Improvements
+
+* **core:** update source state change ([a665294](https://github.com/kc-workspace/dotfiles/commit/a665294470a66b7aaf7e7908acb5bda69132f338))
+* **core:** update source state change ([a8148ec](https://github.com/kc-workspace/dotfiles/commit/a8148ec09d5b94480bb9d1e20b055389ac0bab06))
+* **core:** update source state change ([5fdf8fd](https://github.com/kc-workspace/dotfiles/commit/5fdf8fd8b98e76a876cba5186b04f30e4d951bc4))
+* **core:** update source state change ([2afa5e6](https://github.com/kc-workspace/dotfiles/commit/2afa5e6e290c4ff3917adcea20a59049e730a9c4))
+* **core:** update source state change ([05d95ae](https://github.com/kc-workspace/dotfiles/commit/05d95ae70ea8615b35066062b7d3c2caa79c058e))
+* **core:** update source state change ([40155ba](https://github.com/kc-workspace/dotfiles/commit/40155ba9d9b8bb3cc6674dad678f958395ea6333))
+* **core:** update source state change ([c704dbe](https://github.com/kc-workspace/dotfiles/commit/c704dbe7a64e215c08c7f03ac890882ccad60c9c))
+* **mac:** add chatgpt and claude apps ([81a517a](https://github.com/kc-workspace/dotfiles/commit/81a517a0482e027aae835529c4dca56581fac988))
+* **zsh:** add more kube & helm alias ([11f2837](https://github.com/kc-workspace/dotfiles/commit/11f28376c409998be1f864160e02c9065cf412aa))
+
 ## [0.3.1](https://github.com/kc-workspace/dotfiles/compare/v0.3.0...v0.3.1) (2024-12-24)
 
 
