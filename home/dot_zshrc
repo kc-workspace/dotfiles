@@ -159,7 +159,6 @@ zinit light sxyazi/yazi
 ## Setup alias and helpers (with completions)
 zinit wait"2" lucid atload"zicompinit; zicdreplay" for \
   OMZP::gitignore \
-  OMZP::kubectl \
   OMZP::helm \
   OMZP::chezmoi
 
