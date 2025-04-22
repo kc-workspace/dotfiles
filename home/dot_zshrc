@@ -91,9 +91,28 @@ zinit ice as"command" \
   from"gh-r" bpick"lsd-*.tar.gz" pick"lsd-*/lsd"
 zinit light lsd-rs/lsd
 
+## Setup ripgrep - extends grep command
+## https://github.com/BurntSushi/ripgrep
+zinit ice as"command" \
+  from"gh-r" bpick"ripgrep-*.tar.gz" pick"ripgrep-*/rg" \
+  atclone"ripgrep-*/rg --generate complete-zsh > _rg" atpull"%atclone"
+zinit light BurntSushi/ripgrep
+
+## Setup lazygit - git with lazy
+## https://github.com/jesseduffield/lazygit
+zinit ice as"command" \
+  from"gh-r" pick="lazygit"
+zinit light jesseduffield/lazygit
+
+## Setup ast-grep - grep with AST support
+## https://github.com/ast-grep/ast-grep
+zinit ice as"command" \
+  from"gh-r" pick="ast-grep"
+zinit light ast-grep/ast-grep
+
 ## Setup bat - cat alternative command
 ## https://github.com/sharkdp/bat
-zinit ice as"command" \
+zinit ice wait lucid as"command" \
   from"gh-r" bpick"bat-*.tar.gz" pick"bat-*/bat" \
   mv"bat-*/autocomplete/bat.zsh -> _bat"
 zinit light sharkdp/bat
