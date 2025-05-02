@@ -34,7 +34,13 @@ alias asl="aws sso login"
 
 #   - kubectl
 alias k="kubectl"
+alias ka="mise task run ka"
 
 #   - helm
 alias h="helm"
+alias ha="mise task run ha"
+
+#   - mise
+alias m="mise"
+alias mr="mise task run"
 
