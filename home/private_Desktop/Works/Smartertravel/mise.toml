@@ -1,3 +1,11 @@
 [env]
 AWS_PROFILE = "cognius-dev"
 KUBECONFIG = "{{env.HOME}}/.kube/works/config.st"
+
+[tasks.ka]
+description = 'Run kubectl with admin permissions'
+run = "kubectl --context prd:smt2/a"
+
+[tasks.ha]
+description = 'Run helm with admin permissions'
+run = "helm --kube-context prd:smt2/a"
