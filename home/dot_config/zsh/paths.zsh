@@ -30,3 +30,14 @@ fi
 unset docker_bin
 
 unset LOCAL_BIN LOCAL_FUN
+
+## Setup AWS cli completions
+if command -v mise >/dev/null && command -v aws >/dev/null; then
+  aws_completer_path="$(mise which aws_completer --silent --quiet 2>/dev/null)"
+  if [ -f $aws_completer_path ]; then
+    autoload bashcompinit && bashcompinit
+    autoload -Uz compinit && compinit
+    complete -C "$aws_completer_path" aws
+  fi
+fi
+
