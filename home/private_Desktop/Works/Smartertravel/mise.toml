@@ -9,3 +9,8 @@ run = "kubectl --context prd:smt2/a"
 [tasks.ha]
 description = 'Run helm with admin permissions'
 run = "helm --kube-context prd:smt2/a"
+
+[tools]
+aws-cli = "2.27.8"
+helm = "3.17.3"
+kubectl = "1.31.4"
