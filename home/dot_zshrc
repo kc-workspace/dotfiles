@@ -26,6 +26,7 @@ zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
 ZINIT_HOME="$HOME/.local/share/zinit/zinit.git"
 source "$ZINIT_HOME/zinit.zsh"
 
+
 ## Setup starship prompt
 ## https://starship.rs
 zinit ice as"command" from"gh-r" \
@@ -189,10 +190,6 @@ fi
 ## https://github.com/zsh-users/zsh-syntax-highlighting
 zinit light zsh-users/zsh-syntax-highlighting
 
-## After setup without turbo mode
-## We need to use compinit and cdreplay
-zicompinit && zicdreplay
-
 if [ -d "$HOME/.config/zsh" ]; then
   for filepath in "$HOME/.config/zsh"/*.zsh; do
     if [ -f "$filepath" ]; then
@@ -202,3 +199,8 @@ if [ -d "$HOME/.config/zsh" ]; then
   done
   unset filepath
 fi
+
+## After setup without turbo mode
+## We need to use compinit and cdreplay
+zicompinit && zicdreplay
+
