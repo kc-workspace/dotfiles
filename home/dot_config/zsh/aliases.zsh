@@ -31,6 +31,7 @@ alias code="code-insiders"
 
 #   - aws
 alias asl="aws sso login"
+alias awsp="aws --cli-auto-prompt"
 
 #   - kubectl
 alias k="kubectl"
