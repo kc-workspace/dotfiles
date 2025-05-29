@@ -1,5 +1,51 @@
 # Changelog
 
+## [0.3.2](https://github.com/kc-workspace/dotfiles/compare/v0.3.1...v0.3.2) (2025-05-29)
+
+
+### Bug Fixes
+
+* **config:** gitconfig includeIf must contains trailling slash ([c4d4b05](https://github.com/kc-workspace/dotfiles/commit/c4d4b056c3ed9f72db6eb50009d76a33d1994bdb))
+* **wezterm:** increase opacity of background to avoid missing text ([b84a3aa](https://github.com/kc-workspace/dotfiles/commit/b84a3aad92d065c0bd2a0a8a0c818d5d3b308dd0))
+
+
+### Performance Improvements
+
+* add more dependencies on brew packages ([3611904](https://github.com/kc-workspace/dotfiles/commit/361190405538fc853c02a5e61274d9120b52d272))
+* **core:** update source state change ([a2578f3](https://github.com/kc-workspace/dotfiles/commit/a2578f31c5b1a13bad1b6795817ce40d5b20cfe4))
+* **core:** update source state change ([69affb8](https://github.com/kc-workspace/dotfiles/commit/69affb8881545e22cec5aa37b79943adfd101253))
+* **core:** update source state change ([37017e1](https://github.com/kc-workspace/dotfiles/commit/37017e1fb48f14dc20182ee612713248a91bf30c))
+* **core:** update source state change ([fbcece9](https://github.com/kc-workspace/dotfiles/commit/fbcece9e69ef8938284832f4e797aacc8c4356ec))
+* **core:** update source state change ([abde7a9](https://github.com/kc-workspace/dotfiles/commit/abde7a91bc9253022c4a076e7e3a7bfa0374b1c5))
+* **core:** update source state change ([cef4323](https://github.com/kc-workspace/dotfiles/commit/cef4323752f5b4bfd4739534b1082139f0cd37f9))
+* **core:** update source state change ([da6d90f](https://github.com/kc-workspace/dotfiles/commit/da6d90fda5dfe04fee3b5eba70ee25e0e3cdf77c))
+* **core:** update source state change ([a1520c5](https://github.com/kc-workspace/dotfiles/commit/a1520c5f1ac282db7afea7a9b0baa90c65b6678a))
+* **core:** update source state change ([8466fb8](https://github.com/kc-workspace/dotfiles/commit/8466fb85e4a4279747b8c85639f00cd66cfaa71b))
+* **core:** update source state change ([5cbf915](https://github.com/kc-workspace/dotfiles/commit/5cbf9152420a9a9f19c2387474f596186ea42791))
+* **core:** update source state change ([4ea8869](https://github.com/kc-workspace/dotfiles/commit/4ea8869cf79a9d87cdc55bb7e80d9d1ccd6fa4b4))
+* **core:** update source state change ([812b58a](https://github.com/kc-workspace/dotfiles/commit/812b58ae60222d1d78021ec7b4beb6c7fb79381d))
+* **core:** update source state change ([e7426f1](https://github.com/kc-workspace/dotfiles/commit/e7426f1f221d736aeecee10899e3fb1e1b420511))
+* **core:** update source state change ([d50392a](https://github.com/kc-workspace/dotfiles/commit/d50392a5011ab464d800781d39f5e152c698df55))
+* **core:** update source state change ([3c1af7f](https://github.com/kc-workspace/dotfiles/commit/3c1af7f0c86d0c37584598b7d5e46032338e0af2))
+* **core:** update source state change ([644b536](https://github.com/kc-workspace/dotfiles/commit/644b536d03d90c0793edf48bd728dad5548d4aeb))
+* **core:** update source state change ([baf4187](https://github.com/kc-workspace/dotfiles/commit/baf41878b8753a49ef40e28f0e0d45f2c428e515))
+* **core:** update source state change ([f913479](https://github.com/kc-workspace/dotfiles/commit/f913479a70e69bb284d5ee7f5be3f17ee563c9a7))
+* **core:** update source state change ([87baa30](https://github.com/kc-workspace/dotfiles/commit/87baa30e83a380c056891e62d3193257b07a5155))
+* **core:** update source state change ([e08585e](https://github.com/kc-workspace/dotfiles/commit/e08585ec76871659a587d0a11451970ec5155187))
+* **core:** update source state change ([1528f85](https://github.com/kc-workspace/dotfiles/commit/1528f8501e50ec25bdd1f859d0e22f965e99f81a))
+* **core:** update source state change ([348452a](https://github.com/kc-workspace/dotfiles/commit/348452a42d2d74adf9f2cab3a7bb5f3182a3ce9c))
+* **core:** update source state change ([7b924fd](https://github.com/kc-workspace/dotfiles/commit/7b924fd8611136b5fd1bfc419cd68868d8dc7973))
+* **core:** update source state change ([988ab49](https://github.com/kc-workspace/dotfiles/commit/988ab49a6380e40260a63b6cc699573808b83608))
+* **core:** update source state change ([a665294](https://github.com/kc-workspace/dotfiles/commit/a665294470a66b7aaf7e7908acb5bda69132f338))
+* **core:** update source state change ([a8148ec](https://github.com/kc-workspace/dotfiles/commit/a8148ec09d5b94480bb9d1e20b055389ac0bab06))
+* **core:** update source state change ([5fdf8fd](https://github.com/kc-workspace/dotfiles/commit/5fdf8fd8b98e76a876cba5186b04f30e4d951bc4))
+* **core:** update source state change ([2afa5e6](https://github.com/kc-workspace/dotfiles/commit/2afa5e6e290c4ff3917adcea20a59049e730a9c4))
+* **core:** update source state change ([05d95ae](https://github.com/kc-workspace/dotfiles/commit/05d95ae70ea8615b35066062b7d3c2caa79c058e))
+* **core:** update source state change ([40155ba](https://github.com/kc-workspace/dotfiles/commit/40155ba9d9b8bb3cc6674dad678f958395ea6333))
+* **core:** update source state change ([c704dbe](https://github.com/kc-workspace/dotfiles/commit/c704dbe7a64e215c08c7f03ac890882ccad60c9c))
+* **mac:** add chatgpt and claude apps ([81a517a](https://github.com/kc-workspace/dotfiles/commit/81a517a0482e027aae835529c4dca56581fac988))
+* **zsh:** add more kube & helm alias ([11f2837](https://github.com/kc-workspace/dotfiles/commit/11f28376c409998be1f864160e02c9065cf412aa))
+
 ## [0.3.1](https://github.com/kc-workspace/dotfiles/compare/v0.3.0...v0.3.1) (2024-12-24)
 
 
