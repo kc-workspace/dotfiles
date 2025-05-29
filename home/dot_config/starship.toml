@@ -51,32 +51,27 @@ $php\
 $pulumi\
 $purescript\
 $python\
-$quarto\
-$raku\
 $rlang\
-$red\
 $ruby\
 $rust\
 $scala\
-$solidity\
 $swift\
 $terraform\
-$typst\
 $vlang\
-$vagrant\
 $zig\
 $buf\
 $nix_shell\
 $conda\
-$meson\
-$spack\
 $aws\
 $gcloud\
-$openstack\
 $azure\
-$crystal\
 $direnv\
 $cmd_duration\
+
+$fill\
+$shell\
+$time\
+$memory_usage\
 
 $line_break\
 
@@ -84,23 +79,25 @@ $hostname\
 $localip\
 $os\
 $sudo\
-$env_var\
-$shell\
-$memory_usage\
 $battery\
 $container\
-$time\
 $jobs\
 $status\
 $character
 """
 
+continuation_prompt = '▶▶ '
+
 [username]
 disabled = false
-show_always = true
+show_always = false
 format = '[@$user]($style) '
 style_root = 'red'
 style_user = 'dimmed white'
+
+[directory]
+truncation_length = 999
+truncate_to_repo = true
 
 [hostname]
 disabled = true
@@ -164,3 +161,8 @@ disabled = true
 
 [shlvl]
 disabled = true
+
+[fill]
+disabled = false
+symbol = ' '
+style = ''
