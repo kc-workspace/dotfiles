@@ -6,6 +6,10 @@ KUBECONFIG = "{{env.HOME}}/.kube/works/config.rx"
 description = 'Run kubectl with admin permissions'
 run = "kubectl --context dev:rx/a"
 
+[tasks.kdebug]
+description = 'Create debug pod on kube with admin permissions'
+run = "kubectl --context dev:rx/a run debug --namespace default --image=ubuntu --restart=Never -it --rm"
+
 [tasks.ha]
 description = 'Run helm with admin permissions'
 run = "helm --kube-context dev:rx/a"
@@ -15,4 +19,3 @@ argocd = "2.14.11"
 aws-cli = "2.27.8"
 helm = "3.17.3"
 kubectl = "1.32.0"
-
