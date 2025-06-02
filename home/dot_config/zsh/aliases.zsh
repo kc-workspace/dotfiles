@@ -36,7 +36,7 @@ alias awsp="aws --cli-auto-prompt"
 #   - kubectl
 alias k="kubectl"
 alias ka="mise task run ka --"
-alias ha="mise task run kdebug --"
+alias kdebug="mise task run kdebug --"
 
 #   - helm
 alias h="helm"
