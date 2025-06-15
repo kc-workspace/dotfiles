@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.3.3](https://github.com/kc-workspace/dotfiles/compare/v0.3.2...v0.3.3) (2025-06-15)
+
+
+### Performance Improvements
+
+* **core:** update source state change ([2077310](https://github.com/kc-workspace/dotfiles/commit/207731001379f47ac89e27cd7d7f31cf2b3e167e))
+
 ## [0.3.2](https://github.com/kc-workspace/dotfiles/compare/v0.3.1...v0.3.2) (2025-05-29)
 
 
