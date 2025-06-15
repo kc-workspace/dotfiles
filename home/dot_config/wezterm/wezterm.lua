@@ -16,7 +16,7 @@ config.send_composed_key_when_right_alt_is_pressed = false
 config.use_dead_keys = false
 config.use_ime = true
 config.window_background_opacity = 0.95
-config.window_decorations = 'INTEGRATED_BUTTONS | RESIZE'
+-- config.window_decorations = 'INTEGRATED_BUTTONS | RESIZE'
 
 config.keys = {
   {
@@ -28,65 +28,98 @@ config.keys = {
 
 -- Events --
 
-local title_patterns = {
+local patterns = {
   {
     title    = "[PS] {relpath}",
-    prefixes = {
-      "~/Desktop/Personal"
+    matches = {
+      "^~/Desktop/Personal"
     }
   },
   {
     title    = "[RX] {relpath}",
-    prefixes = {
-      "~/Desktop/Works/Rx"
+    matches = {
+      "^~/Desktop/Works/Rx"
     }
   },
   {
     title    = "[ST] {relpath}",
-    prefixes = {
-      "~/Desktop/Works/Smartertravel",
-      "~/Desktop/Works/Smartertravel.old"
+    matches = {
+      "^~/Desktop/Works/Smartertravel",
+      "^~/Desktop/Works/Smartertravel.old"
     }
   },
   {
     title    = "[TMP] {relpath}",
-    prefixes = {
-      "/tmp",
+    matches = {
+      "^/tmp",
+    }
+  },
+  {
+    title    = "{basename}",
+    matches = {
+      "^/bin",
+      "^/usr/bin",
+      "^/usr/local/bin",
+      "^~/.local/bin"
     }
   }
 }
 
-wezterm.on('format-tab-title', function(tab, tabs, panes, config, hover, max_width)
-  local uri = tostring(tab.active_pane.current_working_dir)
+function printf(format, ...)
+  wezterm.log_info(string.format(format, ...))
+end
 
-  if uri == "nil" then
-    wezterm.log_info('Use pane title: ' .. tab.active_pane.title)
-    return tab.active_pane.title
+function to_title(name, uri, title)
+  if uri == nil or uri == "nil" or uri == "" then
+    printf('[%s] use default title: %s', name, title)
+    return title
   end
 
-  local home = os.getenv("HOME")
+  -- Matching logic
+  for _, pattern in ipairs(patterns) do
+    for _, match in ipairs(pattern.matches) do
+      if uri:match(match) ~= nil then
+        local suffix = uri:gsub(match, ""):gsub("^/", "")
+        local relpath = (suffix == "") and "<root>" or suffix
+        local basename = suffix:gsub('(.*[/\\])(.*)', '%2')
+
+        local title = pattern.title
+          :gsub("{relpath}", relpath)
+          :gsub("{basename}", basename)
+
+        printf('[%s] use pattern title: %s', name, title)
+        return title
+      end
+    end
+  end
+
+  printf('[%s] fallback to uri path: %s', name, uri)
+  return uri
+end
+
+wezterm.on('format-window-title', function(tab, pane, tabs, panes, config)
+  local uri = tostring(pane.current_working_dir)
   local cwd = uri
     :gsub("^file://", "")
-    :gsub(home, "~")
+    :gsub(wezterm.home_dir, "~")
     :gsub("^/private", "")
     :gsub("%%(%x%x)", function(hex)
       return string.char(tonumber(hex, 16))
     end)
 
-  -- Matching logic
-  for _, group in ipairs(title_patterns) do
-    for _, prefix in ipairs(group.prefixes) do
-      if cwd:sub(1, #prefix) == prefix then
-        local suffix = cwd:sub(#prefix + 2) -- remove / prefix
-        local relpath = (suffix == "") and "<root>" or suffix
-        wezterm.log_info('Use title template: ' .. group.title)
-        return group.title:gsub("{relpath}", relpath)
-      end
-    end
-  end
+  return to_title("window", cwd, pane.title)
+end)
 
-  wezterm.log_info('Use cwd title: ' .. cwd)
-  return cwd
+wezterm.on('format-tab-title', function(tab, tabs, panes, config, hover, max_width)
+  local pane = tab.active_pane
+  local process = pane.foreground_process_name
+    :gsub(wezterm.home_dir, "~")
+    :gsub("^/private", "")
+    :gsub("%%(%x%x)", function(hex)
+      return string.char(tonumber(hex, 16))
+    end)
+
+  return to_title("tab", process, pane.title)
 end)
 
 return config
