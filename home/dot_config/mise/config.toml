@@ -1,32 +1,24 @@
 [tools]
-"1password" = "2.30.3"
-"aws-cli" = "2.22.17"
-"bun" = "1.1.38"
-"fzf" = "0.57.0"
-"github-cli" = "2.63.2"
-"golang" = "1.23.4"
-"helm" = "3.16.4"
-"java" = "temurin-17.0.13+11"
-"jq" = "1.7.1"
-"kubectl" = "1.31.4"
-"nodejs" = "22.12.0"
-## https://github.com/nvbn/thefuck/issues/1444
-"pipx:thefuck" = { version = "3.32", uvx_args = "--python 3.11" }
-"pnpm" = "9.15.0"
-"python" = "3.13.1"
-"ruby" = "3.3.6"
-"rust" = "1.83.0"
-"ubi:fastfetch-cli/fastfetch" = "2.31.0"
-"ubi:mikefarah/yq" = "4.44.6"
-"ubi:twpayne/chezmoi" = "2.56.0"
-"usage" = "1.7.2"
-"uv" = "0.5.9"
+"1password"                   = "2.30.3"  ## For password management
+"bun"                         = "1.1.38"  ## For node package managemet
+"fzf"                         = "0.57.0"  ## some zsh plugin required
+"github-cli"                  = "2.63.2"  ## Useful commandline
+"golang"                      = "1.23.4"  ## For golang package management
+"jq"                          = "1.7.1"   ## Useful commandline
+"nodejs"                      = "22.12.0" ## For node runtime
+"python"                      = "3.13.1"  ## For python runtime
+"rust"                        = "1.83.0"  ## For rust package management
+"ubi:fastfetch-cli/fastfetch" = "2.31.0"  ## For fetching system information
+"ubi:mikefarah/yq"            = "4.44.6"  ## Useful commandline
+"ubi:twpayne/chezmoi"         = "2.56.0"  ## For dotfiles
+"usage"                       = "2.1.1"   ## For mise completions
+"uv"                          = "0.5.9"   ## For python package management
 
 [settings]
 env_file = ".env"
-disable_backends = ["asdf", "spm"]
-disable_default_registry = true
+disable_backends = ["asdf", "spm", "dotnet", "gem"]
 not_found_auto_install = true
+use_versions_host = false ## NOTE: https://github.com/jdx/mise/discussions/4878
 pin = true
 
 [settings.status]
@@ -39,3 +31,4 @@ bun = true
 
 [env]
 _.file = '.env'
+
