@@ -8,13 +8,15 @@ run = "kubectl --context prd:smt2/a"
 
 [tasks.kdebug]
 description = 'Create debug pod on kube with admin permissions'
-run = "kubectl --context prd:smt2/a run debug --namespace default --image=ubuntu --restart=Never -it --rm"
+run = "kubectl --context prd:smt2/a run debug --namespace default --image=ubuntu --image-pull-policy=Always --restart=Never -it --rm"
 
 [tasks.ha]
 description = 'Run helm with admin permissions'
 run = "helm --kube-context prd:smt2/a"
 
 [tools]
-aws-cli = "2.27.8"
-helm = "3.17.3"
+aws-cli = "2.27.37"
+cmctl = "2.2.0"
+helm = "3.18.3"
 kubectl = "1.31.4"
+
