@@ -165,7 +165,6 @@ zinit wait"2" lucid atload"zicompinit; zicdreplay" for \
 
 ## Setup alias and helpers (no completions)
 zinit wait"2" lucid for \
-  OMZP::thefuck \
   OMZP::git \
   OMZP::colored-man-pages
 
