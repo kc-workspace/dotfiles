@@ -8,7 +8,7 @@ run = "kubectl --context dev:rx/a"
 
 [tasks.kdebug]
 description = 'Create debug pod on kube with admin permissions'
-run = "kubectl --context dev:rx/a run debug --namespace default --image=ubuntu --restart=Never -it --rm"
+run = "kubectl --context dev:rx/a run debug --namespace default --image=ubuntu --image-pull-policy=Always --restart=Never -it --rm"
 
 [tasks.ha]
 description = 'Run helm with admin permissions'
