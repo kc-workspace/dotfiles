@@ -28,7 +28,7 @@ jobs:
         uses: actions/cache@v4
         with:
           path: ${{ env.CHEZMOI_BIN }}
-          key: chezmoi-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('.chezmoiversion') }}
+          key: chezmoi-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('.chezmoiversion') }}-${{ hashFiles('.tool-versions') }}
       - name: Download chezmoi install script
         if: steps.cache.outputs.cache-hit != 'true'
         run: curl -fsLSo $INSTALL_CLI get.chezmoi.io
