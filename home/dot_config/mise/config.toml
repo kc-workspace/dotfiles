@@ -10,7 +10,7 @@
 "rust"                        = "1.83.0"  ## For rust package management
 "ubi:fastfetch-cli/fastfetch" = "2.31.0"  ## For fetching system information
 "ubi:mikefarah/yq"            = "4.44.6"  ## Useful commandline
-"ubi:twpayne/chezmoi"         = "2.56.0"  ## For dotfiles
+"ubi:twpayne/chezmoi"         = "2.62.6"  ## For dotfiles
 "usage"                       = "2.1.1"   ## For mise completions
 "uv"                          = "0.5.9"   ## For python package management
 
