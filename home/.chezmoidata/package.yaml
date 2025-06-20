@@ -39,6 +39,7 @@ packages:
       - mas
       - nmap
       - openssh
+      - cosign
     casks:
       - 1password@beta
       - affinity-designer
