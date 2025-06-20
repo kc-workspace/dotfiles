@@ -48,10 +48,11 @@ USER $USER
 WORKDIR $USER_HOME
 
 ## Prepare && Install chezmoi
+COPY --chown=$USER ./.chezmoiversion /tmp
 RUN mkdir -p "$CHEZMOI_HOME" \
-  && mkdir -p "$USER_BIN"
-COPY --chown=$USER ./.chezmoiversion $CHEZMOI_HOME
-RUN sudo sh -c "$(curl -fsLS git.io/chezmoi)" -- -b "$USER_BIN" -t "v$(cat .chezmoiversion)"
+  && mkdir -p "$USER_BIN" \
+  && sudo sh -c "$(curl -fsLS git.io/chezmoi)" -- -b "$USER_BIN" -t "v$(cat /tmp/.chezmoiversion)" \
+  && rm -f /tmp/.chezmoiversion
 
 ## Copy the dotfiles
 COPY --chown=$USER . $CHEZMOI_HOME
