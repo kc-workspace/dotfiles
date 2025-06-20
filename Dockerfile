@@ -66,6 +66,6 @@ RUN --mount=type=secret,id=GITHUB_TOKEN,env=GITHUB_TOKEN,required=false $USER_BI
   --exclude=encrypted
 
 ## FIXME: This only install plugins that don't have wait ice
-RUN zsh -c "source $HOME/.zshrc"
+RUN zsh -c "source $HOME/.zshrc && zinit update --all"
 
 ENTRYPOINT [ "zsh" ]
