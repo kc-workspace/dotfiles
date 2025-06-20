@@ -47,13 +47,11 @@ RUN useradd --create-home --uid 5000 --group sudo --shell $SHELL $USER \
 USER $USER
 WORKDIR $USER_HOME
 
-## Copy chezmoi version file
-COPY --chown=$USER ./.chezmoiversion $CHEZMOI_HOME
-
 ## Prepare && Install chezmoi
 RUN mkdir -p "$CHEZMOI_HOME" \
-  && mkdir -p "$USER_BIN" \
-  && sudo sh -c "$(curl -fsLS git.io/chezmoi)" -- -b "$USER_BIN" -t "v$(cat .chezmoiversion)"
+  && mkdir -p "$USER_BIN"
+COPY --chown=$USER ./.chezmoiversion $CHEZMOI_HOME
+RUN sudo sh -c "$(curl -fsLS git.io/chezmoi)" -- -b "$USER_BIN" -t "v$(cat .chezmoiversion)"
 
 ## Copy the dotfiles
 COPY --chown=$USER . $CHEZMOI_HOME
