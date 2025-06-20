@@ -31,9 +31,6 @@ ENV LC_ALL=en_US.UTF-8
 ENV LANG=en_US.UTF-8
 ENV LANGUAGE=en_US:en
 
-## Must matched with .chezmoiversion file
-ENV CHEZMOI_VERSION="2.55.0"
-
 ENV USER_HOME="/home/$USER"
 ENV USER_BIN="$USER_HOME/.local/bin"
 ENV CHEZMOI_HOME="$USER_HOME/.local/share/chezmoi"
@@ -50,10 +47,13 @@ RUN useradd --create-home --uid 5000 --group sudo --shell $SHELL $USER \
 USER $USER
 WORKDIR $USER_HOME
 
+## Copy chezmoi version file
+COPY --chown=$USER ./.chezmoiversion $CHEZMOI_HOME
+
 ## Prepare && Install chezmoi
 RUN mkdir -p "$CHEZMOI_HOME" \
   && mkdir -p "$USER_BIN" \
-  && sudo sh -c "$(curl -fsLS git.io/chezmoi)" -- -b "$USER_BIN" -t "v$CHEZMOI_VERSION"
+  && sudo sh -c "$(curl -fsLS git.io/chezmoi)" -- -b "$USER_BIN" -t "v$(cat .chezmoiversion)"
 
 ## Copy the dotfiles
 COPY --chown=$USER . $CHEZMOI_HOME
