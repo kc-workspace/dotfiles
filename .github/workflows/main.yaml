@@ -23,9 +23,9 @@ jobs:
         run: op user get --me
         env:
           OP_SERVICE_ACCOUNT_TOKEN: ${{ secrets.OP_SERVICE_ACCOUNT_TOKEN }}
-      - name: Cache chezmoi
+      - name: Restore chezmoi cache
         id: cache
-        uses: actions/cache@v4
+        uses: actions/cache/restore@v4
         with:
           path: ${{ env.CHEZMOI_BIN }}
           key: chezmoi-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('.chezmoiversion') }}-${{ hashFiles('.tool-versions') }}
@@ -35,6 +35,12 @@ jobs:
       - name: Install chezmoi
         if: steps.cache.outputs.cache-hit != 'true'
         run: sh "$INSTALL_CLI" -d -b "$CHEZMOI_BIN" -t "v$(cat .chezmoiversion)"
+      - name: Save chezmoi cache
+        if: steps.cache.outputs.cache-hit != 'true'
+        uses: actions/cache/save@v4
+        with:
+          path: ${{ env.CHEZMOI_BIN }}
+          key: chezmoi-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('.chezmoiversion') }}-${{ hashFiles('.tool-versions') }}
       - name: Add chezmoi to PATH variable
         run: echo "$CHEZMOI_BIN" >> "$GITHUB_PATH"
       - name: Get chezmoi version
