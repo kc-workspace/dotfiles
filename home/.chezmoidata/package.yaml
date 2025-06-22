@@ -7,23 +7,6 @@
 ## - file - For starship install command
 
 packages:
-  mise:
-    tools:
-      ## For npm backend
-      - nodejs
-      - bun
-      ## For go backend
-      - golang
-      ## For pipx backend
-      - python
-      - uv
-      ## For cargo backend
-      - rust
-      ## For chezmoi
-      - ubi:twpayne/chezmoi
-      - 1password
-      - jq
-      - github-cli
   darwin:
     taps:
       - homebrew/bundle
