@@ -10,10 +10,10 @@ packages:
   mise:
     tools:
       ## For npm backend
-      - node
+      - nodejs
       - bun
       ## For go backend
-      - go
+      - golang
       ## For pipx backend
       - python
       - uv
@@ -23,9 +23,7 @@ packages:
       - ubi:twpayne/chezmoi
       - 1password
       - jq
-      - gh
-      ## For zshrc
-      - pipx:thefuck
+      - github-cli
   darwin:
     taps:
       - homebrew/bundle
