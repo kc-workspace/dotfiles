@@ -64,7 +64,8 @@ RUN --mount=type=secret,id=GITHUB_TOKEN,env=GITHUB_TOKEN,required=false $USER_BI
   --purge-binary --force \
   --exclude=encrypted
 
-## FIXME: This only install plugins that don't have wait ice
-RUN zsh -c "source $HOME/.zshrc && zinit update --all"
+## NOTE: To install all plugins regardless of turbo mode is enabled or not
+## ref: https://github.com/zdharma-continuum/zinit/issues/321#issuecomment-1183650509
+RUN zsh -ic -- "@zinit-scheduler burst"
 
 ENTRYPOINT [ "zsh" ]
