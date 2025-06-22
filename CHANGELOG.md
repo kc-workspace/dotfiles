@@ -1,5 +1,32 @@
 # Changelog
 
+## [0.3.3](https://github.com/kc-workspace/dotfiles/compare/v0.3.2...v0.3.3) (2025-06-22)
+
+
+### Bug Fixes
+
+* **config:** reduce docker startup times by install zinit plugins on build time ([b31d47b](https://github.com/kc-workspace/dotfiles/commit/b31d47bcc209c5b44776d4aae22e3acf08604170))
+* **config:** update invalid .chezmoiversion file ([b1aaec3](https://github.com/kc-workspace/dotfiles/commit/b1aaec3157a35f1d846b3b8cc8f8ea2cd4168db3))
+* **config:** wrong dockerfile step ([2bcf114](https://github.com/kc-workspace/dotfiles/commit/2bcf114eeff5729296a7321f078d360a92f5e2b8))
+* **package:** update builtin packages with mise to latest name ([f4234e9](https://github.com/kc-workspace/dotfiles/commit/f4234e9e2100ecc952ac08cb493cea64022c0033))
+
+
+### Performance Improvements
+
+* add cosign to brew install ([3e7b97e](https://github.com/kc-workspace/dotfiles/commit/3e7b97eecb98c8d2fd215746a1e66e47c34111c8))
+* **config:** update zinit when build docker image instead of when run ([9ed2a43](https://github.com/kc-workspace/dotfiles/commit/9ed2a436863913d653099ba9ba97294c9e43c2cd))
+* **config:** use .chezmoiversion instead of hard code version on dockerfile ([d42b614](https://github.com/kc-workspace/dotfiles/commit/d42b614dd44e1870299c039213caecd1e79edeb4))
+* **core:** update source state change ([3632c4d](https://github.com/kc-workspace/dotfiles/commit/3632c4dc82fbd73b8c062941e9b046f8d7ab0778))
+* **core:** update source state change ([22a73d0](https://github.com/kc-workspace/dotfiles/commit/22a73d0c11727cf6ad81161592b2991414b2e1bc))
+* **core:** update source state change ([597e3be](https://github.com/kc-workspace/dotfiles/commit/597e3be974b7056925b5246376dc4c306701df70))
+* **core:** update source state change ([a5b7926](https://github.com/kc-workspace/dotfiles/commit/a5b79265b7d1c3e064621c6d5af1f03942287421))
+* **core:** update source state change ([c29c4c1](https://github.com/kc-workspace/dotfiles/commit/c29c4c1779edc8acdf8793914476c63ff799340e))
+* **core:** update source state change ([50907cf](https://github.com/kc-workspace/dotfiles/commit/50907cfe76bd0efd4fa7c20c8748a7d6edbb2994))
+* **core:** update source state change ([2077310](https://github.com/kc-workspace/dotfiles/commit/207731001379f47ac89e27cd7d7f31cf2b3e167e))
+* **deps:** upgrade chezmoi from v2.56.0 to v2.62.6 ([a7ecbc5](https://github.com/kc-workspace/dotfiles/commit/a7ecbc58f4894d43a01b2ce43bf7fc8b9fa4a3d5))
+* **deps:** upgrade chezmoi version ([7c6014a](https://github.com/kc-workspace/dotfiles/commit/7c6014abbe948fc1919fcf8c6d5784b4eb11251e))
+* **package:** remove hard code package from package.yaml file for mise and only relate on mise.toml config ([e2ade73](https://github.com/kc-workspace/dotfiles/commit/e2ade73128d1c14d1165caf20c687af916fe3fd5))
+
 ## [0.3.2](https://github.com/kc-workspace/dotfiles/compare/v0.3.1...v0.3.2) (2025-05-29)
 
 
