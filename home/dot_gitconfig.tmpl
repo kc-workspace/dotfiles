@@ -18,10 +18,10 @@
 	gpgsign = true
 
 [color]
-	diff = auto
-	status = auto
-	branch = auto
-	ui = auto
+	diff = {{ .chezmoi.config.color }}
+	status = {{ .chezmoi.config.color }}
+	branch = {{ .chezmoi.config.color }}
+	ui = {{ .chezmoi.config.color }}
 
 [color "diff"]
 	meta = blue
@@ -55,21 +55,20 @@
 	up = pull --rebase origin
 	pm = push --set-upstream origin main
 
-{{- if eq .chezmoi.os "darwin" }}
-[gpg]
+[{{ .chezmoi.config.encryption }}]
 	format = ssh
-[gpg "ssh"]
-	program = "/Applications/1Password.app/Contents/MacOS/op-ssh-sign"
-{{- end }}
+
+[{{ .chezmoi.config.encryption }} "ssh"]
+	program = "{{ .chezmoi.pathSeparator }}Applications{{ .chezmoi.pathSeparator }}1Password.app{{ .chezmoi.pathSeparator }}Contents{{ .chezmoi.pathSeparator }}MacOS{{ .chezmoi.pathSeparator }}{{ .chezmoi.config.onepassword.command }}-ssh-sign"
 
 [pull]
 	rebase = false
 
-[credential "https://github.com"]
+[credential "https{{ .chezmoi.pathListSeparator }}{{ .chezmoi.pathSeparator }}{{ .chezmoi.pathSeparator }}github.com"]
 	useHttpPath = true
 
 [column]
-	ui = auto
+	ui = {{ .chezmoi.config.color }}
 
 [rerere]
 	enabled = true
@@ -78,25 +77,23 @@
 	sort = -committerdate
 
 [filter "lfs"]
-	smudge = git-lfs smudge -- %f
-	process = git-lfs filter-process
+	smudge = {{ .chezmoi.config.git.command }}-lfs smudge -- %f
+	process = {{ .chezmoi.config.git.command }}-lfs filter-process
 	required = true
-	clean = git-lfs clean -- %f
+	clean = {{ .chezmoi.config.git.command }}-lfs clean -- %f
 
-[includeIf "gitdir:~/Desktop/Personal/"]
-  path = ~/.git/personal/.gitconfig
+[includeIf "gitdir{{ .chezmoi.pathListSeparator }}~{{ .chezmoi.pathSeparator }}Documents{{ .chezmoi.pathSeparator }}Personal{{ .chezmoi.pathSeparator }}"]
+  path = ~{{ .chezmoi.pathSeparator }}.{{ .chezmoi.config.git.command }}{{ .chezmoi.pathSeparator }}personal{{ .chezmoi.pathSeparator }}.gitconfig
 
-[includeIf "gitdir:~/.local/share/chezmoi/"]
-  path = ~/.git/personal/.gitconfig
+[includeIf "gitdir{{ .chezmoi.pathListSeparator }}~{{ .chezmoi.pathSeparator }}.local{{ .chezmoi.pathSeparator }}share{{ .chezmoi.pathSeparator }}chezmoi{{ .chezmoi.pathSeparator }}"]
+  path = ~{{ .chezmoi.pathSeparator }}.{{ .chezmoi.config.git.command }}{{ .chezmoi.pathSeparator }}personal{{ .chezmoi.pathSeparator }}.gitconfig
 
-[includeIf "gitdir:/tmp/"]
-  path = ~/.git/personal/.gitconfig
+[includeIf "gitdir{{ .chezmoi.pathListSeparator }}{{ .chezmoi.pathSeparator }}tmp{{ .chezmoi.pathSeparator }}"]
+  path = ~{{ .chezmoi.pathSeparator }}.{{ .chezmoi.config.git.command }}{{ .chezmoi.pathSeparator }}personal{{ .chezmoi.pathSeparator }}.gitconfig
 
-[includeIf "gitdir:~/Desktop/Works/Smartertravel.old/"]
-  path = ~/.git/personal/.gitconfig
+[includeIf "gitdir{{ .chezmoi.pathListSeparator }}~{{ .chezmoi.pathSeparator }}Documents{{ .chezmoi.pathSeparator }}Works{{ .chezmoi.pathSeparator }}Smartertravel{{ .chezmoi.pathSeparator }}"]
+  path = ~{{ .chezmoi.pathSeparator }}.{{ .chezmoi.config.git.command }}{{ .chezmoi.pathSeparator }}works{{ .chezmoi.pathSeparator }}.gitconfig.st
 
-[includeIf "gitdir:~/Desktop/Works/Smartertravel/"]
-  path = ~/.git/works/.gitconfig.st
+[includeIf "gitdir{{ .chezmoi.pathListSeparator }}~{{ .chezmoi.pathSeparator }}Documents{{ .chezmoi.pathSeparator }}Works{{ .chezmoi.pathSeparator }}Rx{{ .chezmoi.pathSeparator }}"]
+  path = ~{{ .chezmoi.pathSeparator }}.{{ .chezmoi.config.git.command }}{{ .chezmoi.pathSeparator }}works{{ .chezmoi.pathSeparator }}.gitconfig.rx
 
-[includeIf "gitdir:~/Desktop/Works/Rx/"]
-  path = ~/.git/works/.gitconfig.rx
