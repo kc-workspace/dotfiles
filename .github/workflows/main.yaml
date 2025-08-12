@@ -18,7 +18,7 @@ jobs:
       - name: Set up repository
         uses: actions/checkout@v4
       - name: Set up 1Password CLI
-        uses: 1password/install-cli-action@v1
+        uses: 1password/install-cli-action@v2
       - name: Check 1Password account
         run: op user get --me
         env:
