@@ -1,5 +1,24 @@
 # Changelog
 
+## [0.4.0](https://github.com/kc-workspace/dotfiles/compare/v0.3.3...v0.4.0) (2025-08-21)
+
+
+### Performance Improvements
+
+* **config:** add push.autoSetupRemote=true for set up remote on first branch ([c6b3f58](https://github.com/kc-workspace/dotfiles/commit/c6b3f58a33f3eb8720a95e37deb3429fba712bf0))
+* **core:** update source state change ([6e2eaf8](https://github.com/kc-workspace/dotfiles/commit/6e2eaf81bd2e24979ee06c0202f6e87241db273f))
+* **core:** update source state change ([82832df](https://github.com/kc-workspace/dotfiles/commit/82832dfc0c35393ae5843953f40325f4e6a0f866))
+* **core:** update source state change ([86e30c4](https://github.com/kc-workspace/dotfiles/commit/86e30c4ca71c6d56dc85f5c7fe105c08b2d21486))
+* **core:** update source state change ([09e2b67](https://github.com/kc-workspace/dotfiles/commit/09e2b67ef019575f1d770565aa76b96cff45749d))
+* **core:** update source state change ([1cadb7f](https://github.com/kc-workspace/dotfiles/commit/1cadb7f3feac28d1556232b8f8746768fe330113))
+* **core:** update source state change ([dfa5a41](https://github.com/kc-workspace/dotfiles/commit/dfa5a4175609c83d9a3022dd7416b311b49553d7))
+* **deps:** upgrade chezmoi from v2.62.6 to v2.64.0 ([8b76372](https://github.com/kc-workspace/dotfiles/commit/8b763722500198ba274382fec6acc4c2dc390661))
+
+
+### Miscellaneous Chores
+
+* release 0.4.0 ([5951c44](https://github.com/kc-workspace/dotfiles/commit/5951c445127d92e8a57258322bdf9e78f78cc2f5))
+
 ## [0.3.3](https://github.com/kc-workspace/dotfiles/compare/v0.3.2...v0.3.3) (2025-06-22)
 
 
