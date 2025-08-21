@@ -1,24 +1,27 @@
 [tools]
 1password-cli = "2.30.3"  ## For password management
-bun           = "1.1.38"  ## For node package managemet
-fzf           = "0.57.0"  ## some zsh plugin required
-github-cli    = "2.63.2"  ## Useful commandline
+bun           = "1.2.20"
+fzf           = "0.65.1"
+github-cli    = "2.76.2"
 golang        = "1.23.4"  ## For golang package management
-jq            = "1.7.1"   ## Useful commandline
+jq            = "1.8.1"
 nodejs        = "22.12.0" ## For node runtime
 python        = "3.13.1"  ## For python runtime
-rust          = "1.83.0"  ## For rust package management
-fastfetch     = "2.31.0"  ## For fetching system information
-yq            = "4.44.6"  ## Useful commandline
+rust          = "1.89.0"
+fastfetch     = "2.50.2"
+yq            = "4.47.1"
 chezmoi       = "2.64.0"
-usage         = "2.1.1"   ## For mise completions
-uv            = "0.5.9"   ## For python package management
+usage         = "2.2.2"
+uv            = "0.8.12"
+go            = "1.25.0"
+codex         = "0.23.0"
 
 [alias]
 1password-cli = "asdf:kc-workspace/asdf-1password"
 fastfetch     = "ubi:fastfetch-cli/fastfetch"
 yq            = "ubi:mikefarah/yq"
 chezmoi       = "ubi:twpayne/chezmoi"
+codex         = "npm:@openai/codex"
 
 [settings]
 env_file               = ".env"
