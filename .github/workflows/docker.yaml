@@ -83,13 +83,13 @@ jobs:
             "GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }}"
 
       - name: Attest Docker Hub
-        uses: actions/attest-build-provenance@v2
+        uses: actions/attest-build-provenance@v3
         with:
           subject-name: ${{ env.DH_REGISTRY }}/${{ env.DH_NAME }}
           subject-digest: ${{ steps.docker-push.outputs.digest }}
           push-to-registry: true
       - name: Attest GitHub Container Registry
-        uses: actions/attest-build-provenance@v2
+        uses: actions/attest-build-provenance@v3
         with:
           subject-name: ${{ env.GH_REGISTRY }}/${{ env.GH_NAME }}
           subject-digest: ${{ steps.docker-push.outputs.digest }}
