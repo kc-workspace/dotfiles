@@ -16,7 +16,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Set up repository
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
       - name: Set up 1Password CLI
         uses: 1password/install-cli-action@v2
       - name: Check 1Password account
