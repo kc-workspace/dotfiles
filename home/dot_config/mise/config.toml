@@ -1,34 +1,33 @@
 [tools]
 1password-cli = "2.30.3"  ## For password management
-bun           = "1.2.20"
-fzf           = "0.65.1"
-github-cli    = "2.76.2"
-golang        = "1.23.4"  ## For golang package management
+bun           = "1.3.1"
+fzf           = "0.66.0"
+github-cli    = "2.82.1"
+go            = "1.25.5"  ## For golang package management
 jq            = "1.8.1"
 nodejs        = "22.12.0" ## For node runtime
 python        = "3.13.1"  ## For python runtime
 rust          = "1.89.0"
-fastfetch     = "2.50.2"
-yq            = "4.47.1"
+fastfetch     = "2.54.0"
+yq            = "4.48.1"
 chezmoi       = "2.64.0"
-usage         = "2.2.2"
-uv            = "0.8.12"
-go            = "1.25.0"
-codex         = "0.23.0"
+usage         = "2.4.0"
+uv            = "0.9.5"
+codex         = "0.77.0"
 
-[alias]
+[tool_alias]
 1password-cli = "asdf:kc-workspace/asdf-1password"
-fastfetch     = "ubi:fastfetch-cli/fastfetch"
-yq            = "ubi:mikefarah/yq"
-chezmoi       = "ubi:twpayne/chezmoi"
+fastfetch     = "github:fastfetch-cli/fastfetch"
+yq            = "github:mikefarah/yq"
+chezmoi       = "github:twpayne/chezmoi"
 codex         = "npm:@openai/codex"
 
 [settings]
-env_file               = ".env"
-disable_backends       = ["spm", "dotnet", "gem"]
-not_found_auto_install = true
-use_versions_host      = false ## NOTE: https://github.com/jdx/mise/discussions/4878
-pin                    = true
+disable_backends                    = ["spm", "dotnet", "gem", "ubi"]
+not_found_auto_install              = true
+use_versions_host                   = false ## NOTE: https://github.com/jdx/mise/discussions/4878
+pin                                 = true
+idiomatic_version_file_enable_tools = ["node"]
 
 [settings.status]
 show_env      = true
@@ -37,7 +36,10 @@ missing_tools = "always"
 truncate      = false
 
 [settings.npm]
-bun = true
+package_manager = "bun"
+
+[settings.pipx]
+uvx = true
 
 [env]
 _.file = '.env'
