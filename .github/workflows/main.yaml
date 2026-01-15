@@ -16,7 +16,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Set up repository
-        uses: actions/checkout@v6
+        uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
       - name: Set up 1Password CLI
         uses: 1password/install-cli-action@v2
       - name: Check 1Password account
@@ -25,7 +25,7 @@ jobs:
           OP_SERVICE_ACCOUNT_TOKEN: ${{ secrets.OP_SERVICE_ACCOUNT_TOKEN }}
       - name: Restore chezmoi cache
         id: cache
-        uses: actions/cache/restore@v4
+        uses: actions/cache/restore@9255dc7a253b0ccc959486e2bca901246202afeb # v5.0.1
         with:
           path: ${{ env.CHEZMOI_BIN }}
           key: chezmoi-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('.chezmoiversion') }}-${{ hashFiles('.tool-versions') }}
@@ -37,7 +37,7 @@ jobs:
         run: sh "$INSTALL_CLI" -d -b "$CHEZMOI_BIN" -t "v$(cat .chezmoiversion)"
       - name: Save chezmoi cache
         if: steps.cache.outputs.cache-hit != 'true'
-        uses: actions/cache/save@v4
+        uses: actions/cache/save@9255dc7a253b0ccc959486e2bca901246202afeb # v5.0.1
         with:
           path: ${{ env.CHEZMOI_BIN }}
           key: chezmoi-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('.chezmoiversion') }}-${{ hashFiles('.tool-versions') }}
