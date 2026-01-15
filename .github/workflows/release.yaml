@@ -1,4 +1,4 @@
-name: Prepare release PR
+name: Release please
 
 on:
   push:
