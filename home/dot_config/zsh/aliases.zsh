@@ -14,6 +14,9 @@ alias f="fd"
 #   - vim alternative
 alias v="nvim"
 
+#   - visual-studio-code
+alias code="code-insiders"
+
 #   - zinit
 alias zis="zinit zstatus"
 alias zit="zinit times"
@@ -25,9 +28,6 @@ alias cza="chezmoi add"
 alias cze="chezmoi edit"
 alias czi="chezmoi init --apply"
 alias czc="chezmoi cd"
-
-#   - vscode
-alias code="code-insiders"
 
 #   - aws
 alias asl="aws sso login"
