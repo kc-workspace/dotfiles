@@ -10,6 +10,7 @@ This is my personal dotfiles (configuration and settings for each program).
   - [To update local machine from remote repository](#to-update-local-machine-from-remote-repository)
   - [To apply state to your local machine](#to-apply-state-to-your-local-machine)
   - [To add new file from local machine](#to-add-new-file-from-local-machine)
+  - [To re-add changes file from local machine](#to-re-add-changes-file-from-local-machine)
   - [To remove file from current source](#to-remove-file-from-current-source)
 - [Docker](#docker)
   - [Build docker image](#build-docker-image)
@@ -32,7 +33,7 @@ Below are a list of configuration I have on each categories.
 [zinit-url]: https://github.com/zdharma-continuum/zinit
 
 [brew-packages-path]: ./home/.chezmoidata/package.yaml
-[cli-tools-path]: ./home/dot_tool-versions
+[cli-tools-path]: ./home/dot_config/mise/config.toml
 
 ## Prerequisite
 
@@ -122,6 +123,11 @@ sequenceDiagram
 chezmoi add "<filepath>"
 chezmoi add --encrypt "<filepath>"
 ```
+
+### To re-add changes file from local machine
+
+When you manually update local file on your local machine,
+this command will help you to update the
 
 ### To remove file from current source
 
