@@ -14,13 +14,14 @@ packages:
       - ca-certificates
       - cloc
       - coreutils
+      - cosign
       - curl
       - git
+      - lua
       - luarocks
       - mas
       - nmap
       - openssh
-      - cosign
     casks:
       - 1password@beta
       - affinity-designer
@@ -31,35 +32,37 @@ packages:
       - chatgpt
       - claude
       - docker
-      - firefox@developer-edition
+      - docker-desktop
       - font-jetbrains-mono
       - font-jetbrains-mono-nerd-font
       - gpg-suite
-      - jetbrains-toolbox
+      - keybase
       - logi-options+
       - setapp
       - slack
       - visual-studio-code-insiders
       - wezterm
     mas:
-      - id: 424390742
-        name: Compressor
-      - id: 634159523
-        name: MainStage
+      - id: 1569813296
+        name: 1Password for Safari
       - id: 424389933
         name: Final Cut Pro
-      - id: 634148309
-        name: Logic Pro
       - id: 409183694
         name: Keynote
+      - id: 441258766
+        name: Magnet
       - id: 409203825
         name: Numbers
       - id: 409201541
         name: Pages
-      - id: 441258766
-        name: Magnet
       - id: 497799835
         name: Xcode
+      # - id: 424390742
+      #   name: Compressor
+      # - id: 634159523
+      #   name: MainStage
+      # - id: 634148309
+      #   name: Logic Pro
   linux:
     apts:
       - gpg
