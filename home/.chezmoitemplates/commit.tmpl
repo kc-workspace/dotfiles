@@ -1,3 +1,4 @@
+{{ $homeDir := .chezmoi.homeDir }}
 {{- with .chezmoi.status }}
 
 perf(core): update source state change
@@ -6,9 +7,9 @@ perf(core): update source state change
 
 Files updated:
 {{ range . -}}
-{{ if and (eq .X 'A') (eq .Y '.') -}}Add {{ .Path | trimPrefix .chezmoi.homeDir }}
-{{ else if and (eq .X 'D') (eq .Y '.') -}}Remove {{ .Path | trimPrefix .chezmoi.homeDir }}
-{{ else if and (eq .X 'M') (eq .Y '.') -}}Update {{ .Path | trimPrefix .chezmoi.homeDir }}
+{{ if and (eq .X 'A') (eq .Y '.') -}}Add {{ .Path | trimPrefix $homeDir }}
+{{ else if and (eq .X 'D') (eq .Y '.') -}}Remove {{ .Path | trimPrefix $homeDir }}
+{{ else if and (eq .X 'M') (eq .Y '.') -}}Update {{ .Path | trimPrefix $homeDir }}
 {{ else }}{{with (printf "unsupported XY: %q" (printf "%c%c" .X .Y)) }}{{ fail . }}{{ end }}
 {{ end }}
 {{- end -}}
@@ -18,8 +19,8 @@ Files updated:
 
 Files changed:
 {{ range . -}}
-{{ if and (eq .X 'R') (eq .Y '.') }}Change attributes of {{ .Path | trimPrefix .chezmoi.homeDir }}
-{{ else if and (eq .X 'C') (eq .Y '.') -}}Copy {{ .OrigPath | trimPrefix .chezmoi.homeDir }} to {{ .Path | trimPrefix .chezmoi.homeDir }}
+{{ if and (eq .X 'R') (eq .Y '.') }}Change attributes of {{ .Path | trimPrefix $homeDir }}
+{{ else if and (eq .X 'C') (eq .Y '.') -}}Copy {{ .OrigPath | trimPrefix $homeDir }} to {{ .Path | trimPrefix $homeDir }}
 {{ else }}{{with (printf "unsupported XY: %q" (printf "%c%c" .X .Y)) }}{{ fail . }}{{ end }}
 {{ end }}
 {{- end -}}
