@@ -6,9 +6,9 @@ perf(core): update source state change
 
 Files updated:
 {{ range . -}}
-{{ if and (eq .X 'A') (eq .Y '.') -}}Add {{ .Path | targetRelPath }}
-{{ else if and (eq .X 'D') (eq .Y '.') -}}Remove {{ .Path | targetRelPath }}
-{{ else if and (eq .X 'M') (eq .Y '.') -}}Update {{ .Path | targetRelPath }}
+{{ if and (eq .X 'A') (eq .Y '.') -}}Add {{ .Path | trimPrefix .chezmoi.homeDir }}
+{{ else if and (eq .X 'D') (eq .Y '.') -}}Remove {{ .Path | trimPrefix .chezmoi.homeDir }}
+{{ else if and (eq .X 'M') (eq .Y '.') -}}Update {{ .Path | trimPrefix .chezmoi.homeDir }}
 {{ else }}{{with (printf "unsupported XY: %q" (printf "%c%c" .X .Y)) }}{{ fail . }}{{ end }}
 {{ end }}
 {{- end -}}
@@ -18,8 +18,8 @@ Files updated:
 
 Files changed:
 {{ range . -}}
-{{ if and (eq .X 'R') (eq .Y '.') }}Change attributes of {{ .Path | targetRelPath }}
-{{ else if and (eq .X 'C') (eq .Y '.') -}}Copy {{ .OrigPath | targetRelPath }} to {{ .Path | targetRelPath }}
+{{ if and (eq .X 'R') (eq .Y '.') }}Change attributes of {{ .Path | trimPrefix .chezmoi.homeDir }}
+{{ else if and (eq .X 'C') (eq .Y '.') -}}Copy {{ .OrigPath | trimPrefix .chezmoi.homeDir }} to {{ .Path | trimPrefix .chezmoi.homeDir }}
 {{ else }}{{with (printf "unsupported XY: %q" (printf "%c%c" .X .Y)) }}{{ fail . }}{{ end }}
 {{ end }}
 {{- end -}}
