@@ -5,7 +5,7 @@
 shell-integration-features = cursor,sudo,no-title,ssh-env,ssh-terminfo,path
 
 quick-terminal-position = bottom
-keybind = "global:super+shift+'=toggle_quick_terminal"
+keybind                 = "global:super+shift+'=toggle_quick_terminal"
 
 ## =====================================================
 ## Themes
@@ -20,11 +20,14 @@ font-size   = 17
 ## I like Atom One Dark theme
 theme = One Double Dark
 
-background-opacity = 0.85
-background-blur = 20
+window-width  = 120
+window-height = 25
 
 window-padding-x = 10
 window-padding-y = 0, 6
 
+background-opacity = 0.85
+background-blur    = 20
+
 macos-titlebar-proxy-icon = hidden
-macos-icon = paper
+macos-icon                = paper
