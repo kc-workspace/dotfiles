@@ -11,7 +11,7 @@ rust          = "1.89.0"
 fastfetch     = "2.54.0"
 yq            = "4.48.1"
 chezmoi       = "2.64.0"
-usage         = "2.4.0"
+usage         = "2.12.0"
 uv            = "0.9.5"
 codex         = "0.77.0"
 
