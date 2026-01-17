@@ -26,7 +26,6 @@ zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
 ZINIT_HOME="$HOME/.local/share/zinit/zinit.git"
 source "$ZINIT_HOME/zinit.zsh"
 
-
 ## Setup starship prompt
 ## https://starship.rs
 zinit ice as"command" from"gh-r" \
