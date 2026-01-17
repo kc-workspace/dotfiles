@@ -25,9 +25,12 @@ alias zir="zinit report --all"
 #   - chezmoi
 alias cz="chezmoi"
 alias cza="chezmoi add"
+alias czr="chezmoi re-add"
 alias cze="chezmoi edit"
 alias czi="chezmoi init --apply"
 alias czc="chezmoi cd"
+alias czs="chezmoi status"
+alias czd="chezmoi diff"
 
 #   - aws
 alias asl="aws sso login"
