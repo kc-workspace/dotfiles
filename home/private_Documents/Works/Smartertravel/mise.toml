@@ -1,6 +1,6 @@
 [env]
 AWS_PROFILE = "cognius-dev"
-KUBECONFIG = "{{env.HOME}}/.kube/works/config.st"
+KUBECONFIG  = "{{env.HOME}}/.kube/works/config.st"
 
 [tasks.ka]
 description = 'Run kubectl with admin permissions'
