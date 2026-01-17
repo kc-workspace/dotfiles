@@ -1,168 +1,901 @@
-# Wait 500 milliseconds for commands executed by starship
-command_timeout = 500
-# Wait 30 milliseconds for starship to scan files
-scan_timeout = 30
-# To inserts blank line between shell prompts.
-add_newline = true
+## >============================================>
+## Global Segments
+## <============================================<
 
+## https://starship.rs/config/#default-prompt-format
 format = """
-$username\
-$directory\
-$vcsh\
-$fossil_branch\
-$fossil_metrics\
-$git_branch\
-$git_commit\
-$git_state\
-$git_metrics\
-$git_status\
-$hg_branch\
-$pijul_channel\
-$package\
-$docker_context\
-$kubernetes\
-$c\
-$cmake\
-$cobol\
-$daml\
-$dart\
-$deno\
-$dotnet\
-$elixir\
-$elm\
-$erlang\
-$fennel\
-$golang\
-$guix_shell\
-$haskell\
-$haxe\
-$helm\
-$java\
-$julia\
-$kotlin\
-$gradle\
-$lua\
-$nim\
-$nodejs\
-$ocaml\
-$opa\
-$perl\
-$php\
-$pulumi\
-$purescript\
-$python\
-$rlang\
-$ruby\
-$rust\
-$scala\
-$swift\
-$terraform\
-$vlang\
-$zig\
-$buf\
-$nix_shell\
-$conda\
-$aws\
-$gcloud\
-$azure\
-$direnv\
-$cmd_duration\
-
-$fill\
-$shell\
-$time\
-$memory_usage\
+$username$sudo$hostname$localip\
+$battery$memory_usage$jobs\
 
 $line_break\
 
-$hostname\
-$localip\
-$os\
-$sudo\
-$battery\
-$container\
-$jobs\
-$status\
-$character
+$directory\
+$git_branch$git_commit$git_status$git_metrics$git_state\
+$hg_branch$hg_state\
+$fossil_branch$fossil_metrics\
+$pijul_channel\
+$package\
+$bun$deno$nodejs\
+$conda$meson$pixi\
+$gradle$kotlin$java\
+${custom.terragrunt}$terraform$pulumi\
+$container$singularity$kubernetes$docker_context\
+$buf$c$cpp$cmake$cobol$crystal\
+$daml$dart$dotnet$elixir$elm$erlang\
+$fennel$fortran$gleam$golang$guix_shell\
+$haskell$haxe$julia$lua$mojo\
+$nats$netns$nim$nix_shell$ocaml$odin$opa\
+$perl$php$purescript$quarto\
+$rlang$raku$red$ruby$rust\
+$scala$solidity$spack$swift\
+$typst$vagrant$vlang$vcsh\
+$xmake$zig\
+$mise$direnv\
+$aws$gcloud$azure$openstack\
+
+$fill\
+$shell$time\
+$line_break\
+
+$shlvl$character
 """
 
-continuation_prompt = '▶▶ '
+## https://starship.rs/advanced-config/#enable-right-prompt
+right_format = """
+$status$os$cmd_duration
+"""
 
+## https://starship.rs/config/#options
+command_timeout     = 500
+scan_timeout        = 30
+add_newline         = false
+follow_symlinks     = false
+continuation_prompt = '[󰄾](dimmed bold) '
+
+palette = 'custom'
+[palettes.custom]
+teal         = '30'
+bright-teal  = '37'
+brown        = '124'
+bright-brown = '160'
+violet       = '165'
+bright-violet= '177'
+orange       = '208'
+bright-orange= '214'
+pink         = '218'
+bright-pink  = '225'
+gray         = '244'
+bright-gray  = '253'
+
+## >============================================>
+## Line 1 Left Prompt Segments
+## <============================================<
+
+## https://starship.rs/config/#username
 [username]
-disabled = false
+disabled    = false
+format      = '([\[[@$user]($style)\]](dimmed $style) )'
+style_root  = 'red'
+style_user  = 'gray'
 show_always = false
-format = '[@$user]($style) '
-style_root = 'red'
-style_user = 'dimmed white'
-
-[directory]
-truncation_length = 999
-truncate_to_repo = true
-
-[hostname]
-disabled = true
-ssh_only = false
-trim_at = '.'
-format = '[$ssh_symbol$hostname]($style) '
-
-[battery]
-disabled = false
-
-[[battery.display]]
-threshold = 20
-
-[time]
-disabled = false
-format = 'at [$time]($style) '
-use_12hr = false
-utc_time_offset = 'local'
-
-[character]
-disabled = false
-success_symbol = '[❯](bold green) '
-error_symbol = '[❯](bold red) '
-
-[status]
-disabled = false
-format = '[$symbol$status]($style) '
-map_symbol = true
-pipestatus = true
-pipestatus_segment_format = '[$status]($style)'
-pipestatus_format = '\[$pipestatus\] => [$common_meaning$signal_name$maybe_int]($style) '
-
-[os]
-disabled = true
-format = 'on [$symbol]($style)'
-
-[memory_usage]
-disabled = false
-threshold = 80
-format = '[mem ${ram_pct}( | ${swap_pct})]($style) '
-style = 'dimmed red'
-
-[shell]
-disabled = false
-
-[direnv]
-disabled = false
-detect_files = ['.envrc']
-
-[kubernetes]
-disabled = false
-format = 'via [$symbol$context( \($namespace\))]($style) '
-## `deploys` directory is the kubernetes deployment on cognius repository
-detect_folders = ['deploys']
 
 [sudo]
 disabled = false
+format   = '[\[[$symbol]($style)\]](dimmed $style) '
+style    = 'blue'
+symbol   = '󰞄'
 
+## https://starship.rs/config/#hostname
+[hostname]
+disabled   = false
+format     = '([\[[($ssh_symbol )$hostname]($style)\]](dimmed $style) )'
+style      = 'gray'
+ssh_symbol = '󰣀'
+ssh_only   = true
+
+## https://starship.rs/config/#local-ip
 [localip]
+disabled = false
+format   = '([\[[$localipv4]($style)\]](dimmed $style) )'
+style    = 'gray'
+ssh_only = true
+
+## https://starship.rs/config/#jobs
+[jobs]
+disabled         = false
+format           = '([\[[$symbol$number]($style)\]](dimmed $style) )'
+style            = 'yellow'
+symbol           = ''
+symbol_threshold = 1
+number_threshold = 2
+
+## https://starship.rs/config/#battery
+[battery]
+disabled           = false
+format             = '([\[[$symbol$percentage]($style)\]](dimmed $style) )'
+full_symbol        = '󰁹'
+charging_symbol    = '󰂄'
+discharging_symbol = '󰂃'
+empty_symbol       = '󰂎'
+unknown_symbol     = '󰁽'
+[[battery.display]]
+threshold = 10
+style     = 'bright-red'
+[[battery.display]]
+threshold = 30
+style     = 'bright-yellow'
+
+## https://starship.rs/config/#memory-usage
+[memory_usage]
+disabled  = false
+format    = '([\[[󰍛 $ram]($style)\]](dimmed $style) )([\[[󰍛󰓢 $swap]($style)\]](dimmed $style) )'
+style     = 'bright-yellow'
+symbol    = ''
+threshold = 90
+
+## >============================================>
+## Line 1 Right Prompt Segments
+## <============================================<
+
+
+
+## >============================================>
+## Line 2 Left Prompt Segments
+## <============================================<
+
+## https://starship.rs/config/#directory
+[directory]
+disabled          = false
+format            = '([$path]($style)([\($read_only\)]($read_only_style)) )'
+style             = 'bold cyan'
+read_only         = '󰌾'
+truncate_to_repo  = true
+truncation_length = 20
+
+## >-------------------------------------------->
+##   1. Git Related Section
+## <--------------------------------------------<
+
+## https://starship.rs/config/#git-branch
+[git_branch]
+disabled           = false
+format             = '([$symbol $branch(:$remote_branch)]($style) )'
+style              = 'purple'
+symbol             = '󰘬'
+always_show_remote = false
+ignore_bare_repo   = true
+only_attached      = true
+
+## https://starship.rs/config/#git-commit
+[git_commit]
+disabled           = false
+format             = '([󰘬 $hash]($style) )'
+style              = 'purple'
+only_detached      = true
+commit_hash_length = 8
+tag_disabled       = true
+
+## https://starship.rs/config/#git-status
+[git_status]
+disabled           = false
+format             ='([\[$all_status$ahead_behind\]]($style) )'
+style              = 'bold dimmed'
+ahead              = '󰶼${count}'
+behind             = '󰶹${count}'
+diverged           = '󰶼${ahead_count}|${behind_count}󰶹'
+conflicted         = '[=](red)'
+stashed            = '[$](white)'
+deleted            = '[X](blue)'
+renamed            = '[>](cyan)'
+modified           = '[!](yellow)'
+typechanged        = '[~](blue)'
+staged             = '[+](green)'
+untracked          = '[?](purple)'
+ignore_submodules  = true
+use_git_executable = true
+
+## https://starship.rs/config/#git-metrics
+[git_metrics]
+disabled           = true
+format             = '([+$added]($added_style) )([-$deleted]($deleted_style) )'
+added_style        = 'green'
+deleted_style      = 'red'
+ignore_submodules  = true
+only_nonzero_diffs = true
+
+## https://starship.rs/config/#git-state
+[git_state]
+disabled    = false
+format      = '(\([$state( $progress_current/$progress_total)]($style)\) )'
+style       = 'bold yellow'
+rebase      = 'REBASING'
+merge       = 'MERGING'
+revert      = 'REVERTING'
+cherry_pick = 'CHERRY-PICKING'
+bisect      = 'BISECTING'
+
+## https://starship.rs/config/#mercurial-branch
+[hg_branch]
 disabled = true
 
+## https://starship.rs/config/#mercurial-state
+[hg_state]
+disabled = true
+
+## https://starship.rs/config/#fossil-branch
+[fossil_branch]
+disabled = true
+
+## https://starship.rs/config/#fossil-metrics
+[fossil_metrics]
+disabled = true
+
+[pijul_channel]
+disabled = true
+
+## >-------------------------------------------->
+##   2. Package Related Section
+## <--------------------------------------------<
+
+[package]
+disabled        = false
+format          = '([is](dimmed) [$symbol $version]($style) )'
+style           = 'blue'
+symbol          = '󰏖'
+display_private = false
+
+## >-------------------------------------------->
+##   3. Javascript/Typescript Related Section
+## <--------------------------------------------<
+
+## https://starship.rs/config/#bun
+[bun]
+disabled = false
+format   = '([via](dimmed) [$symbol $version]($style) )'
+style    = 'blue'
+symbol   = ''
+
+## https://starship.rs/config/#deno
+[deno]
+disabled = false
+format   = '([via](dimmed) [$symbol $version]($style) )'
+style    = 'blue'
+symbol   = ''
+
+## https://starship.rs/config/#node-js
+[nodejs]
+disabled          = false
+format            = '([via](dimmed) [$symbol $version( != $engines_version)]($style) )'
+style             = 'blue'
+not_capable_style = 'red'
+symbol            = '󰎙'
+
+## >-------------------------------------------->
+##   4. Python Related Section
+## <--------------------------------------------<
+
+## https://starship.rs/config/#conda
+[conda]
+disabled = false
+format   = '([via](dimmed) [$symbol $environment]($style) )'
+style    = 'green'
+symbol   = ''
+
+## https://starship.rs/config/#meson
+[meson]
+disabled = true
+format   = '([via](dimmed) [$symbol $version]($style) )'
+style    = 'blue'
+symbol   = '󰯙'
+
+## https://starship.rs/config/#pixi
+[pixi]
+disabled = true
+format   = '([via](dimmed) [$symbol $version(\($environment\))]($style) )'
+style    = 'blue'
+symbol   = 'pixi'
+
+## https://starship.rs/config/#python
+[python]
+disabled = false
+format   = '([on](dimmed) [$symbol $pyenv_prefix$version(\($virtualenv\))]($style) )'
+style    = 'blue'
+symbol   = ''
+
+## >-------------------------------------------->
+##   5. Java Related Section
+## <--------------------------------------------<
+
+## https://starship.rs/config/#gradle
+[gradle]
+disabled = false
+format   = '([via](dimmed) [$symbol $version]($style) )'
+style    = 'blue'
+symbol   = ''
+
+## https://starship.rs/config/#kotlin
+[kotlin]
+disabled = false
+format   = '([on](dimmed) [$symbol $version]($style) )'
+style    = 'blue'
+symbol   = ''
+
+## https://starship.rs/config/#java
+[java]
+disabled = false
+format   = '([on](dimmed) [$symbol $version]($style) )'
+style    = 'blue'
+symbol   = '󰬷'
+
+## >-------------------------------------------->
+##   6. Infrastructure Related Section
+## <--------------------------------------------<
+
+## https://starship.rs/config/#custom-commands
+[custom.terragrunt]
+disabled       = false
+format         = '([via](dimmed) [$symbol $output]($style) )'
+style          = 'blue'
+symbol         = '󰬁󰫴'
+description    = 'The currently terragrunt version'
+command        = 'terragrunt --version | cut -d " " -f 3'
+detect_files   = ['root.hcl', 'terragrunt.hcl', 'terragrunt.stack.hcl']
+require_repo   = true
+ignore_timeout = true
+
+## https://starship.rs/config/#terraform
+[terraform]
+disabled          = false
+format            = '([via](dimmed) [$symbol $version]($style) )'
+style             = 'blue'
+symbol            = ''
+detect_extensions = ['tf', 'tfvars', 'tfplan', 'tfstate', 'hcl']
+
+## https://starship.rs/config/#pulumi
+[pulumi]
+disabled       = false
+format         = '([via](dimmed) [$symbol ($username@)$stack]($style) )'
+style          = 'blue'
+symbol         = ''
+search_upwards = true
+
+## >-------------------------------------------->
+##   7. Containerize Related Section
+## <--------------------------------------------<
+
+## https://starship.rs/config/#container
+[container]
+disabled = false
+format   = '([in](dimmed) [$symbol $name]($style) )'
+style    = 'blue'
+symbol   = '⬢'
+
+## https://starship.rs/config/#singularity
+[singularity]
+disabled = true
+format   = '([via](dimmed) [$symbol $env]($style) )'
+style    = 'blue'
+symbol   = ''
+
+## https://starship.rs/config/#kubernetes
+[kubernetes]
+disabled = false
+format   = '([on](dimmed) [$symbol $context]($style) )'
+style    = 'blue'
+symbol   = ''
+
+## https://starship.rs/config/#docker-context
+[docker_context]
+disabled       = false
+format         = '([on](dimmed) [$symbol $context]($style) )'
+style          = 'blue'
+symbol         = '󰡨'
+detect_folders = ['docker']
+
+## >-------------------------------------------->
+##   8. Others Languages Related Section
+## <--------------------------------------------<
+
+## https://starship.rs/config/#buf
+[buf]
+disabled = false
+format   = '([on](dimmed) [$symbol $version]($style) )'
+style    = 'blue'
+symbol   = '󰿘'
+
+## https://starship.rs/config/#c
+[c]
+disabled = false
+format   = '([on](dimmed) [$symbol $name\($version\)]($style) )'
+style    = 'blue'
+symbol   = ''
+
+## https://starship.rs/config/#cpp
+[cpp]
+disabled = false
+format   = '([on](dimmed) [$symbol $name\($version\)]($style) )'
+style    = 'blue'
+symbol   = ''
+
+## https://starship.rs/config/#cmake
+[cmake]
+disabled = true
+format   = '([on](dimmed) [$symbol $version]($style) )'
+style    = 'blue'
+symbol   = ''
+
+## https://starship.rs/config/#cobol-gnucobol
+[cobol]
+disabled = true
+format   = '([on](dimmed) [$symbol $version]($style) )'
+style    = 'blue'
+symbol   = ''
+
+## https://starship.rs/config/#crystal
+[crystal]
+disabled = true
+format   = '([on](dimmed) [$symbol $version]($style) )'
+style    = 'blue'
+symbol   = ''
+
+## https://starship.rs/config/#daml
+[daml]
+disabled = true
+format   = '([on](dimmed) [$symbol $version]($style) )'
+style    = 'blue'
+symbol   = 'Λ'
+
+## https://starship.rs/config/#dart
+[dart]
+disabled = false
+format   = '([on](dimmed) [$symbol $version]($style) )'
+style    = 'blue'
+symbol   = ''
+
+## https://starship.rs/config/#dotnet
+[dotnet]
+disabled = false
+format   = '([on](dimmed) [$symbol $version(\($tfm\))]($style) )'
+style    = 'blue'
+symbol   = ''
+
+## https://starship.rs/config/#elixir
+[elixir]
+disabled = true
+format   = '([on](dimmed) [$symbol $version(\(OTP $otp_version\))]($style) )'
+style    = 'blue'
+symbol   = ''
+
+## https://starship.rs/config/#elm
+[elm]
+disabled = true
+format   = '([on](dimmed) [$symbol $version]($style) )'
+style    = 'blue'
+symbol   = ''
+
+## https://starship.rs/config/#erlang
+[erlang]
+disabled = true
+format   = '([on](dimmed) [$symbol $version]($style) )'
+style    = 'blue'
+symbol   = ''
+
+## https://starship.rs/config/#fennel
+[fennel]
+disabled = true
+format   = '([on](dimmed) [$symbol $version]($style) )'
+style    = 'blue'
+symbol   = ''
+
+## https://starship.rs/config/#fortran
+[fortran]
+disabled = true
+format   = '([on](dimmed) [$symbol $version]($style) )'
+style    = 'blue'
+symbol   = ''
+
+## https://starship.rs/config/#gleam
+[gleam]
+disabled = true
+format   = '([on](dimmed) [$symbol $version]($style) )'
+style    = 'blue'
+symbol   = '󰓎'
+
+## https://starship.rs/config/#go
+[golang]
+disabled          = false
+format            = '([on](dimmed) [$symbol $version]($style) )'
+style             = 'blue'
+not_capable_style = 'bold bright-red'
+symbol            = '󰟓'
+
+## https://starship.rs/config/#guix-shell
+[guix_shell]
+disabled = true
+format   = '([on](dimmed) [$symbol guix]($style) )'
+style    = 'blue'
+symbol   = ''
+
+## https://starship.rs/config/#haskell
+[haskell]
+disabled = true
+format   = '([on](dimmed) [$symbol $version]($style) )'
+style    = 'blue'
+symbol   = '󰲒'
+
+## https://starship.rs/config/#haxe
+[haxe]
+disabled = true
+format   = '([on](dimmed) [$symbol $version]($style) )'
+style    = 'blue'
+symbol   = ''
+
+## https://starship.rs/config/#julia
+[julia]
+disabled = true
+format   = '([on](dimmed) [$symbol $version]($style) )'
+style    = 'blue'
+symbol   = ''
+
+## https://starship.rs/config/#lua
+[lua]
+disabled = false
+format   = '([on](dimmed) [$symbol $version]($style) )'
+style    = 'blue'
+symbol   = ''
+
+## https://starship.rs/config/#mojo
+[mojo]
+disabled = true
+format   = '([on](dimmed) [$symbol $version]($style) )'
+style    = 'pink'
+symbol   = '🔥'
+
+## https://starship.rs/config/#nats
+[nats]
+disabled = true
+format   = '([on](dimmed) [$symbol $name]($style) )'
+style    = 'blue'
+symbol   = '󰎎'
+
+## https://starship.rs/config/#network-namespace
+[netns]
+disabled = false
+format   = '([on](dimmed) [$symbol $name]($style) )'
+style    = 'blue'
+symbol   = '󱛆'
+
+## https://starship.rs/config/#nim
+[nim]
+disabled = true
+format   = '([on](dimmed) [$symbol $version]($style) )'
+style    = 'blue'
+symbol   = ''
+
+## https://starship.rs/config/#nix-shell
+[nix_shell]
+disabled   = true
+format     = '([on](dimmed) [$symbol $name\($state\)]($style) )'
+style      = 'blue'
+symbol     = ''
+pure_msg   = 'pure'
+impure_msg = 'impure'
+
+## https://starship.rs/config/#ocaml
+[ocaml]
+disabled               = true
+format                 = '([on](dimmed) [$symbol $version(\($switch_indicator$switch_name\))]($style) )'
+style                  = 'blue'
+symbol                 = ''
+local_switch_indicator = '*'
+
+## https://starship.rs/config/#odin
+[odin]
+disabled    = true
+format      = '([on](dimmed) [$symbol $version]($style) )'
+style       = 'blue'
+symbol      = 'Ø'
+show_commit = false
+
+## https://starship.rs/config/#open-policy-agent
+[opa]
+disabled = true
+format   = '([on](dimmed) [$symbol $version]($style) )'
+style    = 'blue'
+symbol   = ''
+
+## https://starship.rs/config/#perl
+[perl]
+disabled = false
+format   = '([on](dimmed) [$symbol $version]($style) )'
+style    = 'blue'
+symbol   = ''
+
+## https://starship.rs/config/#php
+[php]
+disabled = false
+format   = '([on](dimmed) [$symbol $version]($style) )'
+style    = 'blue'
+symbol   = '󰌟'
+
+## https://starship.rs/config/#purescript
+[purescript]
+disabled = false
+format   = '([on](dimmed) [$symbol $version]($style) )'
+style    = 'blue'
+symbol   = ''
+
+## https://starship.rs/config/#quarto
+[quarto]
+disabled = true
+format   = '([on](dimmed) [$symbol $version]($style) )'
+style    = 'blue'
+symbol   = '󰐗'
+
+## https://starship.rs/config/#r
+[rlang]
+disabled = false
+format   = '([on](dimmed) [$symbol $version]($style) )'
+style    = 'blue'
+symbol   = '󰟔'
+
+## https://starship.rs/config/#raku
+[raku]
+disabled = true
+format   = '([on](dimmed) [$symbol $version-$vm_version]($style) )'
+style    = 'blue'
+symbol   = '󱖉'
+
+## https://starship.rs/config/#red
+[red]
+disabled = true
+format   = '([on](dimmed) [$symbol $version]($style) )'
+style    = 'pink'
+symbol   = '󰔶'
+
+## https://starship.rs/config/#ruby
+[ruby]
+disabled = false
+format   = '([on](dimmed) [$symbol $version]($style) )'
+style    = 'blue'
+symbol   = ''
+
+## https://starship.rs/config/#rust
+[rust]
+disabled = false
+format   = '([on](dimmed) [$symbol $version]($style) )'
+style    = 'blue'
+symbol   = ''
+
+## https://starship.rs/config/#scala
+[scala]
+disabled = false
+format   = '([on](dimmed) [$symbol $version]($style) )'
+style    = 'blue'
+symbol   = ''
+
+## https://starship.rs/config/#solidity
+[solidity]
+disabled = true
+format   = '([on](dimmed) [$symbol $version]($style) )'
+style    = 'blue'
+symbol   = ''
+
+## https://starship.rs/config/#spack
+[spack]
+disabled = true
+format   = '([on](dimmed) [$symbol $environment]($style) )'
+style    = 'blue'
+symbol   = ''
+
+## https://starship.rs/config/#swift
+[swift]
+disabled = false
+format   = '([on](dimmed) [$symbol $version]($style) )'
+style    = 'blue'
+symbol   = ''
+
+## https://starship.rs/config/#typst
+[typst]
+disabled = true
+format   = '([on](dimmed) [$symbol $version]($style) )'
+style    = 'blue'
+symbol   = ''
+
+## https://starship.rs/config/#vagrant
+[vagrant]
+disabled = false
+format   = '([on](dimmed) [$symbol $version]($style) )'
+style    = 'blue'
+symbol   = ''
+
+## https://starship.rs/config/#v
+[vlang]
+disabled = false
+format   = '([on](dimmed) [$symbol $version]($style) )'
+style    = 'blue'
+symbol   = ''
+
+## https://starship.rs/config/#vcsh
+[vcsh]
+disabled = false
+format   = '([on](dimmed) [$symbol $repo]($style) )'
+style    = 'blue'
+symbol   = 'vcsh'
+
+## https://starship.rs/config/#xmake
+[xmake]
+disabled = false
+format   = '([on](dimmed) [$symbol $version]($style) )'
+style    = 'blue'
+symbol   = '󰬅󰫺'
+
+## https://starship.rs/config/#zig
+[zig]
+disabled = false
+format   = '([on](dimmed) [$symbol $version]($style) )'
+style    = 'blue'
+symbol   = ''
+
+## >-------------------------------------------->
+##   9. Environment Related Section
+## <--------------------------------------------<
+
+## https://starship.rs/config/#mise
+[mise]
+disabled         = false
+format           = '([on](dimmed) [$symbol $health]($style) )'
+style            = 'blue'
+symbol           = ''
+healthy_symbol   = 'healthy mise'
+unhealthy_symbol = 'unhealthy mise'
+
+## https://starship.rs/config/#direnv
+[direnv]
+disabled        = true
+format          = '([on](dimmed) [$symbol $loaded/$allowed]($style) )'
+style           = 'blue'
+symbol          = '󰞁'
+allowed_msg     = "allowed"
+not_allowed_msg = "not allowed"
+denied_msg      = "denied"
+loaded_msg      = "loaded"
+unloaded_msg    = "not loaded"
+
+## https://starship.rs/config/#aws
+[aws]
+## TODO: Need starship/starship#7100 for $duration to works
+disabled          = false
+format            = '([on](dimmed) [$symbol( $profile)( \[$duration\])]($style) )'
+style             = 'yellow'
+symbol            = ''
+expiration_symbol = '󱫦'
+
+## https://starship.rs/config/#google-cloud-gcloud
+[gcloud]
+disabled = true
+format   = '([on](dimmed) [$symbol (\($account\))(\[$domain\])]($style) )'
+style    = 'blue'
+symbol   = '󱇶'
+
+## https://starship.rs/config/#azure
+[azure]
+disabled = true
+format   = '([on](dimmed) [$symbol $subscription_name]($style) )'
+style    = 'blue'
+symbol   = ''
+
+## https://starship.rs/config/#openstack
+[openstack]
+disabled = false
+format   = '([on](dimmed) [$symbol $cloud(\($project\))]($style) )'
+style    = 'blue'
+symbol   = '󰅟'
+
+## >============================================>
+## Line 2 Right Prompt Segments
+## <============================================<
+
+## https://starship.rs/config/#shell
+[shell]
+disabled             = true
+format               = '[$indicator]($style) '
+style                = 'blue'
+bash_indicator       = 'bsh'
+zsh_indicator        = 'zsh'
+fish_indicator       = 'fsh'
+cmd_indicator        = 'cmd'
+powershell_indicator = 'psh'
+
+## https://starship.rs/config/#time
+[time]
+disabled        = false
+format          = '[$time]($style)'
+style           = 'blue'
+time_format     = '%H:%M:%S'
+use_12hr        = false
+utc_time_offset = 'local'
+
+## >============================================>
+## Line 3 Left Prompt Segments
+## <============================================<
+
+## https://starship.rs/config/#shlvl
 [shlvl]
-disabled = true
+disabled      = false
+format        = '[$symbol]($style)'
+style	        = 'dimmed gray'
+symbol        = '󰅂'
+threshold     = 0
+repeat        = true
+repeat_offset = 1
 
+## https://starship.rs/config/#character
+[character]
+disabled                  = false
+error_symbol              = '[󰅂](bold red)'
+success_symbol            = '[󰅂](bold green)'
+vimcmd_symbol             = '[](bold purple)'
+
+## >============================================>
+## Line 3 Right Prompt Segments
+## <============================================<
+
+## https://starship.rs/config/#status
+[status]
+disabled                  = false
+format                    = '( [$symbol](dimmed $style) [$common_meaning$signal_name$maybe_int]($style))'
+style                     = ''
+success_style             = 'green'
+failure_style             = 'red'
+symbol                    = ''
+pipestatus                = true
+pipestatus_format         = '( [$symbol](dimmed $style) [$common_meaning$signal_name$maybe_int]($style) [\[$pipestatus\]](dimmed))'
+pipestatus_segment_format = '[$status]($style)'
+
+## https://starship.rs/config/#os
+[os]
+disabled = false
+format   = ' [on](dimmed $style) [$symbol]($style)'
+style    = 'teal'
+[os.symbols]
+Android  = ''
+Ios      = '󰀷'
+Macos    = ''
+Alpine   = ''
+Arch     = ''
+CentOS   = ''
+Debian   = ''
+Fedora   = ''
+Ubuntu   = ''
+Amazon   = ''
+Kali     = ''
+NixOS    = ''
+Raspbian = ''
+Linux    = ''
+Windows  = ''
+Unknown  = '󰼈'
+
+## https://starship.rs/config/#command-duration
+[cmd_duration]
+disabled           = false
+format             = '( [took](dimmed) [$duration]($style))'
+style              = 'bright-yellow'
+min_time           = 5_000
+min_time_to_notify = 30_000
+show_notifications = true
+show_milliseconds  = true
+
+## >============================================>
+## Settings Segments
+## <============================================<
+
+## https://starship.rs/config/#fill
 [fill]
 disabled = false
-symbol = ' '
-style = ''
+style    = 'dimmed black'
+symbol   = '·'
+
+## https://starship.rs/config/#line-break
+[line_break]
+disabled = false
