@@ -1,21 +1,30 @@
-# Config syntax crash course
-# ==========================
-# # The config file consists of simple key-value pairs,
-# # separated by equals signs.
-# font-family = Iosevka
-# window-padding-x = 2
-#
-# # Empty values are used to reset config keys to default.
-# key =
-#
-# # To get all available configuration with documentation, run:
+## To get all available configuration with documentation, run:
 # ghostty +show-config --default --docs | code -
 
+## no-title is required for Starship prompt to update the title correctly
+shell-integration-features = cursor,sudo,no-title,ssh-env,ssh-terminfo,path
+
+quick-terminal-position = bottom
+keybind = "global:super+shift+'=toggle_quick_terminal"
+
+## =====================================================
+## Themes
+## =====================================================
+
+## Required for Starship prompt to work correctly
 font-family = ""
 font-family = JetBrains Mono
 font-family = Symbols Nerd Font Mono
 font-size   = 17
 
+## I like Atom One Dark theme
 theme = One Double Dark
 
-shell-integration-features = cursor,sudo,no-title,ssh-env,ssh-terminfo,path
+background-opacity = 0.85
+background-blur = 20
+
+window-padding-x = 10
+window-padding-y = 0, 6
+
+macos-titlebar-proxy-icon = hidden
+macos-icon = paper
