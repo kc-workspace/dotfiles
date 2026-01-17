@@ -1,0 +1,21 @@
+# Config syntax crash course
+# ==========================
+# # The config file consists of simple key-value pairs,
+# # separated by equals signs.
+# font-family = Iosevka
+# window-padding-x = 2
+#
+# # Empty values are used to reset config keys to default.
+# key =
+#
+# # To get all available configuration with documentation, run:
+# ghostty +show-config --default --docs | code -
+
+font-family = ""
+font-family = JetBrains Mono
+font-family = Symbols Nerd Font Mono
+font-size   = 17
+
+theme = One Double Dark
+
+shell-integration-features = cursor,sudo,no-title,ssh-env,ssh-terminfo,path
