@@ -8,8 +8,7 @@
 
 packages:
   darwin:
-    taps:
-      - homebrew/bundle
+    taps: []
     brews:
       - ca-certificates
       - cloc
@@ -19,9 +18,10 @@ packages:
       - git
       - lua
       - luarocks
-      - mas
+      - mas ## Mac App Store CLI
       - nmap
       - openssh
+      - ykman ## For Yubico Authenticator CLI
     casks:
       - 1password@beta
       - affinity-designer
@@ -31,7 +31,6 @@ packages:
       - brave-browser
       - chatgpt
       - claude
-      - docker
       - docker-desktop
       - font-jetbrains-mono
       - font-jetbrains-mono-nerd-font
@@ -45,8 +44,6 @@ packages:
     mas:
       - id: 1569813296
         name: 1Password for Safari
-      - id: 424389933
-        name: Final Cut Pro
       - id: 409183694
         name: Keynote
       - id: 441258766
@@ -57,6 +54,10 @@ packages:
         name: Pages
       - id: 497799835
         name: Xcode
+      - id: 1497506650
+        name: Yubico Authenticator
+      - id: 424389933
+        name: Final Cut Pro
       # - id: 424390742
       #   name: Compressor
       # - id: 634159523
