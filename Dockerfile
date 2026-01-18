@@ -4,7 +4,7 @@ FROM ubuntu:latest
 ## Setup os dependencies:
 ## - locales - set locales
 ## - tzdata  - set timezone
-## - curl    - required by chezmoi
+## - curl    - required by chezmoi (and linuxbrew)
 ## - gpg     - for encrypt & decrypt file
 ## - sudo    - prevent accident root command executes
 RUN apt update \
@@ -13,7 +13,13 @@ RUN apt update \
   && apt clean
 
 ## Install required linux dependencies to speed up build docker process
-RUN apt install -y zsh git file cloc unzip file \
+## - zsh             - default shell
+## - git             - required by chezmoi (and linuxbrew)
+## - build-essential - required by linuxbrew
+## - file            - required by linuxbrew
+## - procps          - required by linuxbrew
+## - unzip           - required by some mise tools
+RUN apt install -y zsh git build-essential file procps unzip cloc \
   && apt clean
 
 ## Set build environment variables.
@@ -35,7 +41,7 @@ ENV USER_HOME="/home/$USER"
 ENV USER_BIN="$USER_HOME/.local/bin"
 ENV CHEZMOI_HOME="$USER_HOME/.local/share/chezmoi"
 
-ENV DEBIAN_FRONTEND=noninteractive
+ENV DEBIAN_FRONTEND=noninteractive NONINTERACTIVE=true
 ENV DOCKER=true
 
 ## Setup startup shell
@@ -46,6 +52,14 @@ RUN useradd --create-home --uid 5000 --group sudo --shell $SHELL $USER \
   && echo "%$USER ALL=(ALL) NOPASSWD:ALL" >"/etc/sudoers.d/$USER-group"
 USER $USER
 WORKDIR $USER_HOME
+
+## Set up Homebrew (Linuxbrew)
+ENV HOMEBREW_NO_ANALYTICS=1
+ENV HOMEBREW_NO_ENV_HINTS=1
+ENV HOMEBREW_NO_AUTO_UPDATE=1
+
+## Install Homebrew (Linuxbrew)
+RUN /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
 ## Prepare && Install chezmoi
 COPY --chown=$USER ./.chezmoiversion /tmp
@@ -67,5 +81,8 @@ RUN --mount=type=secret,id=GITHUB_TOKEN,env=GITHUB_TOKEN,required=false $USER_BI
 ## NOTE: To install all plugins regardless of turbo mode is enabled or not
 ## ref: https://github.com/zdharma-continuum/zinit/issues/321#issuecomment-1183650509
 RUN zsh -ic -- "@zinit-scheduler burst"
+
+## Reset Dockerfile environment variables
+ENV DEBIAN_FRONTEND= NONINTERACTIVE=
 
 ENTRYPOINT [ "zsh" ]
