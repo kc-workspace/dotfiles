@@ -19,6 +19,9 @@ Personal dotfiles configuration for [kamontat][gh:home].
 - [Actions](#actions)
   - [To update target directory](#to-update-target-directory)
   - [To uninstall dotfiles](#to-uninstall-dotfiles)
+  - [To upgrade tools](#to-upgrade-tools)
+    - [Zinit](#zinit)
+    - [Homebrew](#homebrew)
 - [Docker](#docker)
 - [Contributing](#contributing)
 
@@ -82,19 +85,21 @@ you will have option to convert to full setup via `kdf-*` script.
 - Working directory layout: [here][local:documents]
   - **Personal** directory for personal projects
   - **Works** directory for work projects, organized by workplace
+- Password manager via [1Password][1p:home]
+- Encrypted files via [gpg][cz:gpg]
 
 ## Usage
 
-<!-- Short introduction to usage section -->
+<!-- TODO: Short introduction to usage section -->
 
 ### Prerequisite
 
 1. Install [chezmoi][cz:install]
-2. [Optional] Install [gpg][gpg-url] for decrypt files (required on full setup)
+3. [Optional] Install [gpg][gpg-url] for decrypt files (required on full setup)
 
 ### Quick start
 
-
+<!-- TODO: Add quick-start guide -->
 
 ## Actions
 
@@ -105,9 +110,34 @@ Below are a list of actions you might perform when use this repository.
 
 ### To update target directory
 
+<!-- TODO: action -->
+
 ### To uninstall dotfiles
 
+<!-- TODO: action -->
+
+### To upgrade tools
+
+Since we have several tools, each have it own ways to upgrade.
+You might prefer do one-by-one instead of using script to upgrade all of them.
+
+#### Zinit
+
+```bash
+zinit update --all
+```
+
+#### Homebrew
+
+Add `--greedy` will install version **:latest** and **auto_updates true** as well.
+
+```bash
+brew upgrade --greedy
+```
+
 ## Docker
+
+<!-- TODO: action -->
 
 ## Contributing
 
@@ -118,10 +148,12 @@ Please refer to [CONTRIBUTING][local:contributing] guide.
 [gh:home]: https://github.com/kamontat/
 [cz:install]: https://www.chezmoi.io/install/
 [cz:reference]: https://www.chezmoi.io/reference/
+[cz:gpg]: https://www.chezmoi.io/user-guide/encryption/gpg/
 [hb:home]: https://brew.sh/
 [mi:home]: https://mise.jdx.dev/
 [zsh:home]: https://www.zsh.org/
 [git:home]: https://git-scm.com/
+[1p:home]: https://1password.com/
 
 [local:zshrc]: ./home/dot_zshrc
 [local:gitconfig]: ./home/dot_gitconfig.tmpl
