@@ -75,4 +75,6 @@ background-blur    = 20
 
 macos-titlebar-style      = tabs
 macos-titlebar-proxy-icon = hidden
-macos-icon                = paper
+## https://zenn.dev/kawarimidoll/articles/5f219b4409424b
+macos-icon                = xray
+
