@@ -104,6 +104,13 @@ zinit ice as"command" \
   from"gh-r" pick="lazygit"
 zinit light jesseduffield/lazygit
 
+## Setup fzf - fuzzy finder
+## https://github.com/junegunn/fzf
+zinit ice as"command" \
+  from"gh-r" bpick"fzf-*.tar.gz" pick="fzf" \
+  atclone"./fzf --zsh > _fzf" atpull"%atclone"
+zinit light junegunn/fzf
+
 ## Setup ast-grep - grep with AST support
 ## https://github.com/ast-grep/ast-grep
 zinit ice as"command" \

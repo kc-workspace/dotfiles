@@ -1,7 +1,6 @@
 [tools]
 1password-cli = "2.30.3"  ## For password management
 bun           = "1.3.1"
-fzf           = "0.66.0"
 github-cli    = "2.82.1"
 go            = "1.25.5"  ## For golang package management
 jq            = "1.8.1"
