@@ -98,13 +98,13 @@ zinit ice as"command" \
   atclone"ripgrep-*/rg --generate complete-zsh > _rg" atpull"%atclone"
 zinit light BurntSushi/ripgrep
 
-## Setup lazygit - git with lazy
+## Setup lazygit - git with lazy (required by lazyvim)
 ## https://github.com/jesseduffield/lazygit
 zinit ice as"command" \
   from"gh-r" pick="lazygit"
 zinit light jesseduffield/lazygit
 
-## Setup fzf - fuzzy finder
+## Setup fzf - fuzzy finder (required by lazyvim)
 ## https://github.com/junegunn/fzf
 zinit ice as"command" \
   from"gh-r" bpick"fzf-*.tar.gz" pick="fzf" \
@@ -116,6 +116,12 @@ zinit light junegunn/fzf
 zinit ice as"command" \
   from"gh-r" pick="ast-grep"
 zinit light ast-grep/ast-grep
+
+## Setup tree-sitter-cli - use tree-sitter grammars from cli (required by lazyvim)
+zinit ice as"command" \
+  from"gh-r" bpick"tree-sitter-*.gz" mv"tree-sitter-* -> tree-sitter" pick"tree-sitter" \
+  atclone"./tree-sitter complete --shell zsh > _tree-sitter" atpull"%atclone"
+zinit light tree-sitter/tree-sitter
 
 ## Setup bat - cat alternative command
 ## https://github.com/sharkdp/bat
