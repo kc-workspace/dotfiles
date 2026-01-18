@@ -15,18 +15,18 @@ printf 'currentOs: %s' "$currentOs"
   {{- $packages := get $.packages $currentOs }}
   {{- if hasKey $packages "homebrew" }}
     {{- printf "brew bundle install --upgrade --file=- <<EOF" | nindent 0 | nindent 0 }}
-      {{- range $packages.homebrew.taps }}
-        {{- printf "%s %s" "tap" . | nindent 0 }}
-      {{- end }}
-      {{- range $packages.homebrew.brews }}
-        {{- printf "%s %s" "brew" . | nindent 0 }}
-      {{- end }}
-      {{- range $packages.homebrew.casks }}
-        {{- printf "%s %s" "cask" . | nindent 0 }}
-      {{- end }}
-      {{- range $packages.homebrew.mas }}
-        {{- printf "%s %s, id: %d" "cask" (.name | quote) .id | nindent 0 }}
-      {{- end }}
+    {{- if hasKey $packages.homebrew "taps" }}{{- range $packages.homebrew.taps }}
+      {{- printf "%s %s" "tap" . | nindent 0 }}
+    {{- end }}{{- end }}
+    {{- if hasKey $packages.homebrew "brews" }}{{- range $packages.homebrew.brews }}
+      {{- printf "%s %s" "brew" . | nindent 0 }}
+    {{- end }}{{- end }}
+    {{- if hasKey $packages.homebrew "casks" }}{{- range $packages.homebrew.casks }}
+      {{- printf "%s %s" "cask" . | nindent 0 }}
+    {{- end }}{{- end }}
+    {{- if hasKey $packages.homebrew "mas" }}{{- range $packages.homebrew.mas }}
+      {{- printf "%s %s, id: %d" "mas" (.name | quote) .id | nindent 0 }}
+    {{- end }}{{- end }}
     {{- printf "EOF" | nindent 0 }}
 
     {{- printf "brew autoremove" | nindent 0 | nindent 0 }}
