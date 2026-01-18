@@ -126,6 +126,6 @@ Please refer to [CONTRIBUTING][local:contributing] guide.
 [local:zshrc]: ./home/dot_zshrc
 [local:gitconfig]: ./home/dot_gitconfig.tmpl
 [local:documents]: ./home/private_Documents/
-[local:packages]: ./home/.chezmoidata/package.yaml
+[local:packages]: ./home/.chezmoidata/packages.yaml
 [local:mise]: ./home/dot_config/mise/config.toml
 [local:contributing]: ./CONTRIBUTING.md
