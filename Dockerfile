@@ -1,5 +1,6 @@
 # Use Ubuntu latest LTS
-FROM ubuntu:latest
+ARG IMAGE=ubuntu:latest
+FROM ${IMAGE}
 
 ## Setup os dependencies:
 ## - locales - set locales
