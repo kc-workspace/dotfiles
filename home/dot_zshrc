@@ -176,12 +176,11 @@ zinit wait"2" lucid light-mode for \
   hlissner/zsh-autopair
 
 ## Setup brew alias and completions
-brew="${BREW_LOCATION:-}"
-[ -f "$brew" ] || brew="/opt/homebrew/bin/brew"
-[ -f "$brew" ] || brew="/usr/local/bin/brew"
-if [ -f "$brew" ]; then
-  eval "$("$brew" shellenv)"
-fi
+brew="${HOMEBREW_PREFIX:-}/bin/brew"
+[ -f "$brew" ] || brew="/opt/homebrew/bin/brew"              ## default on macos (arm64)
+[ -f "$brew" ] || brew="/usr/local/bin/brew"                 ## default on macos (intel)
+[ -f "$brew" ] || brew="/home/linuxbrew/.linuxbrew/bin/brew" ## default on linux
+[ -f "$brew" ] && eval "$("$brew" shellenv)"
 
 ## Setup command syntax highlighting
 ## Must be on the end of zinit script
