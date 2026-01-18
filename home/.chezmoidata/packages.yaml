@@ -50,18 +50,18 @@ packages:
           name: Numbers
         - id: 409201541
           name: Pages
-        - id: 497799835
-          name: Xcode
         - id: 1497506650
           name: Yubico Authenticator
         - id: 424389933
           name: Final Cut Pro
-      # - id: 424390742
-      #   name: Compressor
-      # - id: 634159523
-      #   name: MainStage
-      # - id: 634148309
-      #   name: Logic Pro
+        # - id: 497799835
+        #   name: Xcode
+        # - id: 424390742
+        #   name: Compressor
+        # - id: 634159523
+        #   name: MainStage
+        # - id: 634148309
+        #   name: Logic Pro
 
   linux/ubuntu:
     apts:
