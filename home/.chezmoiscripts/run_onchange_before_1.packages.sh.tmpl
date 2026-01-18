@@ -1,14 +1,15 @@
 #!/usr/bin/env bash
 
-set -e
-set -x
+set -ex
 
 {{- $supportOs := keys .packages }}
 
 {{- $currentOs := .chezmoi.os }}
 {{- with .chezmoi.osRelease }}
-  {{- $currentOs = printf "%s/%s" $currentOs . -}}
+  {{- $currentOs = printf "%s/%s" $currentOs .id -}}
 {{- end }}
+
+printf 'currentOs: %s' "$currentOs"
 
 {{- if mustHas $currentOs $supportOs }}
   {{- $packages := get $.packages $currentOs }}
