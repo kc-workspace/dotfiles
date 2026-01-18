@@ -54,10 +54,8 @@ jobs:
             printf "%s=%s\n" "image-name" "$name"
             if [[ $IMAGE == 'ubuntu:latest' ]]; then
               echo "image-suffix="
-              echo "image-validate=true"
             else
               echo "image-suffix=-$name"
-              echo "image-validate=false"
             fi
           } >> "$GITHUB_OUTPUT"
 
@@ -88,21 +86,23 @@ jobs:
             type=semver,pattern={{major}}.{{minor}}
             type=sha
       - name: Validate docker build configuration
-        if: steps.info.outputs.image-validate
         uses: docker/build-push-action@263435318d21b8e681c14492fe198d362a7d2c83 # v6.18.0
         with:
           file: Dockerfile
           call: check
+          platforms: ${{ env.PLATFORMS }}
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
           annotations: ${{ steps.meta.outputs.annotations }}
+          build-args: |
+            IMAGE=${{ steps.info.outputs.image }}
       - name: Build & Push docker image
         id: docker-push
         uses: docker/build-push-action@263435318d21b8e681c14492fe198d362a7d2c83 # v6.18.0
         with:
           file: Dockerfile
-          platforms: ${{ env.PLATFORMS }}
           push: true
+          platforms: ${{ env.PLATFORMS }}
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
           annotations: ${{ steps.meta.outputs.annotations }}
