@@ -3,30 +3,44 @@
 set -e
 set -x
 
-{{- if eq .chezmoi.os "darwin" }}
+{{- $supportOs := keys .packages }}
 
-brew bundle install --file=/dev/stdin <<EOF
-{{ range .packages.darwin.taps -}}
-tap {{ . | quote }}
-{{ end -}}
-{{ range .packages.darwin.brews -}}
-brew {{ . | quote }}
-{{ end -}}
-{{ range .packages.darwin.casks -}}
-cask {{ . | quote }}
-{{ end -}}
-{{ range .packages.darwin.mas -}}
-mas {{ .name | quote }}, id: {{ .id }}
-{{ end -}}
-EOF
-
+{{- $currentOs := .chezmoi.os }}
+{{- with .chezmoi.osRelease }}
+  {{- $currentOs = printf "%s/%s" $currentOs . -}}
 {{- end }}
 
-{{- if eq .chezmoi.os "linux" }}
-sudo apt update
-sudo apt install -y {{- range .packages.linux.apts }} {{ . | quote }}{{ end }}
-{{- if ne (env "GITHUB_ACTIONS") "true" }}
-sudo apt upgrade -y
-{{- end }}
-sudo apt clean
+{{- if mustHas $currentOs $supportOs }}
+  {{- $packages := get $.packages $currentOs }}
+  {{- if hasKey $packages "homebrew" }}
+    {{- printf "brew bundle install --upgrade --file=- <<EOF" | nindent 0 | nindent 0 }}
+      {{- range $packages.homebrew.taps }}
+        {{- printf "%s %s" "tap" . | nindent 0 }}
+      {{- end }}
+      {{- range $packages.homebrew.brews }}
+        {{- printf "%s %s" "brew" . | nindent 0 }}
+      {{- end }}
+      {{- range $packages.homebrew.casks }}
+        {{- printf "%s %s" "cask" . | nindent 0 }}
+      {{- end }}
+      {{- range $packages.homebrew.mas }}
+        {{- printf "%s %s, id: %d" "cask" (.name | quote) .id | nindent 0 }}
+      {{- end }}
+    {{- printf "EOF" | nindent 0 }}
+
+    {{- printf "brew autoremove" | nindent 0 | nindent 0 }}
+    {{- printf "brew cleanup --prune=all --scrub" | nindent 0 }}
+  {{- end }}
+
+  {{- if hasKey $packages "apts" }}
+    {{- printf "sudo apt update" | nindent 0 | nindent 0 }}
+    {{- printf "sudo apt install -y" | nindent 0 }}
+    {{- range $packages.apts }}
+      {{- printf " %s\n  %s" "\\" (. | quote) }}
+    {{- end }}
+    {{- if ne (env "GITHUB_ACTIONS") "true" }}
+      {{- printf "sudo apt upgrade -y" | nindent 0 }}
+    {{- end }}
+    {{- printf "sudo apt clean" | nindent 0 }}
+  {{- end }}
 {{- end }}
