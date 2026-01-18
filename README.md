@@ -1,210 +1,131 @@
 # kc's dotfiles
 
-This is my personal dotfiles (configuration and settings for each program).
+Personal dotfiles configuration for [kamontat][gh:home].
 
-- [Configuration](#configuration)
-- [Prerequisite](#prerequisite)
-- [Get start](#get-start)
-- [Useful commands](#useful-commands)
-  - [To initiate dotfiles on local machine](#to-initiate-dotfiles-on-local-machine)
-  - [To update local machine from remote repository](#to-update-local-machine-from-remote-repository)
-  - [To apply state to your local machine](#to-apply-state-to-your-local-machine)
-  - [To add new file from local machine](#to-add-new-file-from-local-machine)
-  - [To re-add changes file from local machine](#to-re-add-changes-file-from-local-machine)
-  - [To remove file from current source](#to-remove-file-from-current-source)
+- [Terminology](#terminology)
+  - [Target directory](#target-directory)
+    - [Target](#target)
+    - [Target state](#target-state)
+  - [Source directory](#source-directory)
+    - [Source state](#source-state)
+  - [Local repository](#local-repository)
+  - [Remote repository](#remote-repository)
+  - [Lite setup](#lite-setup)
+  - [Full setup](#full-setup)
+- [Features](#features)
+- [Usage](#usage)
+  - [Prerequisite](#prerequisite)
+  - [Quick start](#quick-start)
+- [Actions](#actions)
+  - [To update target directory](#to-update-target-directory)
+  - [To uninstall dotfiles](#to-uninstall-dotfiles)
 - [Docker](#docker)
-  - [Build docker image](#build-docker-image)
-  - [Run docker image](#run-docker-image)
-  - [To verify docker image](#to-verify-docker-image)
+- [Contributing](#contributing)
 
-## Configuration
+## Terminology
 
-Below are a list of configuration I have on each categories.
+> Please refer additional terminology on [chezmoi][cz:reference]
 
-- Zsh configuration
-  - [Starship][starship-url] - zsh prompt theme
-  - [zinit][zinit-url] - zsh plugin manager
-- Homebrew packages
-  - You can find list of packages [here][brew-packages-path]
-- Commandline interface (cli)
-  - You can find list of cli [here][cli-tools-path]
+### Target directory
 
-[starship-url]: https://starship.rs
-[zinit-url]: https://github.com/zdharma-continuum/zinit
+The destination directory being managed (typically `~`).
 
-[brew-packages-path]: ./home/.chezmoidata/package.yaml
-[cli-tools-path]: ./home/dot_config/mise/config.toml
+#### Target
 
-## Prerequisite
+Individual files, directories, or symlinks within the target directory.
 
-1. Install [chezmoi][chezmoi-url]
-2. [Optional] Install [gpg][gpg-url] for decrypt files (required on full mode)
+#### Target state
 
-[chezmoi-url]: https://www.chezmoi.io/install
-[gpg-url]: https://www.gnupg.org
+The computed desired state for your target directory
+(derived from source state, config, and current destination state).
 
-## Get start
+### Source directory
 
-Run `chezmoi init kc-workspace --apply` to initialize and apply config to your machine.
+Where chezmoi stores the source state (`~/.local/share/chezmoi` by default).
 
-## Useful commands
+#### Source state
+
+The desired state definition (includes templates and machine-specific data).
+
+### Local repository
+
+The git repository on your local machine
+(usually will be your [source directory](#source-directory)),
+which contains the source state and configuration.
+
+### Remote repository
+
+An external git repository (e.g. GitHub)
+that you push your local changes to and pull updates from.
+This allows you to sync your dotfiles across multiple machines.
+
+### Lite setup
+
+This is **default** set up mode when install from Dockerfile.
+Lite set up will ignore all encrypted files and only install sharable
+configuration.
+
+### Full setup
+
+This only apply to [Lite setup](#lite-setup).
+When use machine with `lite setup`,
+you will have option to convert to full setup via `kdf-*` script.
+
+## Features
+
+- [Zsh][zsh:home] configuration: [here][local:zshrc]
+- [Git][git:home] configuration: [here][local:gitconfig]
+- Application and packages (via [Homebrew][hb:home])
+  - View installed applications [here][local:packages]
+- Commandline tools (via [mise][mi:home])
+  - View install tools [here][local:mise]
+- Working directory layout: [here][local:documents]
+  - **Personal** directory for personal projects
+  - **Works** directory for work projects, organized by workplace
+
+## Usage
+
+<!-- Short introduction to usage section -->
+
+### Prerequisite
+
+1. Install [chezmoi][cz:install]
+2. [Optional] Install [gpg][gpg-url] for decrypt files (required on full setup)
+
+### Quick start
+
+
+
+## Actions
 
 > https://www.chezmoi.io/user-guide/daily-operations/
 > https://www.chezmoi.io/user-guide/command-overview/
 
-Below are a list of useful commands.
+Below are a list of actions you might perform when use this repository.
 
-### To initiate dotfiles on local machine
+### To update target directory
 
-Similar to **update** but initiatize new local directories.
-
-```mermaid
-sequenceDiagram
-  participant T as Target directory
-  participant S as Source directory
-  participant L as Local repository
-  participant R as Remote repository
-  R ->> S: pull
-  S ->> T: apply (when add --apply)
-```
-
-```bash
-## chezmoi init kc-workspace --apply
-chezmoi init "<repo>" [--apply]
-```
-
-### To update local machine from remote repository
-
-Similar to **init** but to update existed local directories.
-
-```mermaid
-sequenceDiagram
-  participant T as Target directory
-  participant S as Source directory
-  participant L as Local repository
-  participant R as Remote repository
-  R ->> T: pull & apply
-```
-
-```bash
-chezmoi update
-```
-
-### To apply state to your local machine
-
-```mermaid
-sequenceDiagram
-  participant T as Target directory
-  participant S as Source directory
-  participant L as Local repository
-  participant R as Remote repository
-  S -> T: diff
-  S ->> T: apply
-```
-
-```bash
-## View the different between work state and local machine
-chezmoi diff
-chezmoi apply
-```
-
-### To add new file from local machine
-
-```mermaid
-sequenceDiagram
-  participant T as Target directory
-  participant S as Source directory
-  participant L as Local repository
-  participant R as Remote repository
-  T -> S: add [with encrypt (optionally)]
-```
-
-```bash
-chezmoi add "<filepath>"
-chezmoi add --encrypt "<filepath>"
-```
-
-### To re-add changes file from local machine
-
-When you manually update local file on your local machine,
-this command will help you to update the
-
-### To remove file from current source
-
-This will only remove file from source directory, not target directory
-
-```mermaid
-sequenceDiagram
-  participant T as Target directory
-  participant S as Source directory
-  participant L as Local repository
-  participant R as Remote repository
-  S -> S: remove file/folder
-```
-
-```bash
-chezmoi forget "<filepath>"
-```
+### To uninstall dotfiles
 
 ## Docker
 
-### Build docker image
+## Contributing
 
-```bash
-## Without GITHUB_TOKEN environment, mise might failed due to rate-limit exceed
-docker buildx build --tag kamontat/dotfiles:local .
-## Assume you have $GITHUB_TOKEN environment set
-docker buildx build --secret id=GITHUB_TOKEN --tag kamontat/dotfiles:local .
-```
+Please refer to [CONTRIBUTING][local:contributing] guide.
 
-### Run docker image
+<!-- LINKS SECTION -->
 
-The docker image will contains all applications need for everyday works without secure information.
-To configure secure information (e.g. gpg, ssh, etc.), run `kdf-setup.sh` command to fully set up the chezmoi.
+[gh:home]: https://github.com/kamontat/
+[cz:install]: https://www.chezmoi.io/install/
+[cz:reference]: https://www.chezmoi.io/reference/
+[hb:home]: https://brew.sh/
+[mi:home]: https://mise.jdx.dev/
+[zsh:home]: https://www.zsh.org/
+[git:home]: https://git-scm.com/
 
-The `kdf-setup.sh` script will verify the result after finished. To verify manually, use `kdf-verify.sh` script.
-
-```bash
-## initiate zsh shell session
-docker run -it --rm kamontat/dotfiles:local
-```
-
-### To verify docker image
-
-All docker image have attestations. You can verify the integrity and provenance
-of an artifact using its associated cryptographically signed attestations.
-
-The output of the verify command should contains as following information:
-
-- Verify status: `✓ Verification succeeded!`
-- **Repository** where image was created
-- **Workflow** and **Git Reference** where image was created
-
-To verify Docker Hub image:
-
-```bash
-# gh attestation verify oci://kamontat/dotfiles:latest --owner kc-workspace
-$ gh attestation verify "oci://kamontat/dotfiles:<tag-name>" --owner kc-workspace
-
-...
-✓ Verification succeeded!
-...
-```
-
-To verify GitHub Container Registry image:
-
-```bash
-## Add read:packages scope to read image from ghcr.
-## You may need to login first: https://cli.github.com/manual/gh_auth_login
-$ gh auth refresh --scopes "read:packages"
-
-# gh auth token | docker login "ghcr.io" --username "kamontat" --password-stdin
-$ gh auth token | docker login "ghcr.io" --username "<username>" --password-stdin
-
-# gh attestation verify "oci://ghcr.io/kc-workspace/dotfiles:latest" --owner kc-workspace
-$ gh attestation verify "oci://ghcr.io/kc-workspace/dotfiles:<tag-name>" --owner kc-workspace
-
-...
-✓ Verification succeeded!
-...
-```
+[local:zshrc]: ./home/dot_zshrc
+[local:gitconfig]: ./home/dot_gitconfig.tmpl
+[local:documents]: ./home/private_Documents/
+[local:packages]: ./home/.chezmoidata/package.yaml
+[local:mise]: ./home/dot_config/mise/config.toml
+[local:contributing]: ./CONTRIBUTING.md
