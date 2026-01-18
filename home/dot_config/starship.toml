@@ -180,7 +180,7 @@ tag_disabled       = true
 disabled           = false
 format             ='([\[$all_status$ahead_behind\]]($style) )'
 style              = 'bold dimmed'
-ahead              = '[󰸇${count}](purple)'
+ahead              = '[󰸇${count}](green)'
 behind             = '[󰮏${count}](cyan)'
 diverged           = '[󰸇${ahead_count}|${behind_count}󰮏](yellow)'
 conflicted         = '[=](red)'
