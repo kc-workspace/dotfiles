@@ -19,13 +19,15 @@ printf 'currentOs: %s\n' "{{ $currentOs }}"
   {{- $packages := get $.packages $currentOs }}
 
   {{- if hasKey $packages "homebrew" }}
-    {{- printf "%s %s -c \"$(curl -fsSL %s)\"" $env $bash $install | nindent 0 | nindent 0 }}
+    {{- printf "if ! command -v brew >/dev/null 2>&1; then" | nindent 0 | nindent 0 }}
+      {{- printf "%s %s -c \"$(curl -fsSL %s)\"" $env $bash $install | nindent 2 }}
+    {{- printf "fi" | nindent 0 }}
   {{- end }}
 
   {{- if hasKey $packages "apts" }}
-    {{- printf "if command -v apt >/dev/null 2>&1; then" | nindent 0 | nindent 0 }}
-    {{- printf "echo 'Missing apt command' >&2" | nindent 2 }}
-    {{- printf "exit 1" | nindent 2 }}
+    {{- printf "if ! command -v apt >/dev/null 2>&1; then" | nindent 0 | nindent 0 }}
+      {{- printf "echo 'Missing apt command' >&2" | nindent 2 }}
+      {{- printf "exit 1" | nindent 2 }}
     {{- printf "fi" | nindent 0 }}
   {{- end }}
 {{- end }}
