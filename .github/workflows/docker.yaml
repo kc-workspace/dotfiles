@@ -30,6 +30,7 @@ jobs:
       contents: read
       packages: write
       attestations: write
+      artifact-metadata: write
       id-token: write
     strategy:
       fail-fast: true
