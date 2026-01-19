@@ -1,6 +1,7 @@
 # shellcheck disable=SC1091,SC2148
 
 # set -x ## Enabled debug mode
+# zmodload zsh/zprof
 
 ## Prerequisites:
 ##   - zsh
@@ -10,8 +11,8 @@
 
 {{- template "zshrc/zsh/1.init.zsh" }}
 {{- template "zshrc/zsh/alias.zsh" (dict) }}
-{{- template "zshrc/zsh/bind.zsh"(dict) }}
-{{- template "zshrc/zsh/completion.zsh"(dict) }}
+{{- template "zshrc/zsh/bind.zsh" (dict) }}
+{{- template "zshrc/zsh/completion.zsh" (dict) }}
 {{- template "zshrc/zsh/env.zsh" (dict) }}
 {{- template "zshrc/zsh/history.zsh" (dict) }}
 {{- template "zshrc/zsh/path.zsh" (dict) }}
@@ -59,3 +60,5 @@
 {{- template "zshrc/cleanup/1.init.zsh" }}
 {{- template "zshrc/cleanup/compinit.zsh" (dict) }}
 {{- template "zshrc/cleanup/env.zsh" (dict) }}
+
+# zprof
