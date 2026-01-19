@@ -1,0 +1,61 @@
+# shellcheck disable=SC1091,SC2148
+
+# set -x ## Enabled debug mode
+
+## Prerequisites:
+##   - zsh
+##   - zinit
+
+{{ template "zshrc/helpers/empty" }}
+
+{{- template "zshrc/zsh/1.init.zsh" }}
+{{- template "zshrc/zsh/alias.zsh" (dict) }}
+{{- template "zshrc/zsh/bind.zsh"(dict) }}
+{{- template "zshrc/zsh/completion.zsh"(dict) }}
+{{- template "zshrc/zsh/env.zsh" (dict) }}
+{{- template "zshrc/zsh/history.zsh" (dict) }}
+{{- template "zshrc/zsh/path.zsh" (dict) }}
+{{- template "zshrc/zsh/title.zsh" (dict) }}
+
+{{- template "zshrc/zinit/1.init.zsh" }}
+{{- template "zshrc/zinit/alias.zsh" (dict) }}
+
+{{- template "zshrc/app/1.init.zsh" }}
+{{- template "zshrc/app/autocomplete.zsh" (dict "disabled" true "_comment" "cannot remember why") }}
+{{- template "zshrc/app/completions.zsh" (dict "disabled" true "_comment" "cannot remember why") }}
+{{- template "zshrc/app/zvim.zsh" (dict) }}
+{{- template "zshrc/app/starship.zsh" (dict) }}
+{{- template "zshrc/app/bat.zsh" (dict) }}
+{{- template "zshrc/app/fd.zsh" (dict) }}
+{{- template "zshrc/app/fzf.zsh" (dict) }}
+{{- template "zshrc/app/lazygit.zsh" (dict) }}
+{{- template "zshrc/app/lsd.zsh" (dict) }}
+{{- template "zshrc/app/ripgrep.zsh" (dict) }}
+{{- template "zshrc/app/ast-grep.zsh" (dict) }}
+{{- template "zshrc/app/atuin.zsh" (dict) }}
+{{- template "zshrc/app/tree-sitter.zsh" (dict) }}
+{{- template "zshrc/app/wd.zsh" (dict) }}
+{{- template "zshrc/app/zoxide.zsh" (dict) }}
+{{- template "zshrc/app/history-substring.zsh" (dict) }}
+{{- template "zshrc/app/alias-tips.zsh" (dict) }}
+{{- template "zshrc/app/autosuggest.zsh" (dict) }}
+{{- template "zshrc/app/syntax-highlight.zsh" (dict) }}
+{{- template "zshrc/app/neovim.zsh" (dict) }}
+{{- template "zshrc/app/yazi.zsh" (dict) }}
+{{- template "zshrc/app/aws.zsh" (dict) }}
+{{- template "zshrc/app/helm.zsh" (dict) }}
+{{- template "zshrc/app/kubectl.zsh" (dict) }}
+{{- template "zshrc/app/git.zsh" (dict) }}
+{{- template "zshrc/app/colorman.zsh" (dict) }}
+{{- template "zshrc/app/gitignore.zsh" (dict) }}
+{{- template "zshrc/app/autopair.zsh" (dict) }}
+{{- template "zshrc/app/brew.zsh" (dict) }}
+{{- template "zshrc/app/chezmoi.zsh" (dict) }}
+{{- template "zshrc/app/docker.zsh" (dict) }}
+{{- template "zshrc/app/mise.zsh" (dict) }}
+{{- template "zshrc/app/vscode-insiders.zsh" (dict) }}
+{{- template "zshrc/app/macos-utils.zsh" (dict "os" .chezmoi.os) }}
+
+{{- template "zshrc/cleanup/1.init.zsh" }}
+{{- template "zshrc/cleanup/compinit.zsh" (dict) }}
+{{- template "zshrc/cleanup/env.zsh" (dict) }}
