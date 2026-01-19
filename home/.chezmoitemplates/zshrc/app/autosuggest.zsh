@@ -18,9 +18,12 @@ ZSH_AUTOSUGGEST_CLEAR_WIDGETS=(
   history-beginning-search-backward
   expand-or-complete
 )
+# FIXME: this doesn't works
 # ZSH_AUTOSUGGEST_ACCEPT_WIDGETS=(
+#   vi-forward-word
 # )
 # ZSH_AUTOSUGGEST_PARTIAL_ACCEPT_WIDGETS=(
+#   vi-forward-word-end
 # )"
 {{- end }}
 zinit {{ get . "act" | default "light" }} zsh-users/zsh-autosuggestions
