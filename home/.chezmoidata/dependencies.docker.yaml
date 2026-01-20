@@ -10,11 +10,14 @@ dependencies:
           upgrade: true
       homebrew:
         taps: []
-        brews:
-          - cloc
+        brews: []
         casks: []
         _settings:
           cleanup: true
+          envs:
+            ## Since Docker usually build from GitHub Actions with limited CPU & RAM
+            HOMEBREW_MAKE_JOBS: "1"
+            HOMEBREW_DOWNLOAD_CONCURRENCY: "1"
       mise:
         tools:
           - nodejs
@@ -26,10 +29,6 @@ dependencies:
         _settings:
           enabled: true
           upgrade: false
-          envs:
-            ## Since Docker usually build from GitHub Actions with limited CPU & RAM
-            HOMEBREW_MAKE_JOBS: "1"
-            HOMEBREW_DOWNLOAD_CONCURRENCY: "1"
 
     linux/ubuntu:
       apt:
@@ -38,8 +37,7 @@ dependencies:
           upgrade: true
       homebrew:
         taps: []
-        brews:
-          - cloc
+        brews: []
         casks: []
         _settings:
           cleanup: true
