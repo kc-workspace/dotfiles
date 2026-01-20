@@ -17,6 +17,9 @@ dependencies:
         casks: []
         _settings:
           cleanup: true
+          envs:
+            HOMEBREW_MAKE_JOBS: "1"
+            HOMEBREW_DOWNLOAD_CONCURRENCY: "1"
       mise:
         tools:
           - nodejs

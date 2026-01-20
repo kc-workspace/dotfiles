@@ -44,12 +44,19 @@ tmp="$(mktemp)"
   {{- end }}
 } >> "$tmp"
 
+export HOMEBREW_NO_ANALYTICS=true
+export HOMEBREW_NO_ENV_HINTS=true
+export HOMEBREW_NO_AUTO_UPDATE=true
+{{- range $key, $value := dig "homebrew" "_settings" "envs" dict . }}
+export {{ $key }}={{ $value | quote }}
+{{- end }}
+
 printf '>> Installing... %s (%s)\n' "bundle" "$tmp"
 cat "$tmp"
 
 set -x
-"$brew_bin" config ## FIXME: For debugging only
-"$brew_bin" doctor ## FIXME: For debugging only
+"$brew_bin" config || true ## FIXME: For debugging only
+"$brew_bin" doctor || true ## FIXME: For debugging only
 "$brew_bin" bundle install --verbose --debug --file "$tmp"
 {{- if dig "homebrew" "_settings" "cleanup" true . }}
 "$brew_bin" autoremove
@@ -59,6 +66,7 @@ set +x
 
 rm -rf "$tmp"
 unset tmp brew_bin
+unset HOMEBREW_NO_ANALYTICS HOMEBREW_NO_ENV_HINTS HOMEBREW_NO_AUTO_UPDATE
 
 {{- end }}
 {{- if dig "apt" "packages" list . }}
