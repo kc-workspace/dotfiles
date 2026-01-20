@@ -1,0 +1,62 @@
+#!/usr/bin/env bash
+
+{{- $platform := "machine" }}
+{{- if eq (env "GITHUB_ACTIONS") "true" }}
+  {{- $platform = "actions" }}
+{{- end }}
+{{- if eq (env "DOCKER") "true" }}
+  {{- $platform = "docker" }}
+{{- end }}
+
+{{- $os := .chezmoi.os }}
+{{- with .chezmoi.osRelease }}
+  {{- $os = printf "%s/%s" $os .id -}}
+{{- end }}
+
+printf '>> Starting... %s\n' "install-deps.sh"
+printf '>> Current platform: %s\n' "{{ $platform }}"
+printf '>> Current OS: %s\n' "{{ $os }}"
+
+set -e
+
+{{- $deps := dig "dependencies" $platform $os "" $ }}
+{{- with $deps }}
+{{- if or (dig "homebrew" "taps" list .) (dig "homebrew" "brews" list .) (dig "homebrew" "casks" list .) (dig "homebrew" "mas" list .) }}
+
+printf '>> Checking... %s\n' "Homebrew"
+if ! command -v brew >/dev/null; then
+  tmp="$(mktemp)"
+
+  printf '>> Installing... %s (%s)\n' "Homebrew" "$tmp"
+  curl -fsSLo "$tmp" https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh
+  NONINTERACTIVE="${DOCKER:-}" bash "$tmp"
+  rm "$tmp"
+
+  unset tmp
+fi
+
+{{- end }}
+{{- if dig "mise" "_settings" "enabled" true . }}
+
+printf '>> Checking... %s\n' "mise"
+if ! command -v mise >/dev/null; then
+  tmp="$(mktemp)"
+
+  printf '>> Installing... %s (%s)\n' "mise" "$tmp"
+  curl -fsSLo "$tmp" https://mise.run
+  sh "$tmp"
+  rm "$tmp"
+
+  unset tmp
+fi
+
+{{- end }}
+{{- if dig "apt" "packages" list . }}
+
+printf '>> Checking... %s\n' "apt"
+if ! command -v apt >/dev/null; then
+  echo 'Missing apt command' >&2
+  exit 1
+fi
+
+{{- end }}{{- end }}

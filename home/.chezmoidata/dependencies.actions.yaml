@@ -1,0 +1,29 @@
+## ref: ../../CONTRIBUTING.md#chezmoi-data
+
+dependencies:
+  ## Only applied to GitHub Actions
+  actions:
+    linux/ubuntu:
+      apt:
+        packages:
+          - zsh
+          - git
+          - gpg
+        _settings:
+          upgrade: false
+      homebrew:
+        taps: []
+        brews: []
+        casks: []
+        _settings:
+          cleanup: true
+      mise:
+        tools:
+          - nodejs
+          - bun
+          - go
+          - python
+          - uv
+        _settings:
+          enabled: true
+          upgrade: false

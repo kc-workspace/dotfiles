@@ -1,0 +1,50 @@
+## ref: ../../CONTRIBUTING.md#chezmoi-data
+
+dependencies:
+  ## Only applied to Docker
+  docker:
+    linux/debian:
+      apt:
+        packages: []
+        _settings:
+          upgrade: true
+      homebrew:
+        taps: []
+        brews:
+          - cloc
+        casks: []
+        _settings:
+          cleanup: true
+      mise:
+        tools:
+          - nodejs
+          - bun
+          - go
+          - python
+          - uv
+        _settings:
+          enabled: true
+          upgrade: false
+
+    linux/ubuntu:
+      apt:
+        packages: []
+        _settings:
+          upgrade: true
+      homebrew:
+        taps: []
+        brews:
+          - cloc
+        casks: []
+        _settings:
+          cleanup: true
+      mise:
+        tools:
+          - nodejs
+          - bun
+          - go
+          - python
+          - uv
+        _settings:
+          enabled: true
+          upgrade: false

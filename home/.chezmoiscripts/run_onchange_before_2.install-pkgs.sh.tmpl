@@ -1,0 +1,77 @@
+#!/usr/bin/env bash
+
+{{- $platform := "machine" }}
+{{- if eq (env "GITHUB_ACTIONS") "true" }}
+  {{- $platform = "actions" }}
+{{- end }}
+{{- if eq (env "DOCKER") "true" }}
+  {{- $platform = "docker" }}
+{{- end }}
+
+{{- $os := .chezmoi.os }}
+{{- with .chezmoi.osRelease }}
+  {{- $os = printf "%s/%s" $os .id -}}
+{{- end }}
+
+printf '>> Starting... %s\n' "install-pkgs.sh"
+printf '>> Current platform: %s\n' "{{ $platform }}"
+printf '>> Current OS: %s\n' "{{ $os }}"
+
+set -e
+
+{{- $deps := dig "dependencies" $platform $os "" $ }}
+{{- with $deps }}
+{{- if or (dig "homebrew" "taps" list .) (dig "homebrew" "brews" list .) (dig "homebrew" "casks" list .) (dig "homebrew" "mas" list .) }}
+
+tmp="$(mktemp)"
+{{ template "shellVars/brew.tmpl" }}
+
+{
+  {{- range dig "homebrew" "taps" list . }}
+    {{- printf "echo '%s %s'" "tap" (. | quote) | nindent 2 }}
+  {{- end }}
+
+  {{- range dig "homebrew" "brews" list . }}
+    {{- printf "echo '%s %s'" "brew" (. | quote) | nindent 2 }}
+  {{- end }}
+
+  {{- range dig "homebrew" "casks" list . }}
+    {{- printf "echo '%s %s'" "cask" (. | quote) | nindent 2 }}
+  {{- end }}
+
+  {{- range dig "homebrew" "mas" list . }}
+    {{- printf "echo '%s %s, id: %d'" "mas" (.name | quote) .id | nindent 2 }}
+  {{- end }}
+} >> "$tmp"
+
+printf '>> Installing... %s (%s)\n' "bundle" "$tmp"
+cat "$tmp"
+
+set -x
+"$brew_bin" bundle install --verbose --file "$tmp"
+{{- if dig "homebrew" "_settings" "cleanup" true . }}
+"$brew_bin" autoremove
+"$brew_bin" cleanup --prune=all --scrub
+{{- end }}
+set +x
+
+rm -rf "$tmp"
+unset tmp brew_bin
+
+{{- end }}
+{{- if dig "apt" "packages" list . }}
+
+printf '>> Installing... %s (%s)\n' "apt packages"
+
+set -x
+sudo apt update
+{{- if dig "apt" "_settings" "upgrade" true . }}
+sudo apt upgrade -y
+{{- end }}
+sudo apt install -y{{ range dig "apt" "packages" list . }} \
+  {{ . | quote }}
+{{- end }}
+sudo apt clean
+set +x
+
+{{- end }}{{- end }}

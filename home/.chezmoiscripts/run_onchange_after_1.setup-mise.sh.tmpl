@@ -1,0 +1,45 @@
+#!/usr/bin/env bash
+
+{{- $platform := "machine" }}
+{{- if eq (env "GITHUB_ACTIONS") "true" }}
+  {{- $platform = "actions" }}
+{{- end }}
+{{- if eq (env "DOCKER") "true" }}
+  {{- $platform = "docker" }}
+{{- end }}
+
+{{- $os := .chezmoi.os }}
+{{- with .chezmoi.osRelease }}
+  {{- $os = printf "%s/%s" $os .id -}}
+{{- end }}
+
+printf '>> Starting... %s\n' "setup-mise.sh"
+printf '>> Current platform: %s\n' "{{ $platform }}"
+printf '>> Current OS: %s\n' "{{ $os }}"
+
+set -e
+
+{{- $deps := dig "dependencies" $platform $os "" $ }}
+{{- with $deps }}
+{{- if dig "mise" "_settings" "enabled" true . }}
+
+mise_bin="$HOME/.local/bin/mise"
+
+set -x
+{{- if dig "mise" "_settings" "upgrade" true . }}
+"$mise_bin" self-update --yes
+{{- end }}
+{{- $tools := (dig "mise" "tools" "" .) }}
+
+{{- with $tools }}
+{{- if and (kindIs "string" .) (eq . "ALL") }}
+"$mise_bin" install --yes
+{{- else if kindIs "slice" . }}
+"$mise_bin" install --yes {{- range . }} {{ . }}{{- end }}
+{{- end }}
+{{- end }}
+set +x
+
+unset mise_bin
+
+{{- end }}{{- end }}
