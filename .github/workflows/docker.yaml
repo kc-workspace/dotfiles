@@ -23,7 +23,7 @@ on:
     types: [published]
 
 concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}
+  group: ${{ github.workflow }}-${{ github.ref }}-${{ github.event.inputs.images }}-${{ github.event.inputs.platforms }}
   cancel-in-progress: true
 
 permissions:
