@@ -22,6 +22,7 @@ dependencies:
           - go
           - python
           - uv
+          - chezmoi
         _settings:
           enabled: true
           upgrade: false
@@ -45,6 +46,7 @@ dependencies:
           - go
           - python
           - uv
+          - chezmoi
         _settings:
           enabled: true
           upgrade: false
