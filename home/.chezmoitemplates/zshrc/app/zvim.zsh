@@ -2,7 +2,7 @@
 {{- template "zshrc/helpers/h3" "Zinit Plugins - vim-mode" }}
 
 function zvm_config() {
-  ZVM_READKEY_ENGINE=$ZVM_READKEY_ENGINE_NEX
+  ZVM_READKEY_ENGINE=$ZVM_READKEY_ENGINE_ZLE
   ZVM_LINE_INIT_MODE=$ZVM_MODE_INSERT
   ZVM_LAZY_KEYBINDINGS={{ hasKey . "lazyBind" | ternary (get . "lazyBind") true }}
 }
