@@ -23,20 +23,18 @@
 {{- template "zshrc/zinit/1.init.zsh" }}
 {{- template "zshrc/zinit/alias.zsh" (dict) }}
 
-
 {{- template "zshrc/app/1.init.zsh" }}
 
 {{- template "zshrc/app/starship.zsh" (dict) }}
-
-{{- template "zshrc/app/autocomplete.zsh" (dict "disabled" true "_comment" "conflicted with zvim") }}
-{{- template "zshrc/app/completions.zsh" (dict "disabled" true "_comment" "cannot remember why") }}
+{{- template "zshrc/app/autosuggest.zsh" (dict) }}
+{{- template "zshrc/app/zvim.zsh" (dict) }}
+{{- template "zshrc/app/history-substring.zsh" (dict) }}
+{{- template "zshrc/app/colorman.zsh" (dict) }}
 {{- template "zshrc/app/alias-tips.zsh" (dict) }}
 {{- template "zshrc/app/autopair.zsh" (dict) }}
-{{- template "zshrc/app/autosuggest.zsh" (dict "lazy" false) }}
-{{- template "zshrc/app/history-substring.zsh" (dict "lazy" true) }}
 {{- template "zshrc/app/syntax-highlight.zsh" (dict) }}
-{{- template "zshrc/app/colorman.zsh" (dict) }}
-{{- template "zshrc/app/zvim.zsh" (dict) }}
+{{- template "zshrc/app/autocomplete.zsh" (dict "disabled" true "_comment" "conflicted with zvim") }}
+{{- template "zshrc/app/completions.zsh" (dict "disabled" true "_comment" "cannot remember why") }}
 
 {{- template "zshrc/app/ast-grep.zsh" (dict) }}
 {{- template "zshrc/app/atuin.zsh" (dict) }}

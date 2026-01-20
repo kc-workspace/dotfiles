@@ -7,15 +7,11 @@ function zvm_config() {
   ZVM_LAZY_KEYBINDINGS={{ hasKey . "lazyBind" | ternary (get . "lazyBind") true }}
 }
 
-## Needed when zsh-vi-mode is enabled
-function zvm_after_lazy_keybindings() {
-  {{- template "zshrc/zsh/bind.zsh" (dict "hideHeader" true "indent" 1 "keymap" "viins") -}}
-}
-
 ## Setup vim mode
 ## https://github.com/jeffreytse/zsh-vi-mode
 zinit ice {{- if hasKey . "lazy" | ternary (get . "lazy") false }} wait lucid{{- end }} atinit"
-export ZVM_VI_ESCAPE_BINDKEY=jk"
+export ZVM_VI_ESCAPE_BINDKEY=jk" atload"
+{{- template "zshrc/zsh/bind.zsh" (dict "hideHeader" true "keymap" "viins") -}}"
 zinit {{ get . "act" | default "light" }} jeffreytse/zsh-vi-mode
 
 {{ end -}}

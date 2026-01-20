@@ -13,7 +13,7 @@
 
 {{- range $key, $action := $keys }}
 {{ "  " | repeat $indent -}}
-bindkey {{- if $keymap }} -M {{ $keymap }}{{ end }} {{ $key | quote }} {{ $action }}
+bindkey {{- if $keymap }} -M {{ $keymap }}{{ end }} {{ $key | squote }} {{ $action }}
 
 {{- end }}
 
