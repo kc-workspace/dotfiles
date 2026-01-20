@@ -48,6 +48,8 @@ printf '>> Installing... %s (%s)\n' "bundle" "$tmp"
 cat "$tmp"
 
 set -x
+"$brew_bin" config ## FIXME: For debugging only
+"$brew_bin" doctor ## FIXME: For debugging only
 "$brew_bin" bundle install --verbose --debug --file "$tmp"
 {{- if dig "homebrew" "_settings" "cleanup" true . }}
 "$brew_bin" autoremove
