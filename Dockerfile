@@ -3,7 +3,6 @@ ARG IMAGE=ubuntu:latest
 FROM ${IMAGE}
 
 ## Setup os dependencies:
-## - ca-certificates - required when use https connection
 ## - locales         - set locales
 ## - tzdata          - set timezone
 ## - curl            - required by chezmoi (and linuxbrew)
@@ -11,7 +10,7 @@ FROM ${IMAGE}
 ## - sudo            - prevent accident root command executes
 ## - zsh             - default shell
 RUN apt update \
-  && apt install --no-install-recommends -y ca-certificates locales tzdata curl gpg sudo zsh \
+  && apt install -y locales tzdata curl gpg sudo zsh \
   && apt upgrade -y \
   && apt clean
 
@@ -21,7 +20,7 @@ RUN apt update \
 ## - file            - required by linuxbrew
 ## - procps          - required by linuxbrew
 ## - unzip           - required by some mise tools
-RUN apt install --no-install-recommends -y git build-essential file procps unzip \
+RUN apt install -y git build-essential file procps unzip \
   && apt clean
 
 ## Set build environment variables.

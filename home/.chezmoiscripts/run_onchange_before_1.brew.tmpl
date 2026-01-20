@@ -3,7 +3,6 @@
 set -e
 
 {{- $supportOs := keys .packages }}
-
 {{- $currentOs := .chezmoi.os }}
 {{- with .chezmoi.osRelease }}
   {{- $currentOs = printf "%s/%s" $currentOs .id -}}
