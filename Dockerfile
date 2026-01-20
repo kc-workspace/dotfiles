@@ -57,7 +57,7 @@ RUN chsh -s $SHELL
 ## Prepare homebrew home directory
 RUN useradd --create-home --uid 5000 --group sudo --shell $SHELL $USER \
   && echo "%$USER ALL=(ALL) NOPASSWD:ALL" >"/etc/sudoers.d/$USER-group" \
-  && mkdir -p $BREW_HOME
+  && mkdir -p "$BREW_HOME"
 
 ## Setup user with sudo configured
 USER $USER
