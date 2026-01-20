@@ -31,7 +31,7 @@ jobs:
           key: chezmoi-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('.chezmoiversion') }}-${{ hashFiles('.tool-versions') }}
       - name: Download chezmoi install script
         if: steps.cache.outputs.cache-hit != 'true'
-        run: curl -fsLSo $INSTALL_CLI get.chezmoi.io
+        run: curl -fsSLo $INSTALL_CLI get.chezmoi.io
       - name: Install chezmoi
         if: steps.cache.outputs.cache-hit != 'true'
         run: sh "$INSTALL_CLI" -d -b "$CHEZMOI_BIN" -t "v$(cat .chezmoiversion)"
