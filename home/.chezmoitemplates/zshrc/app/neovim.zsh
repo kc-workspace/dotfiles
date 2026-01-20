@@ -5,7 +5,6 @@
 ## https://github.com/neovim/neovim
 zinit ice {{- if hasKey . "lazy" | ternary (get . "lazy") true }} wait lucid{{- end }} as"command" nocompletions \
   from"gh-r" bpick"nvim-*.tar.gz" pick"nvim-*/bin/nvim" \
-  atload"zicompinit; zicdreplay" \
   atinit"
 export EDITOR=nvim
 export ZVM_VI_EDITOR=nvim"

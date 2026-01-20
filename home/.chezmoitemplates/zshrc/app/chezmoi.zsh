@@ -2,7 +2,7 @@
 {{- template "zshrc/helpers/h3" "chezmoi" }}
 
 ## Setup chezmoi completions
-zinit ice {{- if hasKey . "lazy" | ternary (get . "lazy") true }} wait"2" lucid{{- end }} atload"zicompinit; zicdreplay"
+zinit ice {{- if hasKey . "lazy" | ternary (get . "lazy") true }} wait"2" lucid{{- end }}
 zinit snippet OMZP::chezmoi
 
 # Setup chezmoi command aliases
