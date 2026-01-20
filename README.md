@@ -13,6 +13,9 @@ Personal dotfiles configuration for [kamontat][gh:home].
   - [Lite setup](#lite-setup)
   - [Full setup](#full-setup)
 - [Features](#features)
+  - [Zinit](#zinit)
+    - [To upgrade zinit](#to-upgrade-zinit)
+    - [To upgrade plugins](#to-upgrade-plugins)
 - [Usage](#usage)
   - [Prerequisite](#prerequisite)
   - [Quick start](#quick-start)
@@ -20,7 +23,6 @@ Personal dotfiles configuration for [kamontat][gh:home].
   - [To update target directory](#to-update-target-directory)
   - [To uninstall dotfiles](#to-uninstall-dotfiles)
   - [To upgrade tools](#to-upgrade-tools)
-    - [Zinit](#zinit)
     - [Homebrew](#homebrew)
 - [Docker](#docker)
 - [Contributing](#contributing)
@@ -77,6 +79,7 @@ you will have option to convert to full setup via `kdf-*` script.
 ## Features
 
 - [Zsh][zsh:home] configuration: [here][local:zshrc]
+  - [Zinit](#zinit) - Zsh plugin manager
 - [Git][git:home] configuration: [here][local:gitconfig]
 - Application and packages (via [Homebrew][hb:home])
   - View installed applications [here][local:packages]
@@ -87,6 +90,22 @@ you will have option to convert to full setup via `kdf-*` script.
   - **Works** directory for work projects, organized by workplace
 - Password manager via [1Password][1p:home]
 - Encrypted files via [gpg][cz:gpg]
+
+### Zinit
+
+**Installation method**: [chezmoi/external][cz:external]
+
+#### To upgrade zinit
+
+```bash
+zinit self-update
+```
+
+#### To upgrade plugins
+
+```bash
+zinit update --all
+```
 
 ## Usage
 
@@ -121,12 +140,6 @@ Below are a list of actions you might perform when use this repository.
 Since we have several tools, each have it own ways to upgrade.
 You might prefer do one-by-one instead of using script to upgrade all of them.
 
-#### Zinit
-
-```bash
-zinit update --all
-```
-
 #### Homebrew
 
 Add `--greedy` will install version **:latest** and **auto_updates true** as well.
@@ -147,6 +160,7 @@ Please refer to [CONTRIBUTING][local:contributing] guide.
 
 [gh:home]: https://github.com/kamontat/
 [cz:install]: https://www.chezmoi.io/install/
+[cz:external]: https://www.chezmoi.io/reference/special-files/chezmoiexternal-format/
 [cz:reference]: https://www.chezmoi.io/reference/
 [cz:gpg]: https://www.chezmoi.io/user-guide/encryption/gpg/
 [hb:home]: https://brew.sh/
