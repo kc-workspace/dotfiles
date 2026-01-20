@@ -5,7 +5,20 @@ on:
     inputs:
       platforms:
         description: The platforms built docker image should support
-        type: string
+        type: choice
+        default: linux/amd64,linux/arm64/v8
+        options:
+          - linux/amd64,linux/arm64/v8
+          - linux/amd64
+          - linux/arm64/v8
+      images:
+        description: The base images to build the docker image
+        type: choice
+        default: ubuntu:latest,debian:latest
+        options:
+          - ubuntu:latest,debian:latest
+          - ubuntu:latest
+          - debian:latest
   release:
     types: [published]
 
@@ -38,6 +51,9 @@ jobs:
         image:
           - "ubuntu:latest"
           - "debian:latest"
+        exclude:
+          - image: ${{ !contains(inputs.images, 'ubuntu:latest') && 'ubuntu:latest' }}
+          - image: ${{ !contains(inputs.images, 'debian:latest') && 'debian:latest' }}
     name: Publish ${{ matrix.image }}
     steps:
       - name: Set up QEMU
