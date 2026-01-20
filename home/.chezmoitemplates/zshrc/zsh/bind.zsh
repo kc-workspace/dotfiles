@@ -1,13 +1,20 @@
+{{- $keys := dict -}}
+{{- $_ := set $keys "^[[C" "vi-forward-char" -}}{{/* arrow-right */}}
+{{- $_ := set $keys "^[[D" "vi-backward-char" -}}{{/* arrow-left */}}
+{{- $_ := set $keys "^[[1;9C" "vi-forward-blank-word" -}}{{/* cmd+right */}}
+{{- $_ := set $keys "^[[1;2C" "vi-forward-word" -}}{{/* shift+right */}}
+{{- $_ := set $keys "^[[1;9D" "vi-backward-blank-word" -}}{{/* cmd+left */}}
+{{- $_ := set $keys "^[[1;2D" "vi-backward-word" -}}{{/* shift+left */}}
+
+{{- $indent := get . "indent" | default 0 -}}
+{{- $keymap := get . "keymap" | default "" -}}
 {{- if not (get . "disabled") }}
-{{- template "zshrc/helpers/h2" "Zsh binding" }}
+{{- if not (get . "hideHeader") }}{{ template "zshrc/helpers/h2" "Zsh binding" }}{{ end }}
 
-# FIXME: this doesn't works
-## Needed when zsh-vi-mode is enabled
-# function zvm_after_lazy_keybindings() {
-#   bindkey -M viins '^[[1;9C' vi-forward-word-end
-#   bindkey -M viins '^[[C' vi-forward-word
-# }
+{{- range $key, $action := $keys }}
+{{ "  " | repeat $indent -}}
+bindkey {{- if $keymap }} -M {{ $keymap }}{{ end }} {{ $key | quote }} {{ $action }}
 
-# bindkey -M viins '^[[1;9C' vi-forward-word-end
-# bindkey -M viins '^[[C' vi-forward-word
+{{- end }}
+
 {{ end -}}

@@ -2,15 +2,20 @@
 {{- template "zshrc/helpers/h3" "Zinit Plugins - vim-mode" }}
 
 function zvm_config() {
-  ## FIXME: Not working
-  ZVM_VI_ESCAPE_BINDKEY=jj
-  ZVM_KEYTIMEOUT=1
-  ZVM_ESCAPE_KEYTIMEOUT=0.1
+  ZVM_READKEY_ENGINE=$ZVM_READKEY_ENGINE_NEX
+  ZVM_LINE_INIT_MODE=$ZVM_MODE_INSERT
   ZVM_LAZY_KEYBINDINGS={{ hasKey . "lazy" | ternary (get . "lazy") true }}
+}
+
+## Needed when zsh-vi-mode is enabled
+function zvm_after_lazy_keybindings() {
+  {{- template "zshrc/zsh/bind.zsh" (dict "hideHeader" true "indent" 1 "keymap" "viins") -}}
 }
 
 ## Setup vim mode
 ## https://github.com/jeffreytse/zsh-vi-mode
+zinit ice atinit"
+export ZVM_VI_ESCAPE_BINDKEY=jk"
 zinit {{ get . "act" | default "light" }} jeffreytse/zsh-vi-mode
 
 {{ end -}}
