@@ -3,8 +3,8 @@
 
 ## Setup autosuggestions
 ## https://github.com/zsh-users/zsh-autosuggestions
-{{- if hasKey . "lazy" | ternary (get . "lazy") true }}
-zinit ice atload"
+
+zinit ice {{- if hasKey . "lazy" | ternary (get . "lazy") true }} wait lucid{{- end }} atload"
 ## https://github.com/zsh-users/zsh-autosuggestions/blob/85919cd1ffa7d2d5412f6d3fe437ebdbeeec4fc5/src/config.zsh#L26-L41
 ZSH_AUTOSUGGEST_CLEAR_WIDGETS=(
   ## zsh-users/zsh-history-substring-search widget
@@ -18,7 +18,6 @@ ZSH_AUTOSUGGEST_CLEAR_WIDGETS=(
   history-beginning-search-backward
   expand-or-complete
 )"
-{{- end }}
 zinit {{ get . "act" | default "light" }} zsh-users/zsh-autosuggestions
 
 {{ end -}}

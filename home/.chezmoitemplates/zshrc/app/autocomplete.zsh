@@ -3,7 +3,7 @@
 
 ## Setup autocompletions
 ## https://github.com/marlonrichert/zsh-autocomplete
-zinit ice blockf {{- if hasKey . "lazy" | ternary (get . "lazy") false }} wait lucid{{ end }} atload"
+zinit ice blockf {{- if hasKey . "lazy" | ternary (get . "lazy") true }} wait lucid{{ end }} atload"
 bindkey -M menuselect '^I' menu-complete
 "
 zinit {{ get . "act" | default "light" }} marlonrichert/zsh-autocomplete

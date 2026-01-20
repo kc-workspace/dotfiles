@@ -4,7 +4,7 @@
 function zvm_config() {
   ZVM_READKEY_ENGINE=$ZVM_READKEY_ENGINE_NEX
   ZVM_LINE_INIT_MODE=$ZVM_MODE_INSERT
-  ZVM_LAZY_KEYBINDINGS={{ hasKey . "lazy" | ternary (get . "lazy") true }}
+  ZVM_LAZY_KEYBINDINGS={{ hasKey . "lazyBind" | ternary (get . "lazyBind") true }}
 }
 
 ## Needed when zsh-vi-mode is enabled
@@ -14,7 +14,7 @@ function zvm_after_lazy_keybindings() {
 
 ## Setup vim mode
 ## https://github.com/jeffreytse/zsh-vi-mode
-zinit ice atinit"
+zinit ice {{- if hasKey . "lazy" | ternary (get . "lazy") false }} wait lucid{{- end }} atinit"
 export ZVM_VI_ESCAPE_BINDKEY=jk"
 zinit {{ get . "act" | default "light" }} jeffreytse/zsh-vi-mode
 
