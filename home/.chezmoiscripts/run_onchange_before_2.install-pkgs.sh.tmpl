@@ -48,7 +48,7 @@ printf '>> Installing... %s (%s)\n' "bundle" "$tmp"
 cat "$tmp"
 
 set -x
-"$brew_bin" bundle install --verbose --file "$tmp"
+"$brew_bin" bundle install --verbose --debug --file "$tmp"
 {{- if dig "homebrew" "_settings" "cleanup" true . }}
 "$brew_bin" autoremove
 "$brew_bin" cleanup --prune=all --scrub
