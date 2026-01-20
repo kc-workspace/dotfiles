@@ -3,7 +3,7 @@
 
 ## Setup substring history search
 ## https://github.com/zsh-users/zsh-history-substring-search
-zinit ice {{- if hasKey . "lazy" | ternary (get . "lazy") true }} wait lucid{{- end }} atinit"
+zinit ice {{- if hasKey . "lazy" | ternary (get . "lazy") false }} wait lucid{{- end }} atinit"
 export HISTORY_SUBSTRING_SEARCH_PREFIXED=true
 export HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_TIMEOUT=3
 " atload"
