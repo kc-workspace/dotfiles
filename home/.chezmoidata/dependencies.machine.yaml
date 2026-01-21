@@ -36,6 +36,7 @@ dependencies:
           - gpg-suite ## For GPG tools on macOS
           - keybase ## For secure file sharing and communication
           - logi-options+ ## For Logitech device management
+          - okta-verify ## For Okta authentication
           - setapp ## For installing multiple apps
           - slack ## For team communication
           - steam ## For gaming platform
