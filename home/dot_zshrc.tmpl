@@ -26,7 +26,7 @@
 {{- template "zshrc/app/1.init.zsh" }}
 
 {{- template "zshrc/app/starship.zsh" (dict) }}
-{{- template "zshrc/app/history-substring.zsh" (dict) }}{{/* Must be before zvim */}}
+{{- template "zshrc/app/history-substring.zsh" (dict "keymap" "viins") }}{{/* Must be before zvim */}}
 {{- template "zshrc/app/atuin.zsh" (dict "lazy" true) }}{{/* Must be before zvim but after autosuggest */}}
 {{- template "zshrc/app/zvim.zsh" (dict) }}
 {{- template "zshrc/app/autosuggest.zsh" (dict) }}
