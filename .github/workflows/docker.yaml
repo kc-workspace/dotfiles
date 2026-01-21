@@ -48,3 +48,4 @@ jobs:
       - name: Build matrix
         id: build
         uses: ./.github/actions/matrix-build
+      - run: echo "${{ steps.build.outputs.matrix }}"

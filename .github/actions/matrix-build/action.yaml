@@ -13,16 +13,14 @@ outputs:
 runs:
   using: "composite"
   steps:
-    - name: Set GitHub Path
-      run: echo "$GITHUB_ACTION_PATH" >> $GITHUB_PATH
+    - run: echo "$GITHUB_ACTION_PATH" >> $GITHUB_PATH
       shell: bash
       env:
         GITHUB_ACTION_PATH: ${{ github.action_path }}
-    - name: Set Greeting
-      run: echo "Hello $INPUT_WHO_TO_GREET."
+    - run: echo "Hello $INPUT_WHO_TO_GREET."
       shell: bash
       env:
         INPUT_WHO_TO_GREET: ${{ inputs.who-to-greet }}
-    - id: index
-      run: index.sh >> "$GITHUB_OUTPUT"
+    - run: index.sh >> "$GITHUB_OUTPUT"
       shell: bash
+      id: index
