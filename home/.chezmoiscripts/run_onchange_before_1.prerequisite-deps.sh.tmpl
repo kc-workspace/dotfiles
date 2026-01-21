@@ -21,7 +21,7 @@ set -e
 
 {{- $deps := dig "dependencies" $platform $os "" $ }}
 {{- with $deps }}
-{{- if or (dig "homebrew" "taps" list .) (dig "homebrew" "brews" list .) (dig "homebrew" "casks" list .) (dig "homebrew" "mas" list .) }}
+{{- if dig "homebrew" "_settings" "install" true . }}
 
 printf '>> Checking... %s\n' "Homebrew"
 if ! command -v brew >/dev/null; then
@@ -36,7 +36,7 @@ if ! command -v brew >/dev/null; then
 fi
 
 {{- end }}
-{{- if dig "mise" "_settings" "enabled" true . }}
+{{- if dig "mise" "_settings" "install" true . }}
 
 printf '>> Checking... %s\n' "mise"
 if ! command -v mise >/dev/null; then

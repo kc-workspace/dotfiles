@@ -16,6 +16,7 @@ dependencies:
         brews: []
         casks: []
         _settings:
+          install: true
           cleanup: true
           envs:
             HOMEBREW_MAKE_JOBS: "1"
@@ -29,5 +30,5 @@ dependencies:
           - uv
           - chezmoi
         _settings:
-          enabled: true
+          install: true
           upgrade: false

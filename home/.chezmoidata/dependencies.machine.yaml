@@ -66,11 +66,12 @@ dependencies:
           # - id: 634148309
           #   name: Logic Pro
         _settings:
+          install: true
           cleanup: true
       mise:
         tools: ALL
         _settings:
-          enabled: true
+          install: true
           upgrade: true
 
     linux/ubuntu:
@@ -88,9 +89,10 @@ dependencies:
           - cloc ## For count lines of code
         casks: []
         _settings:
+          install: true
           cleanup: true
       mise:
         tools: ALL
         _settings:
-          enabled: true
+          install: true
           upgrade: true

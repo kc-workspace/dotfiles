@@ -13,6 +13,7 @@ dependencies:
         brews: []
         casks: []
         _settings:
+          install: true
           cleanup: true
           envs:
             ## Since Docker usually build from GitHub Actions with limited CPU & RAM
@@ -27,7 +28,7 @@ dependencies:
           - uv
           - chezmoi
         _settings:
-          enabled: true
+          install: true
           upgrade: false
 
     linux/ubuntu:
@@ -40,6 +41,7 @@ dependencies:
         brews: []
         casks: []
         _settings:
+          install: true
           cleanup: true
           envs:
             ## Since Docker usually build from GitHub Actions with limited CPU & RAM
@@ -54,5 +56,5 @@ dependencies:
           - uv
           - chezmoi
         _settings:
-          enabled: true
+          install: true
           upgrade: false
