@@ -27,6 +27,7 @@
 
 {{- template "zshrc/app/starship.zsh" (dict) }}
 {{- template "zshrc/app/history-substring.zsh" (dict) }}{{/* Must be before zvim */}}
+{{- template "zshrc/app/atuin.zsh" (dict "lazy" true) }}{{/* Must be before zvim but after autosuggest */}}
 {{- template "zshrc/app/zvim.zsh" (dict) }}
 {{- template "zshrc/app/autosuggest.zsh" (dict) }}
 {{- template "zshrc/app/colorman.zsh" (dict) }}
@@ -36,7 +37,6 @@
 {{- template "zshrc/app/completions.zsh" (dict "disabled" true "_comment" "cannot remember why") }}
 
 {{- template "zshrc/app/ast-grep.zsh" (dict) }}
-{{- template "zshrc/app/atuin.zsh" (dict) }}
 {{- template "zshrc/app/aws.zsh" (dict) }}
 {{- template "zshrc/app/bat.zsh" (dict) }}
 {{- template "zshrc/app/brew.zsh" (dict) }}
