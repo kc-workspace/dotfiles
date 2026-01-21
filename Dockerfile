@@ -33,22 +33,20 @@ ENV DOCKER=true
 ## - zsh             - default shell
 RUN apt update \
   && apt install -y locales tzdata curl gpg sudo zsh \
-  && apt upgrade -y \
-  && apt clean
+  && apt upgrade -y
 
 ## Set up locales (Required because tab completions bug)
 ## ref: https://github.com/zsh-users/zsh-autosuggestions/issues/683
-RUN sed -i '/en_US.UTF-8/s/^# //g' /etc/locale.gen \
-  && locale-gen
+RUN localedef -i en_US -f UTF-8 en_US.UTF-8
 
 ## Install required linux dependencies
 ## - git             - required by chezmoi (and linuxbrew)
-## - build-essential - required by linuxbrew
 ## - file            - required by linuxbrew
-## - procps          - required by linuxbrew
 ## - unzip           - required by some mise tools
-RUN apt install -y git build-essential file procps unzip \
-  && apt clean
+RUN apt install -y git file unzip \
+  && apt autoremove -y --purge \
+  && apt clean \
+  && rm -rf /var/lib/apt/lists/*
 
 ## Setup startup shell
 RUN chsh -s $SHELL
@@ -61,6 +59,7 @@ RUN useradd --create-home --uid 5000 --group sudo --shell $SHELL $USER \
 
 ## Setup user with sudo configured
 USER $USER
+ENV USER=$USER
 WORKDIR $USER_HOME
 
 ## Prepare && Install chezmoi
