@@ -21,7 +21,7 @@ set -e
 
 {{- $deps := dig "dependencies" $platform $os "" $ }}
 {{- with $deps }}
-{{- if dig "mise" "_settings" "enabled" true . }}
+{{- if dig "mise" "_settings" "install" true . }}
 
 mise_bin="$HOME/.local/bin/mise"
 
