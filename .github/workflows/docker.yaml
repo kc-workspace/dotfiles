@@ -47,4 +47,4 @@ jobs:
           persist-credentials: false
       - name: Build matrix
         id: build
-        run: ./.github/actions/matrix-build
+        uses: ./.github/actions/matrix-build
