@@ -1,3 +1,3 @@
 #!/usr/bin/env sh
 
-echo "matrix='goodbye'"
+echo "matrix=goodbye"
