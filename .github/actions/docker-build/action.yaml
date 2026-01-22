@@ -26,6 +26,9 @@ inputs:
   image-annotations:
     description: The image annotations to set on built images
     required: true
+  image-cache:
+    description: The image tag for the build cache
+    required: true
   gh-registry:
     description: GitHub Container Registry
     required: true
@@ -61,6 +64,7 @@ runs:
         annotations: ${{ inputs.image-annotations }}
         build-args: ${{ inputs.build-args }}
     - uses: docker/build-push-action@263435318d21b8e681c14492fe198d362a7d2c83 # v6.18.0
+      id: build
       with:
         file: ${{ inputs.file }}
         platforms: ${{ inputs.platforms }}
@@ -68,8 +72,8 @@ runs:
         labels: ${{ inputs.image-labels }}
         annotations: ${{ inputs.image-annotations }}
         build-args: ${{ inputs.build-args }}
-        cache-from: type=gha
-        cache-to: type=gha,mode=max
+        cache-from: type=registry,ref=${{ inputs.image-cache }}
+        cache-to: type=registry,ref=${{ inputs.image-cache }},mode=max
         secrets: |
           "GITHUB_TOKEN=${{ github.token }}"
         outputs: "type=image,push-by-digest=true,name-canonical=${{ inputs.multiplatform }},push=true"

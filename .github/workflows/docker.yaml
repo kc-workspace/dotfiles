@@ -84,6 +84,8 @@ jobs:
             ${{ needs.info.outputs.gh-name }}
           image-labels: ${{ needs.info.outputs.image-labels }}
           image-annotations: ${{ needs.info.outputs.image-annotations }}
+          ## https://docs.docker.com/build/ci/github-actions/cache/#registry-cache
+          image-cache: ${{ needs.info.outputs.dh-name }}:cache-${{ matrix.key }}
           gh-registry: ${{ needs.info.outputs.gh-registry }}
           dh-registry: ${{ needs.info.outputs.dh-registry }}
           dh-username: ${{ secrets.DH_USERNAME }}
