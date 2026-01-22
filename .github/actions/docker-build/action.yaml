@@ -1,0 +1,84 @@
+name: Docker build
+description: Validate and Build docker images and push to registries
+
+inputs:
+  key:
+    description: The key of the docker image digest artifact
+    required: true
+  platforms:
+    description: The list of platforms to set up (separated by comma)
+    required: true
+  file:
+    description: The dockerfile to use
+    required: true
+  build-args:
+    description: The build arguments to pass to docker build
+    required: true
+  multiplatform:
+    description: Whether the build is multi-platform (true/false)
+    required: true
+  image-labels:
+    description: The image labels to set on built images
+    required: true
+  image-annotations:
+    description: The image annotations to set on built images
+    required: true
+  gh-registry:
+    description: GitHub Container Registry
+    required: true
+  dh-registry:
+    description: Docker Hub registry
+    required: true
+  dh-username:
+    description: Docker Hub username
+    required: true
+  dh-password:
+    description: Docker Hub password
+    required: true
+
+runs:
+  using: composite
+  steps:
+    - uses: ./.github/actions/docker-setup
+      id: setup
+      with:
+        platforms: ${{ inputs.platforms }}
+        gh-registry: ${{ inputs.gh-registry }}
+        dh-registry: ${{ inputs.dh-registry }}
+        dh-username: ${{ inputs.dh-username }}
+        dh-password: ${{ inputs.dh-password }}
+
+    - uses: docker/build-push-action@263435318d21b8e681c14492fe198d362a7d2c83 # v6.18.0
+      with:
+        call: check
+        file: ${{ inputs.file }}
+        platforms: ${{ inputs.platforms }}
+        labels: ${{ inputs.image-labels }}
+        annotations: ${{ inputs.image-annotations }}
+        build-args: ${{ inputs.build-args }}
+    - uses: docker/build-push-action@263435318d21b8e681c14492fe198d362a7d2c83 # v6.18.0
+      with:
+        file: ${{ inputs.file }}
+        platforms: ${{ inputs.platforms }}
+        labels: ${{ inputs.image-labels }}
+        annotations: ${{ inputs.image-annotations }}
+        build-args: ${{ inputs.build-args }}
+        cache-from: type=gha
+        cache-to: type=gha,mode=max
+        secrets: |
+          "GITHUB_TOKEN=${{ github.token }}"
+        outputs: "type=image,push-by-digest=true,name-canonical=${{ inputs.multiplatform }},push=true"
+
+    - run: ${{ github.action_path }}/export-digest.sh
+      id: digest
+      shell: bash
+      env:
+        INPUT_KEY: ${{ inputs.key }}
+        INPUT_DIGEST: ${{ steps.build.outputs.digest }}
+
+    - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6.0.0
+      with:
+        name: ${{ steps.digest.outputs.name }}
+        path: ${{ steps.digest.outputs.path }}
+        if-no-files-found: error
+        retention-days: 1

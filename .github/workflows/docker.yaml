@@ -41,6 +41,7 @@ jobs:
       gh-registry: ${{ steps.info.outputs.gh-registry }}
       gh-repo: ${{ steps.info.outputs.gh-repo }}
       gh-name: ${{ steps.info.outputs.gh-name }}
+      multiplatform: ${{ steps.info.outputs.multiplatform }}
       build-matrix: ${{ steps.info.outputs.build-matrix }}
       merge-matrix: ${{ steps.info.outputs.merge-matrix }}
       image-labels: ${{ steps.info.outputs.image-labels }}
@@ -50,9 +51,8 @@ jobs:
         uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
         with:
           persist-credentials: false
-      - name: Get docker information
+      - uses: ./.github/actions/docker-info
         id: info
-        uses: ./.github/actions/docker-info
         with:
           images: ${{ inputs.images || 'ubuntu:latest,debian:latest' }}
           platforms: ${{ inputs.platforms || 'linux/amd64,linux/arm64' }}
@@ -72,28 +72,19 @@ jobs:
         uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
         with:
           persist-credentials: false
-      - name: Set up docker
-        id: setup
-        uses: ./.github/actions/docker-setup
+      - uses: ./.github/actions/docker-build
         with:
+          key: ${{ matrix.key }}
           platforms: ${{ matrix.platform }}
+          file: ${{ matrix.dockerfile }}
+          build-args: ${{ matrix.build-args }}
+          multiplatform: ${{ needs.info.outputs.multiplatform }}
+          image-labels: ${{ needs.info.outputs.image-labels }}
+          image-annotations: ${{ needs.info.outputs.image-annotations }}
+          gh-registry: ${{ needs.info.outputs.gh-registry }}
           dh-registry: ${{ needs.info.outputs.dh-registry }}
           dh-username: ${{ secrets.DH_USERNAME }}
           dh-password: ${{ secrets.DH_TOKEN }}
-          gh-registry: ${{ needs.info.outputs.gh-registry }}
-      - name: Validate docker build configuration
-        uses: docker/build-push-action@263435318d21b8e681c14492fe198d362a7d2c83 # v6.18.0
-        with:
-          file: Dockerfile
-          call: check
-          platforms: ${{ matrix.platform }}
-          labels: ${{ needs.info.outputs.image-labels }}
-          annotations: ${{ needs.info.outputs.image-annotations }}
-          build-args: |
-            "IMAGE=${{ matrix.image }}"
-            "KCDF_REPO=${{ github.repository }}"
-            "KCDF_REF=${{ github.ref_type }}/${{ github.ref_name }}"
-            "KCDF_SHA=${{ github.sha }}"
 
   merge:
     needs: [info, build]
@@ -102,8 +93,10 @@ jobs:
       matrix: ${{ fromJson(needs.info.outputs.merge-matrix) }}
     runs-on: ubuntu-latest
     steps:
-      - name: Set up repository
-        uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
+      - name: Download digests
+        uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131 # v7.0.0
         with:
-          persist-credentials: false
-      - run: echo '${{ matrix }}'
+          path: ${{ runner.temp }}/digests
+          pattern: digests-${{ matrix.key-prefix }}
+          merge-multiple: true
+      - run: ls -la ${{ runner.temp }}/digests

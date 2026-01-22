@@ -28,6 +28,10 @@ outputs:
     description: GitHub Container full name
     value: ${{ steps.index.outputs.gh-name }}
 
+  multiplatform:
+    description: Whether the build is multi-platform (true/false)
+    value: ${{ steps.index.outputs.multiplatform }}
+
   build-matrix:
     description: Generated strategy.matrix for docker-build job
     value: ${{ steps.index.outputs.build-matrix }}

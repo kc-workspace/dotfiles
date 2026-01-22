@@ -42,9 +42,8 @@ jobs:
     outputs:
       matrix: ${{ steps.build.outputs.matrix }}
     steps:
-      - name: Build matrix
+      - run: ./.github/scripts/build-matrix.sh
         id: build
-        run: ./.github/scripts/build-matrix.sh
 
   publish:
     runs-on: ubuntu-latest
