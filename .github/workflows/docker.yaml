@@ -96,6 +96,8 @@ jobs:
           cache_image_name: ${{ needs.info.outputs.image_name_dh }}
           cache_prefix: ${{ needs.info.outputs.cache_prefix }}
           digest_prefix: ${{ needs.info.outputs.digest_prefix }}
+          image_name_dh: ${{ needs.info.outputs.image_name_dh }}
+          image_name_gh: ${{ needs.info.outputs.image_name_gh }}
           image_names: ${{ needs.info.outputs.image_names }}
           image_labels: ${{ needs.info.outputs.image_labels }}
           image_annotations: ${{ needs.info.outputs.image_annotations }}
@@ -125,38 +127,11 @@ jobs:
           gh_username: ${{ needs.info.outputs.gh_username }}
           gh_token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Download digests
-        uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131 # v7.0.0
+      - uses: ./.github/actions/docker-merge
         with:
-          path: ${{ runner.temp }}/${{ needs.info.outputs.digest_prefix }}
-          pattern: ${{ needs.info.outputs.digest_prefix }}-${{ matrix.key }}-*
-          merge-multiple: true
-
-      - name: Docker meta
-        id: meta
-        uses: docker/metadata-action@c299e40c65443455700f0fdfc63efafe5b349051 # v5.10.0
-        with:
-          images: ${{ needs.info.outputs.image_names }}
-          flavor: |
-            suffix=${{ matrix.tag_suffix }},onlatest=true
-          tags: |
-            type=semver,pattern={{major}}
-            type=semver,pattern={{major}}.{{minor}}
-            type=semver,pattern={{version}}
-            type=edge
-            type=ref,event=branch
-            type=ref,event=pr,prefix=pr-
-            type=sha
-
-      - name: Create manifest list and push
-        working-directory: ${{ runner.temp }}/digests
-        run: |
-          docker buildx imagetools create $(jq -cr '.tags | map("-t " + .) | join(" ")' <<< "$DOCKER_METADATA_OUTPUT_JSON") \
-            $(printf '${{ needs.info.outputs.image_name_dh }}@sha256:%s ' *)
-          docker buildx imagetools create $(jq -cr '.tags | map("-t " + .) | join(" ")' <<< "$DOCKER_METADATA_OUTPUT_JSON") \
-            $(printf '${{ needs.info.outputs.image_name_gh }}@sha256:%s ' *)
-
-      - name: Inspect image
-        run: |
-          docker buildx imagetools inspect ${{ needs.info.outputs.image_name_dh }}:${{ steps.meta.outputs.version }}
-          docker buildx imagetools inspect ${{ needs.info.outputs.image_name_gh }}:${{ steps.meta.outputs.version }}
+          key: ${{ matrix.key }}
+          tag_suffix: ${{ matrix.tag_suffix }}
+          digest_prefix: ${{ needs.info.outputs.digest_prefix }}
+          image_name_dh: ${{ needs.info.outputs.image_name_dh }}
+          image_name_gh: ${{ needs.info.outputs.image_name_gh }}
+          image_names: ${{ needs.info.outputs.image_names }}

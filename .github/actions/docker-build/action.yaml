@@ -24,6 +24,12 @@ inputs:
     description: The prefix for digest artifact name
     required: true
 
+  image_name_dh:
+    description: The Docker Hub image name ([registry]/[repo])
+    required: true
+  image_name_gh:
+    description: The GitHub Container image name ([registry]/[repo])
+    required: true
   image_names:
     description: The image name ([registry]/[repo])
     required: true
@@ -69,12 +75,16 @@ runs:
         provenance: mode=max
         sbom: true
 
-    ## TODO: Not sure if I need actions/attest-build-provenance and actions/attest-sbom or not
-    # - uses: actions/attest-build-provenance@00014ed6ed5efc5b1ab7f7f34a39eb55d41aa4f8 # v3.1.0
-    #   with:
-    #     subject-name: ${{ env.GH_REGISTRY }}/${{ env.GH_NAME }}
-    #     subject-digest: ${{ steps.build.outputs.digest }}
-    #     push-to-registry: true
+    - uses: actions/attest-build-provenance@00014ed6ed5efc5b1ab7f7f34a39eb55d41aa4f8 # v3.1.0
+      with:
+        subject-name: ${{ env.image_name_dh }}
+        subject-digest: ${{ steps.build.outputs.digest }}
+        push-to-registry: true
+    - uses: actions/attest-build-provenance@00014ed6ed5efc5b1ab7f7f34a39eb55d41aa4f8 # v3.1.0
+      with:
+        subject-name: ${{ env.image_name_gh }}
+        subject-digest: ${{ steps.build.outputs.digest }}
+        push-to-registry: true
 
     - run: ${{ github.action_path }}/export-digest.sh
       id: digest
