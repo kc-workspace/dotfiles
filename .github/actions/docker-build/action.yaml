@@ -65,14 +65,16 @@ runs:
         secrets: |
           "GITHUB_TOKEN=${{ github.token }}"
         outputs: "type=image,push-by-digest=true,name-canonical=${{ inputs.conf_multiplatform }},push=true"
-        ## TODO: Not sure if I need actions/attest-build-provenance and actions/attest-sbom or not
+
         provenance: mode=max
         sbom: true
-    - uses: actions/attest-build-provenance@00014ed6ed5efc5b1ab7f7f34a39eb55d41aa4f8 # v3.1.0
-      with:
-        subject-name: ${{ env.GH_REGISTRY }}/${{ env.GH_NAME }}
-        subject-digest: ${{ steps.docker-push.outputs.digest }}
-        push-to-registry: true
+
+    ## TODO: Not sure if I need actions/attest-build-provenance and actions/attest-sbom or not
+    # - uses: actions/attest-build-provenance@00014ed6ed5efc5b1ab7f7f34a39eb55d41aa4f8 # v3.1.0
+    #   with:
+    #     subject-name: ${{ env.GH_REGISTRY }}/${{ env.GH_NAME }}
+    #     subject-digest: ${{ steps.build.outputs.digest }}
+    #     push-to-registry: true
 
     - run: ${{ github.action_path }}/export-digest.sh
       id: digest
