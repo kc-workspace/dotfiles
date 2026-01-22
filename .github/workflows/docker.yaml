@@ -71,6 +71,7 @@ jobs:
     permissions:
       contents: read
       packages: write ## For pushing images
+      artifact-metadata: write ## For GitHub provenance
       attestations: write ## For provenance
       id-token: write ## For sbom
     steps:
