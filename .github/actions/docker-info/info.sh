@@ -78,7 +78,6 @@ build_matrix() {
       printf '      "image": "%s"\n' "$image"
       printf '     ,"platform": "%s"\n' "$platform"
       printf '     ,"key": "%s"\n' "$(get_key "$image" "$platform")"
-      printf '     ,"tag-suffix": "%s"\n' "$(get_tag_suffix "$image")"
       printf '     ,"dockerfile": "%s"\n' "$(get_dockerfile "$image" "$platform")"
       printf '     ,"build-args": "%s"\n' "$(get_build_args "$image" "$platform")"
       printf '     ,"runs-on": "%s"\n' "$(get_runs_on "$platform")"
@@ -92,13 +91,21 @@ build_matrix() {
 }
 
 merge_matrix() {
-  local images="$1" image empty=true
+  local images="$1" platforms="$2" image platform empty=true
+
   echo '{'
   echo '  "include": ['
   while read -r image; do
-    printf '    %s{ "key": "%s" }\n' \
-      "$($empty && printf ' ' || printf ',')" \
-      "$(get_key "$image" '')"
+    if test -z "$image"; then
+      continue
+    fi
+
+    printf '   %s{\n' "$($empty && printf ' ' || printf ',')"
+    printf '      "key": "%s"\n' "$(get_key "$image" '')"
+    printf '     ,"tag-suffix": "%s"\n' "$(get_tag_suffix "$image")"
+    printf '     ,"platforms": "%s"\n' "$platforms"
+    printf '    }\n'
+
     empty=false
   done <<<"$(to_array "$images")"
   echo '  ]'
@@ -132,5 +139,10 @@ platform_info() {
 
   registry_info 'dh' 'index.docker.io' 'kamontat/dotfiles'
   registry_info 'gh' 'ghcr.io' "$GITHUB_REPOSITORY"
+  echo 'image-names<<EOF'
+  echo "index.docker.io/kamontat/dotfiles"
+  echo "ghcr.io/$GITHUB_REPOSITORY"
+  echo EOF
+
   platform_info "$INPUT_PLATFORMS"
 } >>"$GITHUB_OUTPUT"

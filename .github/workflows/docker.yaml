@@ -44,6 +44,7 @@ jobs:
       multiplatform: ${{ steps.info.outputs.multiplatform }}
       build-matrix: ${{ steps.info.outputs.build-matrix }}
       merge-matrix: ${{ steps.info.outputs.merge-matrix }}
+      image-names: ${{ steps.info.outputs.image-names }}
       image-labels: ${{ steps.info.outputs.image-labels }}
       image-annotations: ${{ steps.info.outputs.image-annotations }}
     steps:
@@ -79,9 +80,7 @@ jobs:
           file: ${{ matrix.dockerfile }}
           build-args: ${{ matrix.build-args }}
           multiplatform: ${{ needs.info.outputs.multiplatform }}
-          image-names: |
-            ${{ needs.info.outputs.dh-name }}
-            ${{ needs.info.outputs.gh-name }}
+          image-names: ${{ needs.info.outputs.image-names }}
           image-labels: ${{ needs.info.outputs.image-labels }}
           image-annotations: ${{ needs.info.outputs.image-annotations }}
           ## https://docs.docker.com/build/ci/github-actions/cache/#registry-cache
@@ -105,4 +104,29 @@ jobs:
           path: ${{ runner.temp }}/digests
           pattern: digests-${{ matrix.key }}-*
           merge-multiple: true
+      - uses: ./.github/actions/docker-setup
+        with:
+          platforms: ${{ matrix.platforms }}
+          gh-registry: ${{ needs.info.outputs.gh-registry }}
+          dh-registry: ${{ needs.info.outputs.dh-registry }}
+          dh-username: ${{ secrets.DH_USERNAME }}
+          dh-password: ${{ secrets.DH_TOKEN }}
+      - name: Docker meta
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: |
+            ${{ needs.info.outputs.dh-name }}
+            ${{ needs.info.outputs.gh-name }}
+          flavor: |
+            suffix=${{ matrix.tag-suffix }},onlatest=true
+          tags: |
+            type=semver,pattern={{major}}
+            type=semver,pattern={{major}}.{{minor}}
+            type=semver,pattern={{version}}
+            type=edge
+            type=ref,event=branch
+            type=ref,event=pr,prefix=pr-
+            type=sha
+
       - run: ls -la ${{ runner.temp }}/digests

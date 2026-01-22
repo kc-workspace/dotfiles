@@ -7,8 +7,8 @@ set -euo pipefail
 : "${GITHUB_OUTPUT:?}"
 : "${RUNNER_TEMP:?}"
 
-OUTPUT_NAME="digest-$INPUT_KEY"
-OUTPUT_DIR="$RUNNER_TEMP/digest"
+OUTPUT_NAME="digests-$INPUT_KEY"
+OUTPUT_DIR="$RUNNER_TEMP/digests"
 
 mkdir -p "$OUTPUT_DIR"
 touch "$OUTPUT_DIR/${INPUT_DIGEST#sha256:}"
