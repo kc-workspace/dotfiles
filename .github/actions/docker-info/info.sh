@@ -143,7 +143,7 @@ __get_tag_suffix() {
   local image="$1"
   case "$image" in
   ubuntu:latest) printf '' ;;
-  *) printf '-%s' "${image%%:*}" ;;
+  *) printf '%s%s' '-' "${image%%:*}" ;;
   esac
 }
 
