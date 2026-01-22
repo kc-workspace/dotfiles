@@ -55,7 +55,6 @@ jobs:
       image_names: ${{ steps.info.outputs.image_names }}
       image_labels: ${{ steps.info.outputs.image_labels }}
       image_annotations: ${{ steps.info.outputs.image_annotations }}
-      cache_image_name: ${{ steps.info.outputs.image_name_dh }}
       cache_prefix: ${{ steps.info.outputs.cache_prefix }}
       digest_prefix: ${{ steps.info.outputs.digest_prefix }}
       matrix_build: ${{ steps.info.outputs.matrix_build }}
@@ -94,7 +93,7 @@ jobs:
           platforms: ${{ matrix.platform }}
           dockerfile: ${{ matrix.dockerfile }}
           build_args: ${{ matrix.build_args }}
-          cache_image_name: ${{ matrix.image_name_dh }}
+          cache_image_name: ${{ needs.info.outputs.image_name_dh }}
           cache_prefix: ${{ needs.info.outputs.cache_prefix }}
           digest_prefix: ${{ needs.info.outputs.digest_prefix }}
           image_names: ${{ needs.info.outputs.image_names }}
