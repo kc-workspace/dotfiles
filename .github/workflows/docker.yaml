@@ -28,8 +28,6 @@ permissions:
   contents: read
 
 env:
-  PLATFORMS: ${{ inputs.platforms || 'linux/amd64,linux/arm64' }}
-  IMAGES: ${{ inputs.images || 'ubuntu:latest,debian:latest' }}
   DH_REGISTRY: index.docker.io
   DH_NAME: kamontat/dotfiles
   GH_REGISTRY: ghcr.io
@@ -48,4 +46,20 @@ jobs:
       - name: Build matrix
         id: build
         uses: ./.github/actions/matrix-build
-      - run: echo "${{ steps.build.outputs.matrix }}"
+        with:
+          images: ${{ inputs.images || 'ubuntu:latest,debian:latest' }}
+          platforms: ${{ inputs.platforms || 'linux/amd64,linux/arm64' }}
+  build-docker:
+    needs: [build-matrix]
+    strategy:
+      fail-fast: false
+      matrix:
+        include: ${{ fromJson(needs.build-matrix.outputs.matrix-include) }}
+    runs-on: ${{ matrix.runs-on }}
+    steps:
+      - name: Set up repository
+        uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
+        with:
+          persist-credentials: false
+      - run: echo 'hello world'
+      - run: echo '${{ matrix.image }} - ${{ matrix.platform }}'
