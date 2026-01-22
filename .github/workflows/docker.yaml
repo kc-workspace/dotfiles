@@ -49,7 +49,7 @@ jobs:
           persist-credentials: false
       - name: Build matrix
         id: build
-        uses: ./.github/actions/matrix-build
+        uses: ./.github/actions/docker-matrix
         with:
           images: ${{ inputs.images || 'ubuntu:latest,debian:latest' }}
           platforms: ${{ inputs.platforms || 'linux/amd64,linux/arm64' }}
