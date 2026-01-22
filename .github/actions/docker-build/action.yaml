@@ -60,8 +60,8 @@ runs:
         tags: ${{ inputs.image_names }}
         labels: ${{ inputs.image_labels }}
         annotations: ${{ inputs.image_annotations }}
-        cache-from: type=registry,ref=${{ inputs.cache_name }}:${{ inputs.cache_prefix }}-${{ inputs.key }}
-        cache-to: type=registry,ref=${{ inputs.cache_name }}:${{ inputs.cache_prefix }}-${{ inputs.key }},mode=max
+        cache-from: type=registry,ref=${{ inputs.cache_image_name }}:${{ inputs.cache_prefix }}-${{ inputs.key }}
+        cache-to: type=registry,ref=${{ inputs.cache_image_name }}:${{ inputs.cache_prefix }}-${{ inputs.key }},mode=max
         secrets: |
           "GITHUB_TOKEN=${{ github.token }}"
         outputs: "type=image,push-by-digest=true,name-canonical=${{ inputs.conf_multiplatform }},push=true"
