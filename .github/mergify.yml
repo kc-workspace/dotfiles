@@ -1,49 +1,90 @@
 pull_request_rules:
-  - name: Convert wip to draft PR
-    conditions:
-      - label=wip
-    actions:
-      edit:
-        draft: true
-      label:
-        remove:
-          - wip
-  - name: Outdate PR
-    description: Make sure PR are up to date before merging with update (ignore release-please, and dependabot pr)
-    conditions:
-      - "label != autorelease: pending"
-      - "author != dependabot[bot]"
-    actions:
-      update:
-  - name: Label Conflict PR
-    description: Add a label to a pull request with conflict to spot it easily
+  - name: Label conflicting pull requests
+    description: Toggle the conflict label when got conflicted
     conditions:
       - conflict
       - -closed
     actions:
       label:
         toggle:
-          - conflict
-  - name: Owner
-    description: automatically owner pr when ci passed
+          - status/conflict
+  - name: Label drafting pull requests
+    description: Toggle the draft label when got drafted
     conditions:
-      - author = kamontat
-      - check-success = main
+      - draft
+      - -closed
     actions:
-      merge:
-  - name: Owner bot
-    description: automatically merge bot pr when not autorelease
+      label:
+        toggle:
+          - status/draft
+  - name: Label approved pull requests
+    description: Add the approve label when got reviewed and approved
     conditions:
-      - author = kc-bot
-      - author = dependabot[bot]
-      - check-success = main
-      - "label != autorelease: pending"
+      - -draft
+      - -closed
+      - -conflict
+      - "#approved-reviews-by>0"
     actions:
-      merge:
-  - name: Release bot
-    description: automatically merge release pr when got approved by owner
+      label:
+        add:
+          - status/approved
+  - name: Add owner as reviewer
+    description: Automatically add owner on pull request without any reviewers
     conditions:
-      - "label = autorelease: pending"
-      - approved-reviews-by = kamontat
+      - -draft
+      - -closed
+      - -conflict
+      - "#review-requested=0"
+      - or:
+          - not: author=kamontat
     actions:
-      merge:
+      request_reviews:
+        users:
+          - kamontat
+  - name: Queue the dependabot pull requests
+    description: Automatically queue dependabot pull requests when approved
+    conditions:
+      - -draft
+      - -closed
+      - -conflict
+      - author=dependabot[bot]
+      - label=status/approved
+    actions:
+      queue:
+        name: default
+  - name: Queue the contributors pull requests
+    description: Automatically queue dependabot pull requests when approved by maintainers
+    conditions:
+      - -draft
+      - -closed
+      - -conflict
+      - label=status/approved
+      - or:
+          - approved-reviews-by=kamontat
+    actions:
+      queue:
+        name: default
+  - name: Queue the maintainer pull requests
+    description: Automatically queue maintainers pull requests
+    conditions:
+      - -draft
+      - -closed
+      - -conflict
+      - or:
+          - author=kamontat
+    actions:
+      queue:
+        name: default
+
+merge_queue:
+  max_parallel_checks: 1
+  queued_label: status/queued
+  dequeued_label: status/dequeued
+
+queue_rules:
+  - name: default
+    batch_size: 1
+    merge_method: squash
+    branch_protection_injection_mode: merge
+    update_method: rebase
+    update_bot_account: kc-bot
