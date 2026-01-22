@@ -96,7 +96,7 @@ merge_matrix() {
   echo '{'
   echo '  "include": ['
   while read -r image; do
-    printf '    %s{ "key-prefix": "%s" }\n' \
+    printf '    %s{ "key": "%s" }\n' \
       "$($empty && printf ' ' || printf ',')" \
       "$(get_key "$image" '')"
     empty=false
