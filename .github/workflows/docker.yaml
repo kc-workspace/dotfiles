@@ -41,7 +41,8 @@ jobs:
   info:
     runs-on: ubuntu-latest
     outputs:
-      matrix: ${{ steps.build.outputs.matrix }}
+      build-matrix: ${{ steps.build.outputs.build-matrix }}
+      merge-matrix: ${{ steps.build.outputs.merge-matrix }}
     steps:
       - name: Set up repository
         uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
