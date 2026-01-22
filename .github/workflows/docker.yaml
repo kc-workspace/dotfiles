@@ -55,6 +55,7 @@ jobs:
       image_names: ${{ steps.info.outputs.image_names }}
       image_labels: ${{ steps.info.outputs.image_labels }}
       image_annotations: ${{ steps.info.outputs.image_annotations }}
+      cache_image_name: ${{ steps.info.outputs.image_name_dh }}
       cache_prefix: ${{ steps.info.outputs.cache_prefix }}
       digest_prefix: ${{ steps.info.outputs.digest_prefix }}
       matrix_build: ${{ steps.info.outputs.matrix_build }}
