@@ -54,7 +54,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        include: ${{ fromJson(needs.build-matrix.outputs.matrix-include) }}
+        include: ${{ fromJson(needs.build-matrix.outputs.matrix) }}
     runs-on: ${{ matrix.runs-on }}
     steps:
       - name: Set up repository
