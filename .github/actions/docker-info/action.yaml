@@ -1,5 +1,5 @@
-name: Docker matrix
-description: Generate a matrix for building docker images
+name: Docker information
+description: Get information for building and pushing docker images
 inputs:
   images:
     description: The list of base images to build (separated by comma)
@@ -9,54 +9,64 @@ inputs:
     required: true
 
 outputs:
-  dh-registry:
-    description: Docker Hub registry name
-    value: ${{ steps.info.outputs.dh-registry }}
-  dh-repo:
+  dh_registry:
+    description: Docker Hub url
+    value: ${{ steps.info.outputs.dh_registry }}
+  dh_repo:
     description: Docker Hub repository name
-    value: ${{ steps.info.outputs.dh-repo }}
-  dh-name:
-    description: Docker Hub full name
-    value: ${{ steps.info.outputs.dh-name }}
-  gh-registry:
-    description: GitHub Container registry name
-    value: ${{ steps.info.outputs.gh-registry }}
-  gh-repo:
+    value: ${{ steps.info.outputs.dh_repo }}
+  gh_registry:
+    description: GitHub Container url
+    value: ${{ steps.info.outputs.gh_registry }}
+  gh_repo:
     description: GitHub Container repository name
-    value: ${{ steps.info.outputs.gh-repo }}
-  gh-name:
-    description: GitHub Container full name
-    value: ${{ steps.info.outputs.gh-name }}
+    value: ${{ steps.info.outputs.gh_repo }}
+  gh_username:
+    description: GitHub Container username
+    value: ${{ steps.info.outputs.gh_username }}
 
-  multiplatform:
-    description: Whether the build is multi-platform (true/false)
-    value: ${{ steps.info.outputs.multiplatform }}
-
-  build-matrix:
-    description: Generated strategy.matrix for docker-build job
-    value: ${{ steps.info.outputs.build-matrix }}
-  merge-matrix:
-    description: Generated strategy.matrix for docker-merge job
-    value: ${{ steps.info.outputs.merge-matrix }}
-
-  image-names:
-    description: The full image names to build and push
-    value: ${{ steps.info.outputs.image-names }}
-  image-labels:
-    description: The labels generated for the image
+  image_name_dh:
+    description: The Docker Hub image name (dh_registry/dh_repo)
+    value: ${{ steps.info.outputs.image_name_dh }}
+  image_name_gh:
+    description: The GitHub Container image name (gh_registry/gh_repo)
+    value: ${{ steps.info.outputs.image_name_gh }}
+  image_names:
+    description: The base image name (image_name_* separated by newline)
+    value: ${{ steps.info.outputs.image_names }}
+  image_labels:
+    description: The labels generated for building image
     value: ${{ steps.meta.outputs.labels }}
-  image-annotations:
-    description: The annotations generated for the image
+  image_annotations:
+    description: The annotations generated for building image
     value: ${{ steps.meta.outputs.annotations }}
+
+  cache_prefix:
+    description: The prefix for cache versioning
+    value: ${{ steps.info.outputs.cache_prefix }}
+  digest_prefix:
+    description: The prefix for digest artifact name
+    value: ${{ steps.info.outputs.digest_prefix }}
+
+  matrix_build:
+    description: Generated strategy.matrix for docker-build job
+    value: ${{ steps.info.outputs.matrix_build }}
+  matrix_merge:
+    description: Generated strategy.matrix for docker-merge job
+    value: ${{ steps.info.outputs.matrix_merge }}
+
+  conf_multiplatform:
+    description: Whether the build is multi-platform (true/false)
+    value: ${{ steps.info.outputs.conf_multiplatform }}
 
 runs:
   using: composite
   steps:
+    - uses: docker/metadata-action@c299e40c65443455700f0fdfc63efafe5b349051 # v5.10.0
+      id: meta
     - run: ${{ github.action_path }}/info.sh
       shell: bash
       id: info
       env:
-        INPUT_IMAGES: ${{ inputs.images }}
-        INPUT_PLATFORMS: ${{ inputs.platforms }}
-    - uses: docker/metadata-action@c299e40c65443455700f0fdfc63efafe5b349051 # v5.10.0
-      id: meta
+        IMAGES: ${{ inputs.images }}
+        PLATFORMS: ${{ inputs.platforms }}

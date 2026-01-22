@@ -3,87 +3,84 @@ description: Validate and Build docker images and push to registries
 
 inputs:
   key:
-    description: The key of the docker image digest artifact
+    description: The key of the image to build (__get_key function from docker-info action)
     required: true
   platforms:
-    description: The list of platforms to set up (separated by comma)
+    description: The list of platforms to build (separated by comma)
     required: true
-  file:
-    description: The dockerfile to use
+  dockerfile:
+    description: The Dockerfile path to build
     required: true
-  build-args:
-    description: The build arguments to pass to docker build
+  build_args:
+    description: The build arguments to pass on docker build command
     required: true
-  multiplatform:
+  cache_image_name:
+    description: The image name for caching (image_name_*)
+    required: true
+  cache_prefix:
+    description: The prefix for cache versioning
+    required: true
+  digest_prefix:
+    description: The prefix for digest artifact name
+    required: true
+
+  image_names:
+    description: The image name ([registry]/[repo])
+    required: true
+  image_labels:
+    description: The labels generated for building image
+    required: true
+  image_annotations:
+    description: The annotations generated for building image
+    required: true
+  conf_multiplatform:
     description: Whether the build is multi-platform (true/false)
-    required: true
-  image-names:
-    description: The image names to build and push (separated by newline)
-    required: true
-  image-labels:
-    description: The image labels to set on built images
-    required: true
-  image-annotations:
-    description: The image annotations to set on built images
-    required: true
-  image-cache:
-    description: The image tag for the build cache
-    required: true
-  gh-registry:
-    description: GitHub Container Registry
-    required: true
-  dh-registry:
-    description: Docker Hub registry
-    required: true
-  dh-username:
-    description: Docker Hub username
-    required: true
-  dh-password:
-    description: Docker Hub password
     required: true
 
 runs:
   using: composite
   steps:
-    - uses: ./.github/actions/docker-setup
-      id: setup
-      with:
-        platforms: ${{ inputs.platforms }}
-        gh-registry: ${{ inputs.gh-registry }}
-        dh-registry: ${{ inputs.dh-registry }}
-        dh-username: ${{ inputs.dh-username }}
-        dh-password: ${{ inputs.dh-password }}
-
     - uses: docker/build-push-action@263435318d21b8e681c14492fe198d362a7d2c83 # v6.18.0
       with:
+        context: .
         call: check
-        file: ${{ inputs.file }}
         platforms: ${{ inputs.platforms }}
-        tags: ${{ inputs.image-names }}
-        labels: ${{ inputs.image-labels }}
-        annotations: ${{ inputs.image-annotations }}
-        build-args: ${{ inputs.build-args }}
+        file: ${{ inputs.dockerfile }}
+        build-args: ${{ inputs.build_args }}
+        tags: ${{ inputs.image_names }}
+        labels: ${{ inputs.image_labels }}
+        annotations: ${{ inputs.image_annotations }}
     - uses: docker/build-push-action@263435318d21b8e681c14492fe198d362a7d2c83 # v6.18.0
       id: build
       with:
-        file: ${{ inputs.file }}
+        context: .
         platforms: ${{ inputs.platforms }}
-        tags: ${{ inputs.image-names }}
-        labels: ${{ inputs.image-labels }}
-        annotations: ${{ inputs.image-annotations }}
-        build-args: ${{ inputs.build-args }}
-        cache-from: type=registry,ref=${{ inputs.image-cache }}
-        cache-to: type=registry,ref=${{ inputs.image-cache }},mode=max
+        file: ${{ inputs.dockerfile }}
+        build-args: ${{ inputs.build_args }}
+        tags: ${{ inputs.image_names }}
+        labels: ${{ inputs.image_labels }}
+        annotations: ${{ inputs.image_annotations }}
+        cache-from: type=registry,ref=${{ inputs.cache_name }}:${{ inputs.cache_prefix }}-${{ inputs.key }}
+        cache-to: type=registry,ref=${{ inputs.cache_name }}:${{ inputs.cache_prefix }}-${{ inputs.key }},mode=max
         secrets: |
           "GITHUB_TOKEN=${{ github.token }}"
-        outputs: "type=image,push-by-digest=true,name-canonical=${{ inputs.multiplatform }},push=true"
+        outputs: "type=image,push-by-digest=true,name-canonical=${{ inputs.conf_multiplatform }},push=true"
+        ## TODO: Not sure if I need actions/attest-build-provenance and actions/attest-sbom or not
+        provenance: mode=max
+        sbom: true
+    - uses: actions/attest-build-provenance@00014ed6ed5efc5b1ab7f7f34a39eb55d41aa4f8 # v3.1.0
+      with:
+        subject-name: ${{ env.GH_REGISTRY }}/${{ env.GH_NAME }}
+        subject-digest: ${{ steps.docker-push.outputs.digest }}
+        push-to-registry: true
 
     - run: ${{ github.action_path }}/export-digest.sh
       id: digest
       shell: bash
       env:
-        INPUT_KEY: ${{ inputs.key }}
-        INPUT_DIGEST: ${{ steps.build.outputs.digest }}
+        KEY: ${{ inputs.key }}
+        DIGEST_PREFIX: ${{ inputs.digest_prefix }}
+        DIGEST: ${{ steps.build.outputs.digest }}
 
     - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6.0.0
       with:

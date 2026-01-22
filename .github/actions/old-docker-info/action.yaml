@@ -1,0 +1,62 @@
+name: Docker matrix
+description: Generate a matrix for building docker images
+inputs:
+  images:
+    description: The list of base images to build (separated by comma)
+    required: true
+  platforms:
+    description: The list of platforms to build (separated by comma)
+    required: true
+
+outputs:
+  dh-registry:
+    description: Docker Hub registry name
+    value: ${{ steps.info.outputs.dh-registry }}
+  dh-repo:
+    description: Docker Hub repository name
+    value: ${{ steps.info.outputs.dh-repo }}
+  dh-name:
+    description: Docker Hub full name
+    value: ${{ steps.info.outputs.dh-name }}
+  gh-registry:
+    description: GitHub Container registry name
+    value: ${{ steps.info.outputs.gh-registry }}
+  gh-repo:
+    description: GitHub Container repository name
+    value: ${{ steps.info.outputs.gh-repo }}
+  gh-name:
+    description: GitHub Container full name
+    value: ${{ steps.info.outputs.gh-name }}
+
+  multiplatform:
+    description: Whether the build is multi-platform (true/false)
+    value: ${{ steps.info.outputs.multiplatform }}
+
+  build-matrix:
+    description: Generated strategy.matrix for docker-build job
+    value: ${{ steps.info.outputs.build-matrix }}
+  merge-matrix:
+    description: Generated strategy.matrix for docker-merge job
+    value: ${{ steps.info.outputs.merge-matrix }}
+
+  image-names:
+    description: The full image names to build and push
+    value: ${{ steps.info.outputs.image-names }}
+  image-labels:
+    description: The labels generated for the image
+    value: ${{ steps.meta.outputs.labels }}
+  image-annotations:
+    description: The annotations generated for the image
+    value: ${{ steps.meta.outputs.annotations }}
+
+runs:
+  using: composite
+  steps:
+    - run: ${{ github.action_path }}/info.sh
+      shell: bash
+      id: info
+      env:
+        INPUT_IMAGES: ${{ inputs.images }}
+        INPUT_PLATFORMS: ${{ inputs.platforms }}
+    - uses: docker/metadata-action@c299e40c65443455700f0fdfc63efafe5b349051 # v5.10.0
+      id: meta

@@ -34,19 +34,6 @@ permissions:
 jobs:
   info:
     runs-on: ubuntu-latest
-    outputs:
-      dh-registry: ${{ steps.info.outputs.dh-registry }}
-      dh-repo: ${{ steps.info.outputs.dh-repo }}
-      dh-name: ${{ steps.info.outputs.dh-name }}
-      gh-registry: ${{ steps.info.outputs.gh-registry }}
-      gh-repo: ${{ steps.info.outputs.gh-repo }}
-      gh-name: ${{ steps.info.outputs.gh-name }}
-      multiplatform: ${{ steps.info.outputs.multiplatform }}
-      build-matrix: ${{ steps.info.outputs.build-matrix }}
-      merge-matrix: ${{ steps.info.outputs.merge-matrix }}
-      image-names: ${{ steps.info.outputs.image-names }}
-      image-labels: ${{ steps.info.outputs.image-labels }}
-      image-annotations: ${{ steps.info.outputs.image-annotations }}
     steps:
       - name: Set up repository
         uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
@@ -57,14 +44,70 @@ jobs:
         with:
           images: ${{ inputs.images || 'ubuntu:latest,debian:latest' }}
           platforms: ${{ inputs.platforms || 'linux/amd64,linux/arm64' }}
+    outputs:
+      dh_registry: ${{ steps.info.outputs.dh_registry }}
+      dh_repo: ${{ steps.info.outputs.dh_repo }}
+      gh_registry: ${{ steps.info.outputs.gh_registry }}
+      gh_repo: ${{ steps.info.outputs.gh_repo }}
+      gh_username: ${{ steps.info.outputs.gh_username }}
+      image_name_dh: ${{ steps.info.outputs.image_name_dh }}
+      image_name_gh: ${{ steps.info.outputs.image_name_gh }}
+      image_names: ${{ steps.info.outputs.image_names }}
+      image_labels: ${{ steps.info.outputs.image_labels }}
+      image_annotations: ${{ steps.info.outputs.image_annotations }}
+      cache_prefix: ${{ steps.info.outputs.cache_prefix }}
+      digest_prefix: ${{ steps.info.outputs.digest_prefix }}
+      matrix_build: ${{ steps.info.outputs.matrix_build }}
+      matrix_merge: ${{ steps.info.outputs.matrix_merge }}
+      conf_multiplatform: ${{ steps.info.outputs.conf_multiplatform }}
 
   build:
     needs: [info]
     strategy:
       fail-fast: false
-      matrix: ${{ fromJson(needs.info.outputs.build-matrix) }}
+      matrix: ${{ fromJson(needs.info.outputs.matrix_build) }}
     name: build (${{ matrix.key }})
     runs-on: ${{ matrix.runs-on }}
+    permissions:
+      contents: read
+      packages: write
+      artifact-metadata: write
+      attestations: write
+    steps:
+      - name: Set up repository
+        uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
+        with:
+          persist-credentials: false
+      - uses: ./.github/actions/docker-setup
+        with:
+          platforms: ${{ matrix.platform }}
+          dh_username: ${{ secrets.DH_USERNAME }}
+          dh_token: ${{ secrets.DH_TOKEN }}
+          gh_registry: ${{ needs.info.outputs.gh_registry }}
+          gh_username: ${{ needs.info.outputs.gh_username }}
+          gh_token: ${{ secrets.GITHUB_TOKEN }}
+
+      - uses: ./.github/actions/docker-build
+        with:
+          key: ${{ matrix.key }}
+          platforms: ${{ matrix.platform }}
+          dockerfile: ${{ matrix.dockerfile }}
+          build_args: ${{ matrix.build_args }}
+          cache_image_name: ${{ matrix.image_name_dh }}
+          cache_prefix: ${{ needs.info.outputs.cache_prefix }}
+          digest_prefix: ${{ needs.info.outputs.digest_prefix }}
+          image_names: ${{ needs.info.outputs.image_names }}
+          image_labels: ${{ needs.info.outputs.image_labels }}
+          image_annotations: ${{ needs.info.outputs.image_annotations }}
+          conf_multiplatform: ${{ needs.info.outputs.conf_multiplatform }}
+
+  merge:
+    needs: [info, build]
+    strategy:
+      fail-fast: false
+      matrix: ${{ fromJson(needs.info.outputs.matrix_merge) }}
+    name: merge (${{ matrix.key }})
+    runs-on: ubuntu-latest
     permissions:
       contents: read
       packages: write
@@ -73,53 +116,29 @@ jobs:
         uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
         with:
           persist-credentials: false
-      - uses: ./.github/actions/docker-build
-        with:
-          key: ${{ matrix.key }}
-          platforms: ${{ matrix.platform }}
-          file: ${{ matrix.dockerfile }}
-          build-args: ${{ matrix.build-args }}
-          multiplatform: ${{ needs.info.outputs.multiplatform }}
-          image-names: ${{ needs.info.outputs.image-names }}
-          image-labels: ${{ needs.info.outputs.image-labels }}
-          image-annotations: ${{ needs.info.outputs.image-annotations }}
-          ## https://docs.docker.com/build/ci/github-actions/cache/#registry-cache
-          image-cache: ${{ needs.info.outputs.dh-name }}:cache-${{ matrix.key }}
-          gh-registry: ${{ needs.info.outputs.gh-registry }}
-          dh-registry: ${{ needs.info.outputs.dh-registry }}
-          dh-username: ${{ secrets.DH_USERNAME }}
-          dh-password: ${{ secrets.DH_TOKEN }}
-
-  merge:
-    needs: [info, build]
-    strategy:
-      fail-fast: false
-      matrix: ${{ fromJson(needs.info.outputs.merge-matrix) }}
-    name: merge (${{ matrix.key }})
-    runs-on: ubuntu-latest
-    steps:
-      - name: Download digests
-        uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131 # v7.0.0
-        with:
-          path: ${{ runner.temp }}/digests
-          pattern: digests-${{ matrix.key }}-*
-          merge-multiple: true
       - uses: ./.github/actions/docker-setup
         with:
           platforms: ${{ matrix.platforms }}
-          gh-registry: ${{ needs.info.outputs.gh-registry }}
-          dh-registry: ${{ needs.info.outputs.dh-registry }}
-          dh-username: ${{ secrets.DH_USERNAME }}
-          dh-password: ${{ secrets.DH_TOKEN }}
+          dh_username: ${{ secrets.DH_USERNAME }}
+          dh_token: ${{ secrets.DH_TOKEN }}
+          gh_registry: ${{ needs.info.outputs.gh_registry }}
+          gh_username: ${{ needs.info.outputs.gh_username }}
+          gh_token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Download digests
+        uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131 # v7.0.0
+        with:
+          path: ${{ runner.temp }}/${{ needs.info.outputs.digest_prefix }}
+          pattern: ${{ needs.info.outputs.digest_prefix }}-${{ matrix.key }}-*
+          merge-multiple: true
+
       - name: Docker meta
         id: meta
         uses: docker/metadata-action@v5
         with:
-          images: |
-            ${{ needs.info.outputs.dh-name }}
-            ${{ needs.info.outputs.gh-name }}
+          images: ${{ needs.info.outputs.image_names }}
           flavor: |
-            suffix=${{ matrix.tag-suffix }},onlatest=true
+            suffix=${{ matrix.tag_suffix }},onlatest=true
           tags: |
             type=semver,pattern={{major}}
             type=semver,pattern={{major}}.{{minor}}
@@ -129,4 +148,15 @@ jobs:
             type=ref,event=pr,prefix=pr-
             type=sha
 
-      - run: ls -la ${{ runner.temp }}/digests
+      - name: Create manifest list and push
+        working-directory: ${{ runner.temp }}/digests
+        run: |
+          docker buildx imagetools create $(jq -cr '.tags | map("-t " + .) | join(" ")' <<< "$DOCKER_METADATA_OUTPUT_JSON") \
+            $(printf '${{ needs.info.outputs.image_name_dh }}@sha256:%s ' *)
+          docker buildx imagetools create $(jq -cr '.tags | map("-t " + .) | join(" ")' <<< "$DOCKER_METADATA_OUTPUT_JSON") \
+            $(printf '${{ needs.info.outputs.image_name_gh }}@sha256:%s ' *)
+
+      - name: Inspect image
+        run: |
+          docker buildx imagetools inspect ${{ needs.info.outputs.image_name_dh }}:${{ steps.meta.outputs.version }}
+          docker buildx imagetools inspect ${{ needs.info.outputs.image_name_gh }}:${{ steps.meta.outputs.version }}

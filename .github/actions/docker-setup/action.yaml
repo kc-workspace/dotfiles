@@ -5,17 +5,20 @@ inputs:
   platforms:
     description: The list of platforms to set up (separated by comma)
     required: true
-  gh-registry:
-    description: GitHub Container Registry
-    required: true
-  dh-registry:
-    description: Docker Hub registry
-    required: true
-  dh-username:
+  dh_username:
     description: Docker Hub username
     required: true
-  dh-password:
-    description: Docker Hub password
+  dh_token:
+    description: Docker Hub token
+    required: true
+  gh_registry:
+    description: GitHub Container url
+    required: true
+  gh_username:
+    description: GitHub Container username
+    required: true
+  gh_token:
+    description: GitHub Container token
     required: true
 
 runs:
@@ -27,13 +30,12 @@ runs:
     - uses: docker/setup-buildx-action@8d2750c68a42422c14e847fe6c8ac0403b4cbd6f # v3.12.0
       with:
         platforms: ${{ inputs.platforms }}
-
     - uses: docker/login-action@5e57cd118135c172c3672efd75eb46360885c0ef # v3.6.0
       with:
-        username: ${{ inputs.dh-username }}
-        password: ${{ inputs.dh-password }}
+        username: ${{ inputs.dh_username }}
+        password: ${{ inputs.dh_token }}
     - uses: docker/login-action@5e57cd118135c172c3672efd75eb46360885c0ef # v3.6.0
       with:
-        registry: ${{ inputs.gh-registry }}
-        username: ${{ github.repository_owner }}
-        password: ${{ github.token }}
+        registry: ${{ inputs.gh_registry }}
+        username: ${{ inputs.gh_username }}
+        password: ${{ inputs.gh_token }}
