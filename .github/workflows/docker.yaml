@@ -58,6 +58,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix: ${{ fromJson(needs.build-matrix.outputs.matrix) }}
+    name: build-docker ${{ matrix.image }} (${{ matrix.platform }})
     runs-on: ${{ matrix.runs-on }}
     steps:
       - name: Set up repository
@@ -66,3 +67,12 @@ jobs:
           persist-credentials: false
       - run: echo 'hello world'
       - run: echo '${{ matrix.image }} - ${{ matrix.platform }}'
+  merge-docker:
+    needs: [build-docker]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set up repository
+        uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
+        with:
+          persist-credentials: false
+      - run: echo 'merge docker images here'

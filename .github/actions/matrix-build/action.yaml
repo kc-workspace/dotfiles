@@ -18,6 +18,6 @@ runs:
   steps:
     - run: echo "${{ github.action_path }}" >> $GITHUB_PATH
       shell: bash
-    - run: index.sh >> $GITHUB_OUTPUT
+    - run: index.sh
       shell: bash
       id: index
