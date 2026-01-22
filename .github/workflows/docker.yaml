@@ -38,7 +38,7 @@ env:
   GH_NAME: ${{ github.repository }}
 
 jobs:
-  build-matrix:
+  info:
     runs-on: ubuntu-latest
     outputs:
       matrix: ${{ steps.build.outputs.matrix }}
@@ -53,26 +53,29 @@ jobs:
         with:
           images: ${{ inputs.images || 'ubuntu:latest,debian:latest' }}
           platforms: ${{ inputs.platforms || 'linux/amd64,linux/arm64' }}
-  build-docker:
-    needs: [build-matrix]
+  build:
+    needs: [info]
     strategy:
       fail-fast: false
-      matrix: ${{ fromJson(needs.build-matrix.outputs.matrix) }}
-    name: build-docker ${{ matrix.image }} (${{ matrix.platform }})
+      matrix: ${{ fromJson(needs.info.outputs.build-matrix) }}
+    name: build ${{ matrix.image }} (${{ matrix.platform }})
     runs-on: ${{ matrix.runs-on }}
     steps:
       - name: Set up repository
         uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
         with:
           persist-credentials: false
-      - run: echo 'hello world'
-      - run: echo '${{ matrix.image }} - ${{ matrix.platform }}'
-  merge-docker:
-    needs: [build-docker]
+      - run: echo '${{ matrix }}'
+
+  merge:
+    needs: [info, build]
+    strategy:
+      fail-fast: false
+      matrix: ${{ fromJson(needs.info.outputs.merge-matrix) }}
     runs-on: ubuntu-latest
     steps:
       - name: Set up repository
         uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
         with:
           persist-credentials: false
-      - run: echo 'merge docker images here'
+      - run: echo '${{ matrix }}'

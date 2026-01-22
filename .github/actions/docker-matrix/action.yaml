@@ -1,4 +1,4 @@
-name: Matrix build
+name: Docker matrix
 description: "Generate a matrix for building docker images"
 inputs:
   images:
@@ -9,9 +9,12 @@ inputs:
     required: true
 
 outputs:
-  matrix:
-    description: "Generated strategy.matrix"
-    value: ${{ steps.index.outputs.matrix }}
+  build-matrix:
+    description: "Generated strategy.matrix for docker-build job"
+    value: ${{ steps.index.outputs.build-matrix }}
+  merge-matrix:
+    description: "Generated strategy.matrix for docker-merge job"
+    value: ${{ steps.index.outputs.merge-matrix }}
 
 runs:
   using: "composite"
@@ -21,3 +24,6 @@ runs:
     - run: index.sh
       shell: bash
       id: index
+      env:
+        INPUT_IMAGES: ${{ inputs.images }}
+        INPUT_PLATFORMS: ${{ inputs.platforms }}
