@@ -66,7 +66,17 @@ merge_matrix() {
   echo '}'
 }
 
+registry_info() {
+  local prefix="$1" registry="$2" repo="$3"
+  echo "${prefix}-registry=${registry}"
+  echo "${prefix}-repo=${repo}"
+  echo "${prefix}-name=${registry}/${repo}"
+}
+
 {
+  registry_info 'dh' 'index.docker.io' 'kamontat/dotfiles'
+  registry_info 'gh' 'ghcr.io' "${GITHUB_REPOSITORY:?}"
+
   echo 'build-matrix<<EOF'
   build_matrix "${INPUT_IMAGES:?}" "${INPUT_PLATFORMS:?}"
   echo EOF

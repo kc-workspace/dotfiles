@@ -1,0 +1,43 @@
+name: Docker setup
+description: Prepare docker environment for building images
+inputs:
+  platforms:
+    description: The list of platforms to set up (separated by comma)
+    required: true
+  dh-registry:
+    description: Docker Hub registry
+    required: true
+  dh-username:
+    description: Docker Hub username
+    required: true
+  dh-password:
+    description: Docker Hub password
+    required: true
+  gh-registry:
+    description: GitHub Container Registry
+    required: true
+
+runs:
+  using: composite
+  steps:
+    - name: Set up QEMU
+      uses: docker/setup-qemu-action@c7c53464625b32c7a7e944ae62b3e17d2b600130 # v3.7.0
+      with:
+        platforms: ${{ inputs.platforms }}
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@8d2750c68a42422c14e847fe6c8ac0403b4cbd6f # v3.12.0
+      with:
+        platforms: ${{ inputs.platforms }}
+
+    - name: Login to Docker Hub
+      uses: docker/login-action@5e57cd118135c172c3672efd75eb46360885c0ef # v3.6.0
+      with:
+        registry: ${{ inputs.dh-registry }}
+        username: ${{ inputs.dh-username }}
+        password: ${{ inputs.dh-password }}
+    - name: Login to GitHub Container Registry
+      uses: docker/login-action@5e57cd118135c172c3672efd75eb46360885c0ef # v3.6.0
+      with:
+        registry: ${{ inputs.gh-registry }}
+        username: ${{ github.repository_owner }}
+        password: ${{ github.token }}

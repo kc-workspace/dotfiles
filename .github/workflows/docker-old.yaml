@@ -106,15 +106,19 @@ jobs:
         uses: docker/metadata-action@c299e40c65443455700f0fdfc63efafe5b349051 # v5.10.0
         with:
           images: |
-            ${{ env.DH_NAME }}
-            ${{ env.GH_REGISTRY }}/${{ env.GH_NAME }}
+            ${{ steps.index.outputs.dh-registry }}/${{ steps.index.outputs.dh-name }}
+            ${{ steps.index.outputs.gh-registry }}/${{ steps.index.outputs.gh-name }}
           flavor: |
-            suffix=${{ steps.info.outputs.image-suffix }},onlatest=true
+            suffix=${{ inputs.tag-suffix }},onlatest=true
           tags: |
-            type=ref,event=branch
-            type=semver,pattern={{version}}
+            type=semver,pattern={{major}}
             type=semver,pattern={{major}}.{{minor}}
+            type=semver,pattern={{version}}
+            type=edge
+            type=ref,event=branch
+            type=ref,event=pr,prefix=pr-
             type=sha
+
       - name: Validate docker build configuration
         uses: docker/build-push-action@263435318d21b8e681c14492fe198d362a7d2c83 # v6.18.0
         with:

@@ -1,0 +1,55 @@
+name: Docker matrix
+description: Generate a matrix for building docker images
+inputs:
+  images:
+    description: The list of base images to build (separated by comma)
+    required: true
+  platforms:
+    description: The list of platforms to build (separated by comma)
+    required: true
+
+outputs:
+  dh-registry:
+    description: Docker Hub registry name
+    value: ${{ steps.index.outputs.dh-registry }}
+  dh-repo:
+    description: Docker Hub repository name
+    value: ${{ steps.index.outputs.dh-repo }}
+  dh-name:
+    description: Docker Hub full name
+    value: ${{ steps.index.outputs.dh-name }}
+  gh-registry:
+    description: GitHub Container registry name
+    value: ${{ steps.index.outputs.gh-registry }}
+  gh-repo:
+    description: GitHub Container repository name
+    value: ${{ steps.index.outputs.gh-repo }}
+  gh-name:
+    description: GitHub Container full name
+    value: ${{ steps.index.outputs.gh-name }}
+
+  build-matrix:
+    description: Generated strategy.matrix for docker-build job
+    value: ${{ steps.index.outputs.build-matrix }}
+  merge-matrix:
+    description: Generated strategy.matrix for docker-merge job
+    value: ${{ steps.index.outputs.merge-matrix }}
+
+  image-labels:
+    description: The labels generated for the image
+    value: ${{ steps.meta.outputs.labels }}
+  image-annotations:
+    description: The annotations generated for the image
+    value: ${{ steps.meta.outputs.annotations }}
+
+runs:
+  using: composite
+  steps:
+    - run: ${{ github.action_path }}/index.sh
+      shell: bash
+      id: index
+      env:
+        INPUT_IMAGES: ${{ inputs.images }}
+        INPUT_PLATFORMS: ${{ inputs.platforms }}
+    - uses: docker/metadata-action@c299e40c65443455700f0fdfc63efafe5b349051 # v5.10.0
+      id: meta
