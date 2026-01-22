@@ -62,7 +62,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix: ${{ fromJson(needs.info.outputs.build-matrix) }}
-    name: build ${{ matrix.image }} (${{ matrix.platform }})
+    name: build (${{ matrix.key }})
     runs-on: ${{ matrix.runs-on }}
     permissions:
       contents: read
@@ -94,13 +94,13 @@ jobs:
     strategy:
       fail-fast: false
       matrix: ${{ fromJson(needs.info.outputs.merge-matrix) }}
-    name: merge ${{ matrix.key-prefix }}
+    name: merge (${{ matrix.key }})
     runs-on: ubuntu-latest
     steps:
       - name: Download digests
         uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131 # v7.0.0
         with:
           path: ${{ runner.temp }}/digests
-          pattern: digests-${{ matrix.key-prefix }}
+          pattern: digests-${{ matrix.key }}-*
           merge-multiple: true
       - run: ls -la ${{ runner.temp }}/digests

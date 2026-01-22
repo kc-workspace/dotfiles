@@ -29,7 +29,7 @@ get_key() {
     arch="${platform##*/}"
     printf '%s_%s-%s_%s' "$distro" "$version" "$os" "$arch"
   else
-    printf '%s_%s-*' "$distro" "$version"
+    printf '%s_%s' "$distro" "$version"
   fi
 }
 
@@ -106,10 +106,10 @@ merge_matrix() {
 }
 
 registry_info() {
-  local prefix="$1" registry="$2" repo="$3"
+  local prefix="$1" registry="$2" repo="$3" name="${4:-}"
   echo "${prefix}-registry=${registry}"
   echo "${prefix}-repo=${repo}"
-  echo "${prefix}-name=${registry}/${repo}"
+  echo "${prefix}-name=${name:-${registry}/${repo}}"
 }
 
 platform_info() {
