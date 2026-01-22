@@ -79,6 +79,9 @@ jobs:
           file: ${{ matrix.dockerfile }}
           build-args: ${{ matrix.build-args }}
           multiplatform: ${{ needs.info.outputs.multiplatform }}
+          image-names: |
+            ${{ needs.info.outputs.dh-name }}
+            ${{ needs.info.outputs.gh-name }}
           image-labels: ${{ needs.info.outputs.image-labels }}
           image-annotations: ${{ needs.info.outputs.image-annotations }}
           gh-registry: ${{ needs.info.outputs.gh-registry }}
@@ -91,6 +94,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix: ${{ fromJson(needs.info.outputs.merge-matrix) }}
+    name: merge ${{ matrix.key-prefix }}
     runs-on: ubuntu-latest
     steps:
       - name: Download digests
