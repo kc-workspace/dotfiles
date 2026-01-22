@@ -19,6 +19,7 @@ on:
           - linux/arm64
   release:
     types: [published]
+  ## FIXME: Remove push trigger once tested
   push:
     branches:
       - feature/improve-dockerfile-2
@@ -56,8 +57,7 @@ jobs:
     needs: [build-matrix]
     strategy:
       fail-fast: false
-      matrix:
-        include: ${{ fromJson(needs.build-matrix.outputs.matrix) }}
+      matrix: ${{ fromJson(needs.build-matrix.outputs.matrix) }}
     runs-on: ${{ matrix.runs-on }}
     steps:
       - name: Set up repository
