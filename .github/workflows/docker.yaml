@@ -67,7 +67,7 @@ jobs:
       fail-fast: false
       matrix: ${{ fromJson(needs.info.outputs.matrix_build) }}
     name: build (${{ matrix.key }})
-    runs-on: ${{ matrix.runs-on }}
+    runs-on: ${{ matrix.runs_on }}
     permissions:
       contents: read
       packages: write
