@@ -58,8 +58,8 @@ cmd_matrix_merge() {
     json_data 'image_version' "$(__get_im_version "$image")"
     json_data 'platforms' "$INPUT_PLATFORMS"
     json_data 'key' "$(_get_key "$image")"
-    json_data 'key_cache' "$(_get_key_cache "$image")"
-    json_data 'key_digest' "$(_get_key_digest "$image")"
+    json_data 'cache_key' "$(_get_key_cache "$image")"
+    json_data 'digest_key' "$(_get_key_digest "$image")"
     json_data 'tag_suffix' "$(_get_tag_suffix "$image")"
     json_stop
   done <<<"$(__str_array "$INPUT_IMAGES")"
