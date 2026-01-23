@@ -186,11 +186,11 @@ item_add_cmd() {
   shift
 
   key="$(_item_key "$k")"
-  if [[ $# -lt 1 ]]; then
-    value="$(__str_encode "$("$k" 2>&1)")"
-  elif [[ $k == ^cmd_* ]]; then
+  if [[ $k == cmd_* ]]; then
     key="$(_item_key "${k#cmd_}")"
     value="$(__str_encode "$("$k" "$@" 2>&1)")"
+  elif [[ $# -lt 1 ]]; then
+    value="$(__str_encode "$("$k" 2>&1)")"
   else
     value="$(__str_encode "$("$@" 2>&1)")"
   fi
