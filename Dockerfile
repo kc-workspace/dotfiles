@@ -33,7 +33,7 @@ RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
   --mount=type=cache,target=/var/lib/apt,sharing=locked \
   apt update && apt install -y --no-install-recommends software-properties-common \
   && add-apt-repository -y ppa:git-core/ppa \
-  apt update && apt-get install -y --no-install-recommends \
+  && apt update && apt-get install -y --no-install-recommends \
   acl bzip2 ca-certificates curl file \
   g++ gawk git gpg less locales make \
   netbase openssh-client patch sudo \
