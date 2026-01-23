@@ -3,15 +3,16 @@
 set -euo pipefail
 
 main() {
-  local key="$1" digest_prefix="$2" digest="$3"
-  local name="$digest_prefix-$key" dir="$RUNNER_TEMP/$digest_prefix"
+  local key_prefix="$1" key="$2" digest="$3"
+  local dir="$RUNNER_TEMP/$key_prefix"
 
   mkdir -p "$dir"
   touch "$dir/${digest#sha256:}"
   printf '>> Create digest file: %s\n' "$dir/${digest#sha256:}" >&2
 
   {
-    add_item "name" "$name"
+    add_item "key_prefix" "$key_prefix"
+    add_item "key" "$key"
     add_item "path" "$dir/*"
   } >>"$GITHUB_OUTPUT"
   return 0
@@ -23,10 +24,10 @@ add_item() {
   printf ">> Set '%-20s' to value: '%s'\n" "$key" "$value" >&2
 }
 
-: "${KEY:?}"
 : "${DIGEST_PREFIX:?}"
+: "${DIGEST_KEY:?}"
 : "${DIGEST:?}"
 : "${GITHUB_OUTPUT:?}"
 : "${RUNNER_TEMP:?}"
 
-main "$KEY" "$DIGEST_PREFIX" "$DIGEST"
+main "$DIGEST_PREFIX" "$DIGEST_KEY" "$DIGEST"

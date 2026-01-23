@@ -7,9 +7,10 @@ on:
         description: The base images to build the docker image
         type: choice
         options:
-          - ubuntu:latest,debian:latest
+          - "ubuntu:latest,debian:latest,alpine:latest"
           - ubuntu:latest
           - debian:latest
+          - alpine:latest
       platforms:
         description: The platforms built docker image should support
         type: choice
@@ -50,8 +51,8 @@ jobs:
       gh_registry: ${{ steps.info.outputs.gh_registry }}
       gh_repo: ${{ steps.info.outputs.gh_repo }}
       gh_username: ${{ steps.info.outputs.gh_username }}
-      image_name_dh: ${{ steps.info.outputs.image_name_dh }}
-      image_name_gh: ${{ steps.info.outputs.image_name_gh }}
+      dh_image_name: ${{ steps.info.outputs.dh_image_name }}
+      gh_image_name: ${{ steps.info.outputs.gh_image_name }}
       image_names: ${{ steps.info.outputs.image_names }}
       image_labels: ${{ steps.info.outputs.image_labels }}
       image_annotations: ${{ steps.info.outputs.image_annotations }}
@@ -79,7 +80,8 @@ jobs:
         uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
         with:
           persist-credentials: false
-      - uses: ./.github/actions/docker-setup
+      - name: Set up Docker
+        uses: ./.github/actions/docker-setup
         with:
           platforms: ${{ matrix.platform }}
           dh_username: ${{ secrets.DH_USERNAME }}
@@ -87,22 +89,28 @@ jobs:
           gh_registry: ${{ needs.info.outputs.gh_registry }}
           gh_username: ${{ needs.info.outputs.gh_username }}
           gh_token: ${{ secrets.GITHUB_TOKEN }}
-
-      - uses: ./.github/actions/docker-build
+      - name: Build and push Docker image
+        uses: ./.github/actions/docker-build
+        id: build
         with:
-          key: ${{ matrix.key }}
           platforms: ${{ matrix.platform }}
           dockerfile: ${{ matrix.dockerfile }}
           build_args: ${{ matrix.build_args }}
-          cache_image_name: ${{ needs.info.outputs.image_name_dh }}
-          cache_prefix: ${{ needs.info.outputs.cache_prefix }}
+          cache_key: ${{ matrix.cache_key }}
+          cache_image_name: ${{ needs.info.outputs.dh_image_name }}
           digest_prefix: ${{ needs.info.outputs.digest_prefix }}
-          image_name_dh: ${{ needs.info.outputs.image_name_dh }}
-          image_name_gh: ${{ needs.info.outputs.image_name_gh }}
+          digest_key: ${{ matrix.digest_key }}
+          dh_image_name: ${{ needs.info.outputs.dh_image_name }}
+          gh_image_name: ${{ needs.info.outputs.gh_image_name }}
           image_names: ${{ needs.info.outputs.image_names }}
           image_labels: ${{ needs.info.outputs.image_labels }}
           image_annotations: ${{ needs.info.outputs.image_annotations }}
           conf_multiplatform: ${{ needs.info.outputs.conf_multiplatform }}
+    outputs:
+      digest_prefix: ${{ steps.build.outputs.digest_prefix }}
+      digest_key: ${{ steps.build.outputs.digest_key }}
+      digest_path: ${{ steps.build.outputs.digest_path }}
+      digest: ${{ steps.build.outputs.digest }}
 
   merge:
     needs: [info, build]
@@ -119,7 +127,8 @@ jobs:
         uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
         with:
           persist-credentials: false
-      - uses: ./.github/actions/docker-setup
+      - name: Set up Docker
+        uses: ./.github/actions/docker-setup
         with:
           platforms: ${{ matrix.platforms }}
           dh_username: ${{ secrets.DH_USERNAME }}
@@ -127,12 +136,13 @@ jobs:
           gh_registry: ${{ needs.info.outputs.gh_registry }}
           gh_username: ${{ needs.info.outputs.gh_username }}
           gh_token: ${{ secrets.GITHUB_TOKEN }}
-
-      - uses: ./.github/actions/docker-merge
+      - name: Merge and push Docker image manifests
+        uses: ./.github/actions/docker-merge
         with:
           key: ${{ matrix.key }}
           tag_suffix: ${{ matrix.tag_suffix }}
-          digest_prefix: ${{ needs.info.outputs.digest_prefix }}
-          image_name_dh: ${{ needs.info.outputs.image_name_dh }}
-          image_name_gh: ${{ needs.info.outputs.image_name_gh }}
+          digest_key: ${{ needs.build.outputs.digest_key }}
+          digest_prefix: ${{ needs.build.outputs.digest_prefix }}
+          dh_image_name: ${{ needs.info.outputs.dh_image_name }}
+          gh_image_name: ${{ needs.info.outputs.gh_image_name }}
           image_names: ${{ needs.info.outputs.image_names }}

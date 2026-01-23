@@ -15,22 +15,22 @@ outputs:
   dh_repo:
     description: Docker Hub repository name
     value: ${{ steps.info.outputs.dh_repo }}
+  dh_image_name:
+    description: The Docker Hub image name (dh_registry/dh_repo)
+    value: ${{ steps.info.outputs.dh_image_name }}
   gh_registry:
     description: GitHub Container url
     value: ${{ steps.info.outputs.gh_registry }}
   gh_repo:
     description: GitHub Container repository name
     value: ${{ steps.info.outputs.gh_repo }}
+  gh_image_name:
+    description: The GitHub Container image name (gh_registry/gh_repo)
+    value: ${{ steps.info.outputs.gh_image_name }}
   gh_username:
     description: GitHub Container username
     value: ${{ steps.info.outputs.gh_username }}
 
-  image_name_dh:
-    description: The Docker Hub image name (dh_registry/dh_repo)
-    value: ${{ steps.info.outputs.image_name_dh }}
-  image_name_gh:
-    description: The GitHub Container image name (gh_registry/gh_repo)
-    value: ${{ steps.info.outputs.image_name_gh }}
   image_names:
     description: The base image name (image_name_* separated by newline)
     value: ${{ steps.info.outputs.image_names }}
@@ -68,5 +68,5 @@ runs:
       shell: bash
       id: info
       env:
-        IMAGES: ${{ inputs.images }}
-        PLATFORMS: ${{ inputs.platforms }}
+        INPUT_IMAGES: ${{ inputs.images }}
+        INPUT_PLATFORMS: ${{ inputs.platforms }}

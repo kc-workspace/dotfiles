@@ -2,9 +2,6 @@ name: Docker build
 description: Validate and Build docker images and push to registries
 
 inputs:
-  key:
-    description: The key of the image to build (__get_key function from docker-info action)
-    required: true
   platforms:
     description: The list of platforms to build (separated by comma)
     required: true
@@ -14,20 +11,23 @@ inputs:
   build_args:
     description: The build arguments to pass on docker build command
     required: true
+  cache_key:
+    description: The key of the cache
+    required: true
   cache_image_name:
     description: The image name for caching (image_name_*)
-    required: true
-  cache_prefix:
-    description: The prefix for cache versioning
     required: true
   digest_prefix:
     description: The prefix for digest artifact name
     required: true
+  digest_key:
+    description: The key for digest artifact name
+    required: true
 
-  image_name_dh:
+  dh_image_name:
     description: The Docker Hub image name ([registry]/[repo])
     required: true
-  image_name_gh:
+  gh_image_name:
     description: The GitHub Container image name ([registry]/[repo])
     required: true
   image_names:
@@ -42,6 +42,20 @@ inputs:
   conf_multiplatform:
     description: Whether the build is multi-platform (true/false)
     required: true
+
+outputs:
+  digest_key:
+    description: The digest prefix used
+    value: ${{ steps.digest.outputs.key }}
+  digest_prefix:
+    description: The digest key used
+    value: ${{ steps.digest.outputs.key_prefix }}
+  digest_path:
+    description: The path to the digest directory
+    value: ${{ steps.digest.outputs.path }}
+  digest:
+    description: The image digest
+    value: ${{ steps.build.outputs.digest }}
 
 runs:
   using: composite
@@ -66,23 +80,22 @@ runs:
         tags: ${{ inputs.image_names }}
         labels: ${{ inputs.image_labels }}
         annotations: ${{ inputs.image_annotations }}
-        cache-from: type=registry,ref=${{ inputs.cache_image_name }}:${{ inputs.cache_prefix }}-${{ inputs.key }}
-        cache-to: type=registry,ref=${{ inputs.cache_image_name }}:${{ inputs.cache_prefix }}-${{ inputs.key }},mode=max
+        cache-from: type=registry,ref=${{ inputs.cache_image_name }}:${{ inputs.cache_key }}
+        cache-to: type=registry,ref=${{ inputs.cache_image_name }}:${{ inputs.cache_key }},mode=max
         secrets: |
           "GITHUB_TOKEN=${{ github.token }}"
         outputs: "type=image,push-by-digest=true,name-canonical=${{ inputs.conf_multiplatform }},push=true"
-
         provenance: mode=max
         sbom: true
 
     - uses: actions/attest-build-provenance@00014ed6ed5efc5b1ab7f7f34a39eb55d41aa4f8 # v3.1.0
       with:
-        subject-name: ${{ inputs.image_name_dh }}
+        subject-name: ${{ inputs.dh_image_name }}
         subject-digest: ${{ steps.build.outputs.digest }}
         push-to-registry: true
     - uses: actions/attest-build-provenance@00014ed6ed5efc5b1ab7f7f34a39eb55d41aa4f8 # v3.1.0
       with:
-        subject-name: ${{ inputs.image_name_gh }}
+        subject-name: ${{ inputs.gh_image_name }}
         subject-digest: ${{ steps.build.outputs.digest }}
         push-to-registry: true
 
@@ -90,13 +103,13 @@ runs:
       id: digest
       shell: bash
       env:
-        KEY: ${{ inputs.key }}
         DIGEST_PREFIX: ${{ inputs.digest_prefix }}
+        DIGEST_KEY: ${{ inputs.digest_key }}
         DIGEST: ${{ steps.build.outputs.digest }}
 
     - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6.0.0
       with:
-        name: ${{ steps.digest.outputs.name }}
+        name: ${{ steps.digest.outputs.key }}
         path: ${{ steps.digest.outputs.path }}
         if-no-files-found: error
         retention-days: 1

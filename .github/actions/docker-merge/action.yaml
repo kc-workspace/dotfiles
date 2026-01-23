@@ -2,20 +2,20 @@ name: Docker merge
 description: Merge multi-platform Docker images and push manifest to registries
 
 inputs:
-  key:
-    description: The key of the image (__get_key function from docker-info action)
-    required: true
   tag_suffix:
     description: The docker tag suffix for the image
     required: true
+  digest_key:
+    description: The key for digest artifact name
+    required: false
   digest_prefix:
     description: The prefix for digest artifact name
     required: true
 
-  image_name_dh:
+  dh_image_name:
     description: The Docker Hub image name ([registry]/[repo])
     required: true
-  image_name_gh:
+  gh_image_name:
     description: The GitHub Container image name ([registry]/[repo])
     required: true
   image_names:
@@ -28,8 +28,9 @@ runs:
     - uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131 # v7.0.0
       with:
         path: ${{ runner.temp }}/${{ inputs.digest_prefix }}
-        pattern: ${{ inputs.digest_prefix }}-${{ inputs.key }}-*
+        pattern: ${{ inputs.digest_key }}-*
         merge-multiple: true
+
     - uses: docker/metadata-action@c299e40c65443455700f0fdfc63efafe5b349051 # v5.10.0
       id: meta
       with:
@@ -49,12 +50,12 @@ runs:
       shell: bash
       env:
         DIGEST_PREFIX: ${{ inputs.digest_prefix }}
-        IMAGE_NAME: ${{ inputs.image_name_dh }}
+        IMAGE_NAME: ${{ inputs.dh_image_name }}
         IMAGE_VERSION: ${{ steps.meta.outputs.version }}
 
     - run: ${{ github.action_path }}/create-manifest.sh
       shell: bash
       env:
         DIGEST_PREFIX: ${{ inputs.digest_prefix }}
-        IMAGE_NAME: ${{ inputs.image_name_gh }}
+        IMAGE_NAME: ${{ inputs.gh_image_name }}
         IMAGE_VERSION: ${{ steps.meta.outputs.version }}
