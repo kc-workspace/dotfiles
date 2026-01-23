@@ -106,11 +106,6 @@ jobs:
           image_labels: ${{ needs.info.outputs.image_labels }}
           image_annotations: ${{ needs.info.outputs.image_annotations }}
           conf_multiplatform: ${{ needs.info.outputs.conf_multiplatform }}
-    outputs:
-      digest_prefix: ${{ steps.build.outputs.digest_prefix }}
-      digest_key: ${{ steps.build.outputs.digest_key }}
-      digest_path: ${{ steps.build.outputs.digest_path }}
-      digest: ${{ steps.build.outputs.digest }}
 
   merge:
     needs: [info, build]
@@ -140,8 +135,8 @@ jobs:
         uses: ./.github/actions/docker-merge
         with:
           tag_suffix: ${{ matrix.tag_suffix }}
-          digest_key: ${{ needs.build.outputs.digest_key }}
-          digest_prefix: ${{ needs.build.outputs.digest_prefix }}
+          digest_key: ${{ matrix.digest_key }}
+          digest_prefix: ${{ needs.info.outputs.digest_prefix }}
           dh_image_name: ${{ needs.info.outputs.dh_image_name }}
           gh_image_name: ${{ needs.info.outputs.gh_image_name }}
           image_names: ${{ needs.info.outputs.image_names }}
