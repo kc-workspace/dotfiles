@@ -3,6 +3,7 @@
 set -euo pipefail
 
 main() {
+  local nl=$'\n'
   item_add 'dh_registry' "index.docker.io"
   item_add 'dh_repo' "kamontat/dotfiles"
   item_add 'dh_image_name' "$(item_get 'dh_registry')/$(item_get 'dh_repo')"
@@ -12,7 +13,7 @@ main() {
   item_add 'gh_image_name' "$(item_get 'gh_registry')/$(item_get 'gh_repo')"
   item_add 'gh_username' "$GITHUB_REPOSITORY_OWNER"
 
-  item_add 'image_names' "$(item_get "dh_image_name")\n$(item_get "gh_image_name")"
+  item_add 'image_names' "$(item_get "dh_image_name")$nl$(item_get "gh_image_name")"
 
   item_add 'cache_prefix' 'cache'
 
