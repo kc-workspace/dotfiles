@@ -139,7 +139,6 @@ jobs:
       - name: Merge and push Docker image manifests
         uses: ./.github/actions/docker-merge
         with:
-          key: ${{ matrix.key }}
           tag_suffix: ${{ matrix.tag_suffix }}
           digest_key: ${{ needs.build.outputs.digest_key }}
           digest_prefix: ${{ needs.build.outputs.digest_prefix }}
