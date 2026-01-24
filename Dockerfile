@@ -33,7 +33,7 @@ RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
   --mount=type=cache,target=/var/lib/apt,sharing=locked \
   apt update && apt-get install -y --no-install-recommends \
   acl bzip2 ca-certificates curl file \
-  g++ gawk git gpg less locales make \
+  g++ gawk git less locales make \
   netbase openssh-client patch sudo \
   unzip uuid-runtime tzdata jq \
   g++-12 skopeo zsh
