@@ -72,9 +72,6 @@ jobs:
     permissions:
       contents: read
       packages: write ## For pushing images
-      artifact-metadata: write ## For GitHub provenance
-      attestations: write ## For provenance
-      id-token: write ## For sbom
     steps:
       - name: Set up repository
         uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
@@ -115,6 +112,9 @@ jobs:
     permissions:
       contents: read
       packages: write
+      artifact-metadata: write ## For GitHub provenance
+      attestations: write ## For GitHub provenance
+      id-token: write ## For GitHub provenance
     steps:
       - name: Set up repository
         uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1

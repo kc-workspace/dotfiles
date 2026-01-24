@@ -29,9 +29,7 @@ RUN grep "ubuntu" /etc/os-release && touch /var/mail/ubuntu \
   && chown ubuntu /var/mail/ubuntu \
   && userdel -r ubuntu || true
 
-RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
-  --mount=type=cache,target=/var/lib/apt,sharing=locked \
-  apt update && apt-get install -y --no-install-recommends \
+RUN apt update && apt-get install -y --no-install-recommends \
   acl bzip2 ca-certificates curl file \
   g++ gawk git less locales make \
   netbase openssh-client patch sudo \
