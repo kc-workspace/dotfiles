@@ -24,12 +24,6 @@ inputs:
     description: The key for digest artifact name
     required: true
 
-  dh_image_name:
-    description: The Docker Hub image name ([registry]/[repo])
-    required: true
-  gh_image_name:
-    description: The GitHub Container image name ([registry]/[repo])
-    required: true
   image_names:
     description: The image name ([registry]/[repo])
     required: true
@@ -85,19 +79,8 @@ runs:
         secrets: |
           "GITHUB_TOKEN=${{ github.token }}"
         outputs: "type=image,push-by-digest=true,name-canonical=${{ inputs.conf_multiplatform }},push=true"
-        provenance: mode=max
+        provenance: mode=max,version=v1
         sbom: true
-
-    - uses: actions/attest-build-provenance@00014ed6ed5efc5b1ab7f7f34a39eb55d41aa4f8 # v3.1.0
-      with:
-        subject-name: ${{ inputs.dh_image_name }}
-        subject-digest: ${{ steps.build.outputs.digest }}
-        push-to-registry: true
-    - uses: actions/attest-build-provenance@00014ed6ed5efc5b1ab7f7f34a39eb55d41aa4f8 # v3.1.0
-      with:
-        subject-name: ${{ inputs.gh_image_name }}
-        subject-digest: ${{ steps.build.outputs.digest }}
-        push-to-registry: true
 
     - run: ${{ github.action_path }}/export-digest.sh
       id: digest

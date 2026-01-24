@@ -47,15 +47,27 @@ runs:
           type=sha
 
     - run: ${{ github.action_path }}/create-manifest.sh
+      id: dh-manifest
       shell: bash
       env:
         DIGEST_PREFIX: ${{ inputs.digest_prefix }}
         IMAGE_NAME: ${{ inputs.dh_image_name }}
         IMAGE_VERSION: ${{ steps.meta.outputs.version }}
+    - uses: actions/attest-build-provenance@00014ed6ed5efc5b1ab7f7f34a39eb55d41aa4f8 # v3.1.0
+      with:
+        subject-name: ${{ steps.dh-manifest.outputs.subject }}
+        subject-digest: ${{ steps.dh-manifest.outputs.digest }}
+        push-to-registry: true
 
     - run: ${{ github.action_path }}/create-manifest.sh
+      id: gh-manifest
       shell: bash
       env:
         DIGEST_PREFIX: ${{ inputs.digest_prefix }}
         IMAGE_NAME: ${{ inputs.gh_image_name }}
         IMAGE_VERSION: ${{ steps.meta.outputs.version }}
+    - uses: actions/attest-build-provenance@00014ed6ed5efc5b1ab7f7f34a39eb55d41aa4f8 # v3.1.0
+      with:
+        subject-name: ${{ steps.gh-manifest.outputs.subject }}
+        subject-digest: ${{ steps.gh-manifest.outputs.digest }}
+        push-to-registry: true

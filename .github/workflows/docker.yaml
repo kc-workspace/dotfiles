@@ -100,8 +100,6 @@ jobs:
           cache_image_name: ${{ needs.info.outputs.dh_image_name }}
           digest_prefix: ${{ needs.info.outputs.digest_prefix }}
           digest_key: ${{ matrix.digest_key }}
-          dh_image_name: ${{ needs.info.outputs.dh_image_name }}
-          gh_image_name: ${{ needs.info.outputs.gh_image_name }}
           image_names: ${{ needs.info.outputs.image_names }}
           image_labels: ${{ needs.info.outputs.image_labels }}
           image_annotations: ${{ needs.info.outputs.image_annotations }}
