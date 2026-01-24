@@ -31,17 +31,15 @@ RUN grep "ubuntu" /etc/os-release && touch /var/mail/ubuntu \
 
 RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
   --mount=type=cache,target=/var/lib/apt,sharing=locked \
-  apt update && apt install -y --no-install-recommends software-properties-common \
-  && add-apt-repository -y ppa:git-core/ppa \
-  && apt update && apt-get install -y --no-install-recommends \
+  apt update && apt-get install -y --no-install-recommends \
   acl bzip2 ca-certificates curl file \
   g++ gawk git gpg less locales make \
   netbase openssh-client patch sudo \
   unzip uuid-runtime tzdata jq \
   g++-12 skopeo zsh
-# && apt remove --purge -y software-properties-common \
-# && apt autoremove --purge -y \
-# && rm -rf /var/lib/apt/lists/*
+#   && apt autoremove -y --purge \
+#   && apt clean \
+#   && rm -rf /var/lib/apt/lists/*
 
 ## Set up locales (Required because tab completions bug)
 ## ref: https://github.com/zsh-users/zsh-autosuggestions/issues/683
