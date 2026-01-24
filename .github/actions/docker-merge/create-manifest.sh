@@ -5,36 +5,41 @@ set -euo pipefail
 create_manifest() {
   local metadata="$1" image_name="$2"
   local args=(
-    buildx
-    imagetools create
+    buildx imagetools create
   )
 
+  # shellcheck disable=SC2016
+  local jq_query='.tags | map(select(startswith($prefix))) | map("--tag " + .) | join(" ")'
   # shellcheck disable=SC2207
-  args+=($(jq -cr '.tags | map("--tag " + .) | join(" ")' "$metadata"))
+  args+=($(jq -cr --arg prefix "$image_name" "$jq_query" "$metadata"))
   # shellcheck disable=SC2207
   args+=($(printf "$image_name@sha256:%s " *))
 
-  printf '$ docker %s\n' "${args[*]}"
+  printf '$ docker %s\n' "${args[*]}" >&2
   docker "${args[@]}"
 }
 
 inspect_manifest() {
   local image_name="$1" image_version="$2"
   local args=(
-    buildx
-    imagetools inspect
+    buildx imagetools inspect
     "$image_name:$image_version"
   )
 
-  printf '$ docker %s\n' "${args[*]}"
+  printf '$ docker %s\n' "${args[*]}" >&2
   docker "${args[@]}"
 }
 
 get_manifest_digest() {
   local image_name="$1" image_version="$2"
-  docker buildx imagetools inspect \
-    "$image_name:$image_version" \
+  local args=(
+    buildx imagetools inspect
+    "$image_name:$image_version"
     --format '{{ println .Manifest.Digest }}'
+  )
+
+  printf '$ docker %s\n' "${args[*]}" >&2
+  docker "${args[@]}"
 }
 
 main() {
