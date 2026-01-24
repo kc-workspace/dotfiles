@@ -1,0 +1,73 @@
+name: Docker merge
+description: Merge multi-platform Docker images and push manifest to registries
+
+inputs:
+  tag_suffix:
+    description: The docker tag suffix for the image
+    required: true
+  digest_key:
+    description: The key for digest artifact name
+    required: false
+  digest_prefix:
+    description: The prefix for digest artifact name
+    required: true
+
+  dh_image_name:
+    description: The Docker Hub image name ([registry]/[repo])
+    required: true
+  gh_image_name:
+    description: The GitHub Container image name ([registry]/[repo])
+    required: true
+  image_names:
+    description: The image name ([registry]/[repo])
+    required: true
+
+runs:
+  using: composite
+  steps:
+    - uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131 # v7.0.0
+      with:
+        path: ${{ runner.temp }}/${{ inputs.digest_prefix }}
+        pattern: ${{ inputs.digest_key }}-*
+        merge-multiple: true
+
+    - uses: docker/metadata-action@c299e40c65443455700f0fdfc63efafe5b349051 # v5.10.0
+      id: meta
+      with:
+        images: ${{ inputs.image_names }}
+        flavor: |
+          suffix=${{ inputs.tag_suffix }},onlatest=true
+        tags: |
+          type=semver,pattern={{major}}
+          type=semver,pattern={{major}}.{{minor}}
+          type=semver,pattern={{version}}
+          type=edge
+          type=ref,event=branch
+          type=ref,event=pr,prefix=pr-
+          type=sha
+
+    - run: ${{ github.action_path }}/create-manifest.sh
+      id: dh-manifest
+      shell: bash
+      env:
+        DIGEST_PREFIX: ${{ inputs.digest_prefix }}
+        IMAGE_NAME: ${{ inputs.dh_image_name }}
+        IMAGE_VERSION: ${{ steps.meta.outputs.version }}
+    - uses: actions/attest-build-provenance@00014ed6ed5efc5b1ab7f7f34a39eb55d41aa4f8 # v3.1.0
+      with:
+        subject-name: ${{ steps.dh-manifest.outputs.subject }}
+        subject-digest: ${{ steps.dh-manifest.outputs.digest }}
+        push-to-registry: true
+
+    - run: ${{ github.action_path }}/create-manifest.sh
+      id: gh-manifest
+      shell: bash
+      env:
+        DIGEST_PREFIX: ${{ inputs.digest_prefix }}
+        IMAGE_NAME: ${{ inputs.gh_image_name }}
+        IMAGE_VERSION: ${{ steps.meta.outputs.version }}
+    - uses: actions/attest-build-provenance@00014ed6ed5efc5b1ab7f7f34a39eb55d41aa4f8 # v3.1.0
+      with:
+        subject-name: ${{ steps.gh-manifest.outputs.subject }}
+        subject-digest: ${{ steps.gh-manifest.outputs.digest }}
+        push-to-registry: true

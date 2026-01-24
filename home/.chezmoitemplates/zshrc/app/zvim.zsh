@@ -10,7 +10,7 @@ function zvm_config() {
 ## Setup vim mode
 ## https://github.com/jeffreytse/zsh-vi-mode
 zinit ice {{- if hasKey . "lazy" | ternary (get . "lazy") false }} wait lucid{{- end }} atinit"
-export ZVM_VI_ESCAPE_BINDKEY=jk" atload"
+export ZVM_VI_ESCAPE_BINDKEY='^['" atload"
 {{- template "zshrc/zsh/bind.zsh" (dict "hideHeader" true "keymap" "viins") -}}"
 zinit {{ get . "act" | default "light" }} jeffreytse/zsh-vi-mode
 

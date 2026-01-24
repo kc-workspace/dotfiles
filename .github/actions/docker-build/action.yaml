@@ -1,0 +1,98 @@
+name: Docker build
+description: Validate and Build docker images and push to registries
+
+inputs:
+  platforms:
+    description: The list of platforms to build (separated by comma)
+    required: true
+  dockerfile:
+    description: The Dockerfile path to build
+    required: true
+  build_args:
+    description: The build arguments to pass on docker build command
+    required: true
+  cache_key:
+    description: The key of the cache
+    required: true
+  cache_image_name:
+    description: The image name for caching (image_name_*)
+    required: true
+  digest_prefix:
+    description: The prefix for digest artifact name
+    required: true
+  digest_key:
+    description: The key for digest artifact name
+    required: true
+
+  image_names:
+    description: The image name ([registry]/[repo])
+    required: true
+  image_labels:
+    description: The labels generated for building image
+    required: true
+  image_annotations:
+    description: The annotations generated for building image
+    required: true
+  conf_multiplatform:
+    description: Whether the build is multi-platform (true/false)
+    required: true
+
+outputs:
+  digest_key:
+    description: The digest prefix used
+    value: ${{ steps.digest.outputs.key }}
+  digest_prefix:
+    description: The digest key used
+    value: ${{ steps.digest.outputs.key_prefix }}
+  digest_path:
+    description: The path to the digest directory
+    value: ${{ steps.digest.outputs.path }}
+  digest:
+    description: The image digest
+    value: ${{ steps.build.outputs.digest }}
+
+runs:
+  using: composite
+  steps:
+    - uses: docker/build-push-action@263435318d21b8e681c14492fe198d362a7d2c83 # v6.18.0
+      with:
+        context: .
+        call: check
+        platforms: ${{ inputs.platforms }}
+        file: ${{ inputs.dockerfile }}
+        build-args: ${{ inputs.build_args }}
+        tags: ${{ inputs.image_names }}
+        labels: ${{ inputs.image_labels }}
+        annotations: ${{ inputs.image_annotations }}
+    - uses: docker/build-push-action@263435318d21b8e681c14492fe198d362a7d2c83 # v6.18.0
+      id: build
+      with:
+        context: .
+        platforms: ${{ inputs.platforms }}
+        file: ${{ inputs.dockerfile }}
+        build-args: ${{ inputs.build_args }}
+        tags: ${{ inputs.image_names }}
+        labels: ${{ inputs.image_labels }}
+        annotations: ${{ inputs.image_annotations }}
+        cache-from: type=registry,ref=${{ inputs.cache_image_name }}:${{ inputs.cache_key }}
+        cache-to: type=registry,ref=${{ inputs.cache_image_name }}:${{ inputs.cache_key }},mode=max
+        secrets: |
+          "GITHUB_TOKEN=${{ github.token }}"
+        outputs: "type=image,push-by-digest=true,name-canonical=${{ inputs.conf_multiplatform }},push=true"
+        provenance: mode=max,version=v1
+        sbom: true
+
+    - run: ${{ github.action_path }}/export-digest.sh
+      id: digest
+      shell: bash
+      env:
+        DIGEST_PREFIX: ${{ inputs.digest_prefix }}
+        DIGEST_KEY: ${{ inputs.digest_key }}
+        DIGEST: ${{ steps.build.outputs.digest }}
+
+    - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6.0.0
+      with:
+        name: ${{ steps.digest.outputs.key }}
+        path: ${{ steps.digest.outputs.path }}
+        if-no-files-found: error
+        retention-days: 1

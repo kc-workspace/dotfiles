@@ -10,7 +10,8 @@ dependencies:
           upgrade: true
       homebrew:
         taps: []
-        brews: []
+        brews:
+          - git
         casks: []
         _settings:
           install: true
@@ -38,7 +39,8 @@ dependencies:
           upgrade: true
       homebrew:
         taps: []
-        brews: []
+        brews:
+          - git
         casks: []
         _settings:
           install: true

@@ -1,0 +1,19 @@
+## >============================================>
+## Global Segments
+## <============================================<
+
+## https://starship.rs/config/#default-prompt-format
+format = """
+$character
+"""
+
+## >============================================>
+## Line 1 Left Prompt Segments
+## <============================================<
+
+## https://starship.rs/config/#character
+[character]
+disabled       = false
+error_symbol   = '[󰅂](bold red)'
+success_symbol = '[󰅂](bold green)'
+vimcmd_symbol  = '[](bold purple)'
