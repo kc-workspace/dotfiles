@@ -20,10 +20,6 @@ on:
           - linux/arm64
   release:
     types: [published]
-  ## FIXME: Remove push trigger once tested
-  push:
-    branches:
-      - feature/improve-dockerfile-2
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}-${{ github.event.inputs.images }}-${{ github.event.inputs.platforms }}
