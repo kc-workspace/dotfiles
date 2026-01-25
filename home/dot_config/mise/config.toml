@@ -10,16 +10,14 @@ rust          = "1.89.0"
 fastfetch     = "2.54.0"
 yq            = "4.48.1"
 chezmoi       = "2.69.1"
-usage         = "2.12.0"
+usage         = "2.12.0" ## Required by `mise completion`
 uv            = "0.9.5"
-codex         = "0.77.0"
 
 [tool_alias]
 1password-cli = "asdf:kc-workspace/asdf-1password"
 fastfetch     = "github:fastfetch-cli/fastfetch"
 yq            = "github:mikefarah/yq"
 chezmoi       = "github:twpayne/chezmoi"
-codex         = "npm:@openai/codex"
 
 [settings]
 disable_backends                    = ["spm", "dotnet", "gem", "ubi"]
