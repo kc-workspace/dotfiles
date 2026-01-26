@@ -1,0 +1,23 @@
+{
+  "security": {
+    "auth": {
+      "selectedType": "oauth-personal"
+    },
+    "environmentVariableRedaction": {
+      "enabled": true
+    }
+  },
+  "ui": {
+    "hideWindowTitle": true,
+    "showMemoryUsage": true
+  },
+  "general": {
+    "previewFeatures": true
+  },
+  "tools": {
+    "autoAccept": true
+  },
+  "experimental": {
+    "skills": true
+  }
+}
