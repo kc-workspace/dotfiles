@@ -88,8 +88,8 @@ you will have option to convert to full setup via `kdf-*` script.
 - Working directory layout: [here][local:documents]
   - **Personal** directory for personal projects
   - **Works** directory for work projects, organized by workplace
-- Password manager via [1Password][1p:home]
 - Encrypted files via [gpg][cz:gpg]
+- Password manager via [1Password][1p:home]
 
 ### Zinit
 
