@@ -3,5 +3,5 @@
 telemetry = false
 
 [install]
-exact  = false
+exact  = true
 linker = "isolated"
