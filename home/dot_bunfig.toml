@@ -1,0 +1,7 @@
+## https://bun.com/docs/runtime/bunfig#bunfig-toml
+
+telemetry = false
+
+[install]
+exact  = false
+linker = "isolated"
