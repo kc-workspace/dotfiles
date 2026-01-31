@@ -35,9 +35,10 @@ RUN apt update && apt-get install -y --no-install-recommends \
   netbase openssh-client patch sudo \
   unzip uuid-runtime tzdata jq \
   g++-12 skopeo zsh
-#   && apt autoremove -y --purge \
-#   && apt clean \
-#   && rm -rf /var/lib/apt/lists/*
+
+RUN apt autoremove -y --purge \
+  && apt clean \
+  && rm -rf /var/lib/apt/lists/*
 
 ## Set up locales (Required because tab completions bug)
 ## ref: https://github.com/zsh-users/zsh-autosuggestions/issues/683
