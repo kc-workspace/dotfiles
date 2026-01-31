@@ -111,8 +111,10 @@ _get_key_digest() {
 }
 _get_dockerfile() {
   local image="$1" platform="$2"
+
+  printf '%s' 'docker/Dockerfile'
   case "$image-$platform" in
-  *) printf 'Dockerfile' ;;
+  alpine:*) printf '.alpine' ;;
   esac
 }
 _get_build_args() {
