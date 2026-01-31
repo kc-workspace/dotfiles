@@ -84,4 +84,19 @@ sudo apt install -y{{ range dig "apt" "packages" list . }} \
 sudo apt clean
 set +x
 
+{{- end }}
+{{- if dig "apk" "packages" list . }}
+
+printf '>> Installing... %s (%s)\n' "apk packages"
+
+set -x
+sudo apk update
+{{- if dig "apk" "_settings" "upgrade" true . }}
+sudo apk upgrade --prune
+{{- end }}
+sudo apk add --no-cache{{ range dig "apk" "packages" list . }} \
+  {{ . | quote }}
+{{- end }}
+set +x
+
 {{- end }}{{- end }}

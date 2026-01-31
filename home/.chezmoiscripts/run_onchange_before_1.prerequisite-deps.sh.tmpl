@@ -59,4 +59,13 @@ if ! command -v apt >/dev/null; then
   exit 1
 fi
 
+{{- end }}
+{{- if dig "apk" "packages" list . }}
+
+printf '>> Checking... %s\n' "apk"
+if ! command -v apk >/dev/null; then
+  echo 'Missing apk command' >&2
+  exit 1
+fi
+
 {{- end }}{{- end }}
