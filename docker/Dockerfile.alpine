@@ -23,10 +23,16 @@ ENV CHEZMOI_HOME="$USER_HOME/.local/share/chezmoi"
 ENV NONINTERACTIVE=true
 ENV DOCKER=true
 
-RUN apk add --no-cache \
+## Install dependencies
+## ca-certificates, curl, git are essential
+## sudo and doas are for privilege escalation
+## shadow is for chsh command
+## tzdata is for timezone setting
+RUN apk update \
+  && apk add --no-cache \
   ca-certificates curl file \
-  git shadow sudo tzdata unzip doas \
-  zsh
+  git shadow sudo tzdata \
+  doas zsh
 
 ## Setup startup shell
 RUN chsh -s $SHELL
