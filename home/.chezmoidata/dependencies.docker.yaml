@@ -60,3 +60,16 @@ dependencies:
         _settings:
           install: true
           upgrade: false
+
+    linux/alpine:
+      apk:
+        packages:
+          - ncurses ## For tput
+        _settings:
+          upgrade: true
+      homebrew:
+        taps: []
+        brews: []
+        casks: []
+        _settings:
+          install: false ## alpine is not supported by homebrew
