@@ -1,5 +1,2 @@
 [tools]
 chezmoi = "2.69.1"
-
-[tool_alias]
-chezmoi = "github:twpayne/chezmoi"
