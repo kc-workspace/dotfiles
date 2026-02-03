@@ -13,11 +13,8 @@ chezmoi       = "2.69.1"
 usage         = "2.12.0" ## Required by `mise completion`
 uv            = "0.9.5"
 
-[tool_alias]
-1password-cli = "asdf:kc-workspace/asdf-1password"
-fastfetch     = "github:fastfetch-cli/fastfetch"
-yq            = "github:mikefarah/yq"
-chezmoi       = "github:twpayne/chezmoi"
+[plugins]
+1password-cli = "https://github.com/kc-workspace/asdf-1password"
 
 [settings]
 disable_backends                    = ["spm", "dotnet", "gem", "ubi"]
