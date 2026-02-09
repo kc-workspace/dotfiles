@@ -11,4 +11,8 @@ export XDG_CACHE_HOME="$HOME/.cache"
 
 export __ZRC_FUNC="$XDG_DATA_HOME/completions"
 
+## Disable telemetry on various tools (e.g. claude, skills, etc.)
+export DISABLE_TELEMETRY=1
+export DO_NOT_TRACK=1
+
 {{ end -}}
