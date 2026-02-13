@@ -3,8 +3,8 @@
 
 ## On our case is the right_format that cause the problem.
 ## https://github.com/microsoft/vscode/issues/285926
-if [[ -n "$COPILOT" ]]; then
-  export STARSHIP_CONFIG="$HOME/.config/starship-copilot.toml"
+if [[ -n "$COPILOT" ]] || [[ -n "$WINDSURF_CASCADE_TERMINAL_KIND" ]]; then
+  export STARSHIP_CONFIG="$HOME/.config/starship-minimal.toml"
 fi
 
 ## Setup starship prompt
