@@ -1,23 +1,41 @@
 #:schema https://developers.openai.com/codex/config-schema.json
 
-## https://github.com/openai/codex/blob/main/docs/config.md
+## https://developers.openai.com/codex/config-reference
 
-approval_policy        = "on-failure"
+approval_policy        = "on-request"
 file_opener            = "vscode-insiders"
-model                  = "gpt-5.2-codex"
-model_reasoning_effort = "medium"
+model                  = "gpt-5.3-codex"
+model_reasoning_effort = "high"
 personality            = "pragmatic"
-sandbox_mode           = "workspace-write"
 
 [history]
 max_bytes   = 5000000    ## 5 MB
 persistence = "save-all"
 
-[features]
-shell_tool         = true ## Enable the default `shell` tool
-undo               = true ## Enable undo via per-turn git ghost snapshots
-web_search         = true
-web_search_request = true
+[feedback]
+enabled = false
 
-[sandbox_workspace_write]
-network_access = true
+[mcp_servers.context7]
+args    = ["exec", "npm:@upstash/context7-mcp", "--", "context7-mcp"]
+command = "mise"
+
+[mcp_servers.memory]
+args = [
+  "exec",
+  "npm:@modelcontextprotocol/server-memory",
+  "--",
+  "mcp-server-memory",
+]
+command = "mise"
+
+[mcp_servers.sequential-thinking]
+command = "mise"
+args = [
+  "exec",
+  "npm:@modelcontextprotocol/server-sequential-thinking",
+  "--",
+  "mcp-server-sequential-thinking",
+]
+
+[mcp_servers.svelte]
+url = "https://mcp.svelte.dev/mcp"
