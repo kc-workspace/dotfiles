@@ -24,9 +24,9 @@ set -e
 {{- if dig "mise" "_settings" "install" true . }}
 
 mise_bin="$HOME/.local/bin/mise"
+"$mise_bin" --version
 
 set -x
-"$mise_bin" doctor || true
 
 {{- if dig "mise" "_settings" "upgrade" true . }}
 "$mise_bin" self-update --yes
