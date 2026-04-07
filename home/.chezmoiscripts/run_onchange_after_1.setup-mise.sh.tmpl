@@ -26,6 +26,8 @@ set -e
 mise_bin="$HOME/.local/bin/mise"
 
 set -x
+"$mise_bin" doctor
+
 {{- if dig "mise" "_settings" "upgrade" true . }}
 "$mise_bin" self-update --yes
 {{- end }}
@@ -38,9 +40,6 @@ set -x
 "$mise_bin" install --yes {{- range . }} {{ . }}{{- end }}
 {{- end }}
 {{- end }}
-
-"$mise_bin" doctor
-
 set +x
 
 unset mise_bin
