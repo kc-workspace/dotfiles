@@ -1,5 +1,50 @@
 # Changelog
 
+## [0.6.0](https://github.com/kc-workspace/dotfiles/compare/v0.5.0...v0.6.0) (2026-04-07)
+
+
+### Features
+
+* **zsh:** add environment variables to disable telemetry ([55834e8](https://github.com/kc-workspace/dotfiles/commit/55834e81b7948d893be1f7fbcd9797c2919d0860))
+* **zshrc:** support windsurf terminal detection for starship theme ([aa99bf4](https://github.com/kc-workspace/dotfiles/commit/aa99bf4b38df8a520c5ddb00ed749f2ea5e70b41))
+
+
+### Bug Fixes
+
+* **dep:** upgrade python from v3.13.1 to v3.13.12 fixes `No GitHub artifact attestations` error ([1885488](https://github.com/kc-workspace/dotfiles/commit/1885488780c7780bb9404e762626072e51c7f2b4))
+* **script:** use mise --version instead of doctor when set up mise ([8023fc6](https://github.com/kc-workspace/dotfiles/commit/8023fc686f3e9c9f787c26f55c1cc5bd50e7ba6b))
+* **settings:** add JSON schema reference to settings.json ([dc66be9](https://github.com/kc-workspace/dotfiles/commit/dc66be97d83e8dc3916323bf4e4c210ab1c5da44))
+* **settings:** add ralph-loop plugin to enabledPlugins in settings.json ([f8026d3](https://github.com/kc-workspace/dotfiles/commit/f8026d30d081c2e04a8b278a65dbdbc28431a67f))
+
+
+### Performance Improvements
+
+* **codex:** reconfig codex config for actual usage ([4086b4a](https://github.com/kc-workspace/dotfiles/commit/4086b4a3e85d8bc44c6b4a5acb4907a9091be6a2))
+* **codex:** reorganize config.toml and add json schema ([cfe3fdf](https://github.com/kc-workspace/dotfiles/commit/cfe3fdf830cc3ac885093a7338886ea772a4d6d0))
+* **dep:** upgrade chezmoi from v2.69.1 to v2.70.0 ([1e84038](https://github.com/kc-workspace/dotfiles/commit/1e840381d71d07a719a34eaaf5d9b6e92fba9e17))
+* **script:** add mise doctor when set up mise ([41ba5b2](https://github.com/kc-workspace/dotfiles/commit/41ba5b27b9ce80f13b92732f47104947cd6f420a))
+* **script:** move mise docker to before everything ([19fbaad](https://github.com/kc-workspace/dotfiles/commit/19fbaad7eff771f3099f7dda4d00c6ced53004e5))
+* **starship:** change starship copilot to starship-minimal ([c6d1906](https://github.com/kc-workspace/dotfiles/commit/c6d190629dd1f7fecd897277ae3f13b5e445d6f4))
+* sync target and source directories ([a0bff52](https://github.com/kc-workspace/dotfiles/commit/a0bff524122828c8e068732628e977c10d2294d0))
+* sync target and source directories ([188838e](https://github.com/kc-workspace/dotfiles/commit/188838e1ab6c9a17a6b0dc22e545c08f9e5efd30))
+* sync target and source directories ([7f90f91](https://github.com/kc-workspace/dotfiles/commit/7f90f912c67b8b615e7e34c7aab3e9fa43a002ba))
+* sync target and source directories ([1126223](https://github.com/kc-workspace/dotfiles/commit/112622365451272efbde2994f4c018d0d6971a69))
+* sync target and source directories ([d8b1d6a](https://github.com/kc-workspace/dotfiles/commit/d8b1d6a852890b0275db437bd1e2eb050cd2255b))
+* sync target and source directories ([4303c54](https://github.com/kc-workspace/dotfiles/commit/4303c5468bc45697da263c8478e37cb92591d3b6))
+* sync target and source directories ([b4267d7](https://github.com/kc-workspace/dotfiles/commit/b4267d71e48cb743a6a0dd5c90cd1897175ca62d))
+* sync target and source directories ([ca5b24c](https://github.com/kc-workspace/dotfiles/commit/ca5b24c64c0fea1ba9fd430c31f475fbd198fc84))
+* sync target and source directories ([0ad06c2](https://github.com/kc-workspace/dotfiles/commit/0ad06c20cc63bcda92b3251ba3d331ecb6b7de21))
+* sync target and source directories ([dce30f4](https://github.com/kc-workspace/dotfiles/commit/dce30f48e7ed4a9ba1ed7829277aa8cd4a327d64))
+* sync target and source directories ([1d40a71](https://github.com/kc-workspace/dotfiles/commit/1d40a7151ecf47d8cf26fbbd6b43fc8b4163c2e1))
+* sync target and source directories ([3054f29](https://github.com/kc-workspace/dotfiles/commit/3054f2987d107ce5837639db90a1f774cd6b5772))
+* sync target and source directories ([0c34b96](https://github.com/kc-workspace/dotfiles/commit/0c34b969ecd83bbbc5dd7bad1e37d3915258dfa0))
+* sync target and source directories ([c20c0f9](https://github.com/kc-workspace/dotfiles/commit/c20c0f96ebeaa5095c075741f8cbd104e41a4dca))
+* sync target and source directories ([5b13446](https://github.com/kc-workspace/dotfiles/commit/5b13446188b011786d8aa14c19538e085b8bd847))
+* sync target and source directories ([a765335](https://github.com/kc-workspace/dotfiles/commit/a765335de94c548aab011d6513ae1a144f62e2b9))
+* sync target and source directories ([7bf4cb3](https://github.com/kc-workspace/dotfiles/commit/7bf4cb3f08c4d187df5a54bb535491e66bcb8081))
+* sync target and source directories ([4f4bd9c](https://github.com/kc-workspace/dotfiles/commit/4f4bd9c58ff7eb00c09b21924107a9e534241a48))
+* upgrade opencode plugin to latest version ([2e070ea](https://github.com/kc-workspace/dotfiles/commit/2e070ea1ffa726618649d86dcf7975ae9b65508f))
+
 ## [0.5.0](https://github.com/kc-workspace/dotfiles/compare/v0.4.0...v0.5.0) (2026-01-31)
 
 
