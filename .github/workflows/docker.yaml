@@ -39,7 +39,7 @@ jobs:
       - uses: ./.github/actions/docker-info
         id: info
         with:
-          images: ${{ inputs.images || 'ubuntu:latest,debian:latest' }}
+          images: ${{ inputs.images || 'ubuntu:latest,debian:latest,alpine:latest' }}
           platforms: ${{ inputs.platforms || 'linux/amd64,linux/arm64' }}
     outputs:
       dh_registry: ${{ steps.info.outputs.dh_registry }}
