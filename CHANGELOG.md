@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.6.1](https://github.com/kc-workspace/dotfiles/compare/v0.6.0...v0.6.1) (2026-04-07)
+
+
+### Performance Improvements
+
+* sync target and source directories ([6957000](https://github.com/kc-workspace/dotfiles/commit/695700038dc355e98f0c613dff53b82fcc1146d4))
+
 ## [0.6.0](https://github.com/kc-workspace/dotfiles/compare/v0.5.0...v0.6.0) (2026-04-07)
 
 
