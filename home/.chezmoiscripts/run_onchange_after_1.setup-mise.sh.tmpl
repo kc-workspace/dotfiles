@@ -38,6 +38,9 @@ set -x
 "$mise_bin" install --yes {{- range . }} {{ . }}{{- end }}
 {{- end }}
 {{- end }}
+
+"$mise_bin" doctor
+
 set +x
 
 unset mise_bin
