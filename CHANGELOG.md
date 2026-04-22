@@ -1,5 +1,20 @@
 # Changelog
 
+## [0.7.0](https://github.com/kc-workspace/dotfiles/compare/v0.6.0...v0.7.0) (2026-04-22)
+
+
+### Features
+
+* **zshrc:** support both vscode and vscode-insider ([b3038ca](https://github.com/kc-workspace/dotfiles/commit/b3038ca2f6f6346ee300c57d55b6fc9cf620d803))
+
+
+### Performance Improvements
+
+* sync target and source directories ([48f6bdd](https://github.com/kc-workspace/dotfiles/commit/48f6bdd646fe47720c7b3666f4da909576782915))
+* sync target and source directories ([e463fec](https://github.com/kc-workspace/dotfiles/commit/e463fec147c301683c6b969fa19d1043056863f3))
+* sync target and source directories ([8931ab8](https://github.com/kc-workspace/dotfiles/commit/8931ab8b2646377a27cc87fbc883417a934d6789))
+* sync target and source directories ([6957000](https://github.com/kc-workspace/dotfiles/commit/695700038dc355e98f0c613dff53b82fcc1146d4))
+
 ## [0.6.0](https://github.com/kc-workspace/dotfiles/compare/v0.5.0...v0.6.0) (2026-04-07)
 
 
