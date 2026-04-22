@@ -377,10 +377,11 @@ symbol   = ''
 
 ## https://starship.rs/config/#kubernetes
 [kubernetes]
-disabled = false
-format   = '([on](dimmed) [$symbol $context]($style) )'
-style    = 'blue'
-symbol   = ''
+detect_env_vars = ["KUBECONFIG"]
+disabled        = false
+format          = '([on](dimmed) [$symbol $context]($style) )'
+style           = 'blue'
+symbol          = ''
 
 ## https://starship.rs/config/#docker-context
 [docker_context]
