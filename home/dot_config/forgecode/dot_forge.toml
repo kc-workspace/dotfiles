@@ -69,12 +69,12 @@ keep_alive_while_idle = true
 accept_invalid_certs = false
 
 [session]
-provider_id = "codex"
-model_id = "gpt-5.5"
+provider_id = "github_copilot"
+model_id = "claude-opus-4.6"
 
 [updates]
 frequency = "daily"
-auto_update = true
+auto_update = false
 
 [compact]
 retention_window = 6
