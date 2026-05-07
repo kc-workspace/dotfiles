@@ -1,0 +1,24 @@
+{
+  "mcpServers": {
+    "context7": {
+      "url": "https://mcp.context7.com/mcp",
+      "disable": false
+    },
+    "deepwiki": {
+      "url": "https://mcp.deepwiki.com/mcp",
+      "disable": false
+    },
+    "exa": {
+      "url": "https://mcp.exa.ai/mcp",
+      "disable": false
+    },
+    "grepapp": {
+      "url": "https://mcp.grep.app",
+      "disable": false
+    },
+    "svelte": {
+      "url": "https://mcp.svelte.dev/mcp",
+      "disable": false
+    }
+  }
+}
