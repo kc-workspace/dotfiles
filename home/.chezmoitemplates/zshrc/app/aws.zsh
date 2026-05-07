@@ -2,7 +2,7 @@
 {{- template "zshrc/helpers/h3" "AWS CLI" }}
 
 ## Setup aws completions
-if command -v mise >/dev/null && command -v aws_completer >/dev/null; then
+if command -v aws_completer >/dev/null; then
   autoload bashcompinit && bashcompinit && zicompinit
   complete -C aws_completer aws
 fi
