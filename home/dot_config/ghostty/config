@@ -24,6 +24,8 @@ keybind = super+key_c=copy_to_clipboard
 keybind = copy=copy_to_clipboard
 keybind = super+key_v=paste_from_clipboard
 keybind = paste=paste_from_clipboard
+keybind = super+key_f=start_search
+keybind = super+shift+key_f=end_search
 
 keybind = super+comma=reload_config
 
