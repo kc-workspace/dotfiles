@@ -11,12 +11,19 @@ if [ -z "$forge_bin" ] && command -v mise >/dev/null; then
   fi
 fi
 
-{{- if hasKey . "plugin" | ternary (get . "plugin") true }}
-eval "$("$forge_bin" zsh plugin)"
+{{ if hasKey . "plugin" | ternary (get . "plugin") true }}
+if [[ -z "$_FORGE_PLUGIN_LOADED" ]]; then
+  autoload bashcompinit && bashcompinit && zicompinit
+  eval "$("$forge_bin" zsh plugin)"
+fi
 {{- end }}
 {{- if hasKey . "theme" | ternary (get . "theme") true }}
-eval "$("$forge_bin" zsh theme)"
+if [[ -z "$_FORGE_THEME_LOADED" ]]; then
+  eval "$("$forge_bin" zsh theme)"
+fi
 {{- end }}
 unset forge_dir forge_bin
+
+export FORGE_CONFIG="~/.config/forgecode"
 
 {{ end -}}
