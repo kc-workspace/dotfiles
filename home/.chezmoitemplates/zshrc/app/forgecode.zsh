@@ -24,6 +24,6 @@ fi
 {{- end }}
 unset forge_dir forge_bin
 
-export FORGE_CONFIG="~/.config/forgecode"
+export FORGE_CONFIG="$HOME/.config/forgecode"
 
 {{ end -}}
