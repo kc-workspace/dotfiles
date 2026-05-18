@@ -1,5 +1,39 @@
 # Changelog
 
+## [0.7.0](https://github.com/kc-workspace/dotfiles/compare/v0.6.0...v0.7.0) (2026-05-18)
+
+
+### Features
+
+* **zshrc:** support both vscode and vscode-insider ([b3038ca](https://github.com/kc-workspace/dotfiles/commit/b3038ca2f6f6346ee300c57d55b6fc9cf620d803))
+
+
+### Bug Fixes
+
+* Documents should not be created on linux machine ([da3369e](https://github.com/kc-workspace/dotfiles/commit/da3369e513b8ef23367104078597b2319f46e524))
+* **forge:** update default session model ([daf94cc](https://github.com/kc-workspace/dotfiles/commit/daf94ccbf880da0f8cdea98f23e309433e5c8889))
+* **zsh:** forgecode set up didn't work with zinit ([3b58467](https://github.com/kc-workspace/dotfiles/commit/3b5846793adf4044e1a1a0bd3d74056b2fd115d9))
+* **zsh:** use $HOME instead of ~ (it won't works on export) ([95e4525](https://github.com/kc-workspace/dotfiles/commit/95e4525d3ab97947ad7be5af6189604205fc441c))
+
+
+### Performance Improvements
+
+* sync target and source directories ([827fcf3](https://github.com/kc-workspace/dotfiles/commit/827fcf3e282f4e3fa0da3aaa9ea54b928801250c))
+* sync target and source directories ([f214e1a](https://github.com/kc-workspace/dotfiles/commit/f214e1a19bb749dc9236cc1cf2077ce6d0b4f2de))
+* sync target and source directories ([c2d8c9f](https://github.com/kc-workspace/dotfiles/commit/c2d8c9f6f65d3fd9a2540fc5d4d0aacafb36775e))
+* sync target and source directories ([56cb91d](https://github.com/kc-workspace/dotfiles/commit/56cb91dbe33d315a4c20574ee26941131ece1675))
+* sync target and source directories ([afaf8e1](https://github.com/kc-workspace/dotfiles/commit/afaf8e15c435aaebfbb397692f65d50c236154ee))
+* sync target and source directories ([039b5f3](https://github.com/kc-workspace/dotfiles/commit/039b5f3c87ee3e6d91bad5a157e4fcc1465d00c0))
+* sync target and source directories ([6486130](https://github.com/kc-workspace/dotfiles/commit/6486130654f13f48bbfc0a7f779b6fefeee31896))
+* sync target and source directories ([d0091d2](https://github.com/kc-workspace/dotfiles/commit/d0091d22e67820ccfbf2d42b29f135b5bd7e2adb))
+* sync target and source directories ([28c3b00](https://github.com/kc-workspace/dotfiles/commit/28c3b009a970d1ca5b19ffc7209a07e1bb11d969))
+* sync target and source directories ([c35aa61](https://github.com/kc-workspace/dotfiles/commit/c35aa61688c220c56470d81f63df01f476870d70))
+* sync target and source directories ([48f6bdd](https://github.com/kc-workspace/dotfiles/commit/48f6bdd646fe47720c7b3666f4da909576782915))
+* sync target and source directories ([e463fec](https://github.com/kc-workspace/dotfiles/commit/e463fec147c301683c6b969fa19d1043056863f3))
+* sync target and source directories ([8931ab8](https://github.com/kc-workspace/dotfiles/commit/8931ab8b2646377a27cc87fbc883417a934d6789))
+* sync target and source directories ([6957000](https://github.com/kc-workspace/dotfiles/commit/695700038dc355e98f0c613dff53b82fcc1146d4))
+* **zsh:** update forgecode with custom config path at /.config ([9abc7a8](https://github.com/kc-workspace/dotfiles/commit/9abc7a86e2c4e5f9488a180455d33db4491c2542))
+
 ## [0.6.0](https://github.com/kc-workspace/dotfiles/compare/v0.5.0...v0.6.0) (2026-04-07)
 
 
