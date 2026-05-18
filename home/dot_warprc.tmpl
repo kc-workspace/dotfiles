@@ -1,0 +1,15 @@
+
+{{- if eq .chezmoi.os "darwin" }}
+t:/tmp
+dl:~/Downloads
+dm:~/Documents
+dt:~/Desktop
+p:~/Documents/Personal
+pdf:~/.local/share/chezmoi
+vsc-user:~/Library/Application Support/Code - Insiders/User
+w:~/Documents/Works
+st:~/Documents/Works/Smartertravel
+sttf:~/Documents/Works/Smartertravel/bkk-terraform
+{{- else if eq .chezmoi.os "linux" }}
+t:/tmp
+{{- end }}
