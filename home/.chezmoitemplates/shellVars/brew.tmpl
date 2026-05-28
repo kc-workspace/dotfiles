@@ -3,5 +3,3 @@ brew_bin="${HOMEBREW_PREFIX:-}/bin"
 [ -d "$brew_bin" ] || brew_bin="/usr/local/bin"                 ## default on macos (intel)
 [ -d "$brew_bin" ] || brew_bin="/home/linuxbrew/.linuxbrew/bin" ## default on linux
 brew_cmd="$brew_bin/brew"
-## Add brew bin to PATH temporary
-export PATH="$brew_bin:$PATH"

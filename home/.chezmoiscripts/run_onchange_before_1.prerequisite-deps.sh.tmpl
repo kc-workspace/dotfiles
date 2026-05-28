@@ -21,11 +21,11 @@ set -e
 {{- with $deps }}
 {{- if dig "homebrew" "_settings" "install" true . }}
 
-printf '>> Checking... %s\n' "Homebrew"
+printf '>>> Checking... %s\n' "Homebrew"
 if ! command -v brew >/dev/null; then
   tmp="$(mktemp)"
 
-  printf '>> Installing... %s (%s)\n' "Homebrew" "$tmp"
+  printf '>>> Installing... %s (%s)\n' "Homebrew" "$tmp"
   curl -fsSLo "$tmp" https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh
   NONINTERACTIVE="${DOCKER:-}" bash "$tmp"
   rm "$tmp"
@@ -36,11 +36,11 @@ fi
 {{- end }}
 {{- if dig "mise" "_settings" "install" true . }}
 
-printf '>> Checking... %s\n' "mise"
+printf '>>> Checking... %s\n' "mise"
 if ! command -v mise >/dev/null; then
   tmp="$(mktemp)"
 
-  printf '>> Installing... %s (%s)\n' "mise" "$tmp"
+  printf '>>> Installing... %s (%s)\n' "mise" "$tmp"
   curl -fsSLo "$tmp" https://mise.run
   sh "$tmp"
   rm "$tmp"
@@ -51,7 +51,7 @@ fi
 {{- end }}
 {{- if dig "apt" "packages" list . }}
 
-printf '>> Checking... %s\n' "apt"
+printf '>>> Checking... %s\n' "apt"
 if ! command -v apt >/dev/null; then
   echo 'Missing apt command' >&2
   exit 1
@@ -60,7 +60,7 @@ fi
 {{- end }}
 {{- if dig "apk" "packages" list . }}
 
-printf '>> Checking... %s\n' "apk"
+printf '>>> Checking... %s\n' "apk"
 if ! command -v apk >/dev/null; then
   echo 'Missing apk command' >&2
   exit 1
