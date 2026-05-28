@@ -109,16 +109,22 @@ zinit update --all
 
 ## Usage
 
-<!-- TODO: Short introduction to usage section -->
-
 ### Prerequisite
 
 1. Install [chezmoi][cz:install]
-3. [Optional] Install [gpg][gpg-url] for decrypt files (required on full setup)
+2. [Optional] Install [gpg][gpg:home] for decrypt files (required on full setup)
 
 ### Quick start
 
-<!-- TODO: Add quick-start guide -->
+1. Open `Terminal` app
+2. Copy command below each line and enter one line at the time
+
+```shell
+sh -c "$(curl -fsSL git.io/chezmoi)" -- -b "$HOME/.local/bin" -t "v2.64.0"
+"$HOME/.local/bin/chezmoi" init --apply --purge-binary \
+  --no-pager --no-tty --exclude=encrypted \
+  "https://github.com/kc-workspace/dotfiles.git"
+```
 
 ## Actions
 
@@ -168,6 +174,7 @@ Please refer to [CONTRIBUTING][local:contributing] guide.
 [zsh:home]: https://www.zsh.org/
 [git:home]: https://git-scm.com/
 [1p:home]: https://1password.com/
+[gpg:home]: https://www.gnupg.org/
 
 [local:zshrc]: ./home/dot_zshrc
 [local:gitconfig]: ./home/dot_gitconfig.tmpl
