@@ -1,0 +1,116 @@
+preferences:
+  machine:
+    darwin:
+      - command: defaults
+        namespace: NSGlobalDomain
+        settings:
+          - key: com.apple.keyboard.fnState ## If true, enables F1, F2, etc. keys as standard function keys.
+            value: true
+          - key: com.apple.mouse.tapBehavior ## trackpad tap behavior (null: click, 1: tap)
+            value: 1
+          - key: com.apple.sound.beep.feedback ## Make a feedback sound when the system volume changed (0: no sound, 1: play sound)
+            value: 1
+          - key: com.apple.sound.beep.volume ## Sets the beep volume level from 0.000 (muted) to 1.000 (100% volume)
+            value: 1.0
+          - key: com.apple.swipescrolldirection ## If true, enables "Natural" scrolling direction on trackpad
+            value: true
+          - key: com.apple.trackpad.forceClick ## If true, enables Force Click and haptic feedback on trackpad
+            value: true
+          - key: com.apple.trackpad.scaling ## Trackpad tracking speed (0: slow, 3: fast)
+            value: 3
+          - key: _HIHideMenuBar ## If true, automatically hide and show the menu bar
+            value: false
+          - key: AppleActionOnDoubleClick ## Window title bar double-click action ("Fill", "Maximize", "Minimize" or "None")
+            value: Maximize
+          - key: NSQuitAlwaysKeepsWindow ## If true, documents and windows will be restored when re-open an application
+            value: false
+          - key: AppleShowAllExtensions ## If true, shows all filename extensions in Finder
+            value: true
+          - key: AppleInterfaceStyleSwitchesAutomatically ## Auto-switch Theme on schedule
+            value: true
+          - key: AppleKeyboardUIMode ## Keyboard navigation (0: disabled, 2: full navigation)
+            value: 2
+          - key: ApplePressAndHoldEnabled ## If true, press and hold keys to show accented characters
+            value: false
+          - key: AppleSpacesSwitchOnActivate ## Auto-switch to the Space containing an app's window
+            value: true
+          - key: AppleShowScrollBars ## Show scroll bars ("WhenScrolling", "Automatic", "Always")
+            value: WhenScrolling
+          - key: AppleShowAllFiles ## If true, shows hidden files in Finder
+            value: false
+          - key: AppleSpacesSwitchOnActivate ## If true, switch to a workspace that has a window of the application open
+            value: true
+          - key: AppleWindowTabbingMode ## Sets the window tabbing when opening a new document ("manual", "always", "fullscreen")
+            value: always
+          - key: InitialKeyRepeat ## The delay until key repeat (input * 15ms)
+            value: 25
+          - key: KeyRepeat ## The key repeat rate (input * 15ms)
+            value: 2
+          - key: NSAutomaticCapitalizationEnabled ## If true, enables automatic capitalization
+            value: true
+          - key: NSAutomaticDashSubstitutionEnabled ## If true, enables smart dash substitution
+            value: true
+          - key: NSAutomaticInlinePredictionEnabled ## If true, enables inline predictive text
+            value: true
+          - key: NSAutomaticPeriodSubstitutionEnabled ## If true, enables automatic period substitution
+            value: true
+          - key: NSAutomaticQuoteSubstitutionEnabled ## If true, enables smart quote substitution
+            value: true
+          - key: NSAutomaticSpellingCorrectionEnabled ## If true, enables automatic spelling correction
+            value: true
+          - key: NSAutomaticWindowAnimationsEnabled ## If true, enables automatic window animations
+            value: true
+          - key: NSDocumentSaveNewDocumentsToCloud ## If true, new documents will be saved to iCloud by default
+            value: true
+          - key: NSNavPanelExpandedStateForSaveMode ## If true, expands the save panel by default when saving a document
+            value: true
+          - key: NSNavPanelExpandedStateForSaveMode2 ## Same as NSNavPanelExpandedStateForSaveMode
+            value: true
+          - key: NSScrollAnimationEnabled ## If true, enables smooth scrolling
+            value: true
+          - key: NSUseAnimatedFocusRing ## If true, enables animated focus ring
+            value: false
+          - key: NSTableViewDefaultSizeMode ## Sets the size of the finder sidebar icons (1: small, 2: medium, 3: large)
+            value: 2
+          - key: NSWindowResizeTime ## Sets the speed speed of window resizing (default 0.2)
+            value: 0.01
+          - key: NSWindowShouldDragOnGesture ## If true, enables moving window by holding anywhere on it
+            value: true
+          - key: NSTextShowsControlCharacters ## If true, shows control characters in ASCII code (TextEdit)
+            value: true
+          - key: AppleLanguages ## Ordered list of preferred UI languages.
+            value:
+              - en-TH
+              - th-TH
+          - key: AppleLocale ## Active locale
+            value: en_TH@calendar=gregorian
+          - key: AppleMetricUnits ## If true, uses metric units
+            value: true
+
+      - command: defaults
+        namespace: com.apple.dock
+        hooks:
+          after: killall Dock
+        settings:
+          - key: autohide ## If true, enables “Automatically hide and show the Dock”
+            value: true
+          - key: autohide-time-modifier ## Change the Dock opening and closing animation times (default 0.5)
+            value: 0.3
+          - key: autohide-delay ## Change the Dock opening delay (default 0.2)
+            value: 0.2
+          - key: magnification ## If true, enables magnification
+            value: true
+          - key: tilesize ## The tile size (16 - 128)
+            value: 64
+          - key: largesize ## The size of the largest magnification (16 - 128)
+            value: 80
+          - key: show-recents ## If true, enables “Show recent items.”
+            value: false
+          - key: mineffect ## The minimize effect
+            value: genie
+          - key: orientation ## The orientation of the Dock.
+            value: bottom
+          - key: static-only ## If true, only show opened apps in Dock
+            value: false
+          - key: scroll-to-open ## Scroll up on a Dock icon to show all opened windows
+            value: true

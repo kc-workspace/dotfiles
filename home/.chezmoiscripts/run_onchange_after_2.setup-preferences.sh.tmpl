@@ -1,0 +1,75 @@
+#!/usr/bin/env sh
+
+{{- $platform := "machine" }}
+{{- if eq (env "GITHUB_ACTIONS") "true" }}
+  {{- $platform = "actions" }}
+{{- end }}
+{{- if eq (env "DOCKER") "true" }}
+  {{- $platform = "docker" }}
+{{- end }}
+
+{{- $os := .chezmoi.os }}
+{{- with .chezmoi.osRelease }}
+  {{- $os = printf "%s/%s" $os .id -}}
+{{- end }}
+
+printf '>> Starting... %s\n' "setup-preferences.sh"
+
+set -e
+
+{{- range dig "preferences" $platform $os list . }}
+{{- $beforeCmd := dig "hooks" "before" "" . }}
+{{- $afterCmd := dig "hooks" "after" "" . }}
+
+{{- if ne $beforeCmd "" }}
+
+{{ $beforeCmd }}
+
+{{- end }}
+{{- $cmd := .command }}{{- $ns := .namespace }}
+{{- if eq .command "defaults" }}
+
+{{- printf "\n" }}
+{{- range .settings }}
+
+{{- $options := dig "options" list . | join " " }}
+
+{{- $valueType := printf "-%s" (kindOf .value) }}
+{{- $value := (printf "\"%v\"" .value) }}
+{{- if or (kindIs "uint" .value) (kindIs "uint32" .value) (kindIs "uint64" .value) -}}
+  {{- $valueType = "-int" }}
+{{- else if or (kindIs "int" .value) (kindIs "int32" .value) (kindIs "int64" .value) -}}
+  {{- $valueType = "-int" }}
+{{- else if or (kindIs "float32" .value) (kindIs "float64" .value) -}}
+  {{- $valueType = "-float" }}
+{{- else if kindIs "slice" .value -}}
+  {{- $values := list }}
+  {{- range .value }}
+    {{- $values = append $values (printf "\"%v\"" .) }}
+  {{- end }}
+  {{- $valueType = "-array" }}
+  {{- $value = join " " $values }}
+{{- end }}
+
+{{- if ne (dig "type" "" .) "" -}}
+  {{- $valueType = printf "-%s" (dig "type" "" .) }}
+{{- end }}
+
+{{- $args := list }}
+{{- if eq .value nil }}
+  {{- $args = list $cmd $options "delete" $ns .key }}
+{{- else }}
+  {{- $args = list $cmd $options "write" $ns .key $valueType $value }}
+{{- end }}
+{{ compact $args | join " " }}
+
+{{- end }}
+{{- end }}
+
+{{- if ne $afterCmd "" }}
+
+{{ $afterCmd }}
+
+{{- end }}
+
+{{- end }}
