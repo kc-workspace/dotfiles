@@ -55,17 +55,17 @@ printf '>> Installing... %s (%s)\n' "bundle" "$tmp"
 cat "$tmp"
 
 set -x
-"$brew_bin" config || true ## FIXME: For debugging only
-"$brew_bin" doctor || true ## FIXME: For debugging only
-"$brew_bin" bundle install --verbose --debug --file "$tmp"
+"$brew_cmd" config || true ## FIXME: For debugging only
+"$brew_cmd" doctor || true ## FIXME: For debugging only
+"$brew_cmd" bundle install --verbose --debug --file "$tmp"
 {{- if dig "homebrew" "_settings" "cleanup" true . }}
-"$brew_bin" autoremove
-"$brew_bin" cleanup --prune=all --scrub
+"$brew_cmd" autoremove
+"$brew_cmd" cleanup --prune=all --scrub
 {{- end }}
 set +x
 
 rm -rf "$tmp"
-unset tmp brew_bin
+unset tmp brew_bin brew_cmd
 unset HOMEBREW_NO_ANALYTICS HOMEBREW_NO_ENV_HINTS HOMEBREW_NO_AUTO_UPDATE
 
 {{- end }}

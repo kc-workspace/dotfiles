@@ -3,7 +3,7 @@
 
 ## Setup brew alias and completions
 {{ template "shellVars/brew.tmpl" }}
-[ -f "$brew_bin" ] && eval "$("$brew_bin" shellenv)"
-unset brew_bin
+[ -f "$brew_cmd" ] && eval "$("$brew_cmd" shellenv)"
+unset brew_bin brew_cmd
 
 {{ end -}}
