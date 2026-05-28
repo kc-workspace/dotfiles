@@ -12,19 +12,18 @@ Personal dotfiles configuration for [kamontat][gh:home].
   - [Remote repository](#remote-repository)
   - [Lite setup](#lite-setup)
   - [Full setup](#full-setup)
+- [Usage](#usage)
+  - [Prerequisite](#prerequisite)
+  - [Quick start](#quick-start)
+  - [Actions](#actions)
+  - [To update target directory](#to-update-target-directory)
+  - [To uninstall dotfiles](#to-uninstall-dotfiles)
 - [Features](#features)
   - [Zinit](#zinit)
     - [To upgrade zinit](#to-upgrade-zinit)
     - [To upgrade plugins](#to-upgrade-plugins)
-- [Usage](#usage)
-  - [Prerequisite](#prerequisite)
-  - [Quick start](#quick-start)
-- [Actions](#actions)
-  - [To update target directory](#to-update-target-directory)
-  - [To uninstall dotfiles](#to-uninstall-dotfiles)
-  - [To upgrade tools](#to-upgrade-tools)
-    - [Homebrew](#homebrew)
-- [Docker](#docker)
+  - [Homebrew](#homebrew)
+    - [To upgrade packages](#to-upgrade-packages)
 - [Contributing](#contributing)
 
 ## Terminology
@@ -76,12 +75,49 @@ This only apply to [Lite setup](#lite-setup).
 When use machine with `lite setup`,
 you will have option to convert to full setup via `kdf-*` script.
 
+## Usage
+
+### Prerequisite
+
+1. Install [chezmoi][cz:install]
+
+### Quick start
+
+1. Open `Terminal` app
+2. Copy command below each line and enter one line at the time
+
+```shell
+sh -c "$(curl -fsSL git.io/chezmoi)" -- -b "$HOME/.local/bin" -t "v2.64.0"
+"$HOME/.local/bin/chezmoi" init --apply --purge-binary --no-pager --no-tty --exclude=encrypted "https://github.com/kc-workspace/dotfiles.git"
+```
+
+### Actions
+
+> https://www.chezmoi.io/user-guide/daily-operations/
+>
+> https://www.chezmoi.io/user-guide/command-overview/
+
+Below are a list of actions you might perform when use this repository.
+
+### To update target directory
+
+```shell
+chezmoi init --apply
+```
+
+### To uninstall dotfiles
+
+```shell
+chezmoi purge
+```
+
 ## Features
 
 - [Zsh][zsh:home] configuration: [here][local:zshrc]
   - [Zinit](#zinit) - Zsh plugin manager
 - [Git][git:home] configuration: [here][local:gitconfig]
-- Application and packages (via [Homebrew][hb:home])
+- Application and packages (via [Homebrew][hb:home] or [apt][apt:home])
+  - [Homebrew][#homebrew] - Package manager
   - View installed applications [here][local:packages]
 - Commandline tools (via [mise][mi:home])
   - View install tools [here][local:mise]
@@ -97,66 +133,27 @@ you will have option to convert to full setup via `kdf-*` script.
 
 #### To upgrade zinit
 
-```bash
+```shell
 zinit self-update
 ```
 
 #### To upgrade plugins
 
-```bash
+```shell
 zinit update --all
 ```
 
-## Usage
+### Homebrew
 
-### Prerequisite
+**Installation method**: [chezmoi/external][cz:external]
 
-1. Install [chezmoi][cz:install]
-2. [Optional] Install [gpg][gpg:home] for decrypt files (required on full setup)
+#### To upgrade packages
 
-### Quick start
-
-1. Open `Terminal` app
-2. Copy command below each line and enter one line at the time
+`--greedy` will also upgrade cask with `:latest` or `:auto-upgrade`.
 
 ```shell
-sh -c "$(curl -fsSL git.io/chezmoi)" -- -b "$HOME/.local/bin" -t "v2.64.0"
-"$HOME/.local/bin/chezmoi" init --apply --purge-binary \
-  --no-pager --no-tty --exclude=encrypted \
-  "https://github.com/kc-workspace/dotfiles.git"
-```
-
-## Actions
-
-> https://www.chezmoi.io/user-guide/daily-operations/
-> https://www.chezmoi.io/user-guide/command-overview/
-
-Below are a list of actions you might perform when use this repository.
-
-### To update target directory
-
-<!-- TODO: action -->
-
-### To uninstall dotfiles
-
-<!-- TODO: action -->
-
-### To upgrade tools
-
-Since we have several tools, each have it own ways to upgrade.
-You might prefer do one-by-one instead of using script to upgrade all of them.
-
-#### Homebrew
-
-Add `--greedy` will install version **:latest** and **auto_updates true** as well.
-
-```bash
 brew upgrade --greedy
 ```
-
-## Docker
-
-<!-- TODO: action -->
 
 ## Contributing
 
@@ -175,6 +172,7 @@ Please refer to [CONTRIBUTING][local:contributing] guide.
 [git:home]: https://git-scm.com/
 [1p:home]: https://1password.com/
 [gpg:home]: https://www.gnupg.org/
+[apt:home]: https://manpages.ubuntu.com/manpages/xenial/man8/apt.8.html
 
 [local:zshrc]: ./home/dot_zshrc
 [local:gitconfig]: ./home/dot_gitconfig.tmpl
