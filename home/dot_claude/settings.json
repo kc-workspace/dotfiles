@@ -6,8 +6,21 @@
     "gopls-lsp@claude-plugins-official": true,
     "serena@claude-plugins-official": true,
     "superpowers@claude-plugins-official": true,
-    "feature-dev@claude-plugins-official": true
+    "feature-dev@claude-plugins-official": true,
+    "caveman@caveman": true
+  },
+  "extraKnownMarketplaces": {
+    "caveman": {
+      "source": {
+        "source": "github",
+        "repo": "JuliusBrussee/caveman"
+      }
+    }
   },
   "effortLevel": "xhigh",
-  "skipDangerousModePermissionPrompt": true
+  "skipDangerousModePermissionPrompt": true,
+  "statusLine": {
+    "type": "command",
+    "command": "bash \"$HOME/.claude/plugins/cache/caveman/caveman/655b7d9c5431/src/hooks/caveman-statusline.sh\""
+  }
 }

@@ -1,0 +1,20 @@
+#!/usr/bin/env sh
+
+{{- $platform := "machine" }}
+{{- if eq (env "GITHUB_ACTIONS") "true" }}
+  {{- $platform = "actions" }}
+{{- end }}
+{{- if eq (env "DOCKER") "true" }}
+  {{- $platform = "docker" }}
+{{- end }}
+
+{{- $os := .chezmoi.os }}
+{{- with .chezmoi.osRelease }}
+  {{- $os = printf "%s/%s" $os .id -}}
+{{- end }}
+
+printf '>> Starting... %s\n' "setup-macos.sh"
+
+set -e
+
+printf '{{ $os }}'
