@@ -7,6 +7,7 @@ dependencies:
       homebrew:
         taps: []
         brews:
+          - age ## For encrypting files
           - ca-certificates ## For SSL certificates
           - cloc ## For count lines of code
           - coreutils ## For advance utilization tools
@@ -21,18 +22,17 @@ dependencies:
           - smartmontools ## For monitoring storage devices (smartctl)
         casks:
           - 1password@beta ## For password management
-          - affinity-designer ## For graphic design
-          - affinity-photo ## For photo editing
-          - affinity-publisher ## For publishing design
           - alfred ## For productivity booster
           - aws-vpn-client ## For AWS VPN connection
           - brave-browser ## For web browsing
           - chatgpt ## For AI chat assistant
           - claude ## For AI chat assistant
+          - codex-app ## For AI code assistant
           - docker-desktop ## For container management
           - font-jetbrains-mono ## For programming font in general
           - font-jetbrains-mono-nerd-font ## For Visual Studio Code
           - ghostty ## For terminal emulator
+          - google-chrome ## For web browsing (alternative)
           - gpg-suite ## For GPG tools on macOS
           - keybase ## For secure file sharing and communication
           - logi-options+ ## For Logitech device management
@@ -40,8 +40,7 @@ dependencies:
           - setapp ## For installing multiple apps
           - slack ## For team communication
           - steam ## For gaming platform
-          - visual-studio-code-insiders ## For code editor
-          - wezterm ## For terminal emulator
+          - visual-studio-code@insiders ## For code editor
         mas:
           - id: 1569813296
             name: 1Password for Safari
