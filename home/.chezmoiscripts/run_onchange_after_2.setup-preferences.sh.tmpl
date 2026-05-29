@@ -13,8 +13,9 @@ set -e
 {{ $beforeCmd }}
 
 {{- end }}
-{{- $cmd := .command }}{{- $ns := .namespace }}
-{{- if eq .command "defaults" }}
+{{- $cmd := .command }}
+{{- if eq $cmd "defaults" }}
+{{- $ns := .namespace }}
 
 {{- printf "\n" }}
 {{- range .settings }}
@@ -51,6 +52,29 @@ set -e
 {{ compact $args | join " " }}
 
 {{- end }}
+
+{{- else if eq $cmd "dockutil" }}
+
+{{ template "shellVars/brew.tmpl" }}
+dockutil_cmd="$brew_bin/dockutil"
+if ! [ -f "$dockutil_cmd" ]; then
+  "$brew_cmd" install dockutil
+fi
+
+"$dockutil_cmd" --remove all --no-restart
+{{ range .apps }}
+"$dockutil_cmd" --{{ dig "action" "add" . }} "{{ .name }}" \
+  --section apps --no-restart {{- with dig "args" list . }} {{ join " " . }}{{- end }}
+{{- end }}
+
+{{- range .others }}
+"$dockutil_cmd" --{{ dig "action" "add" . }} "{{ .name }}" \
+  --section others --no-restart {{- with dig "args" list . }} {{ join " " . }}{{- end }}
+{{- end }}
+
+"$brew_cmd" uninstall dockutil
+unset brew_bin brew_cmd dockutil_cmd
+
 {{- end }}
 
 {{- if ne $afterCmd "" }}

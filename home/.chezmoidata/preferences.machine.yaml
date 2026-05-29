@@ -114,3 +114,23 @@ preferences:
             value: false
           - key: scroll-to-open ## Scroll up on a Dock icon to show all opened windows
             value: true
+
+      - command: dockutil
+        hooks:
+          ## Reset the Dock to empty list before applying changes
+          before: defaults write com.apple.dock persistent-apps -array
+          after: |
+            killall Dock
+        apps:
+          - name: /System/Applications/Apps.app
+            action: add ## Support values: add (default), move, or remove
+          - name: /Applications/1Password.app
+          - name: /System/Applications/Messages.app
+          - name: /Applications/Slack.app
+          - name: "/Applications/Setapp/Spark\ Mail.app"
+          - name: "/Applications/Brave\ Browser.app"
+          - name: "/Applications/Visual\ Studio\ Code\ -\ Insiders.app"
+          - name: /Applications/Ghostty.app
+        others:
+          - name: ~/Downloads
+            args: [--view auto, --display stack, --sort dateadded, --allhomes]
