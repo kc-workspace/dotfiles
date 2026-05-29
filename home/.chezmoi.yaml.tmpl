@@ -41,7 +41,7 @@ data:
       {{- else -}}
         machine
       {{- end }}
-    os: {{ if .chezmoi.osRelease -}}
+    os: {{ with .chezmoi.osRelease -}}
         {{- printf "%s/%s" $.chezmoi.os .id -}}
       {{- else -}}
         {{- .chezmoi.os -}}
