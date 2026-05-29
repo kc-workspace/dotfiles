@@ -67,7 +67,8 @@ fi
   --section apps --no-restart {{- with dig "args" list . }} {{ join " " . }}{{- end }}
 {{- end }}
 
-{{- range .others }}
+killall Dock
+{{ range .others }}
 "$dockutil_cmd" --{{ dig "action" "add" . }} "{{ .name }}" \
   --section others --no-restart {{- with dig "args" list . }} {{ join " " . }}{{- end }}
 {{- end }}

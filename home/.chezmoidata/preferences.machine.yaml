@@ -127,9 +127,9 @@ preferences:
           - name: /Applications/1Password.app
           - name: /System/Applications/Messages.app
           - name: /Applications/Slack.app
-          - name: "/Applications/Setapp/Spark\ Mail.app"
-          - name: "/Applications/Brave\ Browser.app"
-          - name: "/Applications/Visual\ Studio\ Code\ -\ Insiders.app"
+          - name: "/Applications/Setapp/Spark Mail.app" ## NOTE: This requires installing from Setapp
+          - name: "/Applications/Brave Browser.app"
+          - name: "/Applications/Visual Studio Code - Insiders.app"
           - name: /Applications/Ghostty.app
         others:
           - name: ~/Downloads
