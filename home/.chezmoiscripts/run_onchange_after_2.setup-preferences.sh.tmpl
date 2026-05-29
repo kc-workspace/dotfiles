@@ -1,23 +1,10 @@
 #!/usr/bin/env sh
 
-{{- $platform := "machine" }}
-{{- if eq (env "GITHUB_ACTIONS") "true" }}
-  {{- $platform = "actions" }}
-{{- end }}
-{{- if eq (env "DOCKER") "true" }}
-  {{- $platform = "docker" }}
-{{- end }}
-
-{{- $os := .chezmoi.os }}
-{{- with .chezmoi.osRelease }}
-  {{- $os = printf "%s/%s" $os .id -}}
-{{- end }}
-
 printf '>> Starting... %s\n' "setup-preferences.sh"
 
 set -e
 
-{{- range dig "preferences" $platform $os list . }}
+{{- range dig "preferences" .global.profile .global.os list . }}
 {{- $beforeCmd := dig "hooks" "before" "" . }}
 {{- $afterCmd := dig "hooks" "after" "" . }}
 

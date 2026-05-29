@@ -1,23 +1,10 @@
 #!/usr/bin/env sh
 
-{{- $platform := "machine" }}
-{{- if eq (env "GITHUB_ACTIONS") "true" }}
-  {{- $platform = "actions" }}
-{{- end }}
-{{- if eq (env "DOCKER") "true" }}
-  {{- $platform = "docker" }}
-{{- end }}
-
-{{- $os := .chezmoi.os }}
-{{- with .chezmoi.osRelease }}
-  {{- $os = printf "%s/%s" $os .id -}}
-{{- end }}
-
 printf '>> Starting... %s\n' "install-pkgs.sh"
 
 set -e
 
-{{- $deps := dig "dependencies" $platform $os "" $ }}
+{{- $deps := dig "dependencies" .global.profile .global.os "" $ }}
 {{- with $deps }}
 
 {{- if dig "homebrew" "_settings" "install" true . }}

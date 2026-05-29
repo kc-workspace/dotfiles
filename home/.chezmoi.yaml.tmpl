@@ -29,5 +29,20 @@ update:
   apply: true
 
 onepassword:
-    mode: "{{ if eq (env "DOCKER") "true" }}service{{ else }}account{{ end }}"
-    prompt: false
+  mode: "{{ if eq (env "DOCKER") "true" }}service{{ else }}account{{ end }}"
+  prompt: false
+
+data:
+  global:
+    profile: {{ if eq (env "GITHUB_ACTIONS") "true" -}}
+        actions
+      {{- else if eq (env "DOCKER") "true" -}}
+        docker
+      {{- else -}}
+        machine
+      {{- end }}
+    os: {{ if .chezmoi.osRelease -}}
+        {{- $os = printf "%s/%s" $os .id -}}
+      {{- else -}}
+        {{- .chezmoi.os -}}
+      {{- end }}
