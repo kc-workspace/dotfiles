@@ -20,7 +20,7 @@ setup_1password() {
       read -rs OP_SERVICE_ACCOUNT_TOKEN
       echo
     else
-      op signin
+      eval "$(op signin)"
     fi
   fi
 
