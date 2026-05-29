@@ -20,12 +20,12 @@ setup_1password() {
       read -rs OP_SERVICE_ACCOUNT_TOKEN
       echo
     else
-      eval "$(op signin)"
+      eval "$(op signin --account my)"
     fi
   fi
 
   ## Check is signed in
-  if ! op whoami; then
+  if ! op whoami --account my; then
     return 5
   fi
 }
