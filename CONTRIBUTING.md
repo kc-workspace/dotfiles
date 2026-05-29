@@ -1,5 +1,16 @@
 # Contributing guides
 
+## Docker build
+
+To build docker image locally:
+
+```bash
+## Without GITHUB_TOKEN environment, mise might failed due to rate-limit exceed
+docker buildx build --tag kamontat/dotfiles:local .
+## Assume you have $GITHUB_TOKEN environment set
+docker buildx build --secret id=GITHUB_TOKEN --tag kamontat/dotfiles:local .
+```
+
 ## Chezmoi templates
 
 Supports function in templates:

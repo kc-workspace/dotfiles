@@ -3,18 +3,15 @@
 Personal dotfiles configuration for [kamontat][gh:home].
 
 - [Terminology](#terminology)
-  - [Target directory](#target-directory)
-    - [Target](#target)
-    - [Target state](#target-state)
-  - [Source directory](#source-directory)
-    - [Source state](#source-state)
+  - [Target/Destination](#targetdestination)
+  - [Source](#source)
   - [Local repository](#local-repository)
   - [Remote repository](#remote-repository)
   - [Lite setup](#lite-setup)
   - [Full setup](#full-setup)
 - [Usage](#usage)
   - [Prerequisite](#prerequisite)
-  - [Quick start](#quick-start)
+  - [Get start](#get-start)
   - [Actions](#actions)
   - [To update target directory](#to-update-target-directory)
   - [To uninstall dotfiles](#to-uninstall-dotfiles)
@@ -24,37 +21,31 @@ Personal dotfiles configuration for [kamontat][gh:home].
     - [To upgrade plugins](#to-upgrade-plugins)
   - [Homebrew](#homebrew)
     - [To upgrade packages](#to-upgrade-packages)
+  - [Docker](#docker)
+    - [To verify docker image](#to-verify-docker-image)
+      - [To verify Docker Hub image](#to-verify-docker-hub-image)
+      - [To verify GitHub Container Registry image](#to-verify-github-container-registry-image)
+  - [KDF helper scripts](#kdf-helper-scripts)
 - [Contributing](#contributing)
 
 ## Terminology
 
 > Please refer additional terminology on [chezmoi][cz:reference]
 
-### Target directory
+### Target/Destination
 
-The destination directory being managed (typically `~`).
+- `Destination Directory`: The destination being managed (typically `~`).
+- `Target`: Individual files, directories, or symlinks within the target directory.
+- `Target State`: The computed desired state for your Destination Directory.
 
-#### Target
+### Source
 
-Individual files, directories, or symlinks within the target directory.
-
-#### Target state
-
-The computed desired state for your target directory
-(derived from source state, config, and current destination state).
-
-### Source directory
-
-Where chezmoi stores the source state (`~/.local/share/chezmoi` by default).
-
-#### Source state
-
-The desired state definition (includes templates and machine-specific data).
+- `Source Directory`: Where chezmoi stores the source state (`~/.local/share/chezmoi` by default).
+- `Source State`: The desired state definition (includes templates and machine-specific data).
 
 ### Local repository
 
-The git repository on your local machine
-(usually will be your [source directory](#source-directory)),
+The git repository on your local machine (usually will be your [Source Directory](#source)),
 which contains the source state and configuration.
 
 ### Remote repository
@@ -79,16 +70,32 @@ you will have option to convert to full setup via `kdf-*` script.
 
 ### Prerequisite
 
-1. Install [chezmoi][cz:install]
+1. Install `git` and `curl`
+    - macos: `xcode-select --install`
+2. Login to App Store
 
-### Quick start
+### Get start
 
 1. Open `Terminal` app
-2. Copy command below each line and enter one line at the time
+2. Install chezmoi temporary (chezmoi will be managed by mise later)
 
 ```shell
 sh -c "$(curl -fsSL git.io/chezmoi)" -- -b "$HOME/.local/bin" -t "v2.64.0"
-"$HOME/.local/bin/chezmoi" init --apply --purge-binary --no-pager --no-tty --exclude=encrypted "https://github.com/kc-workspace/dotfiles.git"
+```
+
+3. Run `setup-script` first
+
+```shell
+## Install dependencies (e.g. brew, mise, 1password, etc.)
+"$HOME/.local/bin/chezmoi" init kc-workspace \
+  --apply --purge-binary --no-pager --no-tty --include=scripts
+```
+
+4. Set up 1Password account
+5. Run `full-setup`
+
+```shell
+"$HOME/.local/bin/chezmoi" update kc-workspace --init --apply
 ```
 
 ### Actions
@@ -154,6 +161,61 @@ zinit update --all
 ```shell
 brew upgrade --greedy
 ```
+
+### Docker
+
+dotfiles inside docker have 2 stage setup. By default, it will only have [lite-setup](#lite-setup).
+To use full-setup, run `kdf-setup.sh` on docker instance.
+
+```shell
+## initiate zsh shell session
+docker run -it --rm kamontat/dotfiles:local
+```
+
+#### To verify docker image
+
+All docker image have attestations. You can verify the integrity and provenance
+of an artifact using its associated cryptographically signed attestations.
+
+The output of the verify command should contains as following information:
+
+- Verify status: `✓ Verification succeeded!`
+- **Repository** where image was created
+- **Workflow** and **Git Reference** where image was created
+
+##### To verify Docker Hub image
+
+```shell
+# gh attestation verify oci://kamontat/dotfiles:latest --owner kc-workspace
+$ gh attestation verify "oci://kamontat/dotfiles:<tag-name>" --owner kc-workspace
+
+...
+✓ Verification succeeded!
+...
+```
+
+##### To verify GitHub Container Registry image
+
+```shell
+## Add read:packages scope to read image from ghcr.
+## You may need to login first: https://cli.github.com/manual/gh_auth_login
+$ gh auth refresh --scopes "read:packages"
+
+# gh auth token | docker login "ghcr.io" --username "kamontat" --password-stdin
+$ gh auth token | docker login "ghcr.io" --username "<username>" --password-stdin
+
+# gh attestation verify "oci://ghcr.io/kc-workspace/dotfiles:latest" --owner kc-workspace
+$ gh attestation verify "oci://ghcr.io/kc-workspace/dotfiles:<tag-name>" --owner kc-workspace
+
+...
+✓ Verification succeeded!
+...
+```
+
+### KDF helper scripts
+
+We provide couple of helper scripts on `kdf-*.sh` which should available to everyone.
+If you cannot use `kdf-*.sh`, please check `~/.local/bin` directory.
 
 ## Contributing
 
