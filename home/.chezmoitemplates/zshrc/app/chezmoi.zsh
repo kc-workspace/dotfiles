@@ -13,7 +13,7 @@ alias cze="chezmoi edit"
 alias czi="chezmoi init --apply"
 alias czu="chezmoi update --init --apply"
 alias czc="chezmoi cd"
-alias czs="chezmoi status"
+alias czs="chezmoi status --path-style absolute"
 alias czd="chezmoi diff"
 
 {{ end -}}
