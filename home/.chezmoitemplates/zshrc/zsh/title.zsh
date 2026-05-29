@@ -2,10 +2,8 @@
 {{- template "zshrc/helpers/h2" "Zsh title" }}
 
 __ztitle_mapping=(
-  "[PS]:$HOME/Documents/Personal"
-  "[ST]:$HOME/Documents/Works/Smartertravel"
-  "[ST]:$HOME/Documents/Works/Smartertravel.old"
-  "[RX]:$HOME/Documents/Works/Rx"
+  "[PS]:$HOME/Personal"
+  "[ST]:$HOME/Works/Smartertravel"
   "[TMP]:/tmp"
   "[TMP]:${TMPDIR%/}"
 )

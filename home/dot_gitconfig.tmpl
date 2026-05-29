@@ -87,7 +87,7 @@
 	required = true
 	clean = git-lfs clean -- %f
 
-[includeIf "gitdir{{ .chezmoi.pathListSeparator }}~{{ .chezmoi.pathSeparator }}Documents{{ .chezmoi.pathSeparator }}Personal{{ .chezmoi.pathSeparator }}"]
+[includeIf "gitdir{{ .chezmoi.pathListSeparator }}~{{ .chezmoi.pathSeparator }}Personal{{ .chezmoi.pathSeparator }}"]
   path = ~{{ .chezmoi.pathSeparator }}.git{{ .chezmoi.pathSeparator }}personal{{ .chezmoi.pathSeparator }}.gitconfig
 
 [includeIf "gitdir{{ .chezmoi.pathListSeparator }}~{{ .chezmoi.pathSeparator }}.local{{ .chezmoi.pathSeparator }}share{{ .chezmoi.pathSeparator }}chezmoi{{ .chezmoi.pathSeparator }}"]
@@ -96,12 +96,5 @@
 [includeIf "gitdir{{ .chezmoi.pathListSeparator }}{{ .chezmoi.pathSeparator }}tmp{{ .chezmoi.pathSeparator }}"]
   path = ~{{ .chezmoi.pathSeparator }}.git{{ .chezmoi.pathSeparator }}personal{{ .chezmoi.pathSeparator }}.gitconfig
 
-{{- if eq (env "DOCKER") "true" }}
-
-[includeIf "gitdir{{ .chezmoi.pathListSeparator }}~{{ .chezmoi.pathSeparator }}"]
-  path = ~{{ .chezmoi.pathSeparator }}.git{{ .chezmoi.pathSeparator }}personal{{ .chezmoi.pathSeparator }}.gitconfig
-
-{{- end }}
-
-[includeIf "gitdir{{ .chezmoi.pathListSeparator }}~{{ .chezmoi.pathSeparator }}Documents{{ .chezmoi.pathSeparator }}Works{{ .chezmoi.pathSeparator }}Smartertravel{{ .chezmoi.pathSeparator }}"]
+[includeIf "gitdir{{ .chezmoi.pathListSeparator }}~{{ .chezmoi.pathSeparator }}Works{{ .chezmoi.pathSeparator }}Smartertravel{{ .chezmoi.pathSeparator }}"]
   path = ~{{ .chezmoi.pathSeparator }}.git{{ .chezmoi.pathSeparator }}works{{ .chezmoi.pathSeparator }}.gitconfig.st

@@ -32,19 +32,13 @@ local patterns = {
 	{
 		title = "[PS] {relpath}",
 		matches = {
-			"^~/Documents/Personal",
-		},
-	},
-	{
-		title = "[RX] {relpath}",
-		matches = {
-			"^~/Documents/Works/Rx",
+			"^~/Personal",
 		},
 	},
 	{
 		title = "[ST] {relpath}",
 		matches = {
-			"^~/Documents/Works/Smartertravel",
+			"^~/Works/Smartertravel",
 		},
 	},
 	{

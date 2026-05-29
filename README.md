@@ -128,9 +128,9 @@ chezmoi purge
   - View installed applications [here][local:packages]
 - Commandline tools (via [mise][mi:home])
   - View install tools [here][local:mise]
-- Working directory layout: [here][local:documents]
-  - **Personal** directory for personal projects
-  - **Works** directory for work projects, organized by workplace
+- Working directory layout:
+  - [Personal][local:personal] directory for personal projects
+  - [Works][local:works] directory for work projects, organized by workplace
 - Encrypted files via [gpg][cz:gpg]
 - Password manager via [1Password][1p:home]
 
@@ -238,7 +238,8 @@ Please refer to [CONTRIBUTING][local:contributing] guide.
 
 [local:zshrc]: ./home/dot_zshrc
 [local:gitconfig]: ./home/dot_gitconfig.tmpl
-[local:documents]: ./home/private_Documents/
+[local:personal]: ./home/Personal
+[local:works]: ./home/Works
 [local:packages]: ./home/.chezmoidata/packages.yaml
 [local:mise]: ./home/dot_config/mise/config.toml
 [local:contributing]: ./CONTRIBUTING.md
