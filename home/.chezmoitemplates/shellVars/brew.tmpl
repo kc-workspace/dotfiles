@@ -1,5 +1,5 @@
 brew_bin="${HOMEBREW_PREFIX:-}/bin"
-[ -d "$brew_bin" ] || brew_bin="/opt/homebrew/bin"              ## default on macos (arm64)
-[ -d "$brew_bin" ] || brew_bin="/usr/local/bin"                 ## default on macos (intel)
-[ -d "$brew_bin" ] || brew_bin="/home/linuxbrew/.linuxbrew/bin" ## default on linux
+[ -f "$brew_bin/brew" ] || brew_bin="/opt/homebrew/bin"              ## default on macos (arm64)
+[ -f "$brew_bin/brew" ] || brew_bin="/usr/local/bin"                 ## default on macos (intel)
+[ -f "$brew_bin/brew" ] || brew_bin="/home/linuxbrew/.linuxbrew/bin" ## default on linux
 brew_cmd="$brew_bin/brew"
