@@ -42,7 +42,7 @@ data:
         machine
       {{- end }}
     os: {{ if .chezmoi.osRelease -}}
-        {{- $os = printf "%s/%s" $os .id -}}
+        {{- printf "%s/%s" $.chezmoi.os .id -}}
       {{- else -}}
         {{- .chezmoi.os -}}
       {{- end }}
