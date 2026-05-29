@@ -8,7 +8,7 @@ nodejs        = "24.16.0" ## For node runtime
 python        = "3.13.12" ## For python runtime
 rust          = "1.93.0"
 yq            = "4.48.1"
-chezmoi       = "2.69.3"
+chezmoi       = "2.70.0"
 usage         = "2.12.0" ## Required by `mise completion`
 uv            = "0.9.5"
 
