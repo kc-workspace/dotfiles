@@ -13,42 +13,12 @@
   {{- $os = printf "%s/%s" $os .id -}}
 {{- end }}
 
-printf '>> Starting... %s\n' "install-deps.sh"
+printf '>> Starting... %s\n' "prerequisite.sh"
 
 set -e
 
 {{- $deps := dig "dependencies" $platform $os "" $ }}
 {{- with $deps }}
-{{- if dig "homebrew" "_settings" "install" true . }}
-
-printf '>>> Checking... %s\n' "Homebrew"
-if ! command -v brew >/dev/null; then
-  tmp="$(mktemp)"
-
-  printf '>>> Installing... %s (%s)\n' "Homebrew" "$tmp"
-  curl -fsSLo "$tmp" https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh
-  NONINTERACTIVE="${DOCKER:-}" bash "$tmp"
-  rm "$tmp"
-
-  unset tmp
-fi
-
-{{- end }}
-{{- if dig "mise" "_settings" "install" true . }}
-
-printf '>>> Checking... %s\n' "mise"
-if ! command -v mise >/dev/null; then
-  tmp="$(mktemp)"
-
-  printf '>>> Installing... %s (%s)\n' "mise" "$tmp"
-  curl -fsSLo "$tmp" https://mise.run
-  sh "$tmp"
-  rm "$tmp"
-
-  unset tmp
-fi
-
-{{- end }}
 {{- if dig "apt" "packages" list . }}
 
 printf '>>> Checking... %s\n' "apt"

@@ -21,5 +21,12 @@ set -e
 
 {{- $deps := dig "dependencies" $platform $os "" $ }}
 {{- with $deps }}
+
 ## Dependencies: {{ . | toJson }}
+{{- end }}
+
+{{- $prefs := dig "preferences" $platform $os "" $ }}
+{{- with $prefs }}
+
+## Preferences: {{ . | toJson }}
 {{- end }}
