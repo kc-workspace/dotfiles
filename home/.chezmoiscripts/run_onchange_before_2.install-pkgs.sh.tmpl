@@ -19,6 +19,23 @@ set -e
 
 {{- $deps := dig "dependencies" $platform $os "" $ }}
 {{- with $deps }}
+
+{{- if dig "homebrew" "_settings" "install" true . }}
+
+printf '>>> Checking... %s\n' "Homebrew"
+if ! command -v brew >/dev/null; then
+  tmp="$(mktemp)"
+
+  printf '>>> Installing... %s (%s)\n' "Homebrew" "$tmp"
+  curl -fsSLo "$tmp" https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh
+  NONINTERACTIVE="${DOCKER:-}" bash "$tmp"
+  rm "$tmp"
+
+  unset tmp
+fi
+
+{{- end }}
+
 {{- if or (dig "homebrew" "taps" list .) (dig "homebrew" "brews" list .) (dig "homebrew" "casks" list .) (dig "homebrew" "mas" list .) }}
 
 tmp="$(mktemp)"
