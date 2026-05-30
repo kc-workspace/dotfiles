@@ -1,0 +1,27 @@
+Host bitbucket.org
+	HostName bitbucket.org
+	User git
+	IdentityFile ~{{ .chezmoi.pathSeparator }}.ssh{{ .chezmoi.pathSeparator }}bitbucket_ed25519.pub
+	PubkeyAuthentication yes
+
+Host gitlab.com
+	HostName gitlab.com
+	User git
+	IdentityFile ~{{ .chezmoi.pathSeparator }}.ssh{{ .chezmoi.pathSeparator }}gitlab_ed25519.pub
+	PubkeyAuthentication yes
+
+{{ onepasswordDocument "bf4ucwiqi7q4rpchhplt74mxuu" "64yg7lvccdzebup52w2nmzoady" }}
+
+Host *
+	## https://heipei.github.io/2015/02/26/SSH-Agent-Forwarding-considered-harmful/
+	## https://www.hackinglinuxexposed.com/articles/20040705.html
+	ForwardX11 no
+	ForwardAgent no
+	## https://github.com/FiloSottile/whoami.filippo.io?tab=readme-ov-file#how-do-i-stop-it
+	PubkeyAuthentication no
+	IdentitiesOnly yes
+	{{- if and (eq .global.profile "machine") (eq .global.os "darwin") }}
+	## https://developer.1password.com/docs/ssh/get-started/#step-4-configure-your-ssh-or-git-client
+	IdentityAgent "~/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock"
+	{{- end }}
+
