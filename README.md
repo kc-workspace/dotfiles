@@ -113,9 +113,35 @@ sh -c "$(curl -fsSL git.io/chezmoi)" -- -b "$HOME/.local/bin" -t "v2.70.0"
 "$HOME/.local/bin/chezmoi" update --init --apply --verbose --keep-going
 ```
 
-7. Sign in to your 1Password account
-    - Validate by command `op whoami`
-8. Run `full-setup`
+7. Sign in to your 1Password account (Optional)
+    - [1] Login to your account on 1Password Application
+
+    ```shell
+    eval $(op signin --account my)
+    ```
+
+    - [2] Copy `Service Account Token` from 1Password (`tux7ro2pvj3jr36wl3xr4iaq54`)
+
+    ```shell
+    ## If signed in on `op` cli
+    export OP_SERVICE_ACCOUNT_TOKEN="$(op read \
+      --account my \
+      "op://h75rks2xxgluyljikha4oforri/tux7ro2pvj3jr36wl3xr4iaq54/credential")"
+    ## If not sign in
+    export OP_SERVICE_ACCOUNT_TOKEN="ops_..."
+    ```
+
+8. Validate the `op` status (Optional)
+
+```shell
+## Validate the account
+op whoami
+# URL:               https://my.1password.com
+# Integration ID:    XXXXYYYYZZZZXXXXYYYYZZZZXX
+# User Type:         SERVICE_ACCOUNT
+```
+
+9. Run `full-setup` (Optional)
 
 ```shell
 ## Add --dry-run for check expected result first
