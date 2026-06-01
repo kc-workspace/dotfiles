@@ -29,11 +29,19 @@ update:
   apply: true
 
 onepassword:
-  mode: "{{ if eq (env "DOCKER") "true" }}service{{ else }}account{{ end }}"
-  prompt: false
+  mode: "{{ if eq (.global.profile) "machine" }}account{{ else }}service{{ end }}"
+  prompt: true
 
 data:
   global:
+    opExist: {{ if lookPath "op" }}true{{ else }}false{{ end }}
+    opSignedin: {{ if not (lookPath "op") }}
+        false
+      {{- else if exec "op" "whoami" -}}
+        true
+      {{- else -}}
+        false
+      {{- end }}
     profile: {{ if eq (env "GITHUB_ACTIONS") "true" -}}
         actions
       {{- else if eq (env "DOCKER") "true" -}}
