@@ -10,7 +10,10 @@ Host gitlab.com
 	IdentityFile ~{{ .chezmoi.pathSeparator }}.ssh{{ .chezmoi.pathSeparator }}gitlab_ed25519.pub
 	PubkeyAuthentication yes
 
+{{- if .global.opSignedin }}
+
 {{ onepasswordDocument "bf4ucwiqi7q4rpchhplt74mxuu" "64yg7lvccdzebup52w2nmzoady" }}
+{{- end }}
 
 Host *
 	## https://heipei.github.io/2015/02/26/SSH-Agent-Forwarding-considered-harmful/
