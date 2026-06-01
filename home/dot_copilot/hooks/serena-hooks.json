@@ -1,0 +1,22 @@
+{
+    "hooks": {
+        "PreToolUse": [
+            {
+                "type": "command",
+                "command": "mise exec pipx:oraios/serena@main -- serena-hooks remind --client=vscode"
+            }
+        ],
+        "SessionStart": [
+            {
+                "type": "command",
+                "command": "mise exec pipx:oraios/serena@main -- serena-hooks activate --client=vscode"
+            }
+        ],
+        "Stop": [
+            {
+                "type": "command",
+                "command": "mise exec pipx:oraios/serena@main -- serena-hooks cleanup --client=vscode"
+            }
+        ]
+    }
+}
