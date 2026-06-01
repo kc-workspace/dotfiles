@@ -70,32 +70,56 @@ you will have option to convert to full setup via `kdf-*` script.
 
 ### Prerequisite
 
-1. Install `git` and `curl`
-    - macos: `xcode-select --install`
-2. Login to App Store
+1. Login to App Store
 
 ### Get start
 
 1. Open `Terminal` app
-2. Install chezmoi temporary (chezmoi will be managed by mise later)
+2. Install Homebrew (macOS only)
 
 ```shell
-sh -c "$(curl -fsSL git.io/chezmoi)" -- -b "$HOME/.local/bin" -t "v2.64.0"
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 ```
 
-3. Run `setup-script` first
+3. Install prerequisite dependencies
 
 ```shell
-## Install dependencies (e.g. brew, mise, 1password, etc.)
-"$HOME/.local/bin/chezmoi" init kc-workspace \
-  --apply --purge-binary --no-pager --no-tty --include=scripts
+## MacOS:
+brew install git
+
+## Debian based:
+apt install -y git curl
 ```
 
-4. Set up 1Password account
-5. Run `full-setup`
+4. Install chezmoi temporary via direct download
 
 ```shell
-"$HOME/.local/bin/chezmoi" update kc-workspace --init --apply
+sh -c "$(curl -fsSL git.io/chezmoi)" -- -b "$HOME/.local/bin" -t "v2.70.0"
+```
+
+5. Initiate chezmoi repository
+
+```shell
+"$HOME/.local/bin/chezmoi" init kc-workspace
+## Or use below command and skip step 6
+## Add --dry-run for check expected result first
+"$HOME/.local/bin/chezmoi" init kc-workspace --apply --verbose --keep-going
+```
+
+6. Run `lite-setup` to initiate basic configs
+
+```shell
+## Add --dry-run for check expected result first
+"$HOME/.local/bin/chezmoi" update --init --apply --verbose --keep-going
+```
+
+7. Sign in to your 1Password account
+    - Validate by command `op whoami`
+8. Run `full-setup`
+
+```shell
+## Add --dry-run for check expected result first
+"$HOME/.local/bin/chezmoi" update --init --apply --verbose
 ```
 
 ### Actions
