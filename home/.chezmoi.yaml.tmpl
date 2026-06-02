@@ -29,7 +29,7 @@ update:
   apply: true
 
 onepassword:
-  mode: "{{ if eq (.global.profile) "machine" }}account{{ else }}service{{ end }}"
+  mode: "{{ if or (env "GITHUB_ACTIONS") (env "DOCKER") }}service{{ else }}account{{ end }}"
   prompt: true
 
 data:
