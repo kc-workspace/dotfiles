@@ -30,7 +30,7 @@ jobs:
         uses: actions/cache/restore@27d5ce7f107fe9357f9df03efb73ab90386fccae # v5.0.5
         with:
           path: ${{ env.CHEZMOI_BIN }}
-          key: chezmoi-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('.chezmoiversion') }}-${{ hashFiles('.tool-versions') }}
+          key: chezmoi-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('.chezmoiversion') }}-${{ hashFiles('mise.toml') }}
       - name: Download chezmoi install script
         if: steps.cache.outputs.cache-hit != 'true'
         run: curl -fsSLo $INSTALL_CLI get.chezmoi.io
@@ -42,7 +42,7 @@ jobs:
         uses: actions/cache/save@27d5ce7f107fe9357f9df03efb73ab90386fccae # v5.0.5
         with:
           path: ${{ env.CHEZMOI_BIN }}
-          key: chezmoi-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('.chezmoiversion') }}-${{ hashFiles('.tool-versions') }}
+          key: chezmoi-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('.chezmoiversion') }}-${{ hashFiles('mise.toml') }}
       - name: Add chezmoi to PATH variable
         run: echo "$CHEZMOI_BIN" >> "$GITHUB_PATH"
       - name: Get chezmoi version
