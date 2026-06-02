@@ -49,7 +49,7 @@ jobs:
         run: chezmoi --version
       - name: Apply chezmoi config
         run: |
-          chezmoi init --apply \
+          chezmoi init --apply --keep-going \
             --no-pager --no-tty \
             --purge-binary --force \
             --exclude=encrypted \
