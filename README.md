@@ -100,17 +100,18 @@ sh -c "$(curl -fsSL get.chezmoi.io)" -- -b "$HOME/.local/bin" -t "v2.70.0"
 5. Initiate chezmoi repository
 
 ```shell
-"$HOME/.local/bin/chezmoi" init kc-workspace
-## Or use below command and skip step 6
-## Add --dry-run for check expected result first
-"$HOME/.local/bin/chezmoi" init kc-workspace --apply --verbose --keep-going
+## Only initiate chezmoi.yaml file
+"$HOME/.local/bin/chezmoi" init --include=none
 ```
 
 6. Run `lite-setup` to initiate basic configs
 
 ```shell
 ## Add --dry-run for check expected result first
-"$HOME/.local/bin/chezmoi" update --init --apply --verbose --keep-going
+## Expected error about not signin to 1password yet
+"$HOME/.local/bin/chezmoi" init kc-workspace \
+  --apply --keep-going --purge-binary \
+  --exclude=encrypted --verbose
 ```
 
 7. Sign in to your 1Password account (Optional)
@@ -145,7 +146,8 @@ op whoami
 
 ```shell
 ## Add --dry-run for check expected result first
-"$HOME/.local/bin/chezmoi" update --init --apply --verbose
+## You should have chezmoi installed from mise by now
+chezmoi update --init --apply --verbose
 ```
 
 ### Actions
