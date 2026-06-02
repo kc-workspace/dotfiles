@@ -94,7 +94,7 @@ apt install -y git curl
 4. Install chezmoi temporary via direct download
 
 ```shell
-sh -c "$(curl -fsSL git.io/chezmoi)" -- -b "$HOME/.local/bin" -t "v2.70.0"
+sh -c "$(curl -fsSL get.chezmoi.io)" -- -b "$HOME/.local/bin" -t "v2.70.0"
 ```
 
 5. Initiate chezmoi repository

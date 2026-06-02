@@ -62,7 +62,7 @@ WORKDIR $USER_HOME
 COPY --chown=$USER ./.chezmoiversion /tmp
 RUN mkdir -p "$CHEZMOI_HOME" \
   && mkdir -p "$USER_BIN" \
-  && sudo sh -c "$(curl -fsSL git.io/chezmoi)" -- -b "$USER_BIN" -t "v$(cat /tmp/.chezmoiversion)" \
+  && sudo sh -c "$(curl -fsSL get.chezmoi.io)" -- -b "$USER_BIN" -t "v$(cat /tmp/.chezmoiversion)" \
   && rm -f /tmp/.chezmoiversion
 
 ## Copy the dotfiles
