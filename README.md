@@ -19,7 +19,7 @@ Personal dotfiles configuration for [kamontat][gh:home].
   - [Zinit](#zinit)
     - [To upgrade zinit](#to-upgrade-zinit)
     - [To upgrade plugins](#to-upgrade-plugins)
-  - [NVim (lazyvim)](#nvim-lazyvim)
+  - [LazyVim (neovim)](#lazyvim-neovim)
     - [To upgrade plugins](#to-upgrade-plugins-1)
   - [Homebrew](#homebrew)
     - [To upgrade packages](#to-upgrade-packages)
@@ -204,9 +204,9 @@ zinit self-update
 zinit update --all
 ```
 
-### NVim (lazyvim)
+### LazyVim (neovim)
 
-**Installation method**: zinit
+**Installation method**: mise
 
 This is for manage plugins and configuration for neovim.
 
