@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+set -e
+
 ## Remove developer commandline tools on macos
 if [[ $(uname -s) == "Darwin" ]]; then
   if xcode-select -p &>/dev/null; then
