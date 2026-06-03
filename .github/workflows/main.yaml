@@ -53,7 +53,7 @@ jobs:
             --no-pager --no-tty \
             --purge-binary --force \
             --exclude=encrypted \
-            --source ${{ github.workspace }}
+            --source ${{ github.workspace }} || true
       - name: Run full setup
         run: kdf-setup.sh
         env:
