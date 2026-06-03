@@ -88,13 +88,13 @@
 	clean = git-lfs clean -- %f
 
 [includeIf "gitdir{{ .chezmoi.pathListSeparator }}~{{ .chezmoi.pathSeparator }}Personal{{ .chezmoi.pathSeparator }}"]
-  path = ~{{ .chezmoi.pathSeparator }}.git{{ .chezmoi.pathSeparator }}personal{{ .chezmoi.pathSeparator }}.gitconfig
+  path = ~{{ .chezmoi.pathSeparator }}.git{{ .chezmoi.pathSeparator }}personal{{ .chezmoi.pathSeparator }}.gitconfig.kc
 
 [includeIf "gitdir{{ .chezmoi.pathListSeparator }}~{{ .chezmoi.pathSeparator }}.local{{ .chezmoi.pathSeparator }}share{{ .chezmoi.pathSeparator }}chezmoi{{ .chezmoi.pathSeparator }}"]
-  path = ~{{ .chezmoi.pathSeparator }}.git{{ .chezmoi.pathSeparator }}personal{{ .chezmoi.pathSeparator }}.gitconfig
+  path = ~{{ .chezmoi.pathSeparator }}.git{{ .chezmoi.pathSeparator }}personal{{ .chezmoi.pathSeparator }}.gitconfig.kc
 
 [includeIf "gitdir{{ .chezmoi.pathListSeparator }}{{ .chezmoi.pathSeparator }}tmp{{ .chezmoi.pathSeparator }}"]
-  path = ~{{ .chezmoi.pathSeparator }}.git{{ .chezmoi.pathSeparator }}personal{{ .chezmoi.pathSeparator }}.gitconfig
+  path = ~{{ .chezmoi.pathSeparator }}.git{{ .chezmoi.pathSeparator }}personal{{ .chezmoi.pathSeparator }}.gitconfig.kc
 
 [includeIf "gitdir{{ .chezmoi.pathListSeparator }}~{{ .chezmoi.pathSeparator }}Works{{ .chezmoi.pathSeparator }}Smartertravel{{ .chezmoi.pathSeparator }}"]
   path = ~{{ .chezmoi.pathSeparator }}.git{{ .chezmoi.pathSeparator }}works{{ .chezmoi.pathSeparator }}.gitconfig.st
