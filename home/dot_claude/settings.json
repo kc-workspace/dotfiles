@@ -1,12 +1,15 @@
 {
   "$schema": "https://json.schemastore.org/claude-code-settings.json",
+  "statusLine": {
+    "type": "command",
+    "command": "bash \"$HOME/.claude/plugins/cache/caveman/caveman/655b7d9c5431/src/hooks/caveman-statusline.sh\""
+  },
   "enabledPlugins": {
     "context7@claude-plugins-official": true,
     "frontend-design@claude-plugins-official": true,
     "gopls-lsp@claude-plugins-official": true,
     "serena@claude-plugins-official": true,
     "superpowers@claude-plugins-official": true,
-    "feature-dev@claude-plugins-official": true,
     "caveman@caveman": true
   },
   "extraKnownMarketplaces": {
@@ -18,9 +21,5 @@
     }
   },
   "effortLevel": "xhigh",
-  "skipDangerousModePermissionPrompt": true,
-  "statusLine": {
-    "type": "command",
-    "command": "bash \"$HOME/.claude/plugins/cache/caveman/caveman/655b7d9c5431/src/hooks/caveman-statusline.sh\""
-  }
+  "skipDangerousModePermissionPrompt": true
 }
