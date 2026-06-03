@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-set -e
+set -euo pipefail
 
 ## run mise path to ensure tools are available
 eval "$(mise activate bash)"
@@ -28,6 +28,7 @@ zsh -ic -- "@zinit-scheduler burst"
 printf "\n==============================================
 Install %s
 ==============================================\n" "nvim plugins"
+zinit load neovim/neovim ## Load neovim path to ensure nvim command is available
 nvim --headless '+Lazy! sync' +qa \
   && nvim --headless '+TSInstall all' +qa
 
