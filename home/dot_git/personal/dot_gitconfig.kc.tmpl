@@ -1,0 +1,7 @@
+[core]
+	sshCommand = "ssh -i {{ onepasswordRead "op://64yg7lvccdzebup52w2nmzoady/2iypd6l3aemorkw4xhrjhrvdm4/github_key.pub" }} -o IdentitiesOnly=yes -o PubkeyAuthentication=yes"
+
+[user]
+	name = "{{ onepasswordRead "op://64yg7lvccdzebup52w2nmzoady/2iypd6l3aemorkw4xhrjhrvdm4/name" }}"
+	email = "{{ onepasswordRead "op://64yg7lvccdzebup52w2nmzoady/2iypd6l3aemorkw4xhrjhrvdm4/email" }}"
+	signingkey = "{{ onepasswordRead "op://64yg7lvccdzebup52w2nmzoady/2iypd6l3aemorkw4xhrjhrvdm4/github_signing_key.pub" }}"
