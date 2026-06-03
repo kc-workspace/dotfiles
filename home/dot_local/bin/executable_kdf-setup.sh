@@ -20,6 +20,17 @@ Install %s
 ==============================================\n" "mise tools"
 mise install
 
+printf "\n==============================================
+Install %s
+==============================================\n" "zsh plugins"
+zsh -ic -- "@zinit-scheduler burst"
+
+printf "\n==============================================
+Install %s
+==============================================\n" "nvim plugins"
+nvim --headless '+Lazy! sync' +qa \
+  && nvim --headless '+TSInstall all' +qa
+
 "$PWD/kdf-verify.sh"
 
 # shellcheck disable=SC1091
