@@ -53,7 +53,7 @@
 {{- template "zshrc/app/lsd.zsh" (dict) }}
 {{- template "zshrc/app/macos-utils.zsh" (dict "os" .chezmoi.os) }}
 {{- template "zshrc/app/mise.zsh" (dict) }}
-{{- template "zshrc/app/neovim.zsh" (dict) }}
+{{- template "zshrc/app/neovim.zsh" (dict "method" "mise") }}
 {{- template "zshrc/app/ripgrep.zsh" (dict) }}
 {{- template "zshrc/app/tree-sitter.zsh" (dict) }}
 {{- template "zshrc/app/vscode.zsh" (dict "channel" "insiders") }}
