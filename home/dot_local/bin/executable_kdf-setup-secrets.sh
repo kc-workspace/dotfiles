@@ -48,7 +48,7 @@ setup_github() {
 }
 
 setup_gpg() {
-  if [ -z "$GPG_FINGERPRINT" ]; then
+  if [ -z "${GPG_FINGERPRINT:-}" ]; then
     local gpg_key_op_item="fp3xx4qmu7ocxr2r546q6deocu"
 
     local gpg_key_path gpg_finger_path

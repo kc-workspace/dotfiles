@@ -16,11 +16,10 @@ cleanup_github() {
 }
 
 cleanup_gpg() {
-  if [ -n "$GPG_FINGERPRINT" ]; then
+  if [ -n "${GPG_FINGERPRINT:-}" ]; then
     gpg --batch --yes --delete-secret-and-public-key "$GPG_FINGERPRINT"
+    unset GPG_FINGERPRINT
   fi
-
-  unset GPG_FINGERPRINT
 }
 
 printf "\n==============================================
