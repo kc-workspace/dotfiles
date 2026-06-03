@@ -29,6 +29,7 @@ dependencies:
           - python
           - uv
           - chezmoi
+          - neovim
         _settings:
           install: true
           upgrade: false

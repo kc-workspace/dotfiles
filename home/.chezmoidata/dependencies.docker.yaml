@@ -28,6 +28,7 @@ dependencies:
           - python
           - uv
           - chezmoi
+          - neovim
         _settings:
           install: true
           upgrade: false
@@ -57,6 +58,7 @@ dependencies:
           - python
           - uv
           - chezmoi
+          - neovim
         _settings:
           install: true
           upgrade: false
@@ -73,3 +75,15 @@ dependencies:
         casks: []
         _settings:
           install: false ## alpine is not supported by homebrew
+      mise:
+        tools:
+          - nodejs
+          - bun
+          - go
+          - python
+          - uv
+          - chezmoi
+          - neovim
+        _settings:
+          install: true
+          upgrade: false
