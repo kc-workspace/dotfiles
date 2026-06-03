@@ -28,7 +28,6 @@ zsh -ic -- "@zinit-scheduler burst"
 printf "\n==============================================
 Install %s
 ==============================================\n" "nvim plugins"
-zinit load neovim/neovim ## Load neovim path to ensure nvim command is available
 nvim --headless '+Lazy! sync' +qa \
   && nvim --headless '+TSInstall all' +qa
 
