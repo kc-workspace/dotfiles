@@ -2,6 +2,27 @@
 
 Use shortkeyutil to manage macOS symbolic hotkeys from preferences data.
 
+- [Preferences Data Shape](#preferences-data-shape)
+- [Keyboard Shortcuts Style Sections](#keyboard-shortcuts-style-sections)
+  - [Keyboard Navigation](#keyboard-navigation)
+  - [Mission Control And Spaces](#mission-control-and-spaces)
+  - [Input Sources](#input-sources)
+  - [Screenshots](#screenshots)
+  - [Accessibility](#accessibility)
+  - [Spotlight And System](#spotlight-and-system)
+  - [Window Management And Tiling](#window-management-and-tiling)
+  - [Display](#display)
+- [Common Key Table](#common-key-table)
+- [Modifier Bitwise Flags](#modifier-bitwise-flags)
+- [Use Cases](#use-cases)
+  - [Use case 1: Desktop quick switch](#use-case-1-desktop-quick-switch)
+  - [Use case 2: Bilingual input switching](#use-case-2-bilingual-input-switching)
+  - [Use case 3: Screenshot-heavy workflow](#use-case-3-screenshot-heavy-workflow)
+  - [Use case 4: Minimal setup to disable a shortcut](#use-case-4-minimal-setup-to-disable-a-shortcut)
+- [Validation Commands](#validation-commands)
+- [Cautions](#cautions)
+
+
 Expected write pattern:
 
 ```shell
@@ -42,211 +63,188 @@ Minimal valid example:
   enabled: false
 ```
 
-## Current Comparison Table
-
-This table compares known shortcut IDs with your current defaults output.
-
-| ID | Default shortcut | Function | Is enabled |
-|---:|---|---|---|
-| 7 | Fn + Control + F2 | Move focus to menu bar | true |
-| 8 | Fn + Control + F3 | Move focus to Dock | true |
-| 9 | Fn + Control + F4 | Move focus to active or next window | true |
-| 10 | Fn + Control + F5 | Move focus to window toolbar | true |
-| 11 | Fn + Control + F6 | Move focus to floating window | true |
-| 12 | Fn + Control + F1 | Full keyboard access toggle | true |
-| 13 | Fn + Control + F7 | Change Tab focus behavior | true |
-| 15 | Command + Option + 8 | Toggle Zoom | false |
-| 17 | Command + Option + = | Zoom in | false |
-| 19 | Command + Option + - | Zoom out | false |
-| 21 | Command + Control + Option + 8 | Invert colors | false |
-| 23 | Command + Option + \\ | Toggle image smoothing | false |
-| 25 | Command + Control + Option + . | Increase contrast | false |
-| 26 | Command + Control + Option + , | Decrease contrast | false |
-| 27 | Command + ` | Move focus to next window in app | true |
-| 28 | Command + Shift + 3 | Save screenshot of screen | true |
-| 29 | Command + Shift + Control + 3 | Copy screenshot of screen | true |
-| 30 | Command + Shift + 4 | Save screenshot of selection | true |
-| 31 | Command + Shift + Control + 4 | Copy screenshot of selection | true |
-| 32 | Fn + Control + Up | Mission Control / All windows | true |
-| 33 | Fn + Control + Down | App windows | true |
-| 34 | Fn + Control + Shift + Up | Mission Control (slow) | true |
-| 35 | Fn + Control + Shift + Down | App windows (slow) | true |
-| 36 | Fn + F11 | Show Desktop | true |
-| 37 | Fn + Shift + F11 | Show Desktop (slow) | true |
-| 52 | Command + Option + D | Toggle Dock hide/show | true |
-| 57 | Fn + Control + F8 | Move focus to status menus | true |
-| 59 | Fn + Command + F5 | Toggle VoiceOver | true |
-| 60 | Control + Space | Select previous input source | true |
-| 61 | Control + Option + Space | Select next input source | true |
-| 64 | Command + Space | Spotlight search field | true |
-| 65 | Command + Option + Space | Spotlight/Finder search (variant) | true |
-| 79 | Fn + Control + Left | Move left a Space | true |
-| 80 | Fn + Control + Shift + Left | Move left a Space (slow) | true |
-| 81 | Fn + Control + Right | Move right a Space | true |
-| 82 | Fn + Control + Shift + Right | Move right a Space (slow) | true |
-| 118 | Control + 1 | Switch to Desktop 1 | true |
-| 119 | Control + 2 | Switch to Desktop 2 | true |
-| 120 | Control + 3 | Switch to Desktop 3 | true |
-| 121 | Control + 4 | Switch to Desktop 4 | true |
-| 122 | Control + 5 | Switch to Desktop 5 | true |
-| 164 | modifier payload | Fn/Globe modifier action | true |
-| 176 | SAE1.0 payload | Special/undocumented | true |
-| 260 | Command + Esc | Legacy/system action | true |
-
 ## Keyboard Shortcuts Style Sections
 
 ### Keyboard Navigation
 
-| ID | Default shortcut | Function | Is enabled |
-|---:|---|---|---|
-| 7 | Fn + Control + F2 | Focus menu bar | true |
-| 8 | Fn + Control + F3 | Focus Dock | true |
-| 9 | Fn + Control + F4 | Focus active or next window | true |
-| 10 | Fn + Control + F5 | Focus window toolbar | true |
-| 11 | Fn + Control + F6 | Focus floating window | true |
-| 12 | Fn + Control + F1 | Full keyboard access toggle | true |
-| 13 | Fn + Control + F7 | Tab behavior toggle | true |
-| 27 | Command + ` | Next window in app | true |
-| 57 | Fn + Control + F8 | Focus status menus | true |
+|   ID | Default shortcut  | Function                    | Is enabled | Confidence |
+| ---: | ----------------- | --------------------------- | ---------- | ---------- |
+|    7 | Fn + Control + F2 | Focus menu bar              | true       | high       |
+|    8 | Fn + Control + F3 | Focus Dock                  | true       | high       |
+|    9 | Fn + Control + F4 | Focus active or next window | true       | high       |
+|   10 | Fn + Control + F5 | Focus window toolbar        | true       | high       |
+|   11 | Fn + Control + F6 | Focus floating window       | true       | high       |
+|   12 | Fn + Control + F1 | Full keyboard access toggle | true       | high       |
+|   13 | Fn + Control + F7 | Tab behavior toggle         | true       | high       |
+|   27 | Command + `       | Next window in app          | true       | high       |
+|   57 | Fn + Control + F8 | Focus status menus          | true       | high       |
 
 ### Mission Control And Spaces
 
-| ID | Default shortcut | Function | Is enabled |
-|---:|---|---|---|
-| 32 | Fn + Control + Up | Mission Control | true |
-| 33 | Fn + Control + Down | App windows | true |
-| 34 | Fn + Control + Shift + Up | Mission Control (slow) | true |
-| 35 | Fn + Control + Shift + Down | App windows (slow) | true |
-| 36 | Fn + F11 | Show Desktop | true |
-| 37 | Fn + Shift + F11 | Show Desktop (slow) | true |
-| 79 | Fn + Control + Left | Move left a Space | true |
-| 81 | Fn + Control + Right | Move right a Space | true |
-| 118 | Control + 1 | Switch to Desktop 1 | true |
-| 119 | Control + 2 | Switch to Desktop 2 | true |
-| 120 | Control + 3 | Switch to Desktop 3 | true |
-| 121 | Control + 4 | Switch to Desktop 4 | true |
-| 122 | Control + 5 | Switch to Desktop 5 | true |
+|   ID | Default shortcut            | Function               | Is enabled | Confidence |
+| ---: | --------------------------- | ---------------------- | ---------- | ---------- |
+|   32 | Fn + Control + Up           | Mission Control        | true       | high       |
+|   33 | Fn + Control + Down         | App windows            | true       | high       |
+|   34 | Fn + Control + Shift + Up   | Mission Control (slow) | true       | high       |
+|   35 | Fn + Control + Shift + Down | App windows (slow)     | true       | high       |
+|   36 | Fn + F11                    | Show Desktop           | true       | high       |
+|   37 | Fn + Shift + F11            | Show Desktop (slow)    | true       | high       |
+|   79 | Fn + Control + Left         | Move left a Space      | true       | high       |
+|   81 | Fn + Control + Right        | Move right a Space     | true       | high       |
+|  118 | Control + 1                 | Switch to Desktop 1    | true       | high       |
+|  119 | Control + 2                 | Switch to Desktop 2    | true       | high       |
+|  120 | Control + 3                 | Switch to Desktop 3    | true       | high       |
+|  121 | Control + 4                 | Switch to Desktop 4    | true       | high       |
+|  122 | Control + 5                 | Switch to Desktop 5    | true       | high       |
 
 ### Input Sources
 
-| ID | Default shortcut | Function | Is enabled |
-|---:|---|---|---|
-| 60 | Control + Space | Previous input source | true |
-| 61 | Control + Option + Space | Next input source | true |
+|   ID | Default shortcut         | Function              | Is enabled | Confidence |
+| ---: | ------------------------ | --------------------- | ---------- | ---------- |
+|   60 | Control + Space          | Previous input source | true       | high       |
+|   61 | Control + Option + Space | Next input source     | true       | high       |
 
 ### Screenshots
 
-| ID | Default shortcut | Function | Is enabled |
-|---:|---|---|---|
-| 28 | Command + Shift + 3 | Save screenshot of screen | true |
-| 29 | Command + Shift + Control + 3 | Copy screenshot of screen | true |
-| 30 | Command + Shift + 4 | Save screenshot of selection | true |
-| 31 | Command + Shift + Control + 4 | Copy screenshot of selection | true |
+|   ID | Default shortcut              | Function                         | Is enabled | Confidence |
+| ---: | ----------------------------- | -------------------------------- | ---------- | ---------- |
+|   28 | Command + Shift + 3           | Save screenshot of screen        | true       | high       |
+|   29 | Command + Shift + Control + 3 | Copy screenshot of screen        | true       | high       |
+|   30 | Command + Shift + 4           | Save screenshot of selection     | true       | high       |
+|   31 | Command + Shift + Control + 4 | Copy screenshot of selection     | true       | high       |
+|  181 | Command + Shift + 6           | Save picture of Touch Bar        | true       | medium     |
+|  182 | Command + Shift + Control + 6 | Copy picture of Touch Bar        | true       | medium     |
+|  184 | Command + Shift + 5           | Screenshot and recording options | true       | medium     |
 
 ### Accessibility
 
-| ID | Default shortcut | Function | Is enabled |
-|---:|---|---|---|
-| 15 | Command + Option + 8 | Toggle Zoom | false |
-| 17 | Command + Option + = | Zoom in | false |
-| 19 | Command + Option + - | Zoom out | false |
-| 21 | Command + Control + Option + 8 | Invert colors | false |
-| 23 | Command + Option + \\ | Toggle image smoothing | false |
-| 25 | Command + Control + Option + . | Increase contrast | false |
-| 26 | Command + Control + Option + , | Decrease contrast | false |
-| 59 | Fn + Command + F5 | Toggle VoiceOver | true |
+|   ID | Default shortcut               | Function                    | Is enabled | Confidence |
+| ---: | ------------------------------ | --------------------------- | ---------- | ---------- |
+|   15 | Command + Option + 8           | Toggle Zoom                 | false      | high       |
+|   17 | Command + Option + =           | Zoom in                     | false      | high       |
+|   19 | Command + Option + -           | Zoom out                    | false      | high       |
+|   21 | Command + Control + Option + 8 | Invert colors               | false      | high       |
+|   23 | Command + Option + \\          | Toggle image smoothing      | false      | high       |
+|   25 | Command + Control + Option + . | Increase contrast           | false      | high       |
+|   26 | Command + Control + Option + , | Decrease contrast           | false      | high       |
+|   59 | Fn + Command + F5              | Toggle VoiceOver            | true       | high       |
+|  162 | Fn + Command + Control + F5    | Accessibility / Zoom action | true       | low        |
 
 ### Spotlight And System
 
-| ID | Default shortcut | Function | Is enabled |
-|---:|---|---|---|
-| 52 | Command + Option + D | Toggle Dock hide/show | true |
-| 64 | Command + Space | Spotlight search field | true |
-| 65 | Command + Option + Space | Spotlight/Finder search (variant) | true |
-| 260 | Command + Esc | Legacy/system action | true |
+|   ID | Default shortcut         | Function                          | Is enabled | Confidence |
+| ---: | ------------------------ | --------------------------------- | ---------- | ---------- |
+|   52 | Command + Option + D     | Toggle Dock hide/show             | true       | high       |
+|   64 | Command + Space          | Spotlight search field            | true       | high       |
+|   65 | Command + Option + Space | Spotlight/Finder search (variant) | true       | high       |
+|  159 | Control + Return         | Spotlight / menu action           | true       | low        |
+|  176 | Command + Space (SAE1.0) | Dictation / special input action  | true       | low        |
+|  190 | Fn + Q                   | Focus / Quick action              | true       | low        |
+|  260 | Command + Esc            | Legacy/system action              | true       | medium     |
 
-## Full Observed IDs From Current Defaults
+### Window Management And Tiling
 
-All IDs currently present:
+|   ID | Default shortcut             | Function                            | Is enabled | Confidence |
+| ---: | ---------------------------- | ----------------------------------- | ---------- | ---------- |
+|  233 | Command + M                  | Minimize / window action            | true       | medium     |
+|  237 | Fn + Control + F             | Window tiling: fill / full          | true       | medium     |
+|  238 | Fn + Control + C             | Window tiling: center               | true       | medium     |
+|  239 | Fn + Control + R             | Window tiling: return to prev size  | true       | medium     |
+|  240 | Fn + Control + Left          | Window tiling: tile left            | true       | medium     |
+|  241 | Fn + Control + Right         | Window tiling: tile right           | true       | medium     |
+|  242 | Fn + Control + Up            | Window tiling: tile top             | true       | medium     |
+|  243 | Fn + Control + Down          | Window tiling: tile bottom          | true       | medium     |
+|  248 | Fn + Control + Shift + Left  | Window tiling: top-left quarter     | true       | medium     |
+|  249 | Fn + Control + Shift + Right | Window tiling: top-right quarter    | true       | medium     |
+|  250 | Fn + Control + Shift + Up    | Window tiling: bottom-left quarter  | true       | medium     |
+|  251 | Fn + Control + Shift + Down  | Window tiling: bottom-right quarter | true       | medium     |
 
-7, 8, 9, 10, 11, 12, 13, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 52, 53, 54, 55, 56, 57, 59, 60, 61, 64, 65, 79, 80, 81, 82, 118, 119, 120, 121, 122, 159, 160, 162, 163, 164, 175, 176, 179, 181, 182, 184, 190, 215, 216, 217, 218, 219, 222, 223, 224, 225, 226, 227, 228, 229, 230, 231, 232, 233, 235, 237, 238, 239, 240, 241, 242, 243, 244, 245, 246, 247, 248, 249, 250, 251, 256, 257, 258, 260
+Window tiling IDs (`237`-`251`) match the macOS Sequoia Window Tiling set and
+overlap with older Mission Control "Move a Space" bindings on some versions.
+Unbound placeholder IDs (parameters `[65535, 65535, 0]`, e.g. `215`-`232`,
+`244`-`247`, `256`-`258`) are omitted here.
 
-IDs that are mostly internal/undocumented on modern macOS and currently present:
+### Display
 
-53, 54, 55, 56, 159, 160, 162, 163, 175, 176, 179, 181, 182, 184, 190, 215-219, 222-233, 235, 237-251, 256-258
+|   ID | Default shortcut  | Function                             | Is enabled | Confidence |
+| ---: | ----------------- | ------------------------------------ | ---------- | ---------- |
+|   53 | Fn + F14          | Decrease display brightness (legacy) | true       | high       |
+|   54 | Fn + F15          | Increase display brightness (legacy) | true       | high       |
+|   55 | Fn + Option + F14 | Display brightness (alt)             | true       | high       |
+|   56 | Fn + Option + F15 | Display brightness (alt)             | true       | high       |
 
 ## Common Key Table
 
-| Key name | ASCII code | Physical key number |
-|---|---:|---:|
-| Space | 32 | 49 |
-| Backtick (`) | 96 | 50 |
-| 1 | 49 | 18 |
-| 2 | 50 | 19 |
-| 3 | 51 | 20 |
-| 4 | 52 | 21 |
-| 5 | 53 | 23 |
-| = | 61 | 24 |
-| - | 45 | 27 |
-| 8 | 56 | 28 |
-| / | 47 | 44 |
-| , | 44 | 43 |
-| . | 46 | 47 |
-| \\ | 92 | 42 |
-| D | 100 | 2 |
-| F | 102 | 3 |
-| C | 99 | 8 |
-| R | 114 | 15 |
-| M | 109 | 46 |
-| Left Arrow | 65535 | 123 |
-| Right Arrow | 65535 | 124 |
-| Down Arrow | 65535 | 125 |
-| Up Arrow | 65535 | 126 |
-| F1 | 65535 | 122 |
-| F2 | 65535 | 120 |
-| F3 | 65535 | 99 |
-| F4 | 65535 | 118 |
-| F5 | 65535 | 96 |
-| F6 | 65535 | 97 |
-| F7 | 65535 | 98 |
-| F8 | 65535 | 100 |
-| F9 | 65535 | 101 |
-| F11 | 65535 | 103 |
-| F14 | 65535 | 107 |
-| F15 | 65535 | 113 |
-| Esc | 65535 | 53 |
-| Return | 65535 | 36 |
+| Key name     | ASCII code | Physical key number |
+| ------------ | ---------: | ------------------: |
+| Space        |         32 |                  49 |
+| Backtick (`) |         96 |                  50 |
+| 1            |         49 |                  18 |
+| 2            |         50 |                  19 |
+| 3            |         51 |                  20 |
+| 4            |         52 |                  21 |
+| 5            |         53 |                  23 |
+| =            |         61 |                  24 |
+| -            |         45 |                  27 |
+| 8            |         56 |                  28 |
+| /            |         47 |                  44 |
+| ,            |         44 |                  43 |
+| .            |         46 |                  47 |
+| \\           |         92 |                  42 |
+| D            |        100 |                   2 |
+| F            |        102 |                   3 |
+| C            |         99 |                   8 |
+| R            |        114 |                  15 |
+| M            |        109 |                  46 |
+| Left Arrow   |      65535 |                 123 |
+| Right Arrow  |      65535 |                 124 |
+| Down Arrow   |      65535 |                 125 |
+| Up Arrow     |      65535 |                 126 |
+| F1           |      65535 |                 122 |
+| F2           |      65535 |                 120 |
+| F3           |      65535 |                  99 |
+| F4           |      65535 |                 118 |
+| F5           |      65535 |                  96 |
+| F6           |      65535 |                  97 |
+| F7           |      65535 |                  98 |
+| F8           |      65535 |                 100 |
+| F9           |      65535 |                 101 |
+| F11          |      65535 |                 103 |
+| F14          |      65535 |                 107 |
+| F15          |      65535 |                 113 |
+| Esc          |      65535 |                  53 |
+| Return       |      65535 |                  36 |
 
 ## Modifier Bitwise Flags
 
 Base flags:
 
-| Modifier | Value |
-|---|---:|
-| Shift | 131072 |
-| Control | 262144 |
-| Option | 524288 |
-| Command | 1048576 |
+| Modifier |   Value |
+| -------- | ------: |
+| Shift    |  131072 |
+| Control  |  262144 |
+| Option   |  524288 |
+| Command  | 1048576 |
 | Fn/Globe | 8388608 |
 
 Observed combined values in your defaults:
 
-| Bitwise value | Meaning |
-|---:|---|
-| 262144 | Control |
-| 786432 | Control + Option |
-| 1048576 | Command |
-| 1179648 | Command + Shift |
-| 1441792 | Command + Shift + Control |
-| 1572864 | Command + Option |
-| 1835008 | Command + Option + Control |
-| 8388608 | Fn/Globe |
-| 8519680 | Fn/Globe + Shift |
-| 8650752 | Fn/Globe + Control |
-| 8781824 | Fn/Globe + Control + Shift |
-| 8912896 | Fn/Globe + Option |
-| 9437184 | Fn/Globe + Command |
-| 9961472 | Fn/Globe + Command + Control |
+| Bitwise value | Meaning                      |
+| ------------: | ---------------------------- |
+|        262144 | Control                      |
+|        786432 | Control + Option             |
+|       1048576 | Command                      |
+|       1179648 | Command + Shift              |
+|       1441792 | Command + Shift + Control    |
+|       1572864 | Command + Option             |
+|       1835008 | Command + Option + Control   |
+|       8388608 | Fn/Globe                     |
+|       8519680 | Fn/Globe + Shift             |
+|       8650752 | Fn/Globe + Control           |
+|       8781824 | Fn/Globe + Control + Shift   |
+|       8912896 | Fn/Globe + Option            |
+|       9437184 | Fn/Globe + Command           |
+|       9961472 | Fn/Globe + Command + Control |
 
 Examples:
 
@@ -261,89 +259,73 @@ Special cases:
 
 ## Use Cases
 
-### Use case name
-Desktop quick switch (Control + number)
+### Use case 1: Desktop quick switch
 
-### Use case description
 Fast navigation across multiple desktops/spaces while coding.
 
-### Data YAML config + description
-
 ```yaml
-- key: 118
+- key: 118 # Switch to Desktop 1
   enabled: true
   type: standard
   parameters: [65535, 18, 262144] # Control + 1
-- key: 119
+- key: 119 # Switch to Desktop 2
   enabled: true
   type: standard
   parameters: [65535, 19, 262144] # Control + 2
-- key: 120
+- key: 120 # Switch to Desktop 3
   enabled: true
   type: standard
   parameters: [65535, 20, 262144] # Control + 3
-- key: 121
+- key: 121 # Switch to Desktop 4
   enabled: true
   type: standard
   parameters: [65535, 21, 262144] # Control + 4
 ```
 
-### Use case name
-Bilingual input switching
+### Use case 2: Bilingual input switching
 
-### Use case description
 Reliable language switching with one hand, suitable for Thai/English workflows.
 
-### Data YAML config + description
-
 ```yaml
-- key: 60
+- key: 60 # Previous input source
   enabled: true
   type: standard
   parameters: [32, 49, 262144] # Control + Space
-- key: 61
+- key: 61 # Next input source
   enabled: true
   type: standard
   parameters: [32, 49, 786432] # Control + Option + Space
 ```
 
-### Use case name
-Screenshot-heavy workflow
+### Use case 3: Screenshot-heavy workflow
 
-### Use case description
 Keep both save-to-file and copy-to-clipboard shortcuts enabled for docs and bug reports.
 
-### Data YAML config + description
-
 ```yaml
-- key: 28
+- key: 28 # Save screenshot of screen
   enabled: true
   type: standard
   parameters: [51, 20, 1179648] # Command + Shift + 3
-- key: 29
+- key: 29 # Copy screenshot of screen
   enabled: true
   type: standard
   parameters: [51, 20, 1441792] # Command + Shift + Control + 3
-- key: 30
+- key: 30 # Save screenshot of selection
   enabled: true
   type: standard
   parameters: [52, 21, 1179648] # Command + Shift + 4
-- key: 31
+- key: 31 # Copy screenshot of selection
   enabled: true
   type: standard
   parameters: [52, 21, 1441792] # Command + Shift + Control + 4
 ```
 
-### Use case name
-Minimal setup to disable a shortcut
+### Use case 4: Minimal setup to disable a shortcut
 
-### Use case description
 Only key and enabled are required. type and parameters are optional when you only want to turn an ID on or off.
 
-### Data YAML config + description
-
 ```yaml
-- key: 16
+- key: 16 # Disable shortcut
   enabled: false
 ```
 
