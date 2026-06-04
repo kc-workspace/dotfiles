@@ -33,14 +33,12 @@ fi
 
 "$dockutil_cmd" --remove all --no-restart
 {{- range $dockutilPreference.apps }}
-"$dockutil_cmd" --{{ dig "action" "add" . }} "{{ .name }}" \
-  --section apps --no-restart {{- with dig "args" list . }} {{ join " " . }}{{- end }}
+"$dockutil_cmd" --{{ dig "action" "add" . }} "{{ .name }}" --section apps --no-restart {{- with dig "args" list . }} {{ join " " . }}{{- end }}
 {{- end }}
 
 killall Dock
 {{ range $dockutilPreference.others }}
-"$dockutil_cmd" --{{ dig "action" "add" . }} "{{ .name }}" \
-  --section others --no-restart {{- with dig "args" list . }} {{ join " " . }}{{- end }}
+"$dockutil_cmd" --{{ dig "action" "add" . }} "{{ .name }}" --section others --no-restart {{- with dig "args" list . }} {{ join " " . }}{{- end }}
 {{- end }}
 
 "$brew_cmd" uninstall dockutil

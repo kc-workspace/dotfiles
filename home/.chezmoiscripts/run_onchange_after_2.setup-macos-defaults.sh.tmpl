@@ -7,15 +7,15 @@ set -e
 {{- range dig "preferences" .global.profile .global.os list . }}
 {{- $beforeCmd := dig "hooks" "before" "" . }}
 {{- $afterCmd := dig "hooks" "after" "" . }}
+{{- $cmd := .command }}
+{{- if eq $cmd "defaults" }}
+{{- $ns := .namespace }}
 
 {{- if ne $beforeCmd "" }}
 
 {{ $beforeCmd }}
 
 {{- end }}
-{{- $cmd := .command }}
-{{- if eq $cmd "defaults" }}
-{{- $ns := .namespace }}
 
 {{- printf "\n" }}
 {{- range .settings }}
@@ -52,12 +52,12 @@ set -e
 {{ compact $args | join " " }}
 
 {{- end }}
-{{- end }}
 
 {{- if ne $afterCmd "" }}
 
 {{ $afterCmd }}
 
+{{- end }}
 {{- end }}
 
 {{- end }}

@@ -24,8 +24,7 @@ set -e
 {{ $beforeCmd }}
 
 	{{- end }}
-
-{{- range dig "settings" list $shortkeyPreference }}
+{{ range dig "settings" list $shortkeyPreference }}
 	{{- $key := dig "key" nil . }}
 	{{- if eq $key nil }}
 		{{ fail "shortkeyutil setting is missing key" }}
@@ -48,7 +47,6 @@ set -e
 		{{- $xml = printf "%s</array><key>type</key><string>%s</string></dict>" $xml $keyType }}
 	{{- end }}
 	{{- $xml = printf "%s</dict>" $xml }}
-
 defaults write com.apple.symbolichotkeys AppleSymbolicHotKeys -dict-add {{ $key }} '{{ $xml }}'
 {{- end }}
 
