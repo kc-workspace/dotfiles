@@ -134,8 +134,13 @@ sh -c "$(curl -fsSL get.chezmoi.io)" -- -b "$HOME/.local/bin" -t "v2.70.0"
     export OP_SERVICE_ACCOUNT_TOKEN="ops_..."
     ```
 
-8. Open new `terminal` window/tab, you should see zinit start downloading dependencies
-9. Validate the `op` status (Optional)
+8. Enable Developer mode on 1Password ([learn more][1p:cli])
+    - Enable `Show 1Password Developer experience`
+    - Enable `Integrate with 1Password CLI`
+    - Enable `Integrate with other apps`
+    - Enable `Check for developer credentials on disk`
+9.  Open new `terminal` window/tab, you should see zinit start downloading dependencies
+10. Validate the `op` status (Optional)
 
 ```shell
 ## Validate the account
@@ -145,7 +150,7 @@ op whoami
 # User Type:         SERVICE_ACCOUNT
 ```
 
-10. Run `full-setup` (Optional)
+11. Run `full-setup` (Optional)
 
 ```shell
 ## Add --dry-run for check expected result first
@@ -300,6 +305,7 @@ Please refer to [CONTRIBUTING][local:contributing] guide.
 [zsh:home]: https://www.zsh.org/
 [git:home]: https://git-scm.com/
 [1p:home]: https://1password.com/
+[1p:cli]: https://www.1password.dev/cli/get-started
 [gpg:home]: https://www.gnupg.org/
 [apt:home]: https://manpages.ubuntu.com/manpages/xenial/man8/apt.8.html
 
