@@ -1,0 +1,63 @@
+#!/usr/bin/env sh
+
+printf '>> Starting... %s\n' "setup-macos-shortkeyutil.sh"
+
+set -e
+
+{{- $preferences := dig "preferences" .global.profile .global.os list . }}
+{{- $shortkeyPreference := dict }}
+{{- range $preferences }}
+	{{- if eq (dig "command" "" .) "shortkeyutil" }}
+		{{- if gt (len $shortkeyPreference) 0 }}
+			{{ fail "multiple shortkeyutil preferences found; expected exactly one" }}
+		{{- end }}
+		{{- $shortkeyPreference = . }}
+	{{- end }}
+{{- end }}
+
+{{- if gt (len $shortkeyPreference) 0 }}
+	{{- $beforeCmd := dig "hooks" "before" "" $shortkeyPreference }}
+	{{- $afterCmd := dig "hooks" "after" "" $shortkeyPreference }}
+
+	{{- if ne $beforeCmd "" }}
+
+{{ $beforeCmd }}
+
+	{{- end }}
+
+{{- range dig "settings" list $shortkeyPreference }}
+	{{- $key := dig "key" nil . }}
+	{{- if eq $key nil }}
+		{{ fail "shortkeyutil setting is missing key" }}
+	{{- end }}
+
+	{{- $enabledXML := "<false/>" }}
+	{{- if dig "enabled" false . }}
+		{{- $enabledXML = "<true/>" }}
+	{{- end }}
+
+	{{- $keyType := dig "type" "standard" . }}
+	{{- $parameters := dig "parameters" list . }}
+
+	{{- $xml := printf "<dict><key>enabled</key>%s" $enabledXML }}
+	{{- if gt (len $parameters) 0 }}
+		{{- $xml = printf "%s<key>value</key><dict><key>parameters</key><array>" $xml }}
+		{{- range $parameters }}
+			{{- $xml = printf "%s<integer>%v</integer>" $xml . }}
+		{{- end }}
+		{{- $xml = printf "%s</array><key>type</key><string>%s</string></dict>" $xml $keyType }}
+	{{- end }}
+	{{- $xml = printf "%s</dict>" $xml }}
+
+defaults write com.apple.symbolichotkeys AppleSymbolicHotKeys -dict-add {{ $key }} '{{ $xml }}'
+{{- end }}
+
+/System/Library/PrivateFrameworks/SystemAdministration.framework/Resources/activateSettings -u
+
+	{{- if ne $afterCmd "" }}
+
+{{ $afterCmd }}
+
+	{{- end }}
+
+{{- end }}
