@@ -23,6 +23,10 @@ Personal dotfiles configuration for [kamontat][gh:home].
     - [To upgrade plugins](#to-upgrade-plugins-1)
   - [Homebrew](#homebrew)
     - [To upgrade packages](#to-upgrade-packages)
+  - [Mise](#mise)
+  - [1Password](#1password)
+  - [Alfred](#alfred)
+    - [Set up](#set-up)
   - [Docker](#docker)
     - [To verify docker image](#to-verify-docker-image)
       - [To verify Docker Hub image](#to-verify-docker-hub-image)
@@ -212,7 +216,7 @@ zinit update --all
 
 ### LazyVim (neovim)
 
-**Installation method**: mise
+**Installation method**: [mise](#mise)
 
 This is for manage plugins and configuration for neovim.
 
@@ -233,6 +237,35 @@ nvim --headless -c '+Lazy! sync' +qa
 ```shell
 brew upgrade --greedy
 ```
+
+### Mise
+
+<!-- TODO: Add mise relate documents -->
+
+We have main config at `$HOME/.config/mise/config.toml`. Then we have 2 separate folders:
+- `~/Works/<name>/mise.toml` - contains work related config
+- `~/Personal/mise.toml` - contains personal related config
+
+### 1Password
+
+**Installation method**: [Homebrew](#homebrew) ([mise](#mise) for cli)
+
+The fundamental application tied the configuration together.
+All secrets, private documents are saved on 1Password
+
+### Alfred
+
+**Installation method**: [Homebrew](#homebrew)
+
+- License location: [1Password](#1password)
+- Preference location: iCloud
+
+#### Set up
+
+1. Enter your license (if any)
+2. Enable couple of permissions requested by the application
+3. Go to `Perferences > Advanced > Reveal in Finder`
+4. Copy your existing configuration and replace on current location
 
 ### Docker
 
