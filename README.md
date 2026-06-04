@@ -134,7 +134,8 @@ sh -c "$(curl -fsSL get.chezmoi.io)" -- -b "$HOME/.local/bin" -t "v2.70.0"
     export OP_SERVICE_ACCOUNT_TOKEN="ops_..."
     ```
 
-8. Validate the `op` status (Optional)
+8. Open new `terminal` window/tab, you should see zinit start downloading dependencies
+9. Validate the `op` status (Optional)
 
 ```shell
 ## Validate the account
@@ -144,7 +145,7 @@ op whoami
 # User Type:         SERVICE_ACCOUNT
 ```
 
-9. Run `full-setup` (Optional)
+10. Run `full-setup` (Optional)
 
 ```shell
 ## Add --dry-run for check expected result first
