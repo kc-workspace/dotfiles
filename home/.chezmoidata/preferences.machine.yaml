@@ -134,3 +134,30 @@ preferences:
         others:
           - name: ~/Downloads
             args: [--view auto, --display stack, --sort dateadded, --allhomes]
+
+      ## Check docs/shortkeyutil.md
+      - command: shortkeyutil
+        settings:
+          - key: 28 # Save screenshot of screen
+            enabled: false
+          - key: 29 # Copy screenshot of screen
+            enabled: false
+          - key: 30 # Save screenshot of selection
+            enabled: false
+          - key: 31 # Copy screenshot of selection
+            enabled: false
+          - key: 184 # Screenshot and recording options
+            enabled: false
+
+          - key: 59 # Toggle VoiceOver
+            enabled: false
+
+          - key: 60 # Previous input source
+            enabled: false
+          - key: 61 # Next input source
+            enabled: false
+
+          - key: 64 # Spotlight search field
+            enabled: false
+          - key: 65 # Spotlight/Finder search (variant)
+            enabled: false
