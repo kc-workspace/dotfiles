@@ -4,17 +4,26 @@ printf '>> Starting... %s\n' "setup-preferences.sh"
 
 set -e
 
-{{- range dig "preferences" .global.profile .global.os list . }}
-{{- $beforeCmd := dig "hooks" "before" "" . }}
-{{- $afterCmd := dig "hooks" "after" "" . }}
+{{- $preferences := dig "preferences" .global.profile .global.os list . }}
+{{- $dockutilPreference := dict }}
+{{- range $preferences }}
+  {{- if eq (dig "command" "" .) "dockutil" }}
+    {{- if gt (len $dockutilPreference) 0 }}
+      {{ fail "multiple dockutil preferences found; expected exactly one" }}
+    {{- end }}
+    {{- $dockutilPreference = . }}
+  {{- end }}
+{{- end }}
 
-{{- if ne $beforeCmd "" }}
+{{- if gt (len $dockutilPreference) 0 }}
+  {{- $beforeCmd := dig "hooks" "before" "" $dockutilPreference }}
+  {{- $afterCmd := dig "hooks" "after" "" $dockutilPreference }}
+
+  {{- if ne $beforeCmd "" }}
 
 {{ $beforeCmd }}
 
-{{- end }}
-{{- $cmd := .command }}
-{{- if eq $cmd "dockutil" }}
+  {{- end }}
 
 {{ template "shellVars/brew.tmpl" }}
 dockutil_cmd="$brew_bin/dockutil"
@@ -23,21 +32,19 @@ if ! [ -f "$dockutil_cmd" ]; then
 fi
 
 "$dockutil_cmd" --remove all --no-restart
-{{ range .apps }}
+{{- range $dockutilPreference.apps }}
 "$dockutil_cmd" --{{ dig "action" "add" . }} "{{ .name }}" \
   --section apps --no-restart {{- with dig "args" list . }} {{ join " " . }}{{- end }}
 {{- end }}
 
 killall Dock
-{{ range .others }}
+{{ range $dockutilPreference.others }}
 "$dockutil_cmd" --{{ dig "action" "add" . }} "{{ .name }}" \
   --section others --no-restart {{- with dig "args" list . }} {{ join " " . }}{{- end }}
 {{- end }}
 
 "$brew_cmd" uninstall dockutil
 unset brew_bin brew_cmd dockutil_cmd
-
-{{- end }}
 
 {{- if ne $afterCmd "" }}
 
