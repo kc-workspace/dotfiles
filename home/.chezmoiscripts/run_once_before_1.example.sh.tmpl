@@ -3,6 +3,8 @@
 printf '>> Starting... %s\n' "test.sh"
 printf '>> Current profile: %s\n' "{{ .global.profile }}"
 printf '>> Current OS: %s\n' "{{ .global.os }}"
+printf '>> 1P cli: %s\n' "{{ .global.opExist }}"
+printf '>> 1P signed in: %s\n' "{{ .global.opSignedIn }}"
 
 set -e
 
