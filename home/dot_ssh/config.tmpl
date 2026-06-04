@@ -10,7 +10,7 @@ Host gitlab.com
 	IdentityFile ~{{ .chezmoi.pathSeparator }}.ssh{{ .chezmoi.pathSeparator }}gitlab_ed25519.pub
 	PubkeyAuthentication yes
 
-{{- if .global.opSignedin }}
+{{- if .global.opSignedIn }}
 
 {{ onepasswordDocument "bf4ucwiqi7q4rpchhplt74mxuu" "64yg7lvccdzebup52w2nmzoady" }}
 {{ end -}}

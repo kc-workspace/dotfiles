@@ -35,7 +35,7 @@ onepassword:
 data:
   global:
     opExist: {{ if lookPath "op" }}true{{ else }}false{{ end }}
-    opSignedin: {{ if not (lookPath "op") -}}
+    opSignedIn: {{ if not (lookPath "op") -}}
         false
       {{- else if exec "op" "whoami" -}}
         true
