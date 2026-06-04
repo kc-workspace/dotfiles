@@ -103,7 +103,7 @@ sh -c "$(curl -fsSL get.chezmoi.io)" -- -b "$HOME/.local/bin" -t "v2.70.0"
 
 ```shell
 ## Only initiate chezmoi.yaml file
-"$HOME/.local/bin/chezmoi" init --include=none
+"$HOME/.local/bin/chezmoi" init kc-workspace --include=none
 ```
 
 6. Run `lite-setup` to initiate basic configs
@@ -163,7 +163,7 @@ Below are a list of actions you might perform when use this repository.
 ### To update target directory
 
 ```shell
-chezmoi init --apply
+chezmoi update --init --apply
 ```
 
 ### To uninstall dotfiles
