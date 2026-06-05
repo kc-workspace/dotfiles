@@ -28,11 +28,15 @@ Personal dotfiles configuration for [kamontat][gh:home].
   - [Alfred](#alfred)
     - [Set up](#set-up)
   - [TablePlus](#tableplus)
+  - [Okta Verify](#okta-verify)
+  - [Keybase](#keybase)
   - [Docker](#docker)
     - [To verify docker image](#to-verify-docker-image)
       - [To verify Docker Hub image](#to-verify-docker-hub-image)
       - [To verify GitHub Container Registry image](#to-verify-github-container-registry-image)
   - [KDF helper scripts](#kdf-helper-scripts)
+- [Gap](#gap)
+  - [MacOS](#macos)
 - [Contributing](#contributing)
 
 ## Terminology
@@ -275,6 +279,20 @@ All secrets, private documents are saved on 1Password
 - Connections file: iCloud
 - Connection passwords: 1Password
 
+### Okta Verify
+
+**Installation method**: [Homebrew](#homebrew)
+
+> IMPORTANT!: You need previous device to transfer an account,
+> If you resetted/sold your device. You have to use recovery method.
+
+### Keybase
+
+**Installation method**: [Homebrew](#homebrew)
+
+> IMPORTANT!: You need previous device to transfer an account,
+> If you resetted/sold your device. You have to use recovery method.
+
 ### Docker
 
 dotfiles inside docker have 2 stage setup. By default, it will only have [lite-setup](#lite-setup).
@@ -329,6 +347,14 @@ $ gh attestation verify "oci://ghcr.io/kc-workspace/dotfiles:<tag-name>" --owner
 
 We provide couple of helper scripts on `kdf-*.sh` which should available to everyone.
 If you cannot use `kdf-*.sh`, please check `~/.local/bin` directory.
+
+## Gap
+
+There are a several things we cannot make it automated.
+
+### MacOS
+
+- Menubar items: `System Settings > Menu Bar > Menu Bar Controls`
 
 ## Contributing
 
