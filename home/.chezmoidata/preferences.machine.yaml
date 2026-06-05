@@ -5,7 +5,7 @@ preferences:
         namespace: NSGlobalDomain
         settings:
           - key: com.apple.keyboard.fnState ## If true, enables F1, F2, etc. keys as standard function keys.
-            value: true
+            value: false
           - key: com.apple.mouse.tapBehavior ## trackpad tap behavior (null: click, 1: tap)
             value: 1
           - key: com.apple.sound.beep.feedback ## Make a feedback sound when the system volume changed (0: no sound, 1: play sound)
@@ -113,6 +113,16 @@ preferences:
           - key: static-only ## If true, only show opened apps in Dock
             value: false
           - key: scroll-to-open ## Scroll up on a Dock icon to show all opened windows
+            value: true
+
+      - command: defaults
+        namespace: com.apple.controlcenter
+        hooks:
+          after: killall ControlCenter
+        settings:
+          - key: AutoHideMenuBarOption ## Automatically hide and show the menu bar (0: Always, 1: Desktop only, 2: Full screen only, 3: Never)
+            value: 2
+          - key: RemoteLiveActivitiesEnabled ## If true, enables showing Live Activities in Control Center on Mac
             value: true
 
       - command: dockutil
