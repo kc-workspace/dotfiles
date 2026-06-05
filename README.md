@@ -27,6 +27,7 @@ Personal dotfiles configuration for [kamontat][gh:home].
   - [1Password](#1password)
   - [Alfred](#alfred)
     - [Set up](#set-up)
+  - [TablePlus](#tableplus)
   - [Docker](#docker)
     - [To verify docker image](#to-verify-docker-image)
       - [To verify Docker Hub image](#to-verify-docker-hub-image)
@@ -266,6 +267,13 @@ All secrets, private documents are saved on 1Password
 2. Enable couple of permissions requested by the application
 3. Go to `Perferences > Advanced > Reveal in Finder`
 4. Copy your existing configuration and replace on current location
+
+### TablePlus
+
+**Installation method**: [Setapp](#setapp)
+
+- Connections file: iCloud
+- Connection passwords: 1Password
 
 ### Docker
 
