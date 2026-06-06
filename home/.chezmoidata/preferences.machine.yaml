@@ -86,9 +86,61 @@ preferences:
             value: en_TH@calendar=gregorian
           - key: AppleMetricUnits ## If true, uses metric units
             value: true
-          - key: com.apple.mouse.tapBehavior
+          - key: com.apple.mouse.tapBehavior ## Tap to click on trackpad
             host: current
             value: 1
+          - key: com.apple.trackpad.enableSecondaryClick ## If true, enables right-click on trackpad
+            host: current
+            value: true
+          - key: com.apple.trackpad.threeFingerTapGesture ## Three finger tap gesture (0: Force-Click-delegated, 2 = Tap with Three Fingers)
+            host: current
+            value: 0
+
+      - command: defaults
+        namespace: com.apple.AppleMultitouchTrackpad ## Only applies to built-in trackpad on MacBooks
+        settings:
+          - key: FirstClickThreshold ## The pressure sensitivity for the first click (0: light, 1: medium, 2: firm)
+            value: 1
+          - key: SecondClickThreshold ## The pressure sensitivity for the second click (0: light, 1: medium, 2: firm)
+            value: 1
+          - key: ForceSuppressed ## If true, disables Force Click and haptic feedback on built-in trackpad
+            value: false
+          - key: Clicking ## Same as NSGlobalDomain com.apple.mouse.tapBehavior
+            value: true
+          - key: TrackpadRightClick ## When com.apple.trackpad.enableSecondaryClick, if true, enables right-click by clicking with two fingers on trackpad
+            value: true
+          - key: TrackpadCornerSecondaryClick ## When com.apple.trackpad.enableSecondaryClick, the corner of the trackpad for right-click (0: disabled, 1: bottom right corner)
+            value: 0
+          - key: TrackpadThreeFingerTapGesture ## Same as NSGlobalDomain com.apple.trackpad.threeFingerTapGesture
+            value: 0
+          - key: TrackpadThreeFingerDrag ## If true, enables dragging items with three fingers on trackpad
+            value: true
+          - key: TrackpadThreeFingerHorizSwipeGesture ## conflicts with TrackpadThreeFingerDrag
+            value: 0
+
+      - command: defaults
+        namespace: com.apple.driver.AppleBluetoothMultitouch.trackpad ## Only applies to external trackpad like Magic Trackpad
+        settings:
+          - key: Clicking ## Same as NSGlobalDomain com.apple.mouse.tapBehavior
+            value: true
+          - key: TrackpadRightClick ## When com.apple.trackpad.enableSecondaryClick, if true, enables right-click by clicking with two fingers on trackpad
+            value: true
+          - key: TrackpadCornerSecondaryClick ## When com.apple.trackpad.enableSecondaryClick, the corner of the trackpad for right-click (0: disabled, 1: bottom right corner)
+            value: 0
+          - key: TrackpadThreeFingerTapGesture ## Same as NSGlobalDomain com.apple.trackpad.threeFingerTapGesture
+            value: 0
+          - key: TrackpadThreeFingerDrag ## If true, enables dragging items with three fingers on trackpad
+            value: true
+          - key: TrackpadThreeFingerHorizSwipeGesture ## conflicts with TrackpadThreeFingerDrag
+            value: 0
+
+      - command: defaults
+        namespace: com.apple.AppleMultitouchMouse ## Only applies to wired/USB Magic Mouse
+        settings: []
+
+      - command: defaults
+        namespace: com.apple.driver.AppleBluetoothMultitouch.mouse ## Only applies to external mouse like Bluetooth Magic Mouse
+        settings: []
 
       - command: defaults
         namespace: com.apple.dock
@@ -126,14 +178,6 @@ preferences:
           - key: AutoHideMenuBarOption ## Automatically hide and show the menu bar (0: Always, 1: Desktop only, 2: Full screen only, 3: Never)
             value: 2
           - key: RemoteLiveActivitiesEnabled ## If true, enables showing Live Activities in Control Center on Mac
-            value: true
-
-      - command: defaults
-        namespace: -app preview
-        settings:
-          - key: IntExample
-            value: 2
-          - key: BoolDemo
             value: true
 
       - command: defaults
