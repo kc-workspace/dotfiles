@@ -86,6 +86,9 @@ preferences:
             value: en_TH@calendar=gregorian
           - key: AppleMetricUnits ## If true, uses metric units
             value: true
+          - key: com.apple.mouse.tapBehavior
+            host: current
+            value: 1
 
       - command: defaults
         namespace: com.apple.dock
@@ -124,6 +127,46 @@ preferences:
             value: 2
           - key: RemoteLiveActivitiesEnabled ## If true, enables showing Live Activities in Control Center on Mac
             value: true
+
+      - command: defaults
+        namespace: -app preview
+        settings:
+          - key: IntExample
+            value: 2
+          - key: BoolDemo
+            value: true
+
+      - command: defaults
+        namespace: com.apple.finder
+        hooks:
+          after: killall Finder
+        settings:
+          - key: ShowPathbar ## If true, shows the path bar in Finder
+            value: true
+          - key: ShowStatusBar ## If true, shows the status bar (item-count, available disk space) in Finder
+            value: true
+          - key: ShowSidebar ## If true, shows the sidebar in Finder
+            value: true
+          - key: CreateDesktop ## If true, shows icons on the desktop
+            value: true
+          - key: ShowHardDrivesOnDesktop ## If true, shows hard drives on the desktop
+            value: false
+          - key: ShowExternalHardDrivesOnDesktop ## If true, shows external hard drives on the desktop
+            value: true
+          - key: ShowRemovableMediaOnDesktop ## If true, shows removable media on the desktop
+            value: true
+          - key: QuitMenuItem ## If true, shows the "Quit Finder" option in the Finder menu
+            value: true
+          - key: WarnOnEmptyTrash ## If true, shows a warning before emptying the Trash
+            value: true
+          - key: FXPreferredViewStyle ## The default view style in Finder windows ("nlsv": list view, "icnv": icon view, "clmv": column view, "glyv": gallery view)
+            value: nlsv
+          - key: NewWindowTarget ## The default location for new Finder windows ("PfHm": Home, "PfDe": Desktop, "PfDo": Documents, "PfLi": iCloud Drive, "PfAF": Recents, "PfCm": Computer, "PfLo": Custom Location)
+            value: PfHm
+          - key: NewWindowTargetPath ## The path for new Finder windows when NewWindowTarget is set to "PfLo" (e.g. file:///Users/<username>/Downloads/)
+            value: null
+          - key: FXDefaultSearchScope ## The default search scope when performing a search in Finder ("SCev": This Mac, "SCcf": Current Folder, "SCsp": Use the Previous Search Scope)
+            value: SCcf
 
       - command: dockutil
         hooks:
