@@ -167,6 +167,8 @@ op whoami
 chezmoi update --init --apply --verbose
 ```
 
+12. Restart your computer at least once to apply all changes
+
 ### Actions
 
 > https://www.chezmoi.io/user-guide/daily-operations/
