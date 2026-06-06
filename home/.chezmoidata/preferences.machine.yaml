@@ -14,10 +14,10 @@ preferences:
             value: 1.0
           - key: com.apple.swipescrolldirection ## If true, enables "Natural" scrolling direction on trackpad
             value: true
-          - key: com.apple.trackpad.forceClick ## If true, enables Force Click and haptic feedback on trackpad
+          - key: com.apple.springing.enabled ## If true, enables spring loading for directories (e.g. in Finder)
             value: true
-          - key: com.apple.trackpad.scaling ## Trackpad tracking speed (0: slow, 3: fast)
-            value: 3
+          - key: com.apple.springing.delay ## The delay until spring loading in seconds (default 0.5)
+            value: 0.3
           - key: _HIHideMenuBar ## If true, automatically hide and show the menu bar
             value: false
           - key: AppleActionOnDoubleClick ## Window title bar double-click action ("Fill", "Maximize", "Minimize" or "None")
@@ -66,6 +66,10 @@ preferences:
             value: true
           - key: NSNavPanelExpandedStateForSaveMode2 ## Same as NSNavPanelExpandedStateForSaveMode
             value: true
+          - key: PMPrintingExpandedStateForPrint ## If true, expands the print panel by default when printing a document
+            value: true
+          - key: PMPrintingExpandedStateForPrint2 ## Same as PMPrintingExpandedStateForPrint
+            value: true
           - key: NSScrollAnimationEnabled ## If true, enables smooth scrolling
             value: true
           - key: NSUseAnimatedFocusRing ## If true, enables animated focus ring
@@ -79,9 +83,7 @@ preferences:
           - key: NSTextShowsControlCharacters ## If true, shows control characters in ASCII code (TextEdit)
             value: true
           - key: AppleLanguages ## Ordered list of preferred UI languages.
-            value:
-              - en-TH
-              - th-TH
+            value: [en-TH, th-TH]
           - key: AppleLocale ## Active locale
             value: en_TH@calendar=gregorian
           - key: AppleMetricUnits ## If true, uses metric units
@@ -89,10 +91,23 @@ preferences:
           - key: com.apple.mouse.tapBehavior ## Tap to click on trackpad
             host: current
             value: 1
+          - key: com.apple.trackpad.forceClick ## If true, enables Force Click and haptic feedback on trackpad
+            value: true
+          - key: com.apple.trackpad.scaling ## Trackpad tracking speed (0: slow, 3: fast)
+            value: 3
           - key: com.apple.trackpad.enableSecondaryClick ## If true, enables right-click on trackpad
             host: current
             value: true
           - key: com.apple.trackpad.threeFingerTapGesture ## Three finger tap gesture (0: Force-Click-delegated, 2 = Tap with Three Fingers)
+            host: current
+            value: 0
+          - key: com.apple.trackpad.threeFingerDragGesture ## If true, enables dragging items with three fingers on trackpad
+            host: current
+            value: true
+          - key: com.apple.trackpad.threeFingerHorizSwipeGesture ## Three finger horizontal swipe gesture (0: disabled, 2: enables)
+            host: current
+            value: 0
+          - key: com.apple.trackpad.threeFingerVertSwipeGesture ## Three finger vertical swipe gesture (0: disabled, 2: enables)
             host: current
             value: 0
 
@@ -113,9 +128,11 @@ preferences:
             value: 0
           - key: TrackpadThreeFingerTapGesture ## Same as NSGlobalDomain com.apple.trackpad.threeFingerTapGesture
             value: 0
-          - key: TrackpadThreeFingerDrag ## If true, enables dragging items with three fingers on trackpad
+          - key: TrackpadThreeFingerDrag ## Same as NSGlobalDomain com.apple.trackpad.threeFingerDragGesture
             value: true
-          - key: TrackpadThreeFingerHorizSwipeGesture ## conflicts with TrackpadThreeFingerDrag
+          - key: TrackpadThreeFingerHorizSwipeGesture ## Same as NSGlobalDomain com.apple.trackpad.threeFingerHorizSwipeGesture (conflicts with TrackpadThreeFingerDrag)
+            value: 0
+          - key: TrackpadThreeFingerVertSwipeGesture ## Same as NSGlobalDomain com.apple.trackpad.threeFingerVertSwipeGesture (conflicts with TrackpadThreeFingerDrag)
             value: 0
 
       - command: defaults
@@ -129,9 +146,11 @@ preferences:
             value: 0
           - key: TrackpadThreeFingerTapGesture ## Same as NSGlobalDomain com.apple.trackpad.threeFingerTapGesture
             value: 0
-          - key: TrackpadThreeFingerDrag ## If true, enables dragging items with three fingers on trackpad
+          - key: TrackpadThreeFingerDrag ## Same as NSGlobalDomain com.apple.trackpad.threeFingerDragGesture
             value: true
-          - key: TrackpadThreeFingerHorizSwipeGesture ## conflicts with TrackpadThreeFingerDrag
+          - key: TrackpadThreeFingerHorizSwipeGesture ## Same as NSGlobalDomain com.apple.trackpad.threeFingerHorizSwipeGesture (conflicts with TrackpadThreeFingerDrag)
+            value: 0
+          - key: TrackpadThreeFingerVertSwipeGesture ## Same as NSGlobalDomain com.apple.trackpad.threeFingerVertSwipeGesture (conflicts with TrackpadThreeFingerDrag)
             value: 0
 
       - command: defaults
@@ -185,6 +204,8 @@ preferences:
         hooks:
           after: killall Finder
         settings:
+          - key: _FXSortFoldersFirst ## If true, keeps folders on top when sorting by name in Finder
+            value: true
           - key: ShowPathbar ## If true, shows the path bar in Finder
             value: true
           - key: ShowStatusBar ## If true, shows the status bar (item-count, available disk space) in Finder
@@ -211,6 +232,30 @@ preferences:
             value: null
           - key: FXDefaultSearchScope ## The default search scope when performing a search in Finder ("SCev": This Mac, "SCcf": Current Folder, "SCsp": Use the Previous Search Scope)
             value: SCcf
+
+      - command: defaults
+        namespace: com.apple.menuextra.clock
+        hooks:
+          after: killall SystemUIServer
+        settings:
+          - key: IsAnalog ## If true, shows analog clock in menu bar
+            value: true
+          - key: Show24Hour ## If true, shows time in 24-hour format
+            value: true
+          - key: ShowAMPM ## If true, shows AM/PM suffix
+            value: false
+          - key: ShowDate ## Show the date in the menu bar (0: off, 1: on, 2: when space allows)
+            value: 1
+          - key: ShowDayOfWeek ## If true, shows the day of the week in the menu bar
+            value: true
+          - key: ShowSeconds ## If true, shows seconds in the menu bar clock
+            value: true
+          - key: FlashDateSeparators ## If true, flashes the time separators (e.g. the colon in 12:34) on and off
+            value: false
+          - key: TimeAnnouncementsEnabled ## If true, enables time announcements
+            value: false
+          - key: TimeAnnouncementsIntervalIdentifier ## The interval for time announcements (EveryHourInterval, EveryHalfHourInterval, EveryQuarterHourInterval)
+            value: EveryHourInterval
 
       - command: dockutil
         hooks:
