@@ -45,7 +45,7 @@ set -e
 
 {{- $args := list }}
 {{- if eq .value nil }}
-  {{- $args = list $cmd $options "delete" $ns .key }}
+  {{- $args = list $cmd $options "delete" $ns .key ">/dev/null" "2>&1" "||" "true" }}
 {{- else }}
   {{- $args = list $cmd $options "write" $ns .key $valueType $value }}
 {{- end }}
