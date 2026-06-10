@@ -1,5 +1,92 @@
 # Changelog
 
+## [0.8.0](https://github.com/kc-workspace/dotfiles/compare/v0.7.0...v0.8.0) (2026-06-10)
+
+
+### Features
+
+* add aws vpn config on machine profile ([f83cc75](https://github.com/kc-workspace/dotfiles/commit/f83cc75187146d32eb23dda4ed3efde227dd0892))
+* **aws:** move config to 1p instead of gpg ([65a700b](https://github.com/kc-workspace/dotfiles/commit/65a700b3ad95818f02617d62b8b60d0471f32590))
+* **config:** move 1password ssh-agent config from gpg to template + 1password ([eab1038](https://github.com/kc-workspace/dotfiles/commit/eab103873520f2ae2d81faa35d18856126c3c529))
+* **mac:** add mouse and trackpad behavior ([1e12ad6](https://github.com/kc-workspace/dotfiles/commit/1e12ad606f14369978807c20469ece9e478edb40))
+* **mac:** add trackpad ([0ae8887](https://github.com/kc-workspace/dotfiles/commit/0ae88876ea3d7ed41c286d2fdde0e8db1c7f8d26))
+* **mac:** config finder and prepare for mouse settings ([a3d5214](https://github.com/kc-workspace/dotfiles/commit/a3d5214f4ea91cf743fb35aa34e3ae0cf1db79d9))
+* **macos:** support dockutil to align app in macos dock ([2df1247](https://github.com/kc-workspace/dotfiles/commit/2df1247ff6671d7479057d5f1f0a06c23ad2c857))
+* **script:** add scripts/cleanup.sh to delete chezmoi and developer tools ([a924cbf](https://github.com/kc-workspace/dotfiles/commit/a924cbfe829d4448fb0bb5af3355ac5e045ba32b))
+* **script:** improve script for macos settings ([2f16f85](https://github.com/kc-workspace/dotfiles/commit/2f16f857a2441b73aa4b80d5db94ea0b85b15fa4))
+* **script:** initiate set up macos perferences (global, dock for now) ([cf6d0d7](https://github.com/kc-workspace/dotfiles/commit/cf6d0d716d0a7f2ddbb34ba7b459ae510b663126))
+* **script:** initiate shortkeyutil command for keyboard shortcut preference ([346ddb6](https://github.com/kc-workspace/dotfiles/commit/346ddb675700fd4d3c13d6695272dd62304b8354))
+* **script:** separate perferences to multiple files ([8d27e43](https://github.com/kc-workspace/dotfiles/commit/8d27e4393ca2ed7853105eedc4425244b60d7eef))
+* **settings:** add playwright plugin to enabledPlugins ([8f28a5e](https://github.com/kc-workspace/dotfiles/commit/8f28a5e714e3fd7f9ae4bed0cdfda645eb2dc1bc))
+* **settings:** allow git add/commit/push without prompt ([88fa11b](https://github.com/kc-workspace/dotfiles/commit/88fa11bbf00f26bdcf3143fef573ec300885865b))
+
+
+### Bug Fixes
+
+* chezmoi.yaml generate fail on linux machine ([f17e37d](https://github.com/kc-workspace/dotfiles/commit/f17e37d031f5ae5ea5860a50442d761b2e8d67bc))
+* **core:** .global.profile didn't available on first run ([c526265](https://github.com/kc-workspace/dotfiles/commit/c526265b9086c999a175572c959539358d8db7d2))
+* **core:** generated chezmoi.yaml is invalid ([17df466](https://github.com/kc-workspace/dotfiles/commit/17df4662b524a68a93e8ed714c3a5dec3234e060))
+* **core:** update reference to remove `~/Documents` instead use `~/Works` or `~/Personal` ([5cdc518](https://github.com/kc-workspace/dotfiles/commit/5cdc5188c6d0b950848a64c64a44f35ba83e9afa))
+* ensure neovim to loaded before run nvim cli ([6342e0d](https://github.com/kc-workspace/dotfiles/commit/6342e0db8e5fd7885cfebbafcf5df93d72a25ca5))
+* **gh:** gh always use 4 space indent ([eb59be9](https://github.com/kc-workspace/dotfiles/commit/eb59be98b18bc7c88779a72b97905498498b97eb))
+* invalid chezmoi template on linux machine ([8a8b6da](https://github.com/kc-workspace/dotfiles/commit/8a8b6da6e37e0600973737957519ba4ec6dce429))
+* **preferences:** dockutil didn't works on others section ([a98470e](https://github.com/kc-workspace/dotfiles/commit/a98470e98311415d735337f6b359f00377f898df))
+* **script:** brew_bin didn't resolve path correctly ([8aa4533](https://github.com/kc-workspace/dotfiles/commit/8aa45332c191b12abcf3fa8426a22337bb3af641))
+* **script:** kdf-setup.sh didn't have zinit ([6ae1490](https://github.com/kc-workspace/dotfiles/commit/6ae149010d6cad644d8372a46e28bcb81c9c26f8))
+* **script:** mas install didn't works when newly install because path is not load yet ([09a0dd1](https://github.com/kc-workspace/dotfiles/commit/09a0dd1ec84af37b1cae7f41e038689225b71fab))
+* **script:** op signin didn't works on new machine ([8aee448](https://github.com/kc-workspace/dotfiles/commit/8aee4480ba56360ce0110e4d4bc53c25f873a64a))
+* **script:** setup-secrets.sh fail when GPG_FINGERPRINT is missing ([6970e92](https://github.com/kc-workspace/dotfiles/commit/6970e92a20413787cca89e1a9d70f920cc9747f6))
+* **ssh:** invalid indent (too many empty line) ([7fd9a6d](https://github.com/kc-workspace/dotfiles/commit/7fd9a6dc2413a687d43dca3f14b5236e3e60960f))
+* use get.chezmoi.io instead of git.io/chezmoi ([8727e0a](https://github.com/kc-workspace/dotfiles/commit/8727e0a69b0e128cb5c64881381282858fe834a3))
+
+
+### Performance Improvements
+
+* **claude:** add bartender hooks ([0b27546](https://github.com/kc-workspace/dotfiles/commit/0b2754664ebc3c783642b7317974f87ed872c452))
+* **codex:** update config with codex apps ([ee93410](https://github.com/kc-workspace/dotfiles/commit/ee934106f7f28b0fb09075e95f98873d5442d5b7))
+* **config:** update claude settings by remove feature-dev ([858411a](https://github.com/kc-workspace/dotfiles/commit/858411a8daa9f1a198b7cc6b9c1a5d986e6b028c))
+* **data:** move duplicate dynamic data to chezmoi.yaml instead ([c9b317f](https://github.com/kc-workspace/dotfiles/commit/c9b317f235f041eebd822ed0790bba4157e3b62a))
+* **data:** update macos preferences ([8314c8c](https://github.com/kc-workspace/dotfiles/commit/8314c8c62b960393399021af8c80269d4433ef92))
+* **deps:** add neovim to mise default list for lite-setup ([10dfa82](https://github.com/kc-workspace/dotfiles/commit/10dfa82ab2118d4eb607bca439581b1e546eea54))
+* **deps:** upgrade chezmoi global to same version as dotfiles ([dfcde21](https://github.com/kc-workspace/dotfiles/commit/dfcde21357a7ee52e69e4069fd57a12ea44718b2))
+* **docker:** pre-install nvim plugins on build-time ([3679461](https://github.com/kc-workspace/dotfiles/commit/36794616e4a46b6fc71f40f78dae00c7bc33b3c3))
+* **ghostty:** use default keybind from ghostty ([acef3de](https://github.com/kc-workspace/dotfiles/commit/acef3de64e1881144aafce17d9afa63d6e620823))
+* **git:** for personal, add config suffix (.gitconfig.kc) ([cbbe138](https://github.com/kc-workspace/dotfiles/commit/cbbe1386d8d0e24b4e68b3e472a3f36f09dfb383))
+* **git:** use personal config at home on docker ([df03ae5](https://github.com/kc-workspace/dotfiles/commit/df03ae591d5330e47d0f19f28a01956f229cedaf))
+* **git:** use template + 1password instead of gpg encrypt ([8014218](https://github.com/kc-workspace/dotfiles/commit/80142186570c87155e82f1ee47746feba256d987))
+* **kube:** use 1password + template instead of gpg encryption ([058bb05](https://github.com/kc-workspace/dotfiles/commit/058bb05211af01529de3277eb52b21e07d98e060))
+* **macos:** add keyboard shortcut config ([00c67f3](https://github.com/kc-workspace/dotfiles/commit/00c67f32db96e6ea370ff8c95d254d21e2a7047f))
+* move mise.toml from Documents to root folder ([57dd842](https://github.com/kc-workspace/dotfiles/commit/57dd842b131f10abfd6bd2177783c61c4ebf66f7))
+* **nvim:** add mason pre-install list ([e90c201](https://github.com/kc-workspace/dotfiles/commit/e90c201cd8de8818bdde1c6e362e82e922df6b03))
+* **script:** `defaults delete` should be optional. ignore the error ([2345a4f](https://github.com/kc-workspace/dotfiles/commit/2345a4fb6072ecdb6fc52f99201627aec7abbba8))
+* **script:** add zsh and nvim plugins pre-install to kdf-setup.sh script too ([dfcf942](https://github.com/kc-workspace/dotfiles/commit/dfcf94257db4f4a8d0a0ba430b645d658c668b5c))
+* **script:** force 1password to always use personal account ([5bca858](https://github.com/kc-workspace/dotfiles/commit/5bca858458b5400297e6e07d74ea5895028efe8d))
+* **script:** move brew install to install-pkgs instead of prerequisite ([b1a7abe](https://github.com/kc-workspace/dotfiles/commit/b1a7abe67b747c4f8c907b8fce9e617959603e20))
+* **script:** move mise install to setup-mise instead of prerequisite script ([649f995](https://github.com/kc-workspace/dotfiles/commit/649f9958c3d57ab1439cc0f49e8a9b8f46820ee6))
+* **script:** move scripts/cleanup.sh to kdf-cleanup.sh instead ([1dac38f](https://github.com/kc-workspace/dotfiles/commit/1dac38fa51cd2b6f86767f419481de0d04ef549c))
+* **script:** prerequisite will fail if some prerequisite command is missing ([cce89d5](https://github.com/kc-workspace/dotfiles/commit/cce89d52206da841675eb7fa34ba85c5b97ef456))
+* **script:** throw error when user provides more than one dockutil preference ([37136ce](https://github.com/kc-workspace/dotfiles/commit/37136ce26ee6f8104647294d6505f05c9d733703))
+* **ssh:** add 3 more public keys for works ([c281ae2](https://github.com/kc-workspace/dotfiles/commit/c281ae23d74ec7703ec8af217081ac12a7dca66a))
+* **ssh:** move public key to 1password instead of hardcoded on github ([961cc76](https://github.com/kc-workspace/dotfiles/commit/961cc7635b9a9da516f67feae1f8dcfeb6e2bac1))
+* **ssh:** use template + 1password instead of gpg encrypt ([dcd4c8c](https://github.com/kc-workspace/dotfiles/commit/dcd4c8c6de47e82202fa7f1f72853b28d52e4c78))
+* **ssh:** use vault uuid instead of vault name when read 1p ([c3b9770](https://github.com/kc-workspace/dotfiles/commit/c3b97702b6652e813938affaafa08a81a5bd591f))
+* support optionally download aws-client vpn config from 1password ([d1f7726](https://github.com/kc-workspace/dotfiles/commit/d1f772615cf40077447ba214184b7b4d80d17038))
+* sync target and source directories ([def265b](https://github.com/kc-workspace/dotfiles/commit/def265b565a1fbf048d06fb5018e41d8be6bf03d))
+* sync target and source directories ([e2e0597](https://github.com/kc-workspace/dotfiles/commit/e2e059772961436f447126518cc7db98e3adc000))
+* sync target and source directories ([c83b934](https://github.com/kc-workspace/dotfiles/commit/c83b93407c0f233d76b41eaf0bc14be3efb8ce89))
+* sync target and source directories ([d708a90](https://github.com/kc-workspace/dotfiles/commit/d708a9059cb4d75ca80d7afe2307bd065d5473fa))
+* sync target and source directories ([6561d2b](https://github.com/kc-workspace/dotfiles/commit/6561d2b754fe821e217a67b58dfd66eaa0f43631))
+* update homebrew list for mac machine ([59212de](https://github.com/kc-workspace/dotfiles/commit/59212de71156192dfb7ae8ab0587e814ecbb68b7))
+* upgrade chezmoi from v2.64.0 to v2.70.0 ([0cebfa3](https://github.com/kc-workspace/dotfiles/commit/0cebfa37eae1ebbcba10d9ace57a299bc58bb69c))
+* use 1pass acount mode on machine; otherwise, use service ([7e52c10](https://github.com/kc-workspace/dotfiles/commit/7e52c100ae3fb90e29bf691267f27ec300c5140c))
+* use opSignedin instead of profile name for better check 1password status ([0f25db9](https://github.com/kc-workspace/dotfiles/commit/0f25db91ede7393297e517dc47cc8e1c274e891c))
+* **vim:** move neovim installation to mise instead of zinit ([7894ba4](https://github.com/kc-workspace/dotfiles/commit/7894ba42fbd29842606a128d431a76eb6b563b5c))
+* warprc support linux mode ([1fd3617](https://github.com/kc-workspace/dotfiles/commit/1fd361741c2c49524d8024e1f9aec3ad4e5f4af8))
+* **zsh:** new `czu` for update chezmoi from repo ([5cb7e33](https://github.com/kc-workspace/dotfiles/commit/5cb7e3382c3b789bc2213c5f1b1ed37a6d86974c))
+* **zsh:** separate chezmoi init and apply ([829d606](https://github.com/kc-workspace/dotfiles/commit/829d6065879e30c002c1e3a1f2383ce3acd57e22))
+* **zsh:** support install neovim from mise additional to zinit ([d1035f5](https://github.com/kc-workspace/dotfiles/commit/d1035f5ded80773d17757d3c862828fe916be858))
+* **zsh:** update czs to returns absolute path for easy copy ([b44329c](https://github.com/kc-workspace/dotfiles/commit/b44329cd8ed9d5d5f4eaa7e5fffce4c307172c79))
+
 ## [0.7.0](https://github.com/kc-workspace/dotfiles/compare/v0.6.0...v0.7.0) (2026-05-18)
 
 
