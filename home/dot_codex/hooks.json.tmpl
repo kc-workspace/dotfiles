@@ -1,0 +1,57 @@
+{
+  "hooks" : {
+    "PostToolUse" : [
+      {
+        "hooks" : [
+          {
+            "command" : "'{{ .chezmoi.homeDir }}/Library/Application Support/Bartender/NotchBar/AgentStatus/hooks/codex-notify-hook.sh' # notchbar-agents-codex-hook",
+            "type" : "command"
+          }
+        ],
+        "matcher" : "Bash"
+      }
+    ],
+    "PreToolUse" : [
+      {
+        "hooks" : [
+          {
+            "command" : "'{{ .chezmoi.homeDir }}/Library/Application Support/Bartender/NotchBar/AgentStatus/hooks/codex-notify-hook.sh' # notchbar-agents-codex-hook",
+            "type" : "command"
+          }
+        ],
+        "matcher" : "Bash"
+      }
+    ],
+    "SessionStart" : [
+      {
+        "hooks" : [
+          {
+            "command" : "'{{ .chezmoi.homeDir }}/Library/Application Support/Bartender/NotchBar/AgentStatus/hooks/codex-notify-hook.sh' # notchbar-agents-codex-hook",
+            "type" : "command"
+          }
+        ],
+        "matcher" : "startup|resume"
+      }
+    ],
+    "Stop" : [
+      {
+        "hooks" : [
+          {
+            "command" : "'{{ .chezmoi.homeDir }}/Library/Application Support/Bartender/NotchBar/AgentStatus/hooks/codex-notify-hook.sh' # notchbar-agents-codex-hook",
+            "type" : "command"
+          }
+        ]
+      }
+    ],
+    "UserPromptSubmit" : [
+      {
+        "hooks" : [
+          {
+            "command" : "'{{ .chezmoi.homeDir }}/Library/Application Support/Bartender/NotchBar/AgentStatus/hooks/codex-notify-hook.sh' # notchbar-agents-codex-hook",
+            "type" : "command"
+          }
+        ]
+      }
+    ]
+  }
+}
