@@ -1,119 +1,120 @@
 {
-  "$schema" : "https:\/\/json.schemastore.org\/claude-code-settings.json",
-  "effortLevel" : "xhigh",
-  "enabledPlugins" : {
-    "caveman@caveman" : true,
-    "context7@claude-plugins-official" : true,
-    "frontend-design@claude-plugins-official" : true,
-    "gopls-lsp@claude-plugins-official" : true,
-    "playwright@claude-plugins-official" : true,
-    "serena@claude-plugins-official" : true,
-    "superpowers@claude-plugins-official" : true
+  "$schema": "https://json.schemastore.org/claude-code-settings.json",
+  "permissions": {
+    "allow": [
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(git push:*)"
+    ],
+    "ask": [
+      "Bash(gh pr create:*)"
+    ],
+    "defaultMode": "auto"
   },
-  "extraKnownMarketplaces" : {
-    "caveman" : {
-      "source" : {
-        "repo" : "JuliusBrussee\/caveman",
-        "source" : "github"
-      }
-    }
-  },
-  "hooks" : {
-    "Notification" : [
+  "hooks": {
+    "Notification": [
       {
-        "hooks" : [
+        "hooks": [
           {
-            "command" : "\"$HOME\/Library\/Application Support\/Bartender\/NotchBar\/AgentStatus\/hooks\/claude-event-hook.sh\" Waiting # notchbar-agents-claude-hook",
-            "type" : "command"
+            "type": "command",
+            "command": "\"$HOME/Library/Application Support/Bartender/NotchBar/AgentStatus/hooks/claude-event-hook.sh\" Waiting # notchbar-agents-claude-hook"
           }
         ]
       }
     ],
-    "PostToolUse" : [
+    "PostToolUse": [
       {
-        "hooks" : [
+        "hooks": [
           {
-            "command" : "\"$HOME\/Library\/Application Support\/Bartender\/NotchBar\/AgentStatus\/hooks\/claude-event-hook.sh\" Auto # notchbar-agents-claude-hook",
-            "type" : "command"
+            "type": "command",
+            "command": "\"$HOME/Library/Application Support/Bartender/NotchBar/AgentStatus/hooks/claude-event-hook.sh\" Auto # notchbar-agents-claude-hook"
           }
         ]
       }
     ],
-    "PostToolUseFailure" : [
+    "PostToolUseFailure": [
       {
-        "hooks" : [
+        "hooks": [
           {
-            "command" : "\"$HOME\/Library\/Application Support\/Bartender\/NotchBar\/AgentStatus\/hooks\/claude-event-hook.sh\" ToolFail # notchbar-agents-claude-hook",
-            "type" : "command"
+            "type": "command",
+            "command": "\"$HOME/Library/Application Support/Bartender/NotchBar/AgentStatus/hooks/claude-event-hook.sh\" ToolFail # notchbar-agents-claude-hook"
           }
         ]
       }
     ],
-    "PreToolUse" : [
+    "PreToolUse": [
       {
-        "hooks" : [
+        "hooks": [
           {
-            "command" : "\"$HOME\/Library\/Application Support\/Bartender\/NotchBar\/AgentStatus\/hooks\/claude-event-hook.sh\" Working # notchbar-agents-claude-hook",
-            "type" : "command"
+            "type": "command",
+            "command": "\"$HOME/Library/Application Support/Bartender/NotchBar/AgentStatus/hooks/claude-event-hook.sh\" Working # notchbar-agents-claude-hook"
           }
         ]
       }
     ],
-    "SessionEnd" : [
+    "SessionEnd": [
       {
-        "hooks" : [
+        "hooks": [
           {
-            "command" : "\"$HOME\/Library\/Application Support\/Bartender\/NotchBar\/AgentStatus\/hooks\/claude-event-hook.sh\" Ended # notchbar-agents-claude-hook",
-            "type" : "command"
+            "type": "command",
+            "command": "\"$HOME/Library/Application Support/Bartender/NotchBar/AgentStatus/hooks/claude-event-hook.sh\" Ended # notchbar-agents-claude-hook"
           }
         ]
       }
     ],
-    "SessionStart" : [
+    "SessionStart": [
       {
-        "hooks" : [
+        "hooks": [
           {
-            "command" : "\"$HOME\/Library\/Application Support\/Bartender\/NotchBar\/AgentStatus\/hooks\/claude-event-hook.sh\" Idle # notchbar-agents-claude-hook",
-            "type" : "command"
+            "type": "command",
+            "command": "\"$HOME/Library/Application Support/Bartender/NotchBar/AgentStatus/hooks/claude-event-hook.sh\" Idle # notchbar-agents-claude-hook"
           }
         ]
       }
     ],
-    "Stop" : [
+    "Stop": [
       {
-        "hooks" : [
+        "hooks": [
           {
-            "command" : "\"$HOME\/Library\/Application Support\/Bartender\/NotchBar\/AgentStatus\/hooks\/claude-event-hook.sh\" Idle # notchbar-agents-claude-hook",
-            "type" : "command"
+            "type": "command",
+            "command": "\"$HOME/Library/Application Support/Bartender/NotchBar/AgentStatus/hooks/claude-event-hook.sh\" Idle # notchbar-agents-claude-hook"
           }
         ]
       }
     ],
-    "UserPromptSubmit" : [
+    "UserPromptSubmit": [
       {
-        "hooks" : [
+        "hooks": [
           {
-            "command" : "\"$HOME\/Library\/Application Support\/Bartender\/NotchBar\/AgentStatus\/hooks\/claude-event-hook.sh\" Working # notchbar-agents-claude-hook",
-            "type" : "command"
+            "type": "command",
+            "command": "\"$HOME/Library/Application Support/Bartender/NotchBar/AgentStatus/hooks/claude-event-hook.sh\" Working # notchbar-agents-claude-hook"
           }
         ]
       }
     ]
   },
-  "permissions" : {
-    "allow" : [
-      "Bash(git add:*)",
-      "Bash(git commit:*)",
-      "Bash(git push:*)"
-    ],
-    "ask" : [
-      "Bash(gh pr create:*)"
-    ],
-    "defaultMode" : "auto"
+  "statusLine": {
+    "type": "command",
+    "command": "bash \"$HOME/.claude/plugins/cache/caveman/caveman/655b7d9c5431/src/hooks/caveman-statusline.sh\""
   },
-  "skipDangerousModePermissionPrompt" : true,
-  "statusLine" : {
-    "command" : "bash \"$HOME\/.claude\/plugins\/cache\/caveman\/caveman\/655b7d9c5431\/src\/hooks\/caveman-statusline.sh\"",
-    "type" : "command"
-  }
+  "enabledPlugins": {
+    "caveman@caveman": true,
+    "serena@claude-plugins-official": true,
+    "superpowers@claude-plugins-official": true,
+    "typescript-lsp@claude-plugins-official": true,
+    "gopls-lsp@claude-plugins-official": true
+  },
+  "extraKnownMarketplaces": {
+    "caveman": {
+      "source": {
+        "source": "github",
+        "repo": "JuliusBrussee/caveman"
+      }
+    }
+  },
+  "effortLevel": "xhigh",
+  "tui": "fullscreen",
+  "skipDangerousModePermissionPrompt": true,
+  "theme": "auto",
+  "skipAutoPermissionPrompt": true
 }
