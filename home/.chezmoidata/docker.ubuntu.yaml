@@ -2,4 +2,31 @@ docker:
   linux/ubuntu:
     settings: {}
     preferences: {}
-    dependencies: {}
+    dependencies:
+      apt:
+        packages: []
+        settings:
+          autoupgrade: true
+      brew:
+        taps: []
+        packages:
+          - git
+        casks: []
+        settings:
+          autoinstall: true
+          autoclean: true
+          env:
+            HOMEBREW_MAKE_JOBS: "1"
+            HOMEBREW_DOWNLOAD_CONCURRENCY: "1"
+      mise:
+        packages:
+          - nodejs
+          - bun
+          - go
+          - python
+          - uv
+          - chezmoi
+          - neovim
+        settings:
+          autoinstall: true
+          autoupdate: false

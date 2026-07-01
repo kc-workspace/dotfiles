@@ -2,4 +2,27 @@ docker:
   linux/alpine:
     settings: {}
     preferences: {}
-    dependencies: {}
+    dependencies:
+      apk:
+        packages:
+          - ncurses ## For tput
+        settings:
+          autoupgrade: true
+      brew:
+        taps: []
+        packages: []
+        casks: []
+        settings:
+          autoinstall: false ## alpine is not supported by homebrew
+      mise:
+        packages:
+          - nodejs
+          - bun
+          - go
+          - python
+          - uv
+          - chezmoi
+          - neovim
+        settings:
+          autoinstall: true
+          autoupdate: false
