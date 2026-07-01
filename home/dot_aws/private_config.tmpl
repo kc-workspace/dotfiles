@@ -1,6 +1,14 @@
 ## https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-files.html#cli-configure-files-settings
 
-{{- if .global.opSignedIn }}
+[default]
+region          = us-east-1
+output          = json
+cli_auto_prompt = on-partial
+cli_history     = enabled
+retry_mode      = standard
+max_attempts    = 3
 
-{{ onepasswordDocument "6dqgqbfebgrdo7vo4hym5c4bba" "64yg7lvccdzebup52w2nmzoady" }}
-{{- end -}}
+{{ includeTemplate "featureFlags/helpers/include" (dict
+  "flag" "smartertravel:aws"
+  "context" $
+) }}
