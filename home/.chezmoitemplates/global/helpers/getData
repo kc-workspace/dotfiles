@@ -1,5 +1,6 @@
 {{- $context := $.context -}}
 {{- $path    := $.path -}}
+{{- $result := $.defaults -}}
 {{- $profile  := $context._global.profile -}}
 {{- $platform := $context._global.platform -}}
 
@@ -45,12 +46,11 @@
 {{- /* dict  + dict  → recursive deep merge (specific wins)  */ -}}
 {{- /* slice + slice → concatenate (base first)              */ -}}
 {{- /* other         → specific wins over base               */ -}}
-{{- $result := $.defaults -}}
 {{- if and $baseFound $specificFound -}}
   {{- if and (kindIs "map" $baseVal) (kindIs "map" $specificVal) -}}
     {{- $result = includeTemplate "global/helpers/mergeDeep" (dict "dst" $baseVal "src" $specificVal) | mustFromJson -}}
   {{- else if and (kindIs "slice" $baseVal) (kindIs "slice" $specificVal) -}}
-    {{- $result = concat $baseVal $specificVal -}}
+    {{- $result = concat $baseVal $specificVal | uniq -}}
   {{- else -}}
     {{- $result = $specificVal -}}
   {{- end -}}

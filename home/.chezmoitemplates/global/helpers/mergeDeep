@@ -12,7 +12,7 @@
     {{- $nested := includeTemplate "global/helpers/mergeDeep" (dict "dst" $dstVal "src" $srcVal) | mustFromJson -}}
     {{- $result = set $result $key $nested -}}
   {{- else if and (kindIs "slice" $dstVal) (kindIs "slice" $srcVal) -}}
-    {{- $result = set $result $key (concat $dstVal $srcVal) -}}
+    {{- $result = set $result $key (concat $dstVal $srcVal | uniq) -}}
   {{- else -}}
     {{- $result = set $result $key $srcVal -}}
   {{- end -}}
