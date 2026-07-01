@@ -1,0 +1,21 @@
+{{- $name := .name -}}
+{{- $action := .action -}}
+{{- $section := .section -}}
+{{- $args := .args -}}
+{{- $settings := .settings }}
+"$dockutil_cmd" --{{ $action }} --section {{ $section }} {{ $name | quote }}
+  {{- $args | join " " }}
+  {{- with $settings }}
+    {{- range $key, $value := . }}
+      {{- printf " " -}}
+      {{- if kindIs "bool" $value }}
+        {{- if eq $value true }}
+          {{- printf "--%s" $key -}}
+        {{- else }}
+          {{- printf "--no-%s" $key -}}
+        {{- end }}
+      {{- else }}
+        {{- printf "--%s %s" $key ($value | quote) -}}
+      {{- end }}
+    {{- end }}
+  {{- end }}

@@ -1,5 +1,69 @@
+{{- $dockutil := includeTemplate "global/helpers/getData" (dict
+	"path" (list "preferences" "dockutil")
+	"defaults" dict
+	"context" .
+) | mustFromJson }}
+
+{{- $apps := dig "apps" list $dockutil -}}
+{{- $others := dig "others" list $dockutil -}}
+{{- if or $apps $others -}}
 #!/usr/bin/env sh
 
 set -euo pipefail
 
 printf '>> Starting... %s\n' "preferences-dockutil.sh"
+
+{{ includeTemplate "shellVars/brew.tmpl" }}
+dockutil_cmd="$brew_bin/dockutil"
+if ! [ -x "$dockutil_cmd" ]; then
+	printf '>>> Installing... %s\n' "dockutil"
+	"$brew_cmd" install dockutil
+fi
+
+{{- $restartMode := dig "settings" "restart" "end" $dockutil }}
+{{- $args := list }}
+{{- if eq $restartMode "end" }}
+	{{- $args = append $args "--no-restart" }}
+{{- end }}
+
+{{- if dig "settings" "startEmpty" true $dockutil }}
+
+printf '>>> Emptying... %s\n' "dock apps"
+defaults write com.apple.dock persistent-apps -array
+{{- end }}
+
+set -x
+{{- range $apps }}
+{{- includeTemplate "shellVars/dockutil.tmpl" (dict
+  "name" (dig "name" "" .)
+  "action" (dig "action" "add" .)
+  "section" "apps"
+  "args" $args
+  "settings" (dig "settings" dict .)
+) }}
+{{- end }}
+
+{{- range $others }}
+{{- includeTemplate "shellVars/dockutil.tmpl" (dict
+  "name" (dig "name" "" .)
+  "action" (dig "action" "add" .)
+  "section" "others"
+  "args" $args
+  "settings" (dig "settings" dict .)
+) }}
+{{- end }}
+set +x
+
+{{- if eq $restartMode "end" }}
+
+killall Dock >/dev/null 2>&1 || true
+{{- end }}
+
+{{- if dig "settings" "autoremove" false $dockutil }}
+
+printf '>>> Uninstalling... %s' "dockutil"
+"$brew_cmd" uninstall dockutil
+{{- end }}
+
+unset brew_bin brew_cmd dockutil_cmd
+{{- end }}

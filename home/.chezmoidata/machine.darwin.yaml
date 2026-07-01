@@ -284,24 +284,23 @@ machine:
 
       dockutil:
         apps:
-          - name: /System/Applications/Apps.app
-          - name: /Applications/1Password.app
-          - name: /System/Applications/Messages.app
-          - name: /Applications/Slack.app
+          - name: "/System/Applications/Apps.app"
+          - name: "/Applications/1Password.app"
+          - name: "/System/Applications/Messages.app"
+          - name: "/Applications/Slack.app"
           - name: "/Applications/Setapp/Spark Mail.app" ## Requires installing from Setapp
           - name: "/Applications/Brave Browser.app"
           - name: "/Applications/Visual Studio Code - Insiders.app"
-          - name: /Applications/Ghostty.app
+          - name: "/Applications/Ghostty.app"
         others:
-          - name: ~/Downloads
+          - name: "$HOME/Downloads"
             settings:
               view: auto
               display: stack
               sort: dateadded
               allhomes: true
         settings:
-          startEmpty: true ## Reset Dock list before applying changes
-          restart: end ## Restart Dock after changes are applied
+          autoremove: true
 
     dependencies:
       brew:

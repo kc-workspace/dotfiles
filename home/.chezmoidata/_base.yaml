@@ -63,6 +63,9 @@ _base:
         ## Whether to restart the Dock always or only at the end of the run
         ## @type - [always | end]
         restart: end
+        ## Whether to uninstall dockutil after finish using
+        ## @type - boolean
+        autoremove: false
 
   dependencies:
     apt:
@@ -107,6 +110,8 @@ _base:
         autoreset: true
         ## Autoupdate after install all packages
         autoupdate: true
+        ## Whether to uninstall mas after finish using
+        autoremove: false
 
     mise:
       packages: [] ## List of mise tool to install; use <ALL> to install all tools defined (@type [string[] | "<ALL>"])
