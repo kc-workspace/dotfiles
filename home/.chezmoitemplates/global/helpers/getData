@@ -1,0 +1,63 @@
+{{- $context := $.context -}}
+{{- $path    := $.path -}}
+{{- $profile  := $context._global.profile -}}
+{{- $platform := $context._global.platform -}}
+
+{{- /* --- Navigate _base using path --- */ -}}
+{{- $baseVal   := $context._base -}}
+{{- $baseFound := true -}}
+{{- range $path -}}
+  {{- if and $baseFound (kindIs "map" $baseVal) -}}
+    {{- if hasKey $baseVal . -}}
+      {{- $baseVal = get $baseVal . -}}
+    {{- else -}}
+      {{- $baseFound = false -}}
+    {{- end -}}
+  {{- else -}}
+    {{- $baseFound = false -}}
+  {{- end -}}
+{{- end -}}
+
+{{- /* --- Navigate context[profile][platform] using path --- */ -}}
+{{- $specificVal   := dict -}}
+{{- $specificFound := false -}}
+{{- $profileData := get $context $profile -}}
+{{- if kindIs "map" $profileData -}}
+  {{- $platformData := get $profileData $platform -}}
+  {{- if kindIs "map" $platformData -}}
+    {{- $specificVal   = $platformData -}}
+    {{- $specificFound = true -}}
+    {{- range $path -}}
+      {{- if and $specificFound (kindIs "map" $specificVal) -}}
+        {{- if hasKey $specificVal . -}}
+          {{- $specificVal = get $specificVal . -}}
+        {{- else -}}
+          {{- $specificFound = false -}}
+        {{- end -}}
+      {{- else -}}
+        {{- $specificFound = false -}}
+      {{- end -}}
+    {{- end -}}
+  {{- end -}}
+{{- end -}}
+
+{{- /* --- Merge base + specific --- */ -}}
+{{- /* dict  + dict  → recursive deep merge (specific wins)  */ -}}
+{{- /* slice + slice → concatenate (base first)              */ -}}
+{{- /* other         → specific wins over base               */ -}}
+{{- $result := $.defaults -}}
+{{- if and $baseFound $specificFound -}}
+  {{- if and (kindIs "map" $baseVal) (kindIs "map" $specificVal) -}}
+    {{- $result = includeTemplate "global/helpers/mergeDeep" (dict "dst" $baseVal "src" $specificVal) | mustFromJson -}}
+  {{- else if and (kindIs "slice" $baseVal) (kindIs "slice" $specificVal) -}}
+    {{- $result = concat $baseVal $specificVal -}}
+  {{- else -}}
+    {{- $result = $specificVal -}}
+  {{- end -}}
+{{- else if $baseFound -}}
+  {{- $result = $baseVal -}}
+{{- else if $specificFound -}}
+  {{- $result = $specificVal -}}
+{{- end -}}
+
+{{- $result | mustToJson -}}

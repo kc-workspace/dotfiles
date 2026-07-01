@@ -1,0 +1,20 @@
+{{- /* Recursively merge two dicts ($.src into $.dst): */ -}}
+{{- /* - dict  + dict  → recurse                       */ -}}
+{{- /* - slice + slice → concatenate (dst first)       */ -}}
+{{- /* - other         → src wins                      */ -}}
+{{- /* Returns JSON so callers can mustFromJson.        */ -}}
+{{- $dst := .dst -}}
+{{- $src := .src -}}
+{{- $result := deepCopy $dst -}}
+{{- range $key, $srcVal := $src -}}
+  {{- $dstVal := get $dst $key -}}
+  {{- if and (kindIs "map" $dstVal) (kindIs "map" $srcVal) -}}
+    {{- $nested := includeTemplate "global/helpers/mergeDeep" (dict "dst" $dstVal "src" $srcVal) | mustFromJson -}}
+    {{- $result = set $result $key $nested -}}
+  {{- else if and (kindIs "slice" $dstVal) (kindIs "slice" $srcVal) -}}
+    {{- $result = set $result $key (concat $dstVal $srcVal) -}}
+  {{- else -}}
+    {{- $result = set $result $key $srcVal -}}
+  {{- end -}}
+{{- end -}}
+{{- $result | mustToJson -}}

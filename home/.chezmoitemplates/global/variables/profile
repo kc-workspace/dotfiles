@@ -1,0 +1,7 @@
+{{- if eq (env "GITHUB_ACTIONS") "true" -}}
+  actions
+{{- else if eq (env "DOCKER") "true" -}}
+  docker
+{{- else -}}
+  machine
+{{- end -}}
