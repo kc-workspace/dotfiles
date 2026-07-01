@@ -55,13 +55,13 @@ data:
   _global: {{- $global | toYaml | nindent 4 }}
 
   {{- $data = mustMergeOverwrite $data (dict "_global" $global) }}
-  _base:
-    {{- $settings := dig "_base" "settings" dict . }}
+  _overrides:
+      {{- $settings := dig "_overrides" "settings" dict . }}
     settings:
-      {{- $defaultFlags := includeTemplate "global/helpers/getData" (dict
-        "path" (list "settings" "featureFlags")
-        "defaults" list
-        "context" $data
-      ) | mustFromJson }}
+        {{- $defaultFlags := includeTemplate "global/helpers/getData" (dict
+          "path" (list "settings" "featureFlags")
+          "defaults" list
+          "context" $data
+        ) | mustFromJson }}
       {{- $flags := includeTemplate "featureFlags/helpers/list" $data | mustFromJson }}
       featureFlags: {{- promptMultichoiceOnce $settings "featureFlags" "Feature Flags" $flags $defaultFlags | toYaml | nindent 8 }}

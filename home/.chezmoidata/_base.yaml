@@ -117,11 +117,9 @@ _base:
         ## Autoupdate mise before install any packages
         autoupdate: true
 
-  # settings:
-  #   ## All possible featureFlags: _base.yaml => _base.featureFlags
-  #   ## This should be defined at chezmoi.yaml by user input (prompt)
-  #   featureFlags: []
-  settings: {}
+  settings:
+    ## All possible featureFlags: _base.yaml => _base.definitions.featureFlags
+    featureFlags: []
 
   definitions:
     # featureFlags:
