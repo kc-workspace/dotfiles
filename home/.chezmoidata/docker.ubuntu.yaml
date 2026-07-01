@@ -1,0 +1,5 @@
+docker:
+  linux/ubuntu:
+    settings: {}
+    preferences: {}
+    dependencies: {}
