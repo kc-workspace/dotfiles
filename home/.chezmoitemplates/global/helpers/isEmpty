@@ -1,0 +1,12 @@
+{{- $value := . -}}
+{{- if kindIs "invalid" $value -}}
+  true
+{{- else if and (kindIs "string" $value) (eq $value "") -}}
+  true
+{{- else if and (kindIs "slice" $value) (eq (len $value) 0) -}}
+  true
+{{- else if and (kindIs "map" $value) (eq (len $value) 0) -}}
+  true
+{{- else -}}
+  false
+{{- end -}}
