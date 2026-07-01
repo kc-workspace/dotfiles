@@ -1,0 +1,81 @@
+#!/usr/bin/env sh
+
+set -euo pipefail
+
+printf '>> Starting... %s\n' "preferences-defaults.sh"
+
+{{- $defaults := includeTemplate "global/helpers/getData" (dict
+  "path" (list "preferences" "defaults")
+  "defaults" list
+  "context" .
+) | mustFromJson }}
+
+{{- range $defaults }}
+{{- $domain := .domain }}
+{{- $beforeCmd := dig "hooks" "before" "" . }}
+{{- if ne $beforeCmd "" }}
+
+{{ $beforeCmd }}
+{{- end }}
+
+{{- with .settings }}
+{{- printf "\n" }}
+{{- range . -}}
+
+{{- /* --- Resolve host flag (default: all hosts, "current": currentHost) --- */ -}}
+{{- $hostFlag := "" }}
+{{- $host := dig "host" "" . }}
+{{- if eq $host "current" }}
+  {{- $hostFlag = "-currentHost" }}
+{{- else if ne $host "" }}
+  {{- $hostFlag = printf "-host %s" $host }}
+{{- end }}
+
+{{- /* --- Resolve value type and value representation --- */ -}}
+{{- $valueType := printf "-%s" (kindOf .value) }}
+{{- $value := (printf "\"%v\"" .value) }}
+{{- if or (kindIs "uint" .value) (kindIs "uint32" .value) (kindIs "uint64" .value) -}}
+  {{- $valueType = "-int" }}
+{{- else if or (kindIs "int" .value) (kindIs "int32" .value) (kindIs "int64" .value) -}}
+  {{- $valueType = "-int" }}
+{{- else if or (kindIs "float32" .value) (kindIs "float64" .value) -}}
+  {{- /* JSON round-trip turns all numbers into floats; treat whole numbers as int */ -}}
+  {{- if eq .value (floor .value) -}}
+    {{- $valueType = "-int" }}
+    {{- $value = printf "\"%d\"" (int .value) }}
+  {{- else -}}
+    {{- $valueType = "-float" }}
+  {{- end }}
+{{- else if kindIs "bool" .value -}}
+  {{- $valueType = "-bool" }}
+{{- else if kindIs "slice" .value -}}
+  {{- $values := list }}
+  {{- range .value }}
+    {{- $values = append $values (printf "\"%v\"" .) }}
+  {{- end }}
+  {{- $valueType = "-array" }}
+  {{- $value = join " " $values }}
+{{- end }}
+
+{{- /* --- Explicit type override --- */ -}}
+{{- if ne (dig "type" "" .) "" -}}
+  {{- $valueType = printf "-%s" (dig "type" "" .) }}
+{{- end }}
+
+{{- /* --- Build command arguments --- */ -}}
+{{- $args := list }}
+{{- if eq .value nil }}
+  {{- $args = list "defaults" $hostFlag "delete" $domain .key ">/dev/null" "2>&1" "||" "true" }}
+{{- else }}
+  {{- $args = list "defaults" $hostFlag "write" $domain .key $valueType $value }}
+{{- end }}
+{{ compact $args | join " " }}
+{{- end }}
+{{- end }}
+
+{{- $afterCmd := dig "hooks" "after" "" . }}
+{{- if ne $afterCmd "" }}
+
+{{ $afterCmd }}
+{{- end }}
+{{- end }}
