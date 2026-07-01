@@ -58,10 +58,6 @@ data:
   _overrides:
       {{- $settings := dig "_overrides" "settings" dict . }}
     settings:
-        {{- $defaultFlags := includeTemplate "global/helpers/getData" (dict
-          "path" (list "settings" "featureFlags")
-          "defaults" list
-          "context" $data
-        ) | mustFromJson }}
       {{- $flags := includeTemplate "featureFlags/helpers/list" $data | mustFromJson }}
-      featureFlags: {{- promptMultichoiceOnce $settings "featureFlags" "Feature Flags" $flags $defaultFlags | toYaml | nindent 8 }}
+      ## When is not empty list, this will overrides _base and profile/platform specific
+      featureFlags: {{- promptMultichoiceOnce $settings "featureFlags" "Feature Flags" $flags list | toYaml | nindent 8 }}

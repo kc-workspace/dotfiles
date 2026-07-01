@@ -139,3 +139,6 @@ _base:
     featureFlags:
       smartertravel:aws:
         type: file
+
+## Use in chezmoi.yaml for override some configs from user input
+_overrides: {}

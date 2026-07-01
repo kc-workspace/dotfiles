@@ -3,61 +3,56 @@
 {{- $result := $.defaults -}}
 {{- $profile  := $context._global.profile -}}
 {{- $platform := $context._global.platform -}}
+{{- $overrides := get $context "_overrides" -}}
 
-{{- /* --- Navigate _base using path --- */ -}}
-{{- $baseVal   := $context._base -}}
-{{- $baseFound := true -}}
-{{- range $path -}}
-  {{- if and $baseFound (kindIs "map" $baseVal) -}}
-    {{- if hasKey $baseVal . -}}
-      {{- $baseVal = get $baseVal . -}}
+{{- $found := false -}}
+
+{{- /* --- Resolve context[_overrides] (highest precedence, no merge) --- */ -}}
+{{- $override := includeTemplate "global/helpers/getPathValue" (dict
+  "root" $overrides
+  "path" $path
+) | mustFromJson -}}
+{{- if and ($override.found) (not $override.empty) -}}
+  {{- $found = true -}}
+  {{- $result = $override.value -}}
+{{- end -}}
+
+{{- if not $found -}}
+  {{- /* --- Resolve context[_base] --- */ -}}
+  {{- $base := includeTemplate "global/helpers/getPathValue" (dict
+    "root" $context._base
+    "path" $path
+  ) | mustFromJson -}}
+  {{- /* --- Resolve context[profile][platform] --- */ -}}
+  {{- $specific := includeTemplate "global/helpers/getPathValue" (dict
+    "root" (dig $profile $platform dict $context)
+    "path" $path
+  ) | mustFromJson -}}
+
+  {{- /* --- Merge base + specific --- */ -}}
+  {{- /* dict  + dict  → recursive deep merge (specific wins)  */ -}}
+  {{- /* slice + slice → concatenate (base first)              */ -}}
+  {{- /* other         → specific wins over base               */ -}}
+  {{- if and $base.found $specific.found -}}
+    {{- if and (kindIs "map" $base.value) (kindIs "map" $specific.value) -}}
+      {{- $found = true -}}
+      {{- $result = includeTemplate "global/helpers/mergeDeep" (dict "dst" $base.value "src" $specific.value) | mustFromJson -}}
+    {{- else if and (kindIs "slice" $base.value) (kindIs "slice" $specific.value) -}}
+      {{- $found = true -}}
+      {{- $result = concat $base.value $specific.value | uniq -}}
     {{- else -}}
-      {{- $baseFound = false -}}
+      {{- $found = true -}}
+      {{- $result = $specific.value -}}
     {{- end -}}
-  {{- else -}}
-    {{- $baseFound = false -}}
+  {{- else if $base.found -}}
+    {{- $found = true -}}
+    {{- $result = $base.value -}}
+  {{- else if $specific.found -}}
+    {{- $found = true -}}
+    {{- $result = $specific.value -}}
   {{- end -}}
 {{- end -}}
 
-{{- /* --- Navigate context[profile][platform] using path --- */ -}}
-{{- $specificVal   := dict -}}
-{{- $specificFound := false -}}
-{{- $profileData := get $context $profile -}}
-{{- if kindIs "map" $profileData -}}
-  {{- $platformData := get $profileData $platform -}}
-  {{- if kindIs "map" $platformData -}}
-    {{- $specificVal   = $platformData -}}
-    {{- $specificFound = true -}}
-    {{- range $path -}}
-      {{- if and $specificFound (kindIs "map" $specificVal) -}}
-        {{- if hasKey $specificVal . -}}
-          {{- $specificVal = get $specificVal . -}}
-        {{- else -}}
-          {{- $specificFound = false -}}
-        {{- end -}}
-      {{- else -}}
-        {{- $specificFound = false -}}
-      {{- end -}}
-    {{- end -}}
-  {{- end -}}
+{{- if $found -}}
+  {{- $result | mustToJson -}}
 {{- end -}}
-
-{{- /* --- Merge base + specific --- */ -}}
-{{- /* dict  + dict  → recursive deep merge (specific wins)  */ -}}
-{{- /* slice + slice → concatenate (base first)              */ -}}
-{{- /* other         → specific wins over base               */ -}}
-{{- if and $baseFound $specificFound -}}
-  {{- if and (kindIs "map" $baseVal) (kindIs "map" $specificVal) -}}
-    {{- $result = includeTemplate "global/helpers/mergeDeep" (dict "dst" $baseVal "src" $specificVal) | mustFromJson -}}
-  {{- else if and (kindIs "slice" $baseVal) (kindIs "slice" $specificVal) -}}
-    {{- $result = concat $baseVal $specificVal | uniq -}}
-  {{- else -}}
-    {{- $result = $specificVal -}}
-  {{- end -}}
-{{- else if $baseFound -}}
-  {{- $result = $baseVal -}}
-{{- else if $specificFound -}}
-  {{- $result = $specificVal -}}
-{{- end -}}
-
-{{- $result | mustToJson -}}

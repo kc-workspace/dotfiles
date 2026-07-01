@@ -1,0 +1,24 @@
+{{- /* Resolve $.path inside $.root. */ -}}
+{{- /* Returns: {"found": bool, "empty": bool, "value": any} as JSON. */ -}}
+{{- $root := .root -}}
+{{- $path := .path -}}
+{{- $current := $root -}}
+{{- $found := true -}}
+
+{{- if not $path -}}
+  {{- $found = ne $root nil -}}
+{{- else -}}
+  {{- range $path -}}
+    {{- if and $found (kindIs "map" $current) (hasKey $current .) -}}
+      {{- $current = get $current . -}}
+    {{- else -}}
+      {{- $found = false -}}
+    {{- end -}}
+  {{- end -}}
+{{- end -}}
+
+{{- (dict
+  "found" $found
+  "empty" (includeTemplate "global/helpers/isEmpty" $current)
+  "value" $current
+) | mustToJson -}}
