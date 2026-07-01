@@ -1,0 +1,53 @@
+{{- $context := .context -}}
+{{- $flag := .flag -}}
+{{- $failRoot := joinPath $context.chezmoi.sourceDir "__feature_flag_error__" -}}
+
+{{- $flags := includeTemplate "global/helpers/getData" (dict
+  "path" (list "settings" "featureFlags")
+  "defaults" list
+  "context" $context
+) | mustFromJson -}}
+
+{{- if has $flag $flags -}}
+  {{- $definitions := includeTemplate "global/helpers/getData" (dict
+    "path" (list "definitions" "featureFlags")
+    "defaults" dict
+    "context" $context
+  ) | mustFromJson -}}
+  {{- if not (hasKey $definitions $flag) -}}
+    {{- fail (printf "Input flag didn't have definition (%s)" $flag) -}}
+  {{- end -}}
+
+  {{- $definition := get $definitions $flag -}}
+  {{- if eq $definition.type "string" -}}
+    {{- $definition.value -}}
+  {{- else if eq $definition.type "file" -}}
+    {{- $name := dig "name" "index" $definition -}}
+    {{- $dirName := joinPath "featureFlags" "contents" $flag -}}
+    {{- $dirPath := joinPath $context.chezmoi.sourceDir ".chezmoitemplates" $dirName -}}
+    {{- $fileName := joinPath $dirName $name -}}
+    {{- $filePath := joinPath $dirPath $name -}}
+
+    {{- $agePath := printf "%s.age" $filePath -}}
+    {{- $tmplName := printf "%s.tmpl" $fileName -}}
+    {{- $tmplPath := printf "%s.tmpl" $filePath -}}
+    {{- $txtPath := printf "%s.txt" $filePath -}}
+    {{- if stat $agePath -}}
+      {{- include $agePath | decrypt -}}
+    {{- else if stat $tmplPath -}}
+      {{- includeTemplate $tmplName $context -}}
+    {{- else if stat $txtPath -}}
+      {{- include $txtPath -}}
+    {{- else if stat $filePath -}}
+      {{- include $filePath -}}
+    {{- end -}}
+  {{- else if eq $definition.type "opRead" -}}
+    {{- onepasswordRead $definition.value -}}
+  {{- else if eq $definition.type "opDoc" -}}
+    {{- if hasKey $definition "vault" -}}
+      {{- onepasswordDocument $definition.value $definition.vault -}}
+    {{- else -}}
+      {{- onepasswordDocument $definition.value -}}
+    {{- end -}}
+  {{- end -}}
+{{- end -}}

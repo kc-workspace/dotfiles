@@ -1,0 +1,8 @@
+{{- $definitions := includeTemplate "global/helpers/getData" (dict
+  "path" (list "definitions" "featureFlags")
+  "defaults" dict
+  "context" .
+) | mustFromJson -}}
+
+{{- $flags := keys $definitions | sortAlpha -}}
+{{- mustToJson $flags -}}

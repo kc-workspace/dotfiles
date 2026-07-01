@@ -1,5 +1,0 @@
-{{- $flags := list -}}
-{{- $flags = append $flags "smartertravel:aws" -}}
-{{- $flags = append $flags "smartertravel:example1" -}}
-{{- $flags = append $flags "smartertravel:example2" -}}
-{{- mustToJson $flags -}}
