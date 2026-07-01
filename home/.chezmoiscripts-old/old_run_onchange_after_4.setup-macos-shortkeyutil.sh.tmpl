@@ -4,7 +4,7 @@ printf '>> Starting... %s\n' "setup-macos-shortkeyutil.sh"
 
 set -e
 
-{{- $preferences := dig "preferences" .global.profile .global.os list . }}
+{{- $preferences := includeTemplate "global/helpers/getData" (dict "path" (list "preferences") "defaults" list "context" .) | mustFromJson }}
 {{- $shortkeyPreference := dict }}
 {{- range $preferences }}
 	{{- if eq (dig "command" "" .) "shortkeyutil" }}

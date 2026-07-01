@@ -4,7 +4,7 @@ printf '>> Starting... %s\n' "prerequisite.sh"
 
 set -e
 
-{{- $deps := dig "dependencies" .global.profile .global.os "" $ }}
+{{- $deps := includeTemplate "global/helpers/getData" (dict "path" (list "dependencies") "defaults" list "context" .) | mustFromJson }}
 {{- with $deps }}
 {{- if dig "apt" "packages" list . }}
 

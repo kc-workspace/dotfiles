@@ -4,7 +4,7 @@ printf '>> Starting... %s\n' "install-pkgs.sh"
 
 set -e
 
-{{- $deps := dig "dependencies" .global.profile .global.os "" $ }}
+{{- $deps := includeTemplate "global/helpers/getData" (dict "path" (list "dependencies") "defaults" list "context" .) | mustFromJson }}
 {{- with $deps }}
 
 {{- if dig "homebrew" "_settings" "install" true . }}
@@ -26,7 +26,7 @@ fi
 {{- if or (dig "homebrew" "taps" list .) (dig "homebrew" "brews" list .) (dig "homebrew" "casks" list .) (dig "homebrew" "mas" list .) }}
 
 tmp="$(mktemp)"
-{{ template "shellVars/brew.tmpl" }}
+{{ includeTemplate "shellVars/brew.tmpl" . }}
 
 {
   {{- range dig "homebrew" "taps" list . }}

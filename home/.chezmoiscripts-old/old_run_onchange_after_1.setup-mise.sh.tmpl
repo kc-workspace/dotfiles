@@ -4,7 +4,7 @@ printf '>> Starting... %s\n' "setup-mise.sh"
 
 set -e
 
-{{- $deps := dig "dependencies" .global.profile .global.os "" $ }}
+{{- $deps := includeTemplate "global/helpers/getData" (dict "path" (list "dependencies") "defaults" "" "context" .) | mustFromJson }}
 {{- with $deps }}
 {{- if dig "mise" "_settings" "install" true . }}
 

@@ -4,7 +4,8 @@ printf '>> Starting... %s\n' "setup-macos-defaults.sh"
 
 set -e
 
-{{- range dig "preferences" .global.profile .global.os list . }}
+{{- $preferences := includeTemplate "global/helpers/getData" (dict "path" (list "preferences") "defaults" list "context" .) | mustFromJson }}
+{{- range $preferences }}
 {{- $beforeCmd := dig "hooks" "before" "" . }}
 {{- $afterCmd := dig "hooks" "after" "" . }}
 {{- $cmd := .command }}
