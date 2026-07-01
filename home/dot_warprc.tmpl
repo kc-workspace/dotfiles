@@ -1,15 +1,13 @@
-
-{{- if eq .chezmoi.os "darwin" }}
 t:/tmp
 h:~
-dl:~/Downloads
-dt:~/Desktop
-p:~/Personal
 pdf:~/.local/share/chezmoi
-vsc-user:~/Library/Application Support/Code - Insiders/User
+p:~/Personal
 w:~/Works
 st:~/Works/Smartertravel
 sttf:~/Works/Smartertravel/bkk-terraform
-{{- else if eq .chezmoi.os "linux" }}
-t:/tmp
+{{- if includeTemplate "global/variables/isDarwin" . }}
+dl:~/Downloads
+dt:~/Desktop
+vsc-user:~/Library/Application Support/Code - Insiders/User
+{{- else if includeTemplate "global/variables/isLinux" . }}
 {{- end }}
