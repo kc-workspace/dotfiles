@@ -1,5 +1,36 @@
+{{- $shortcuts := includeTemplate "global/helpers/getData" (dict
+	"path" (list "preferences" "shortcututil")
+	"defaults" list
+	"context" .
+) | mustFromJson }}
+{{- if $shortcuts -}}
 #!/usr/bin/env sh
 
 set -euo pipefail
 
 printf '>> Starting... %s\n' "preferences-shortcututil.sh"
+{{ range $shortcuts }}
+  {{- $key := .key }}
+  {{- $enabled := .enabled }}
+  {{- $type := dig "type" "standard" . }}
+  {{- $parameters := dig "parameters" list . }}
+
+  {{- printf "defaults write com.apple.symbolichotkeys AppleSymbolicHotKeys -dict-add %v \"<dict>" $key | nindent 0 }}
+    {{- printf "<key>enabled</key><%t/>" $enabled | nindent 2 }}
+    {{- if gt (len $parameters) 0 }}
+      {{- printf "<key>value</key><dict>" | nindent 2 }}
+        {{- printf "<key>type</key><string>%s</string>" $type | nindent 4 }}
+        {{- printf "<key>parameters</key>" | nindent 4 }}
+        {{- printf "<array>" | nindent 4 }}
+          {{- range $parameters }}
+            {{- printf "<integer>%v</integer>" . | nindent 6 }}
+          {{- end }}
+        {{- printf "</array>" | nindent 4 }}
+      {{- printf "</dict>" | nindent 2 }}
+    {{- end }}
+  {{- printf "</dict>\"" | nindent 0 }}
+{{- end }}
+
+printf '>>> Activating... %s' "shortcut settings"
+"/System/Library/PrivateFrameworks/SystemAdministration.framework/Resources/activateSettings" -u
+{{- end }}
