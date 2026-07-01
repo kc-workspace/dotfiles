@@ -1,0 +1,306 @@
+machine:
+  darwin:
+    settings: {}
+
+    preferences:
+      defaults:
+        - domain: NSGlobalDomain
+          settings:
+            - key: com.apple.keyboard.fnState # If true, enables F1, F2, etc. keys as standard function keys.
+              value: false
+            - key: com.apple.mouse.tapBehavior # Trackpad tap behavior (null: click, 1: tap)
+              value: 1
+            - key: com.apple.sound.beep.feedback # Make a feedback sound when system volume changes (0: no sound, 1: play sound)
+              value: 1
+            - key: com.apple.sound.beep.volume # Sets beep volume from 0.000 (muted) to 1.000 (100% volume)
+              value: 1.0
+              type: float
+            - key: com.apple.swipescrolldirection # If true, enables natural scrolling direction on trackpad
+              value: true
+            - key: com.apple.springing.enabled # If true, enables spring loading for directories (e.g. in Finder)
+              value: true
+            - key: com.apple.springing.delay # Delay until spring loading in seconds (default 0.5)
+              value: 0.3
+            - key: _HIHideMenuBar # If true, automatically hide and show the menu bar
+              value: false
+            - key: AppleActionOnDoubleClick # Window title bar double-click action ("Fill", "Maximize", "Minimize", or "None")
+              value: Maximize
+            - key: NSQuitAlwaysKeepsWindow # If true, documents and windows are restored when reopening an app
+              value: false
+            - key: AppleShowAllExtensions # If true, shows all filename extensions in Finder
+              value: true
+            - key: AppleInterfaceStyleSwitchesAutomatically # Auto-switch theme on schedule
+              value: true
+            - key: AppleKeyboardUIMode # Keyboard navigation (0: disabled, 2: full navigation)
+              value: 2
+            - key: ApplePressAndHoldEnabled # If true, press and hold keys to show accented characters
+              value: false
+            - key: AppleSpacesSwitchOnActivate # If true, switch to a workspace that has a window of the app open
+              value: true
+            - key: AppleShowScrollBars # Show scroll bars ("WhenScrolling", "Automatic", "Always")
+              value: WhenScrolling
+            - key: AppleShowAllFiles # If true, shows hidden files in Finder
+              value: false
+            - key: AppleWindowTabbingMode # Window tabbing mode for new documents ("manual", "always", "fullscreen")
+              value: always
+            - key: InitialKeyRepeat # Delay until key repeat (input * 15ms)
+              value: 25
+            - key: KeyRepeat # Key repeat rate (input * 15ms)
+              value: 2
+            - key: NSAutomaticCapitalizationEnabled # If true, enables automatic capitalization
+              value: true
+            - key: NSAutomaticDashSubstitutionEnabled # If true, enables smart dash substitution
+              value: true
+            - key: NSAutomaticInlinePredictionEnabled # If true, enables inline predictive text
+              value: true
+            - key: NSAutomaticPeriodSubstitutionEnabled # If true, enables automatic period substitution
+              value: true
+            - key: NSAutomaticQuoteSubstitutionEnabled # If true, enables smart quote substitution
+              value: true
+            - key: NSAutomaticSpellingCorrectionEnabled # If true, enables automatic spelling correction
+              value: true
+            - key: NSAutomaticWindowAnimationsEnabled # If true, enables automatic window animations
+              value: true
+            - key: NSDocumentSaveNewDocumentsToCloud # If true, new documents are saved to iCloud by default
+              value: true
+            - key: NSNavPanelExpandedStateForSaveMode # If true, expands save panel by default
+              value: true
+            - key: NSNavPanelExpandedStateForSaveMode2 # Same as NSNavPanelExpandedStateForSaveMode
+              value: true
+            - key: PMPrintingExpandedStateForPrint # If true, expands print panel by default
+              value: true
+            - key: PMPrintingExpandedStateForPrint2 # Same as PMPrintingExpandedStateForPrint
+              value: true
+            - key: NSScrollAnimationEnabled # If true, enables smooth scrolling
+              value: true
+            - key: NSUseAnimatedFocusRing # If true, enables animated focus ring
+              value: false
+            - key: NSTableViewDefaultSizeMode # Finder sidebar icon size (1: small, 2: medium, 3: large)
+              value: 2
+            - key: NSWindowResizeTime # Window resize speed (default 0.2)
+              value: 0.01
+            - key: NSWindowShouldDragOnGesture # If true, enables moving window by holding anywhere on it
+              value: true
+            - key: NSTextShowsControlCharacters # If true, shows control characters in ASCII code (TextEdit)
+              value: true
+            - key: AppleLanguages # Ordered list of preferred UI languages
+              value: [en-TH, th-TH]
+            - key: AppleLocale # Active locale
+              value: en_TH@calendar=gregorian
+            - key: AppleMetricUnits # If true, uses metric units
+              value: true
+            - key: com.apple.mouse.tapBehavior # Tap to click on trackpad
+              host: current
+              value: 1
+            - key: com.apple.trackpad.forceClick # If true, enables Force Click and haptic feedback on trackpad
+              value: true
+            - key: com.apple.trackpad.scaling # Trackpad tracking speed (0: slow, 3: fast)
+              value: 3
+            - key: com.apple.trackpad.enableSecondaryClick # If true, enables right-click on trackpad
+              host: current
+              value: true
+            - key: com.apple.trackpad.threeFingerTapGesture # Three-finger tap gesture (0: Force-Click-delegated, 2: tap with three fingers)
+              host: current
+              value: 0
+            - key: com.apple.trackpad.threeFingerDragGesture # If true, enables dragging items with three fingers
+              host: current
+              value: true
+            - key: com.apple.trackpad.threeFingerHorizSwipeGesture # Three-finger horizontal swipe gesture (0: disabled, 2: enabled)
+              host: current
+              value: 0
+            - key: com.apple.trackpad.threeFingerVertSwipeGesture # Three-finger vertical swipe gesture (0: disabled, 2: enabled)
+              host: current
+              value: 0
+
+        - domain: com.apple.AppleMultitouchTrackpad
+          settings:
+            - key: FirstClickThreshold # First click pressure sensitivity (0: light, 1: medium, 2: firm)
+              value: 1
+            - key: SecondClickThreshold # Second click pressure sensitivity (0: light, 1: medium, 2: firm)
+              value: 1
+            - key: ForceSuppressed # If true, disables Force Click and haptic feedback on built-in trackpad
+              value: false
+            - key: Clicking # Same as NSGlobalDomain com.apple.mouse.tapBehavior
+              value: true
+            - key: TrackpadRightClick # If true, enables right-click by clicking with two fingers
+              value: true
+            - key: TrackpadCornerSecondaryClick # Right-click corner (0: disabled, 1: bottom-right corner)
+              value: 0
+            - key: TrackpadThreeFingerTapGesture # Same as NSGlobalDomain com.apple.trackpad.threeFingerTapGesture
+              value: 0
+            - key: TrackpadThreeFingerDrag # Same as NSGlobalDomain com.apple.trackpad.threeFingerDragGesture
+              value: true
+            - key: TrackpadThreeFingerHorizSwipeGesture # Same as NSGlobalDomain com.apple.trackpad.threeFingerHorizSwipeGesture (conflicts with TrackpadThreeFingerDrag)
+              value: 0
+            - key: TrackpadThreeFingerVertSwipeGesture # Same as NSGlobalDomain com.apple.trackpad.threeFingerVertSwipeGesture (conflicts with TrackpadThreeFingerDrag)
+              value: 0
+
+        - domain: com.apple.driver.AppleBluetoothMultitouch.trackpad
+          settings:
+            - key: Clicking # Same as NSGlobalDomain com.apple.mouse.tapBehavior
+              value: true
+            - key: TrackpadRightClick # If true, enables right-click by clicking with two fingers
+              value: true
+            - key: TrackpadCornerSecondaryClick # Right-click corner (0: disabled, 1: bottom-right corner)
+              value: 0
+            - key: TrackpadThreeFingerTapGesture # Same as NSGlobalDomain com.apple.trackpad.threeFingerTapGesture
+              value: 0
+            - key: TrackpadThreeFingerDrag # Same as NSGlobalDomain com.apple.trackpad.threeFingerDragGesture
+              value: true
+            - key: TrackpadThreeFingerHorizSwipeGesture # Same as NSGlobalDomain com.apple.trackpad.threeFingerHorizSwipeGesture (conflicts with TrackpadThreeFingerDrag)
+              value: 0
+            - key: TrackpadThreeFingerVertSwipeGesture # Same as NSGlobalDomain com.apple.trackpad.threeFingerVertSwipeGesture (conflicts with TrackpadThreeFingerDrag)
+              value: 0
+
+        - domain: com.apple.AppleMultitouchMouse
+          settings: []
+
+        - domain: com.apple.driver.AppleBluetoothMultitouch.mouse
+          settings: []
+
+        - domain: com.apple.dock
+          hooks:
+            after: killall Dock
+          settings:
+            - key: autohide # If true, enables "Automatically hide and show the Dock"
+              value: true
+            - key: autohide-time-modifier # Dock open/close animation time (default 0.5)
+              value: 0.3
+            - key: autohide-delay # Dock opening delay (default 0.2)
+              value: 0.2
+            - key: magnification # If true, enables Dock magnification
+              value: true
+            - key: tilesize # Dock tile size (16 - 128)
+              value: 64
+            - key: largesize # Largest magnification size (16 - 128)
+              value: 80
+            - key: show-recents # If true, enables "Show recent items"
+              value: false
+            - key: mineffect # Window minimize effect
+              value: genie
+            - key: orientation # Dock orientation
+              value: bottom
+            - key: static-only # If true, only show opened apps in Dock
+              value: false
+            - key: scroll-to-open # Scroll up on a Dock icon to show all opened windows
+              value: true
+
+        - domain: com.apple.controlcenter
+          hooks:
+            after: killall ControlCenter
+          settings:
+            - key: AutoHideMenuBarOption # Auto-hide menu bar (0: always, 1: desktop only, 2: full screen only, 3: never)
+              value: 2
+            - key: RemoteLiveActivitiesEnabled # If true, enables Live Activities in Control Center on Mac
+              value: true
+
+        - domain: com.apple.finder
+          hooks:
+            after: killall Finder
+          settings:
+            - key: _FXSortFoldersFirst # If true, keeps folders on top when sorting by name
+              value: true
+            - key: ShowPathbar # If true, shows path bar in Finder
+              value: true
+            - key: ShowStatusBar # If true, shows status bar (item count, disk space)
+              value: true
+            - key: ShowSidebar # If true, shows sidebar in Finder
+              value: true
+            - key: CreateDesktop # If true, shows icons on desktop
+              value: true
+            - key: ShowHardDrivesOnDesktop # If true, shows hard drives on desktop
+              value: false
+            - key: ShowExternalHardDrivesOnDesktop # If true, shows external hard drives on desktop
+              value: true
+            - key: ShowRemovableMediaOnDesktop # If true, shows removable media on desktop
+              value: true
+            - key: QuitMenuItem # If true, shows "Quit Finder" option in Finder menu
+              value: true
+            - key: WarnOnEmptyTrash # If true, warns before emptying Trash
+              value: true
+            - key: FXPreferredViewStyle # Default Finder view style ("nlsv", "icnv", "clmv", "glyv")
+              value: nlsv
+            - key: NewWindowTarget # Default location for new Finder windows
+              value: PfHm
+            - key: NewWindowTargetPath # Path for NewWindowTarget when set to custom (PfLo)
+              value: null
+            - key: FXDefaultSearchScope # Default Finder search scope ("SCev", "SCcf", "SCsp")
+              value: SCcf
+
+        - domain: com.apple.menuextra.clock
+          hooks:
+            after: killall SystemUIServer
+          settings:
+            - key: IsAnalog # If true, shows analog clock in menu bar
+              value: true
+            - key: Show24Hour # If true, shows 24-hour time format
+              value: true
+            - key: ShowAMPM # If true, shows AM/PM suffix
+              value: false
+            - key: ShowDate # Date visibility in menu bar (0: off, 1: on, 2: when space allows)
+              value: 1
+            - key: ShowDayOfWeek # If true, shows day of week in menu bar
+              value: true
+            - key: ShowSeconds # If true, shows seconds in menu bar clock
+              value: true
+            - key: FlashDateSeparators # If true, flashes time separators (for example, the colon)
+              value: false
+            - key: TimeAnnouncementsEnabled # If true, enables time announcements
+              value: false
+            - key: TimeAnnouncementsIntervalIdentifier # Time announcement interval identifier
+              value: EveryHourInterval
+
+      dockutil:
+        apps:
+          - name: /System/Applications/Apps.app # Support values: add (default), move, or remove
+          - name: /Applications/1Password.app
+          - name: /System/Applications/Messages.app
+          - name: /Applications/Slack.app
+          - name: "/Applications/Setapp/Spark Mail.app" # Requires installing from Setapp
+          - name: "/Applications/Brave Browser.app"
+          - name: "/Applications/Visual Studio Code - Insiders.app"
+          - name: /Applications/Ghostty.app
+        others:
+          - name: ~/Downloads
+            settings:
+              view: auto # --view auto
+              display: stack # --display stack
+              sort: dateadded # --sort dateadded
+              allhomes: true # --allhomes
+        settings:
+          startEmpty: true # Reset Dock list before applying changes
+          restart: end # Restart Dock after changes are applied
+
+      shortcututil:
+        - name: Save screenshot of screen
+          key: 28
+          enabled: false
+        - name: Copy screenshot of screen
+          key: 29
+          enabled: false
+        - name: Save screenshot of selection
+          key: 30
+          enabled: false
+        - name: Copy screenshot of selection
+          key: 31
+          enabled: false
+        - name: Screenshot and recording options
+          key: 184
+          enabled: false
+        - name: Toggle VoiceOver
+          key: 59
+          enabled: false
+        - name: Previous input source
+          key: 60
+          enabled: false
+        - name: Next input source
+          key: 61
+          enabled: false
+        - name: Spotlight search field
+          key: 64
+          enabled: false
+        - name: Spotlight/Finder search (variant)
+          key: 65
+          enabled: false
+
+    dependencies: {}
