@@ -78,9 +78,9 @@ _base:
         upgrade: true ## Run `apk upgrade` after install packages
 
     brew:
-      taps: []
-      packages: []
-      casks: []
+      taps: []     ## List of brew tap to install (@type string[])
+      packages: [] ## List of brew to install (@type string[])
+      casks: []    ## List of brew cask to install (@type string[])
       settings:
         ## Autoinstall when cannot find brew command
         autoinstall: true
@@ -94,8 +94,17 @@ _base:
           HOMEBREW_NO_ENV_HINTS: true   ## Do not print any hints
 
     mas:
+      # packages:
+      #   - name: <app-name>
+      #     id: <app-id>
       packages: []
-      settings: {}
+      settings:
+        ## Autoinstall when cannot find mas command (depends on brew)
+        autoinstall: true
+        ## Autoreset before install any packages
+        autoreset: true
+        ## Autoupdate after install all packages
+        autoupdate: true
 
     mise:
       packages: []

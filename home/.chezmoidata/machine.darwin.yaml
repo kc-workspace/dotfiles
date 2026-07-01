@@ -344,28 +344,28 @@ machine:
 
       mas:
         packages:
-          - id: 1569813296
-            name: 1Password for Safari
-          - id: 361285480
-            name: Keynote
-          - id: 441258766
-            name: Magnet
-          - id: 361304891
-            name: Numbers
-          - id: 361309726
-            name: Pages
-          - id: 1497506650
-            name: Yubico Authenticator
-          - id: 424389933
-            name: Final Cut Pro
-          # - id: 497799835
-          #   name: Xcode
-          # - id: 424390742
-          #   name: Compressor
-          # - id: 634159523
-          #   name: MainStage
-          # - id: 634148309
-          #   name: Logic Pro
+          - name: 1Password for Safari
+            id: 1569813296
+          - name: Keynote
+            id: 361285480
+          - name: Magnet
+            id: 441258766
+          - name: Numbers
+            id: 361304891
+          - name: Pages
+            id: 361309726
+          - name: Yubico Authenticator
+            id: 1497506650
+          - name: Final Cut Pro
+            id: 424389933
+          # - name: Xcode
+          #   id: 497799835
+          # - name: Compressor
+          #   id: 424390742
+          # - name: MainStage
+          #   id: 634159523
+          # - name: Logic Pro
+          #   id: 634148309
         settings: {}
 
       mise:
