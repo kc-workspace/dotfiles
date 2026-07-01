@@ -1,0 +1,28 @@
+machine:
+  linux/ubuntu:
+    settings: {}
+
+    preferences: {}
+
+    dependencies:
+      apt:
+        packages:
+          - zsh ## Prerequisite for everything
+          - git ## Prerequisite for everything
+          - gpg ## Prerequisite for decrypting files
+        settings:
+          autoupgrade: true
+
+      brew:
+        taps: []
+        packages:
+          - ca-certificates ## For SSL certificates
+          - cloc            ## For count lines of code
+        casks: []
+        settings:
+          autoinstall: true
+          autoclean: true
+
+      mise:
+        packages: <ALL>
+        settings: {}
