@@ -3,3 +3,48 @@
 set -euo pipefail
 
 printf '>> Starting... %s\n' "dependencies-mas.sh"
+
+{{- $mas := includeTemplate "global/helpers/getData" (dict
+  "path" (list "dependencies" "mas")
+  "defaults" dict
+  "context" .
+) | mustFromJson }}
+
+{{- if dig "settings" "autoinstall" true $mas }}
+
+printf '>>> Checking... %s\n' "mas"
+if ! command -v mas >/dev/null; then
+  printf '>>> Installing... %s\n' "mas"
+  {{ includeTemplate "shellVars/brew.tmpl" | nindent 2 }}
+  "$brew_cmd" install mas
+
+  unset brew_bin brew_cmd
+fi
+{{- end }}
+
+{{- $packages := dig "packages" list $mas -}}
+{{- if $packages }}
+
+mas_cmd="$brew_bin/mas"
+if ! [ -x "$mas_cmd" ]; then
+  printf '>>> Error: %s\n' "mas command not found"
+  exit 1
+fi
+
+printf '>>> Installing... %s\n' "App Store packages"
+
+set -x
+{{- if dig "settings" "autoreset" true $mas }}
+"$mas_cmd" reset
+{{- end }}
+
+{{- range $packages }}
+"$mas_cmd" install {{ printf "%-15s" (.id | toString | quote) }} ## {{ .name }}
+{{- end }}
+
+{{- if dig "settings" "autoupdate" true $mas }}
+"$mas_cmd" upgrade
+{{- end }}
+set +x
+
+{{- end }}
