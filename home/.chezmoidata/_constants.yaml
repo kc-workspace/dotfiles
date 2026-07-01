@@ -1,0 +1,14 @@
+_constants:
+  profiles:
+    - machine
+    - docker
+    - actions
+  platforms:
+    - darwin
+    - linux/debian
+    - linux/ubuntu
+    - linux/alpine
+  configs:
+    - settings
+    - preferences
+    - dependencies
