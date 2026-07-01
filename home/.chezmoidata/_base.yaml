@@ -29,6 +29,15 @@ _base:
     #       [after: <hook-command>]              ## Run a command after the preference is set
     defaults: []
 
+    ## Set up macOS keyboard shortcuts using shortcututil.
+    # shortcututil:
+    #   - name: <shortcut-name>
+    #     key: <shortcut-key>
+    #     enabled: <boolean>
+    #     [type: [standard | modifier | SAE1.0]]
+    #     [parameters: [[<int>, <int>, <int>] | [<int>, <int>]]]
+    shortcututil: []
+
     ## Set up macOS Dock items using dockutil.
     dockutil:
       ## app section is on the left side of the dock
@@ -54,15 +63,6 @@ _base:
         ## Whether to restart the Dock always or only at the end of the run
         ## @type - [always | end]
         restart: end
-
-    ## Set up macOS keyboard shortcuts using shortcututil.
-    # shortcututil:
-    #   - name: <shortcut-name>
-    #     key: <shortcut-key>
-    #     enabled: <boolean>
-    #     [type: [standard | modifier | SAE1.0]]
-    #     [parameters: [[<int>, <int>, <int>] | [<int>, <int>]]]
-    shortcututil: []
 
   dependencies:
     apt:

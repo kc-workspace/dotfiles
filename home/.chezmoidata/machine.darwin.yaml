@@ -250,27 +250,6 @@ machine:
             - key: TimeAnnouncementsIntervalIdentifier ## Time announcement interval identifier
               value: EveryHourInterval
 
-      dockutil:
-        apps:
-          - name: /System/Applications/Apps.app
-          - name: /Applications/1Password.app
-          - name: /System/Applications/Messages.app
-          - name: /Applications/Slack.app
-          - name: "/Applications/Setapp/Spark Mail.app" ## Requires installing from Setapp
-          - name: "/Applications/Brave Browser.app"
-          - name: "/Applications/Visual Studio Code - Insiders.app"
-          - name: /Applications/Ghostty.app
-        others:
-          - name: ~/Downloads
-            settings:
-              view: auto
-              display: stack
-              sort: dateadded
-              allhomes: true
-        settings:
-          startEmpty: true ## Reset Dock list before applying changes
-          restart: end ## Restart Dock after changes are applied
-
       shortcututil:
         - name: Save screenshot of screen
           key: 28
@@ -302,6 +281,27 @@ machine:
         - name: Spotlight/Finder search (variant)
           key: 65
           enabled: false
+
+      dockutil:
+        apps:
+          - name: /System/Applications/Apps.app
+          - name: /Applications/1Password.app
+          - name: /System/Applications/Messages.app
+          - name: /Applications/Slack.app
+          - name: "/Applications/Setapp/Spark Mail.app" ## Requires installing from Setapp
+          - name: "/Applications/Brave Browser.app"
+          - name: "/Applications/Visual Studio Code - Insiders.app"
+          - name: /Applications/Ghostty.app
+        others:
+          - name: ~/Downloads
+            settings:
+              view: auto
+              display: stack
+              sort: dateadded
+              allhomes: true
+        settings:
+          startEmpty: true ## Reset Dock list before applying changes
+          restart: end ## Restart Dock after changes are applied
 
     dependencies:
       brew:
