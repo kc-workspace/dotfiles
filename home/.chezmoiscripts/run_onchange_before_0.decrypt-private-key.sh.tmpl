@@ -1,0 +1,17 @@
+#!/usr/bin/env sh
+
+set -euo pipefail
+
+printf '>> Starting... %s\n' "decrypt-private-key.sh"
+
+src="{{ .chezmoi.sourceDir }}/key.txt.age"
+base="$HOME/.config/chezmoi"
+out="$base/key.txt"
+
+if [ ! -f "$out" ]; then
+    mkdir -p "$base"
+    chezmoi age decrypt "$src" --output "$out" --passphrase
+    chmod 600 "$out"
+fi
+
+unset src base out
