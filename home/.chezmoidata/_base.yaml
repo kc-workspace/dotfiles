@@ -66,16 +66,18 @@ _base:
 
   dependencies:
     apt:
-      packages: []    ## List of packages to install (@type string[])
+      packages: []        ## List of packages to install (@type string[])
       settings:
-        update: true  ## Run `apt update` before install packages
-        upgrade: true ## Run `apt upgrade` after install packages
+        command: apt      ## Use `apt` command to execute (possible values: apt, apt-get)
+        autoupdate: true  ## Run `apt update` before install packages
+        autoupgrade: true ## Run `apt upgrade` after install packages
+        autoclean: true   ## Run `apt clean` after install packages
 
     apk:
-      packages: []    ## List of packages to install (@type string[])
+      packages: []        ## List of packages to install (@type string[])
       settings:
-        update: true  ## Run `apk update` before install packages
-        upgrade: true ## Run `apk upgrade` after install packages
+        autoupdate: true  ## Run `apk update` before install packages
+        autoupgrade: true ## Run `apk upgrade` after install packages
 
     brew:
       taps: []     ## List of brew tap to install (@type string[])
@@ -107,5 +109,9 @@ _base:
         autoupdate: true
 
     mise:
-      packages: []
-      settings: {}
+      packages: [] ## List of mise tool to install; use <ALL> to install all tools defined (@type [string[] | "<ALL>"])
+      settings:
+        ## Autoinstall mise when cannot find mise command
+        autoinstall: true
+        ## Autoupdate mise before install any packages
+        autoupdate: true

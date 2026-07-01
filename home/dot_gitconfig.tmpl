@@ -55,7 +55,7 @@
 	up = pull --rebase origin
 	pm = push --set-upstream origin main
 
-{{- if eq .chezmoi.os "darwin" }}
+{{- if includeTemplate "global/variables/isDarwin" . }}
 
 [gpg]
 	format = ssh

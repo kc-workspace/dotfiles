@@ -369,6 +369,5 @@ machine:
         settings: {}
 
       mise:
-        packages: ALL
-        settings:
-          upgrade: true
+        packages: <ALL>
+        settings: {}
