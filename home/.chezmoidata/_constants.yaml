@@ -10,5 +10,6 @@ _constants:
     - linux/alpine
   configs:
     - settings
+    - definitions
     - preferences
     - dependencies
