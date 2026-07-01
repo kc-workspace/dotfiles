@@ -1,10 +1,9 @@
 ## $HOME/.config/chezmoi/chezmoi.yaml
 
-encryption: gpg
-gpg:
-  recipient: 'dotfiles.m1xz2@slmails.com'
-  args:
-    - "--quiet"
+encryption: age
+age:
+  identity: "~/.config/chezmoi/key.txt"
+  recipient: "age12z9uwglawqmejczved5k6969ueej6y0r3hjnmhnp968z5nxlfdkscdlpg0"
 
 sourceDir: "~/.local/share/chezmoi"
 destDir: "~"
@@ -33,24 +32,16 @@ onepassword:
   prompt: true
 
 data:
-  global:
-    opExist: {{ if lookPath "op" }}true{{ else }}false{{ end }}
-    opSignedIn: {{ if not (lookPath "op") -}}
-        false
-      {{- else if exec "op" "whoami" -}}
-        true
-      {{- else -}}
-        false
-      {{- end }}
-    profile: {{ if eq (env "GITHUB_ACTIONS") "true" -}}
-        actions
-      {{- else if eq (env "DOCKER") "true" -}}
-        docker
-      {{- else -}}
-        machine
-      {{- end }}
-    os: {{ with .chezmoi.osRelease -}}
-        {{- printf "%s/%s" $.chezmoi.os .id -}}
-      {{- else -}}
-        {{- .chezmoi.os -}}
-      {{- end }}
+  _global:
+    {{- $global := dig "_global" dict . -}}
+    {{- $defaultProfile := includeTemplate "global/variables/profile" . -}}
+    {{- $profiles := list "actions" "docker" "machine" }}
+    profile: {{ promptChoiceOnce $global "profile" "Profile" $profiles $defaultProfile }}
+    {{- $defaultPlatform := includeTemplate "global/variables/platform" . }}
+    platform: {{ promptStringOnce $global "platform" "Platform" $defaultPlatform }}
+
+  _base:
+    settings:
+      {{- $settings := dig "_base" "settings" dict . -}}
+      {{- $flags := includeTemplate "global/variables/featureFlags" . | mustFromJson }}
+      featureFlags: {{- promptMultichoiceOnce $settings "featureFlags" "Feature Flags" $flags list | toYaml | nindent 6 }}
