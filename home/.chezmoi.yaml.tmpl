@@ -3,7 +3,7 @@
 encryption: age
 age:
   identity: "~/.config/chezmoi/key.txt"
-  recipient: "age12z9uwglawqmejczved5k6969ueej6y0r3hjnmhnp968z5nxlfdkscdlpg0"
+  recipient: "age1pq13np3975htrlyw9sf03nnep9932mc5evq5zhd9ym3ctzt72sansvg2amsjrdfc3qf82wg32wxpcrgjzy3zycaksgls8ps03ehp8vkljvh2xfqk9dy6yvk3f4vm298gyh9pddtza3tf3q6aymdp72jpy4xzjan5m5tsmrp24z6232qxxjtf2k5xa3guavj9zetps23k3szwt4qzaxznpama3jlz66s4uw559uwjkwsajvtk3t9eg724cvyhtt5v5377l8rwdaaqvx8nulk5uvant72cx2yfwmsmzfc09jyk8a42r7849t4fy6dhpyzkyskzfj6gq3m0xms63tye4jjmpxz9e0mwn49c3wwemqwrv644gjjglpervj3uafcpucwg76z8layrs4ydywhy63g30zff2f866l2n2npnpwq0pz3lp47wn5kz6pmfa5x8vmws9hr4ds8d7acu84sw42dqrgeqq9q9363scztz6mvewlmeguxcca4fygrqd59a5g5klxejgel7f4xsjafjgc4m0hq87f2kumavvwnj25cevfx78uef8umx4qm2qjuqkdffpvzvxx2h3eudtmta967zzs3g7zql04jn8x8q49dd9qz4zdkz9anvj23j3k03qu8tszjkrpju2u9k9v2zly3ja6ktjyy74yx8mxttqnrtk6xrz343d76gfgntrs5c72fxem6k3my9ycceke6nxptph3vtlh2e00mhjxldprkqqnkfku64zgnqxfahjca3q9pvr2fz902c8g0kkrc0fxyqs4w979kdfafcp80ghh7dssk28pxwwyycmqez578c0glhzcpmzfx4s9rn4vupewffxhecgn6nkm29dvz8vapgpptv84ytp3wnjkqz0t55lrpeyzlw8v7sc7mm4nmcs2e6ewmj0awpg0g66dhzag5e9p5nvr2cplczn669jdr9fgnmrafyshc933cgldueg53vqmgpl5rzcq2vpaa8fc0q4uutkrzfdduu0hgf54gwn2xska284yfm9vhktj9ykt45eaym8qx9dyu7zzqp9yk24yvgs6rjdtec925qdnn978s9k05zm5ys33p7vgsms349x0egqgn3nq6ynzt8gqlgkuz7rk632uc8gyqvaydfxc9k7m866rehnd2wd3caw2vwg4llkah49k32uvsffrytznxxka29xryr8a6cx654qdyckqrk97f79f442zrcxh9xkhk57r836cx2cfswedc8k7yxu3wz3fl8fcss6q24w0vc662wedumvujs9t7nm28vlfzn9ftyy79cc55mkp5ecyxqk65q2ffzq5zw7sh5f6jagstzh7swd8xg875n8xl3xvp6x6eltsrv4a2hpy3w3p8s5n28k5kfvzfjpkhw9wsz97fndaknxd88p6skd5lny2pxg25lccnu8x8xelk4mqadvm6hv74pd4auj22rz0r9lwyt8d7gwtahju7x2zr9mftj475kvetua6t2g9y6xpc0k0ccez42vn8g49jwwqpnawxz6rpygk8py9ny6rskse8lq6czfz308gpzkddgazdwk9dyzechqr2qj5ws0sg6w2gavdkwkn88wuqvwj2stcdtd2dzvph9azsyzsj07a3sf5d8p7xls3php4373c22xggzehwq7v2vrr76seyj679sw5fvzzpy0paqjuxnxy8ke93h7mmsfaxvfrh6y5wz0ur48re38j0tvx62amg6srf8td6yptzw55c4yp57ws0du7fzfryhr9yphh25wqh6zl82v4er2n94mdvq9upx824zgzwxr964yn44lhegxpnshcpfw8wrvcwwmkha8wcjanu882f4l5n2j38denj9kctgnm02aaphdcq5rt4cpplc0phm4jw6ukjtgrs6s6jxm6kc62egnm5ad4vp3xew52qfvpdfvwq"
 
 sourceDir: "~/.local/share/chezmoi"
 destDir: "~"
@@ -32,16 +32,36 @@ onepassword:
   prompt: true
 
 data:
-  _global:
-    {{- $global := dig "_global" dict . -}}
-    {{- $defaultProfile := includeTemplate "global/variables/profile" . -}}
-    {{- $profiles := list "actions" "docker" "machine" }}
-    profile: {{ promptChoiceOnce $global "profile" "Profile" $profiles $defaultProfile }}
-    {{- $defaultPlatform := includeTemplate "global/variables/platform" . }}
-    platform: {{ promptStringOnce $global "platform" "Platform" $defaultPlatform }}
+  {{- $data := mustMergeOverwrite $ }}
+  {{- range glob (joinPath .chezmoi.sourceDir ".chezmoidata" "**" "*.yaml") }}
+    {{- $data = mustMergeOverwrite $data
+      (include . | fromYaml)
+    }}
+  {{- end }}
 
+  {{- $global := dig "_global" dict . }}
+  {{- $defaultProfile := includeTemplate "global/variables/profile" . }}
+  {{- $profiles := dig "_constants" "profiles" list $data }}
+  {{- $profile := promptChoiceOnce $global "profile" "Profile" $profiles $defaultProfile }}
+  {{- with $profile }}
+    {{- $_ := set $global "profile" . }}
+  {{- end }}
+  {{- $defaultPlatform := includeTemplate "global/variables/platform" . }}
+  {{- $platforms := dig "_constants" "platforms" list $data }}
+  {{- $platform := promptChoiceOnce $global "platform" "Platform" $platforms $defaultPlatform }}
+  {{- with $platform }}
+    {{- $_ := set $global "platform" . }}
+  {{- end }}
+  _global: {{- $global | toYaml | nindent 4 }}
+
+  {{- $data = mustMergeOverwrite $data (dict "_global" $global) }}
   _base:
+    {{- $settings := dig "_base" "settings" dict . }}
     settings:
-      {{- $settings := dig "_base" "settings" dict . -}}
-      {{- $flags := includeTemplate "global/variables/featureFlags" . | mustFromJson }}
-      featureFlags: {{- promptMultichoiceOnce $settings "featureFlags" "Feature Flags" $flags list | toYaml | nindent 6 }}
+      {{- $defaultFlags := includeTemplate "global/helpers/getData" (dict
+        "path" (list "settings" "featureFlags")
+        "defaults" list
+        "context" $data
+      ) | mustFromJson }}
+      {{- $flags := includeTemplate "featureFlags/helpers/list" $data | mustFromJson }}
+      featureFlags: {{- promptMultichoiceOnce $settings "featureFlags" "Feature Flags" $flags $defaultFlags | toYaml | nindent 8 }}

@@ -1,29 +1,4 @@
 _base:
-  # settings:
-  #   ## All possible featureFlags: _base.yaml => _base.featureFlags
-  #   ## This should be defined at chezmoi.yaml from user input
-  #   featureFlags: []
-  settings: {}
-
-  definitions:
-    # featureFlags:
-    #   <flag-name>:
-    #     type: file          ## at .chezmoitemplates/featureFlags/contents/<flag-name>/<file-name>.{age,tmpl,txt}
-    #     [name: <file-name>] ## Use when need to define different file name, no need to provide extension (default to index)
-    #   <flag-name>:
-    #     type: string
-    #     value: <constant>
-    #   <flag-name>:
-    #     type: opRead
-    #     value: <op://vault/item/field>
-    #   <flag-name>:
-    #     type: opDoc
-    #     value: <uuid>
-    #     [vault: <vault-uuid>]
-    featureFlags:
-      smartertravel:aws:
-        type: file
-
   preferences:
     # defaults:
     #   - domain: [NSGlobalDomain | <domain-name> | -app <app-name> | <plist-path>]
@@ -141,3 +116,28 @@ _base:
         autoinstall: true
         ## Autoupdate mise before install any packages
         autoupdate: true
+
+  # settings:
+  #   ## All possible featureFlags: _base.yaml => _base.featureFlags
+  #   ## This should be defined at chezmoi.yaml by user input (prompt)
+  #   featureFlags: []
+  settings: {}
+
+  definitions:
+    # featureFlags:
+    #   <flag-name>:
+    #     type: file          ## at .chezmoitemplates/featureFlags/contents/<flag-name>/<file-name>.{age,tmpl,txt}
+    #     [name: <file-name>] ## Use when need to define different file name, no need to provide extension (default to index)
+    #   <flag-name>:
+    #     type: string
+    #     value: <constant>
+    #   <flag-name>:
+    #     type: opRead
+    #     value: <op://vault/item/field>
+    #   <flag-name>:
+    #     type: opDoc
+    #     value: <uuid>
+    #     [vault: <vault-uuid>]
+    featureFlags:
+      smartertravel:aws:
+        type: file
