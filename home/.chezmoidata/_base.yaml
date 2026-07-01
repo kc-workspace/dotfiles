@@ -1,0 +1,102 @@
+_global:
+  profiles:
+    - machine
+    - docker
+    - actions
+  platforms:
+    - darwin
+    - linux/debian
+    - linux/ubuntu
+    - linux/alpine
+  configs:
+    - settings
+    - preferences
+    - dependencies
+
+_base:
+  settings: {}
+
+  preferences:
+    # defaults:
+    #   - domain: [NSGlobalDomain | <domain-name> | -app <app-name> | <plist-path>]
+    #     settings:
+    #       - key: <preference-key>
+    #         value: [<preference-value> | null] ## Use null to delete a preference
+    #         [host: [current | <host-name>]]    ## Use current to currentHost
+    #         [type: <preference-type>]          ## run `defaults --help` for a list of types
+    #     [hooks:]
+    #       [before: <hook-command>]             ## Run a command before the preference is set
+    #       [after: <hook-command>]              ## Run a command after the preference is set
+    defaults: []
+
+    ## Set up macOS Dock items using dockutil.
+    dockutil:
+      ## app section is on the left side of the dock
+      # apps:
+      #   - name: <app-name>
+      #     [action: [add | move | remove]]
+      #     [settings:]
+      #       [position: [beginning | middle | end | <index>]]               ## Inserts the item at a fixed position
+      #       [allhomes: <boolean>]                                          ## Whether to attempt to locate all home directories and perform the operation on each of them
+      #       [homeloc: <path-to-home>]                                      ## Location for home directories (default: /Users)
+      #       [view: [grid | fan | list | auto]]                             ## Folder view option when adding a folder
+      #       [display: [folder | stack]]                                    ## Folder display option when adding a folder
+      #       [sort: [name | dateadded | datemodified | datecreated | kind]] ## Folder sort option when adding a folder
+      apps: []
+      ## other section is on the right side of the dock
+      ## Same as above
+      others: []
+
+      settings:
+        ## Whether to start with an empty Dock
+        ## @type - boolean
+        startEmpty: true
+        ## Whether to restart the Dock always or only at the end of the run
+        ## @type - [always | end]
+        restart: end
+
+    ## Set up macOS keyboard shortcuts using shortcututil.
+    # shortcututil:
+    #   - name: <shortcut-name>
+    #     key: <shortcut-key>
+    #     enabled: <boolean>
+    #     [type: [standard | modifier | SAE1.0]]
+    #     [parameters: [[<int>, <int>, <int>] | [<int>, <int>]]]
+    shortcututil: []
+
+  dependencies:
+    apt:
+      packages: []    ## List of packages to install (@type string[])
+      settings:
+        update: true  ## Run `apt update` before install packages
+        upgrade: true ## Run `apt upgrade` after install packages
+
+    apk:
+      packages: []    ## List of packages to install (@type string[])
+      settings:
+        update: true  ## Run `apk update` before install packages
+        upgrade: true ## Run `apk upgrade` after install packages
+
+    brew:
+      taps: []
+      packages: []
+      casks: []
+      settings:
+        ## Autoinstall when cannot find brew command
+        autoinstall: true
+        ## Autoupdate before install any packages
+        autoupdate: true
+        ## Autoclean after install all packages
+        autoclean: true
+        ## ref: https://docs.brew.sh/Manpage#environment
+        env:
+          HOMEBREW_NO_ANALYTICS: true   ## Do not send analytics
+          HOMEBREW_NO_ENV_HINTS: true   ## Do not print any hints
+
+    mas:
+      packages: []
+      settings: {}
+
+    mise:
+      packages: []
+      settings: {}

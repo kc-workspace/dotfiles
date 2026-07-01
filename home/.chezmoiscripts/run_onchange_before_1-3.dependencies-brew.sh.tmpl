@@ -1,0 +1,74 @@
+#!/usr/bin/env sh
+
+set -euo pipefail
+
+printf '>> Starting... %s\n' "dependencies-brew.sh"
+
+{{- $brew := includeTemplate "global/helpers/getData" (dict
+  "path" (list "dependencies" "brew")
+  "defaults" dict
+  "context" .
+) | mustFromJson }}
+
+{{- if (dig "settings" "autoinstall" true $brew) }}
+
+printf '>>> Checking... %s\n' "Homebrew"
+if ! command -v brew >/dev/null; then
+  printf '>>> Installing... %s (%s)\n' "Homebrew" "$tmp"
+  tmp="$(mktemp)"
+  curl -fsSLo "$tmp" https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh
+  NONINTERACTIVE=1 bash "$tmp"
+  rm -f "$tmp"
+  unset tmp
+fi
+{{- end }}
+
+{{- $taps := dig "taps" list $brew -}}
+{{- $packages := dig "packages" list $brew -}}
+{{- $casks := dig "casks" list $brew -}}
+{{- if or $taps $packages $casks }}
+
+{{ includeTemplate "shellVars/brew.tmpl" }}
+tmp="$(mktemp)"
+{
+  {{- range $taps }}
+    {{- printf "echo '%s %s'" "tap" (. | quote) | nindent 2 }}
+  {{- end }}
+
+  {{- range $packages }}
+    {{- printf "echo '%s %s'" "brew" (. | quote) | nindent 2 }}
+  {{- end }}
+
+  {{- range $casks }}
+    {{- printf "echo '%s %s'" "cask" (. | quote) | nindent 2 }}
+  {{- end }}
+} > "$tmp"
+
+export HOMEBREW_NO_AUTO_UPDATE="true"
+{{- $env := dig "settings" "env" dict $brew }}
+{{- range $key, $value := $env }}
+export {{ $key }}={{ $value | quote }}
+{{- end }}
+
+printf '>>> Installing... %s (%s)\n' "bundle" "$tmp"
+cat "$tmp"
+
+set -x
+{{- if dig "settings" "autoupdate" true $brew }}
+"$brew_cmd" update
+{{- end }}
+"$brew_cmd" bundle install --verbose --debug --file "$tmp"
+{{- if dig "settings" "autoclean" true $brew }}
+"$brew_cmd" autoremove
+"$brew_cmd" cleanup --prune=all --scrub
+{{- end }}
+set +x
+
+rm -f "$tmp"
+unset tmp brew_bin brew_cmd
+unset HOMEBREW_NO_AUTO_UPDATE
+{{- range $key, $_ := $env }}
+  {{- printf " " -}}{{- $key -}}
+{{- end }}
+
+{{- end }}
