@@ -1,14 +1,14 @@
-#!/usr/bin/env sh
-
-set -euo pipefail
-
-printf '>> Starting... %s\n' "preferences-defaults.sh"
-
 {{- $defaults := includeTemplate "global/helpers/getData" (dict
   "path" (list "preferences" "defaults")
   "defaults" list
   "context" .
 ) | mustFromJson }}
+{{- if $defaults -}}
+#!/usr/bin/env sh
+
+set -euo pipefail
+
+printf '>> Starting... %s\n' "preferences-defaults.sh"
 
 {{- range $defaults }}
 {{- $domain := .domain }}
@@ -77,5 +77,6 @@ printf '>> Starting... %s\n' "preferences-defaults.sh"
 {{- if ne $afterCmd "" }}
 
 {{ $afterCmd }}
+{{- end }}
 {{- end }}
 {{- end }}

@@ -1,14 +1,16 @@
-#!/usr/bin/env sh
-
-set -euo pipefail
-
-printf '>> Starting... %s\n' "dependencies-mas.sh"
-
 {{- $mas := includeTemplate "global/helpers/getData" (dict
   "path" (list "dependencies" "mas")
   "defaults" dict
   "context" .
 ) | mustFromJson }}
+
+{{- $packages := dig "packages" list $mas -}}
+{{- if $packages -}}
+#!/usr/bin/env sh
+
+set -euo pipefail
+
+printf '>> Starting... %s\n' "dependencies-mas.sh"
 
 {{- if dig "settings" "autoinstall" true $mas }}
 
@@ -21,9 +23,6 @@ if ! command -v mas >/dev/null; then
   unset brew_bin brew_cmd
 fi
 {{- end }}
-
-{{- $packages := dig "packages" list $mas -}}
-{{- if $packages }}
 
 mas_cmd="$brew_bin/mas"
 if ! [ -x "$mas_cmd" ]; then

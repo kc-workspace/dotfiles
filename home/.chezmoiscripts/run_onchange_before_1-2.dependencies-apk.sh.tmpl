@@ -1,5 +1,52 @@
+{{- $apk := includeTemplate "global/helpers/getData" (dict
+  "path" (list "dependencies" "apk")
+  "defaults" dict
+  "context" .
+) | mustFromJson }}
+
+{{- $packages := dig "packages" list $apk -}}
+{{- if $packages -}}
 #!/usr/bin/env sh
 
 set -euo pipefail
 
 printf '>> Starting... %s\n' "dependencies-apk.sh"
+
+printf '>>> Checking... %s\n' "apk"
+if ! command -v "apk" >/dev/null; then
+  printf '>>> Error: apk command not found\n'
+  exit 1
+fi
+
+run_as_root() {
+  if [ "$(id -u)" -eq 0 ]; then
+    "$@"
+    return
+  fi
+
+  if command -v sudo >/dev/null; then
+    sudo "$@"
+    return
+  fi
+
+  printf '>>> Error: %s\n' "sudo is required when not running as root"
+  exit 1
+}
+
+printf '>>> Installing... %s\n' "apk packages"
+
+set -x
+{{- if dig "settings" "autoupdate" true $apk }}
+run_as_root apk update
+{{- end }}
+run_as_root apk add --no-cache
+{{- range $packages }} \
+  {{- . | quote | nindent 2 -}}
+{{ end }}
+{{- if dig "settings" "autoupgrade" true $apk }}
+run_as_root apk upgrade --prune
+{{- end }}
+set +x
+
+unset -f run_as_root
+{{- end }}

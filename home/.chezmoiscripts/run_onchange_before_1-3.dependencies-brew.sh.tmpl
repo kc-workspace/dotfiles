@@ -1,14 +1,18 @@
-#!/usr/bin/env sh
-
-set -euo pipefail
-
-printf '>> Starting... %s\n' "dependencies-brew.sh"
-
 {{- $brew := includeTemplate "global/helpers/getData" (dict
   "path" (list "dependencies" "brew")
   "defaults" dict
   "context" .
 ) | mustFromJson }}
+
+{{- $taps := dig "taps" list $brew -}}
+{{- $packages := dig "packages" list $brew -}}
+{{- $casks := dig "casks" list $brew -}}
+{{- if or $taps $packages $casks -}}
+#!/usr/bin/env sh
+
+set -euo pipefail
+
+printf '>> Starting... %s\n' "dependencies-brew.sh"
 
 {{- if (dig "settings" "autoinstall" true $brew) }}
 
@@ -22,11 +26,6 @@ if ! command -v brew >/dev/null; then
   unset tmp
 fi
 {{- end }}
-
-{{- $taps := dig "taps" list $brew -}}
-{{- $packages := dig "packages" list $brew -}}
-{{- $casks := dig "casks" list $brew -}}
-{{- if or $taps $packages $casks }}
 
 {{ includeTemplate "shellVars/brew.tmpl" }}
 tmp="$(mktemp)"

@@ -1,5 +1,58 @@
+{{- $apt := includeTemplate "global/helpers/getData" (dict
+  "path" (list "dependencies" "apt")
+  "defaults" dict
+  "context" .
+) | mustFromJson }}
+
+{{- $packages := dig "packages" list $apt -}}
+{{- if $packages -}}
 #!/usr/bin/env sh
 
 set -euo pipefail
 
 printf '>> Starting... %s\n' "dependencies-apt.sh"
+
+apt_cmd="{{ dig "settings" "command" "apt" $apt }}"
+
+printf '>>> Checking... %s\n' "$apt_cmd"
+if ! command -v "$apt_cmd" >/dev/null; then
+  printf '>>> Error: %s command not found\n' "$apt_cmd"
+  exit 1
+fi
+
+run_as_root() {
+  if [ "$(id -u)" -eq 0 ]; then
+    "$@"
+    return
+  fi
+
+  if command -v sudo >/dev/null; then
+    sudo "$@"
+    return
+  fi
+
+  printf '>>> Error: %s\n' "sudo is required when not running as root"
+  exit 1
+}
+
+printf '>>> Installing... %s\n' "$apt_cmd packages"
+
+set -x
+{{- if dig "settings" "autoupdate" true $apt }}
+run_as_root "$apt_cmd" update
+{{- end }}
+run_as_root "$apt_cmd" install -y
+{{- range $packages }} \
+  {{- . | quote | nindent 2 -}}
+{{ end }}
+{{- if dig "settings" "autoupgrade" true $apt }}
+run_as_root "$apt_cmd" upgrade -y
+{{- end }}
+{{- if dig "settings" "autoclean" true $apt }}
+run_as_root "$apt_cmd" clean
+{{- end }}
+set +x
+
+unset apt_cmd
+unset -f run_as_root
+{{- end }}
