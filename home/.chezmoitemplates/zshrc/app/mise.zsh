@@ -1,5 +1,5 @@
 {{- if not (get . "disabled") }}
-{{- template "zshrc/helpers/h3" "Mise CLI" }}
+{{- includeTemplate "zshrc/helpers/h3" "Mise CLI" }}
 
 ## Setup mise and completions (cannot use oh-my-zsh plugin)
 mise_bin="$XDG_BIN_HOME/mise"

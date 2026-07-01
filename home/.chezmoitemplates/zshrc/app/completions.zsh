@@ -1,5 +1,5 @@
 {{- if not (get . "disabled") }}
-{{- template "zshrc/helpers/h3" "Zinit Plugins - Completions" }}
+{{- includeTemplate "zshrc/helpers/h3" "Zinit Plugins - Completions" }}
 
 ## Setup completions definitions
 ## https://github.com/zsh-users/zsh-completions

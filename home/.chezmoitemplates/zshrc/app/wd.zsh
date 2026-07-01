@@ -1,5 +1,5 @@
 {{- if not (get . "disabled") }}
-{{- template "zshrc/helpers/h3" "Zinit Plugins - wd" }}
+{{- includeTemplate "zshrc/helpers/h3" "Zinit Plugins - wd" }}
 
 ## Setup wd cli
 ## https://github.com/mfaerevaag/wd

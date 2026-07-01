@@ -1,5 +1,5 @@
 {{- if not (get . "disabled") }}
-{{- template "zshrc/helpers/h3" "ForgeCode" }}
+{{- includeTemplate "zshrc/helpers/h3" "ForgeCode" }}
 
 export FORGE_CONFIG="$HOME/.config/forgecode"
 

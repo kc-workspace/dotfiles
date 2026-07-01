@@ -1,5 +1,5 @@
-{{- if and (not (get . "disabled")) (eq .os "darwin") }}
-{{- template "zshrc/helpers/h3" "Zinit Plugins - macos-utilities" }}
+{{- if and (not (get . "disabled")) (includeTemplate "global/variables/isDarwin" .) }}
+{{- includeTemplate "zshrc/helpers/h3" "Zinit Plugins - macos-utilities" }}
 
 ## Setup macos utilities
 ## https://github.com/unixorn/tumult.plugin.zsh#included-scripts

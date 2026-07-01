@@ -1,5 +1,5 @@
 {{- if not (get . "disabled") }}
-{{- template "zshrc/helpers/h2" "Zsh alias" }}
+{{- includeTemplate "zshrc/helpers/h2" "Zsh alias" }}
 
 ## generic aliases
 alias c="clear"

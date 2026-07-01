@@ -1,13 +1,13 @@
 {{- if not (get . "disabled") }}
 {{- if eq (get . "channel") "insiders" }}
 
-{{- template "zshrc/helpers/h3" (cat "Vscode Insiders" ) }}
+{{- includeTemplate "zshrc/helpers/h3" (cat "Vscode Insiders" ) }}
 
 alias code="code-insiders"
 
 {{- else }}
 
-{{- template "zshrc/helpers/h3" (cat "Vscode" ) }}
+{{- includeTemplate "zshrc/helpers/h3" (cat "Vscode" ) }}
 
 {{- end }}
 

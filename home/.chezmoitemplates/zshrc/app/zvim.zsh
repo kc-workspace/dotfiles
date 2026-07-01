@@ -1,5 +1,5 @@
 {{- if not (get . "disabled") }}
-{{- template "zshrc/helpers/h3" "Zinit Plugins - vim-mode" }}
+{{- includeTemplate "zshrc/helpers/h3" "Zinit Plugins - vim-mode" }}
 
 function zvm_config() {
   ZVM_READKEY_ENGINE=$ZVM_READKEY_ENGINE_ZLE
@@ -11,7 +11,7 @@ function zvm_config() {
 ## https://github.com/jeffreytse/zsh-vi-mode
 zinit ice {{- if hasKey . "lazy" | ternary (get . "lazy") false }} wait lucid{{- end }} atinit"
 export ZVM_VI_ESCAPE_BINDKEY='^['" atload"
-{{- template "zshrc/zsh/bind.zsh" (dict "hideHeader" true "keymap" "viins") -}}"
+{{- includeTemplate "zshrc/zsh/bind.zsh" (dict "hideHeader" true "keymap" "viins") -}}"
 zinit {{ get . "act" | default "light" }} jeffreytse/zsh-vi-mode
 
 {{ end -}}

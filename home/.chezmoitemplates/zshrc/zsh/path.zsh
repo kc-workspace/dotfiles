@@ -1,5 +1,5 @@
 {{- if not (get . "disabled") }}
-{{- template "zshrc/helpers/h2" "Zsh PATH" }}
+{{- includeTemplate "zshrc/helpers/h2" "Zsh PATH" }}
 
 ## Setup XDG bin
 [ -d "$XDG_BIN_HOME" ]  || mkdir -p "$XDG_BIN_HOME"

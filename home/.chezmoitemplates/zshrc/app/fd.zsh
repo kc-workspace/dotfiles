@@ -1,5 +1,5 @@
 {{- if not (get . "disabled") }}
-{{- template "zshrc/helpers/h3" "Zinit Plugins - fd" }}
+{{- includeTemplate "zshrc/helpers/h3" "Zinit Plugins - fd" }}
 
 ## Setup fd - find alternative command
 ## https://github.com/sharkdp/fd

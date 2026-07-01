@@ -1,5 +1,5 @@
 {{- if not (get . "disabled") }}
-{{- template "zshrc/helpers/h3" "Zinit Plugins - Autosuggest" }}
+{{- includeTemplate "zshrc/helpers/h3" "Zinit Plugins - Autosuggest" }}
 
 ## Setup autosuggestions
 ## https://github.com/zsh-users/zsh-autosuggestions

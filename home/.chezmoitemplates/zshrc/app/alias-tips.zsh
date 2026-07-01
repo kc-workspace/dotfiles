@@ -1,5 +1,5 @@
 {{- if not (get . "disabled") }}
-{{- template "zshrc/helpers/h3" "Zinit Plugins - alias-tips" }}
+{{- includeTemplate "zshrc/helpers/h3" "Zinit Plugins - alias-tips" }}
 
 ## Setup alias tooltip
 ## https://github.com/decayofmind/zsh-fast-alias-tips

@@ -1,5 +1,5 @@
 {{- if not (get . "disabled") }}
-{{- template "zshrc/helpers/h2" "Zsh completions" }}
+{{- includeTemplate "zshrc/helpers/h2" "Zsh completions" }}
 
 setopt MENU_COMPLETE
 zstyle ':completion:*' verbose yes

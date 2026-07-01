@@ -1,5 +1,5 @@
 {{- if not (get . "disabled") }}
-{{- template "zshrc/helpers/h3" "Zinit Plugins - bat" }}
+{{- includeTemplate "zshrc/helpers/h3" "Zinit Plugins - bat" }}
 
 ## Setup bat - cat alternative command
 ## https://github.com/sharkdp/bat

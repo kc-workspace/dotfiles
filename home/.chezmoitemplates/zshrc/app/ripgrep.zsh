@@ -1,5 +1,5 @@
 {{- if not (get . "disabled") }}
-{{- template "zshrc/helpers/h3" "Zinit Plugins - ripgrep" }}
+{{- includeTemplate "zshrc/helpers/h3" "Zinit Plugins - ripgrep" }}
 
 ## Setup ripgrep - extends grep command
 ## https://github.com/BurntSushi/ripgrep

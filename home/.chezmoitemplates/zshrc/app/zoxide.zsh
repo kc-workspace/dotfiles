@@ -1,5 +1,5 @@
 {{- if not (get . "disabled") }}
-{{- template "zshrc/helpers/h3" "Zinit Plugins - Zoxide" }}
+{{- includeTemplate "zshrc/helpers/h3" "Zinit Plugins - Zoxide" }}
 
 ## Setup zoxide - cd alternative command
 ## https://github.com/ajeetdsouza/zoxide

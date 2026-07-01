@@ -1,5 +1,5 @@
 {{- if not (get . "disabled") }}
-{{- template "zshrc/helpers/h3" "Zinit Plugins - atuin" }}
+{{- includeTemplate "zshrc/helpers/h3" "Zinit Plugins - atuin" }}
 
 ## Setup atuin
 ## https://github.com/atuinsh/atuin

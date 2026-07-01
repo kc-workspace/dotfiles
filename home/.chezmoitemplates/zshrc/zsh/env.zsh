@@ -1,5 +1,5 @@
 {{- if not (get . "disabled") }}
-{{- template "zshrc/helpers/h2" "Zsh environment" }}
+{{- includeTemplate "zshrc/helpers/h2" "Zsh environment" }}
 
 ## XDG Base Directory
 ## https://gist.github.com/roalcantara/107ba66dfa3b9d023ac9329e639bc58c

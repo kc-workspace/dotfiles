@@ -2,7 +2,7 @@
 {{- $method := dig "method" "zinit" . }}
 {{- if eq $method "zinit" }}
 
-{{- template "zshrc/helpers/h3" "Zinit Plugins - neovim" }}
+{{- includeTemplate "zshrc/helpers/h3" "Zinit Plugins - neovim" }}
 
 ## Setup nvim - vim alternative command
 ## https://github.com/neovim/neovim
@@ -15,7 +15,7 @@ zinit {{ get . "act" | default "light" }} neovim/neovim
 
 {{- else if eq $method "mise" }}
 
-{{- template "zshrc/helpers/h3" "Neovim" }}
+{{- includeTemplate "zshrc/helpers/h3" "Neovim" }}
 
 export EDITOR=nvim
 export ZVM_VI_EDITOR=nvim

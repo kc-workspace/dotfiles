@@ -1,5 +1,5 @@
 {{- if not (get . "disabled") }}
-{{- template "zshrc/helpers/h3" "Zinit Plugins - tree-sitter" }}
+{{- includeTemplate "zshrc/helpers/h3" "Zinit Plugins - tree-sitter" }}
 
 ## Setup tree-sitter-cli - use tree-sitter grammars from cli (required by lazyvim)
 ## https://github.com/tree-sitter/tree-sitter/blob/master/crates/cli/README.md

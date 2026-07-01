@@ -1,5 +1,5 @@
 {{- if not (get . "disabled") }}
-{{- template "zshrc/helpers/h3" "Zinit Plugins - yazi" }}
+{{- includeTemplate "zshrc/helpers/h3" "Zinit Plugins - yazi" }}
 
 ## Setup yazi (file manager)
 ## https://github.com/sxyazi/yazi

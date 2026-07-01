@@ -1,5 +1,5 @@
 {{- if not (get . "disabled") }}
-{{- template "zshrc/helpers/h3" "Zinit Plugins - ast-grep" }}
+{{- includeTemplate "zshrc/helpers/h3" "Zinit Plugins - ast-grep" }}
 
 ## Setup ast-grep - grep with AST support
 ## https://github.com/ast-grep/ast-grep

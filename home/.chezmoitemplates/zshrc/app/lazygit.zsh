@@ -1,5 +1,5 @@
 {{- if not (get . "disabled") }}
-{{- template "zshrc/helpers/h3" "Zinit Plugins - Lazygit" }}
+{{- includeTemplate "zshrc/helpers/h3" "Zinit Plugins - Lazygit" }}
 
 ## Setup lazygit - git with lazy (required by lazyvim)
 ## https://github.com/jesseduffield/lazygit

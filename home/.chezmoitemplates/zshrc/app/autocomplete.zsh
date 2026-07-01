@@ -1,5 +1,5 @@
 {{- if not (get . "disabled") }}
-{{- template "zshrc/helpers/h3" "Zinit Plugins - Autocomplete" }}
+{{- includeTemplate "zshrc/helpers/h3" "Zinit Plugins - Autocomplete" }}
 
 ## Setup autocompletions
 ## https://github.com/marlonrichert/zsh-autocomplete

@@ -1,5 +1,5 @@
 {{- if not (get . "disabled") }}
-{{- template "zshrc/helpers/h3" "Zinit Plugins - lsd" }}
+{{- includeTemplate "zshrc/helpers/h3" "Zinit Plugins - lsd" }}
 
 ## Setup lsd - ls alternative command
 ## https://github.com/lsd-rs/lsd

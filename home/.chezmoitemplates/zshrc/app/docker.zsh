@@ -1,5 +1,5 @@
 {{- if not (get . "disabled") }}
-{{- template "zshrc/helpers/h3" "Docker CLI" }}
+{{- includeTemplate "zshrc/helpers/h3" "Docker CLI" }}
 
 ## Setup docker cli (on user mode)
 docker_bin="$HOME/.docker/bin"

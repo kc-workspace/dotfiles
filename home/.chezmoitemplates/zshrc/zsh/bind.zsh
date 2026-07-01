@@ -9,7 +9,7 @@
 {{- $indent := get . "indent" | default 0 -}}
 {{- $keymap := get . "keymap" | default "" -}}
 {{- if not (get . "disabled") }}
-{{- if not (get . "hideHeader") }}{{ template "zshrc/helpers/h2" "Zsh binding" }}{{ end }}
+{{- if not (get . "hideHeader") }}{{ includeTemplate "zshrc/helpers/h2" "Zsh binding" }}{{ end }}
 
 {{- range $key, $action := $keys }}
 {{ "  " | repeat $indent -}}

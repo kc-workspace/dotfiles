@@ -1,5 +1,5 @@
 {{- if not (get . "disabled") }}
-{{- template "zshrc/helpers/h3" "Zinit Plugins - Starship theme" }}
+{{- includeTemplate "zshrc/helpers/h3" "Zinit Plugins - Starship theme" }}
 
 ## On our case is the right_format that cause the problem.
 ## https://github.com/microsoft/vscode/issues/285926

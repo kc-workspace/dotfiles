@@ -1,5 +1,5 @@
 {{- if not (get . "disabled") }}
-{{- template "zshrc/helpers/h3" "Zinit Plugins - Syntax highlight" }}
+{{- includeTemplate "zshrc/helpers/h3" "Zinit Plugins - Syntax highlight" }}
 
 ## Setup command syntax highlighting
 ## Must be on the end of zinit script

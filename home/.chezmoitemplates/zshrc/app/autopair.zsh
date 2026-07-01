@@ -1,5 +1,5 @@
 {{- if not (get . "disabled") }}
-{{- template "zshrc/helpers/h3" "Zinit Plugins - autopair" }}
+{{- includeTemplate "zshrc/helpers/h3" "Zinit Plugins - autopair" }}
 
 ## Setup autopair characters
 ## https://github.com/hlissner/zsh-autopair

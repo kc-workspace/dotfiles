@@ -1,5 +1,5 @@
 {{- if not (get . "disabled") }}
-{{- template "zshrc/helpers/h2" "Zsh history" }}
+{{- includeTemplate "zshrc/helpers/h2" "Zsh history" }}
 
 setopt HIST_IGNORE_ALL_DUPS SHARE_HISTORY
 export HISTSIZE=1000

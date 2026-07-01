@@ -1,5 +1,5 @@
 {{- if not (get . "disabled") }}
-{{- template "zshrc/helpers/h2" "Zsh title" }}
+{{- includeTemplate "zshrc/helpers/h2" "Zsh title" }}
 
 __ztitle_mapping=(
   "[PS]:$HOME/Personal"

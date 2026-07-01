@@ -1,1 +1,1 @@
-{{- template "zshrc/helpers/h1" "Zsh configuration" -}}
+{{- includeTemplate "zshrc/helpers/h1" "Zsh configuration" -}}

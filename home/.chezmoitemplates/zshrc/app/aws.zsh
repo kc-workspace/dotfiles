@@ -1,5 +1,5 @@
 {{- if not (get . "disabled") }}
-{{- template "zshrc/helpers/h3" "AWS CLI" }}
+{{- includeTemplate "zshrc/helpers/h3" "AWS CLI" }}
 
 ## Setup aws completions
 if command -v aws_completer >/dev/null; then

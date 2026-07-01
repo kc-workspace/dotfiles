@@ -1,5 +1,5 @@
 {{- if not (get . "disabled") }}
-{{- template "zshrc/helpers/h3" "Zinit Plugins - history substring" }}
+{{- includeTemplate "zshrc/helpers/h3" "Zinit Plugins - history substring" }}
 
 {{- $keymap := get . "keymap" | default "" }}
 

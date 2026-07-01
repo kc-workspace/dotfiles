@@ -1,1 +1,1 @@
-{{- template "zshrc/helpers/h1" "Cleanup" -}}
+{{- includeTemplate "zshrc/helpers/h1" "Cleanup" -}}
