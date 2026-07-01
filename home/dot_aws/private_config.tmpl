@@ -9,6 +9,6 @@ retry_mode      = standard
 max_attempts    = 3
 
 {{ includeTemplate "featureFlags/helpers/include" (dict
-  "flag" "smartertravel:aws"
+  "flag" "smartertravel::aws:config"
   "context" $
 ) }}

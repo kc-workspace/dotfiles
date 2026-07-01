@@ -2,7 +2,7 @@ machine:
   darwin:
     settings:
       featureFlags:
-        - smartertravel:aws
+        - smartertravel::aws:config
 
     preferences:
       defaults:
