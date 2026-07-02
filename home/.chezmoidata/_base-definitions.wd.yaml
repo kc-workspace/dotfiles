@@ -1,0 +1,16 @@
+_base:
+  definitions:
+    featureFlags:
+      wd::stm:path:
+        whenEnable:
+          value: |-
+            st:~/Works/Smartertravel
+            sttf:~/Works/Smartertravel/bkk-terraform
+      wd::vscode:path:
+        whenEnable:
+          value: |-
+            vsc-user:~/Library/Application Support/Code/User
+      wd::vscode-insider:path:
+        whenEnable:
+          value: |-
+            vsc-user:~/Library/Application Support/Code - Insiders/User

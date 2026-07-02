@@ -1,66 +1,33 @@
 {{- $context := .context -}}
 {{- $flag := .flag -}}
+{{- $indent := dig "indent" -1 . -}}
 
-{{- $flags := includeTemplate "global/helpers/getData" (dict
-  "path" (list "settings" "featureFlags")
-  "defaults" list
+{{- $isEnable := includeTemplate "featureFlags/helpers/isEnable" (dict
+  "flag" $flag
+  "context" $context
+) | mustFromJson -}}
+{{- $isDisable := includeTemplate "featureFlags/helpers/isDisable" (dict
+  "flag" $flag
   "context" $context
 ) | mustFromJson -}}
 
-{{- $definitions := includeTemplate "global/helpers/getData" (dict
-  "path" (list "definitions" "featureFlags")
-  "defaults" dict
-  "context" $context
-) | mustFromJson -}}
-
-{{- if not (hasKey $definitions $flag) -}}
-  {{- fail (printf "Input flag didn't have definition (%s)" $flag) -}}
-{{- end -}}
-{{- $definition := get $definitions $flag -}}
-
-{{- $enabled := has $flag $flags -}}
-{{- $mode := ternary "whenEnable" "whenDisable" $enabled -}}
-
-{{- /* --- Resolve mode block --- */ -}}
-{{- /* whenEnable  → required (fail if missing when enabled)   */ -}}
-{{- /* whenDisable → optional (render nothing if missing)      */ -}}
-{{- if and $enabled (not (hasKey $definition $mode)) -}}
-  {{- fail (printf "Enabled flag (%s) is missing required '%s' definition" $flag $mode) -}}
+{{- $output := "" -}}
+{{- if $isEnable -}}
+  {{- $output = includeTemplate "featureFlags/helpers/get" (dict
+    "flag" $flag
+    "value" true
+    "context" $context
+  ) -}}
+{{- else if $isDisable -}}
+  {{- $output = includeTemplate "featureFlags/helpers/get" (dict
+    "flag" $flag
+    "value" false
+    "context" $context
+  ) -}}
 {{- end -}}
 
-{{- $spec := get $definition $mode -}}
-{{- $specType := dig "type" "string" $spec -}}
-{{- if eq $specType "string" -}}
-  {{- $spec.value -}}
-{{- else if eq $specType "file" -}}
-  {{- $defaultName := ternary "index" "disabled" $enabled -}}
-  {{- $name := dig "name" $defaultName $spec -}}
-  {{- $dirName := joinPath "featureFlags" "contents" $flag -}}
-  {{- $dirPath := joinPath $context.chezmoi.sourceDir ".chezmoitemplates" $dirName -}}
-  {{- $fileName := joinPath $dirName $name -}}
-  {{- $filePath := joinPath $dirPath $name -}}
-
-  {{- $agePath := printf "%s.age" $filePath -}}
-  {{- $tmplName := printf "%s.tmpl" $fileName -}}
-  {{- $tmplPath := printf "%s.tmpl" $filePath -}}
-  {{- $txtPath := printf "%s.txt" $filePath -}}
-  {{- if stat $agePath -}}
-    {{- include $agePath | decrypt -}}
-  {{- else if stat $tmplPath -}}
-    {{- includeTemplate $tmplName $context -}}
-  {{- else if stat $txtPath -}}
-    {{- include $txtPath -}}
-  {{- else if stat $filePath -}}
-    {{- include $filePath -}}
-  {{- end -}}
-{{- else if eq $specType "opRead" -}}
-  {{- onepasswordRead $spec.value -}}
-{{- else if eq $specType "opDoc" -}}
-  {{- if hasKey $spec "vault" -}}
-    {{- onepasswordDocument $spec.value $spec.vault -}}
-  {{- else -}}
-    {{- onepasswordDocument $spec.value -}}
-  {{- end -}}
+{{- if and (ge $indent 0) (ne $output "") -}}
+  {{- nindent $indent $output -}}
 {{- else -}}
-  {{- fail (printf "Unsupported feature flag type '%s' for %s.%s" $specType $flag $mode) -}}
+  {{- $output -}}
 {{- end -}}

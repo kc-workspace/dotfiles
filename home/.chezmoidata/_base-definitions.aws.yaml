@@ -1,6 +1,6 @@
 _base:
   definitions:
     featureFlags:
-      aws::smartertravel:config:
+      aws::stm:config:
         whenEnable:
           type: file
