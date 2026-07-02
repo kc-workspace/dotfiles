@@ -3,11 +3,28 @@ h:~
 pdf:~/.local/share/chezmoi
 p:~/Personal
 w:~/Works
-st:~/Works/Smartertravel
-sttf:~/Works/Smartertravel/bkk-terraform
-{{- if includeTemplate "global/variables/isDarwin" . }}
+{{ includeTemplate "featureFlags/helpers/include" (dict
+  "flag" "wd::stm:path"
+  "context" $
+) }}
+{{- if includeTemplate "global/variables/isDarwin" $ }}
 dl:~/Downloads
 dt:~/Desktop
-vsc-user:~/Library/Application Support/Code - Insiders/User
-{{- else if includeTemplate "global/variables/isLinux" . }}
+{{- if includeTemplate "featureFlags/helpers/isEnable" (dict
+  "flag" "wd::vscode-insider:path"
+  "context" $
+) | mustFromJson }}
+  {{- includeTemplate "featureFlags/helpers/get" (dict
+    "flag" "wd::vscode-insider:path"
+    "value" true
+    "context" $
+  ) | nindent 0 -}}
+{{- else -}}
+  {{- includeTemplate "featureFlags/helpers/include" (dict
+    "flag" "wd::vscode:path"
+    "indent" 0
+    "context" $
+  ) -}}
+{{- end }}
+{{- else if includeTemplate "global/variables/isLinux" $ }}
 {{- end }}
