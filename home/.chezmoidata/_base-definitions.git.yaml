@@ -1,0 +1,11 @@
+_base:
+  definitions:
+    featureFlags:
+      ## Enable gpg sign on both commit and tag
+      git::config:gpg-sign: ## TODO: implement this
+        whenEnable:
+          type: file
+      ## Use 1Password `op-ssh-sign` to sign commit/tag on gitconfig
+      git::config:gpg-op: ## TODO: implement this
+        whenEnable:
+          type: file

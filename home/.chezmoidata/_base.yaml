@@ -124,23 +124,27 @@ _base:
   definitions:
     ## Feature flag cannot contains `/`, `=`, and `,`
     ## Prefer syntax is `<namespace>::<domain>:<type>` (kebab-case with lowcase)
-    # featureFlags:
     #   <flag-name>:
-    #     type: file          ## at .chezmoitemplates/featureFlags/contents/<flag-name>/<file-name>.{age,tmpl,txt}
-    #     [name: <file-name>] ## Use when need to define different file name, no need to provide extension (default to index)
+    #     whenEnable:
+    #       [type: string]
+    #       value: <constant>
+    #     [whenDisable:]
+    #       [type: string]
+    #       value: <constant>
     #   <flag-name>:
-    #     type: string
-    #     value: <constant>
+    #     whenEnable:
+    #       type: file          ## at .chezmoitemplates/featureFlags/contents/<flag-name>/<file-name>.{age,tmpl,txt}
+    #       [name: <file-name>] ## Override file name, no extension (default: whenEnable=index, whenDisable=disabled)
     #   <flag-name>:
-    #     type: opRead
-    #     value: <op://vault/item/field>
+    #     whenEnable:
+    #       type: opRead
+    #       value: <op://vault/item/field>
     #   <flag-name>:
-    #     type: opDoc
-    #     value: <uuid>
-    #     [vault: <vault-uuid>]
-    featureFlags:
-      smartertravel::aws:config:
-        type: file
+    #     whenEnable:
+    #       type: opDoc
+    #       value: <uuid>
+    #       [vault: <vault-uuid>]
+    featureFlags: {}
 
 ## Use in chezmoi.yaml for override some configs from user input
 _overrides: {}
