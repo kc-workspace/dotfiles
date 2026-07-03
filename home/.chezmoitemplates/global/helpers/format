@@ -1,0 +1,24 @@
+{{- $output := dig "output" "" . -}}
+{{- $indent := dig "indent" 0 . -}}
+{{- $beforeLine := dig "beforeLine" 0 . -}}
+{{- $afterLine := dig "afterLine" 0 . -}}
+
+{{- $output = trim $output -}}
+{{- if lt $indent 0 -}}
+  {{- $indent = 0 -}}
+{{- end -}}
+{{- if lt $beforeLine 0 -}}
+  {{- $beforeLine = 0 -}}
+{{- end -}}
+{{- if lt $afterLine 0 -}}
+  {{- $afterLine = 0 -}}
+{{- end -}}
+
+{{- if eq $output "" -}}
+  {{- "" -}}
+{{- else -}}
+  {{- $prefix := "\n" | repeat $beforeLine -}}
+  {{- $suffix := "\n" | repeat $afterLine -}}
+  {{- $output = indent $indent $output -}}
+  {{- printf "%s%s%s" $prefix $output $suffix -}}
+{{- end -}}

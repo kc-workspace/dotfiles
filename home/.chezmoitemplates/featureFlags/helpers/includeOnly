@@ -1,6 +1,8 @@
 {{- $context := .context -}}
 {{- $flags := .flags -}}
 {{- $indent := dig "indent" -1 . -}}
+{{- $beforeLine := dig "beforeLine" 0 . -}}
+{{- $afterLine := dig "afterLine" 0 . -}}
 
 {{- $output := "" -}}
 {{- range $flag := $flags -}}
@@ -18,8 +20,9 @@
   {{- end -}}
 {{- end -}}
 
-{{- if and (ge $indent 0) (ne $output "") -}}
-  {{- nindent $indent $output -}}
-{{- else -}}
-  {{- $output -}}
-{{- end -}}
+{{- includeTemplate "global/helpers/format" (dict
+  "output" $output
+  "indent" $indent
+  "beforeLine" $beforeLine
+  "afterLine" $afterLine
+) -}}
