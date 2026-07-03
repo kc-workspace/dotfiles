@@ -5,9 +5,7 @@
 
 {{- $ageEnabled := dig "age" false $settings -}}
 
-{{- $dirName := joinPath "featureFlags" "contents" $flag -}}
-{{- $dirPath := joinPath $context.chezmoi.sourceDir ".chezmoitemplates" $dirName -}}
-{{- $fileName := joinPath $dirName $name -}}
+{{- $dirPath := joinPath $context.chezmoi.sourceDir ".content" "flags" $flag -}}
 {{- $filePath := joinPath $dirPath $name -}}
 
 {{- $agePath := printf "%s.age" $filePath -}}
@@ -20,8 +18,7 @@
     {{- "" -}}
   {{- end -}}
 {{- else if stat $tmplPath -}}
-  {{- $tmplName := printf "%s.tmpl" $fileName -}}
-  {{- includeTemplate $tmplName $context -}}
+  {{- includeTemplate $tmplPath $context -}}
 {{- else if stat $txtPath -}}
   {{- include $txtPath -}}
 {{- else if stat $filePath -}}

@@ -9,5 +9,8 @@ indent_size = 2
 [home/.chezmoitemplates/**]
 insert_final_newline = false
 
+[home/.content/**]
+insert_final_newline = false
+
 [home/.chezmoiscripts/**]
 insert_final_newline = false

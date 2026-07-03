@@ -1,0 +1,5 @@
+Host github.com
+	HostName github.com
+	User git
+	IdentityFile ~{{ .chezmoi.pathSeparator }}.ssh{{ .chezmoi.pathSeparator }}github_ed25519.pub
+	PubkeyAuthentication yes
