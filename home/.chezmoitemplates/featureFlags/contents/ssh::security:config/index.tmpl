@@ -1,0 +1,15 @@
+Host *
+	## https://heipei.github.io/2015/02/26/SSH-Agent-Forwarding-considered-harmful/
+	## https://www.hackinglinuxexposed.com/articles/20040705.html
+	ForwardX11 no
+	ForwardAgent no
+	## https://github.com/FiloSottile/whoami.filippo.io?tab=readme-ov-file#how-do-i-stop-it
+	PubkeyAuthentication no
+	IdentitiesOnly yes
+{{- includeTemplate "featureFlags/helpers/include" (dict
+  "flag" "ssh::security:config"
+  "indent" 1
+  "indentKey" "tab"
+  "beforeLine" 1
+  "context" $
+) -}}

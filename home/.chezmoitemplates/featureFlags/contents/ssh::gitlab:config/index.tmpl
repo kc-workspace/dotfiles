@@ -1,0 +1,5 @@
+Host gitlab.com
+	HostName gitlab.com
+	User git
+	IdentityFile ~{{ .chezmoi.pathSeparator }}.ssh{{ .chezmoi.pathSeparator }}gitlab_ed25519.pub
+	PubkeyAuthentication yes

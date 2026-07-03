@@ -10,6 +10,10 @@ machine:
         - git::stm:config
         - git::sign:config
         - git::onepassword:config
+        - ssh::gitlab:config
+        - ssh::bitbucket:config
+        - ssh::security:config
+        - ssh::onepassword:config
 
     preferences:
       defaults:

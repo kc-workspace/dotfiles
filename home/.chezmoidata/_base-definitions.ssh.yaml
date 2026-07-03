@@ -1,0 +1,20 @@
+_base:
+  definitions:
+    featureFlags:
+      ## Add gitlab ssh and configure .ssh/config
+      ssh::gitlab:config:
+        whenEnable:
+          type: file
+      ## Add gitlab ssh and configure .ssh/config
+      ssh::bitbucket:config:
+        whenEnable:
+          type: file
+      ## Enable best-practices config for all host
+      ssh::security:config:
+        whenEnable:
+          type: file
+      ## Use 1Password for identity agent
+      ## @depends - [ssh::security:config]
+      ssh::onepassword:config:
+        whenEnable:
+          type: file

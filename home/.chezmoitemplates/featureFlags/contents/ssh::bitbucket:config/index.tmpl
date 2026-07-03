@@ -1,0 +1,5 @@
+Host bitbucket.org
+	HostName bitbucket.org
+	User git
+	IdentityFile ~{{ .chezmoi.pathSeparator }}.ssh{{ .chezmoi.pathSeparator }}bitbucket_ed25519.pub
+	PubkeyAuthentication yes
