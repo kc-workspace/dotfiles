@@ -1,0 +1,10 @@
+{{- $context := .context -}}
+{{- $flag := .flag -}}
+
+{{- $definitions := includeTemplate "global/helpers/getData" (dict
+  "path" (list "definitions" "featureFlags")
+  "defaults" dict
+  "context" $context
+) | mustFromJson -}}
+
+{{- hasKey $definitions $flag -}}

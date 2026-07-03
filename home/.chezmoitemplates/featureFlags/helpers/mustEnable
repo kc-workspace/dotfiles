@@ -1,6 +1,10 @@
 {{- /* Define this on first line to abort file creation */ -}}
 {{- /* if featureFlags is NOT enabled                   */ -}}
-{{- if includeTemplate "featureFlags/helpers/isDisable" (dict
+{{- includeTemplate "featureFlags/internal/validate" (dict
+  "flag" .flag
+  "context" .context
+) -}}
+{{- if includeTemplate "featureFlags/internal/isDisable" (dict
   "flag" .flag
   "context" .context
 ) | mustFromJson -}}

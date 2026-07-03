@@ -1,2 +1,0 @@
-{{- $enabled := includeTemplate "featureFlags/helpers/isEnable" . | mustFromJson -}}
-{{- not $enabled -}}

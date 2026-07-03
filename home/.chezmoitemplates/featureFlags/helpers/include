@@ -2,24 +2,24 @@
 {{- $flag := .flag -}}
 {{- $indent := dig "indent" -1 . -}}
 
-{{- $isEnable := includeTemplate "featureFlags/helpers/isEnable" (dict
+{{- $isEnable := includeTemplate "featureFlags/internal/isEnable" (dict
   "flag" $flag
   "context" $context
 ) | mustFromJson -}}
-{{- $isDisable := includeTemplate "featureFlags/helpers/isDisable" (dict
+{{- $isDisable := includeTemplate "featureFlags/internal/isDisable" (dict
   "flag" $flag
   "context" $context
 ) | mustFromJson -}}
 
 {{- $output := "" -}}
 {{- if $isEnable -}}
-  {{- $output = includeTemplate "featureFlags/helpers/get" (dict
+  {{- $output = includeTemplate "featureFlags/internal/get" (dict
     "flag" $flag
     "value" true
     "context" $context
   ) -}}
 {{- else if $isDisable -}}
-  {{- $output = includeTemplate "featureFlags/helpers/get" (dict
+  {{- $output = includeTemplate "featureFlags/internal/get" (dict
     "flag" $flag
     "value" false
     "context" $context
