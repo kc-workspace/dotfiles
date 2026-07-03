@@ -1,7 +1,7 @@
 {{- $mise := includeTemplate "global/helpers/getData" (dict
-	"path" (list "dependencies" "mise")
-	"defaults" dict
-	"context" .
+  "path" (list "dependencies" "mise")
+  "defaults" dict
+  "context" .
 ) | mustFromJson }}
 
 {{- $packages := dig "packages" list $mise }}
@@ -16,19 +16,19 @@ printf '>> Starting... %s\n' "dependencies-mise.sh"
 printf '>>> Checking... %s\n' "mise"
 mise_cmd="$HOME/.local/bin/mise" ## Use by mise.run script
 if ! [ -f "$mise_cmd" ]; then
-	tmp="$(mktemp)"
+  tmp="$(mktemp)"
 
-	printf '>>> Installing... %s (%s)\n' "mise" "$tmp"
-	curl -fsSLo "$tmp" https://mise.run
-	MISE_INSTALL_PATH="$mise_cmd" sh "$tmp"
-	rm -f "$tmp"
-	unset tmp
+  printf '>>> Installing... %s (%s)\n' "mise" "$tmp"
+  curl -fsSLo "$tmp" https://mise.run
+  MISE_INSTALL_PATH="$mise_cmd" sh "$tmp"
+  rm -f "$tmp"
+  unset tmp
 fi
 {{- end }}
 
 if ! [ -f "$mise_cmd" ]; then
-	printf '>>> Error: %s\n' "mise command not found"
-	exit 1
+  printf '>>> Error: %s\n' "mise command not found"
+  exit 1
 fi
 
 printf '>>> Installing... %s\n' "mise packages"
@@ -43,7 +43,7 @@ set -x
 {{- else if kindIs "slice" $packages }}
 "$mise_cmd" install --yes
 {{- range $packages }} \
-	{{- . | quote | nindent 2 -}}
+  {{- . | quote | nindent 2 -}}
 {{ end }}
 {{- else if kindIs "string" $packages }}
 "$mise_cmd" install --yes {{ $packages | quote }}

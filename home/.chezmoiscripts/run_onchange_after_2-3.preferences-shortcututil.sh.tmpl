@@ -1,7 +1,7 @@
 {{- $shortcuts := includeTemplate "global/helpers/getData" (dict
-	"path" (list "preferences" "shortcututil")
-	"defaults" list
-	"context" .
+  "path" (list "preferences" "shortcututil")
+  "defaults" list
+  "context" .
 ) | mustFromJson }}
 {{- if $shortcuts -}}
 #!/usr/bin/env sh

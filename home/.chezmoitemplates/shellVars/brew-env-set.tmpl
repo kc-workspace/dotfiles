@@ -1,0 +1,6 @@
+{{- $env := . -}}
+
+export HOMEBREW_NO_AUTO_UPDATE="true"
+{{- range $key, $value := $env }}
+export {{ $key }}={{ $value | quote }}
+{{- end -}}

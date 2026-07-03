@@ -1,7 +1,12 @@
+{{- $brew := includeTemplate "global/helpers/getData" (dict
+  "path" (list "dependencies" "brew")
+  "defaults" dict
+  "context" .
+) | mustFromJson }}
 {{- $dockutil := includeTemplate "global/helpers/getData" (dict
-	"path" (list "preferences" "dockutil")
-	"defaults" dict
-	"context" .
+"path" (list "preferences" "dockutil")
+  "defaults" dict
+  "context" .
 ) | mustFromJson }}
 
 {{- $apps := dig "apps" list $dockutil -}}
@@ -13,17 +18,19 @@ set -euo pipefail
 
 printf '>> Starting... %s\n' "preferences-dockutil.sh"
 
+{{- $env := dig "settings" "env" dict $brew }}
+{{ includeTemplate "shellVars/brew-env-set.tmpl" $env }}
 {{ includeTemplate "shellVars/brew.tmpl" }}
 dockutil_cmd="$brew_bin/dockutil"
 if ! [ -x "$dockutil_cmd" ]; then
-	printf '>>> Installing... %s\n' "dockutil"
-	"$brew_cmd" install dockutil
+  printf '>>> Installing... %s\n' "dockutil"
+  "$brew_cmd" install dockutil --quiet
 fi
 
 {{- $restartMode := dig "settings" "restart" "end" $dockutil }}
 {{- $args := list }}
 {{- if eq $restartMode "end" }}
-	{{- $args = append $args "--no-restart" }}
+  {{- $args = append $args "--no-restart" }}
 {{- end }}
 
 {{- if dig "settings" "startEmpty" true $dockutil }}
@@ -63,8 +70,9 @@ killall Dock >/dev/null 2>&1 || true
 {{- if dig "settings" "autoremove" false $dockutil }}
 
 printf '>>> Uninstalling... %s\n' "dockutil"
-"$brew_cmd" uninstall dockutil
+"$brew_cmd" uninstall dockutil --quiet
 {{- end }}
 
 unset brew_bin brew_cmd dockutil_cmd
+{{ includeTemplate "shellVars/brew-env-unset.tmpl" $env }}
 {{- end }}

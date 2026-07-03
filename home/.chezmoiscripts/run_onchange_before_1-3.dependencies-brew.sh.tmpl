@@ -43,11 +43,8 @@ tmp="$(mktemp)"
   {{- end }}
 } > "$tmp"
 
-export HOMEBREW_NO_AUTO_UPDATE="true"
-{{- $env := dig "settings" "env" dict $brew }}
-{{- range $key, $value := $env }}
-export {{ $key }}={{ $value | quote }}
-{{- end }}
+{{ $env := dig "settings" "env" dict $brew }}
+{{- includeTemplate "shellVars/brew-env-set.tmpl" $env }}
 
 printf '>>> Installing... %s (%s)\n' "bundle" "$tmp"
 cat "$tmp"
@@ -65,8 +62,5 @@ set +x
 
 rm -f "$tmp"
 unset tmp brew_bin brew_cmd
-unset HOMEBREW_NO_AUTO_UPDATE
-{{- range $key, $_ := $env }}
-  {{- printf " " -}}{{- $key -}}
-{{- end }}
+{{ includeTemplate "shellVars/brew-env-unset.tmpl" $env }}
 {{- end }}

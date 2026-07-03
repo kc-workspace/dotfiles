@@ -1,3 +1,8 @@
+{{- $brew := includeTemplate "global/helpers/getData" (dict
+  "path" (list "dependencies" "brew")
+  "defaults" dict
+  "context" .
+) | mustFromJson }}
 {{- $mas := includeTemplate "global/helpers/getData" (dict
   "path" (list "dependencies" "mas")
   "defaults" dict
@@ -6,6 +11,7 @@
 
 {{- $packages := dig "packages" list $mas -}}
 {{- if $packages -}}
+{{- $env := dig "settings" "env" dict $brew -}}
 #!/usr/bin/env sh
 
 set -euo pipefail
@@ -14,12 +20,13 @@ printf '>> Starting... %s\n' "dependencies-mas.sh"
 
 {{- if dig "settings" "autoinstall" true $mas }}
 
-{{ includeTemplate "shellVars/brew.tmpl" | nindent 2 }}
+{{ includeTemplate "shellVars/brew-env-set.tmpl" $env }}
 
+{{ includeTemplate "shellVars/brew.tmpl" }}
 printf '>>> Checking... %s\n' "mas"
 if ! command -v mas >/dev/null; then
   printf '>>> Installing... %s\n' "mas"
-  "$brew_cmd" install mas
+  "$brew_cmd" install mas --quiet
 fi
 {{- end }}
 
@@ -48,8 +55,9 @@ set +x
 {{- if dig "settings" "autoremove" false $mas }}
 
 printf '>>> Uninstalling... %s\n' "mas"
-"$brew_cmd" uninstall mas
+"$brew_cmd" uninstall mas --quiet
 {{- end }}
 
 unset brew_bin brew_cmd mas_cmd
+{{ includeTemplate "shellVars/brew-env-unset.tmpl" $env }}
 {{- end }}
