@@ -1,5 +1,67 @@
 ## $HOME/.config/chezmoi/chezmoi.yaml
 
+{{- /* build static data from .chezmoidata */ -}}
+{{- $data := deepCopy $ }}
+{{- range glob (joinPath .chezmoi.sourceDir ".chezmoidata" "**" "*.yaml") }}
+  {{- $data = mustMergeOverwrite $data
+    (include . | fromYaml)
+  }}
+{{- end }}
+
+
+{{- /* build global data from user input (or cache) */ -}}
+{{- $global := dig "_global" dict $ }}
+
+{{- $defaultProfile := includeTemplate "global/variables/profile" $ }}
+{{- $allProfiles := dig "_constants" "profiles" list $data }}
+{{- $profile := promptChoiceOnce $global "profile" "Profile" $allProfiles $defaultProfile }}
+{{- with $profile }}
+  {{- $_ := set $global "profile" . }}
+{{- end }}
+
+{{- $defaultPlatform := includeTemplate "global/variables/platform" $ }}
+{{- $allPlatforms := dig "_constants" "platforms" list $data }}
+{{- $platform := promptChoiceOnce $global "platform" "Platform" $allPlatforms $defaultPlatform }}
+{{- with $platform }}
+  {{- $_ := set $global "platform" . }}
+{{- end }}
+
+{{- $data = mustMergeOverwrite $data (dict "_global" $global) }}
+
+
+{{- /* build overrides settings from user input (or cache) */ -}}
+{{- $settings := dig "_overrides" "settings" dict $ }}
+
+{{- $age := includeTemplate "global/helpers/getData" (dict
+  "path" (list "settings" "age")
+  "defaults" false
+  "context" $data
+) | mustFromJson }}
+{{- if not $age }}
+  {{- $age = promptBool "Enable age" $age -}}
+{{- end }}
+{{- $_ := set $settings "age" $age }}
+
+{{- $onepassword := includeTemplate "global/helpers/getData" (dict
+  "path" (list "settings" "onepassword")
+  "defaults" false
+  "context" $data
+) | mustFromJson }}
+{{- if not $onepassword }}
+  {{- $onepassword = promptBool "Enable 1Password" $onepassword -}}
+{{- end }}
+{{- $_ := set $settings "onepassword" $onepassword }}
+
+{{- $allFlags := includeTemplate "featureFlags/helpers/list" $data | mustFromJson }}
+{{- $flags := promptMultichoiceOnce $settings "featureFlags" "Feature Flags" $allFlags list }}
+{{- with $flags }}
+  {{- $_ := set $settings "featureFlags" . }}
+{{- end }}
+
+{{- $data = mustMergeOverwrite $data (dict "_overrides" (dict "settings" $settings)) }}
+
+
+{{- printf "\n\n" -}}
 encryption: age
 age:
   identity: "~/.config/chezmoi/key.txt"
@@ -28,50 +90,10 @@ update:
   apply: true
 
 onepassword:
-  mode: "{{ if or (env "GITHUB_ACTIONS") (env "DOCKER") }}service{{ else }}account{{ end }}"
-  prompt: true
+  mode: "{{ if includeTemplate "global/helpers/isMachine" $data }}account{{ else }}service{{ end }}"
+  prompt: {{ if includeTemplate "global/helpers/isMachine" $data }}true{{ else }}false{{ end }}
 
 data:
-  {{- $data := mustMergeOverwrite $ }}
-  {{- range glob (joinPath .chezmoi.sourceDir ".chezmoidata" "**" "*.yaml") }}
-    {{- $data = mustMergeOverwrite $data
-      (include . | fromYaml)
-    }}
-  {{- end }}
-
-  {{- $global := dig "_global" dict . }}
-  {{- $defaultProfile := includeTemplate "global/variables/profile" . }}
-  {{- $profiles := dig "_constants" "profiles" list $data }}
-  {{- $profile := promptChoiceOnce $global "profile" "Profile" $profiles $defaultProfile }}
-  {{- with $profile }}
-    {{- $_ := set $global "profile" . }}
-  {{- end }}
-  {{- $defaultPlatform := includeTemplate "global/variables/platform" . }}
-  {{- $platforms := dig "_constants" "platforms" list $data }}
-  {{- $platform := promptChoiceOnce $global "platform" "Platform" $platforms $defaultPlatform }}
-  {{- with $platform }}
-    {{- $_ := set $global "platform" . }}
-  {{- end }}
-  {{- $data = mustMergeOverwrite $data (dict "_global" $global) }}
-
   _global: {{- $global | toYaml | nindent 4 }}
   _overrides:
-      {{- $settings := dig "_overrides" "settings" dict . }}
-    settings:
-      {{- $age := includeTemplate "global/helpers/getData" (dict
-        "path" (list "settings" "age")
-        "defaults" false
-        "context" $data
-      ) | mustFromJson }}
-      age: {{ ternary true (promptBool "Enable age" $age) $age }}
-
-      {{- $onepassword := includeTemplate "global/helpers/getData" (dict
-        "path" (list "settings" "onepassword")
-        "defaults" false
-        "context" $data
-      ) | mustFromJson }}
-      onepassword: {{ ternary true (promptBool "Enable 1Password" $onepassword) $onepassword }}
-
-      {{- $flags := includeTemplate "featureFlags/helpers/list" $data | mustFromJson }}
-      ## When is not empty list, this will overrides _base and profile/platform specific
-      featureFlags: {{- promptMultichoiceOnce $settings "featureFlags" "Feature Flags" $flags list | toYaml | nindent 8 }}
+    settings: {{- $settings | toYaml | nindent 6 }}
