@@ -10,7 +10,7 @@
 {{- if or $taps $packages $casks -}}
 #!/usr/bin/env sh
 
-set -e -u -o pipefail
+set -eu
 
 printf '>> Starting... %s\n' "dependencies-brew.sh"
 

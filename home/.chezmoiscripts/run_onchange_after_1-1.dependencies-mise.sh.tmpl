@@ -8,7 +8,7 @@
 {{- if $packages -}}
 #!/usr/bin/env sh
 
-set -e -u -o pipefail
+set -eu
 
 printf '>> Starting... %s\n' "dependencies-mise.sh"
 

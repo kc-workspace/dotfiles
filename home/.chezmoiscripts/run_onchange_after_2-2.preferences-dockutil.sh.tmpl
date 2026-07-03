@@ -14,7 +14,7 @@
 {{- if or $apps $others -}}
 #!/usr/bin/env sh
 
-set -e -u -o pipefail
+set -eu
 
 printf '>> Starting... %s\n' "preferences-dockutil.sh"
 

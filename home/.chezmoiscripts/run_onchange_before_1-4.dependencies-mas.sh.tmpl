@@ -14,7 +14,7 @@
 {{- $env := dig "settings" "env" dict $brew -}}
 #!/usr/bin/env sh
 
-set -e -u -o pipefail
+set -eu
 
 printf '>> Starting... %s\n' "dependencies-mas.sh"
 

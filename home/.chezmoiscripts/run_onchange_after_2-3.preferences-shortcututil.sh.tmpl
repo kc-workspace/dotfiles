@@ -6,7 +6,7 @@
 {{- if $shortcuts -}}
 #!/usr/bin/env sh
 
-set -e -u -o pipefail
+set -eu
 
 printf '>> Starting... %s\n' "preferences-shortcututil.sh"
 {{ range $shortcuts }}
