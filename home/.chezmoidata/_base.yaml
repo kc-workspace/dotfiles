@@ -99,10 +99,10 @@ _base:
       settings:
         ## Autoinstall when cannot find mas command (depends on brew)
         autoinstall: true
-        ## Autoreset before install any packages
-        autoreset: true
         ## Autoupdate after install all packages
         autoupdate: true
+        ## Autoreset after install any packages
+        autoreset: true
         ## Whether to uninstall mas after finish using
         autoremove: false
 

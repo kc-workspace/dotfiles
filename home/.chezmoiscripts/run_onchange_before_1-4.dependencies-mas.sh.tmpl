@@ -32,16 +32,16 @@ fi
 printf '>>> Installing... %s\n' "App Store packages"
 
 set -x
-{{- if dig "settings" "autoreset" true $mas }}
-"$mas_cmd" reset
-{{- end }}
-
 {{- range $packages }}
 "$mas_cmd" install {{ printf "%-15s" (.id | toString | quote) }} ## {{ .name }}
 {{- end }}
 
 {{- if dig "settings" "autoupdate" true $mas }}
 "$mas_cmd" upgrade
+{{- end }}
+
+{{- if dig "settings" "autoreset" true $mas }}
+"$mas_cmd" reset >/dev/null 2>&1 || true
 {{- end }}
 set +x
 
