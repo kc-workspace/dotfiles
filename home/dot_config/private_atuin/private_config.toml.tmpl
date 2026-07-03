@@ -88,7 +88,7 @@ exit_mode = "return-original"
 
 ## use ctrl instead of alt as the shortcut modifier key for numerical UI shortcuts
 ## alt-0 .. alt-9
-{{- if includeTemplate "global/variables/isDarwin" . }}
+{{- if includeTemplate "global/helpers/isDarwin" . }}
 ctrl_n_shortcuts = true
 {{- else }}
 # ctrl_n_shortcuts = false

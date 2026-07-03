@@ -23,7 +23,7 @@ Host *
 	## https://github.com/FiloSottile/whoami.filippo.io?tab=readme-ov-file#how-do-i-stop-it
 	PubkeyAuthentication no
 	IdentitiesOnly yes
-	{{- if and (includeTemplate "global/variables/isMachine" .) (includeTemplate "global/variables/isDarwin" .) }}
+	{{- if and (includeTemplate "global/helpers/isMachine" .) (includeTemplate "global/helpers/isDarwin" .) }}
 	## https://developer.1password.com/docs/ssh/get-started/#step-4-configure-your-ssh-or-git-client
 	IdentityAgent "~/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock"
 	{{- end }}

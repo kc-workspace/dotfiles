@@ -1,4 +1,4 @@
-{{- if and (not (get . "disabled")) (includeTemplate "global/variables/isDarwin" .) }}
+{{- if and (not (get . "disabled")) (includeTemplate "global/helpers/isDarwin" .) }}
 {{- includeTemplate "zshrc/helpers/h3" "Zinit Plugins - macos-utilities" }}
 
 ## Setup macos utilities

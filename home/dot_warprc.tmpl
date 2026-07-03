@@ -7,7 +7,7 @@ w:~/Works
   "flag" "wd::stm:path"
   "context" $
 ) }}
-{{- if includeTemplate "global/variables/isDarwin" $ }}
+{{- if includeTemplate "global/helpers/isDarwin" . }}
 dl:~/Downloads
 dt:~/Desktop
 {{- if includeTemplate "featureFlags/helpers/isEnable" (dict
@@ -26,5 +26,5 @@ dt:~/Desktop
     "context" $
   ) -}}
 {{- end }}
-{{- else if includeTemplate "global/variables/isLinux" $ }}
+{{- else if includeTemplate "global/helpers/isLinux" . }}
 {{- end }}

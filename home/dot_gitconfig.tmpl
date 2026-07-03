@@ -55,7 +55,7 @@
 	up = pull --rebase origin
 	pm = push --set-upstream origin main
 
-{{- if includeTemplate "global/variables/isDarwin" . }}
+{{- if includeTemplate "global/helpers/isDarwin" . }}
 
 [gpg]
 	format = ssh
