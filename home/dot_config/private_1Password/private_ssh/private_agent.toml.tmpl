@@ -1,3 +1,8 @@
+{{- includeTemplate "featureFlags/helpers/mustEnable" (dict
+  "flag" "ssh::onepassword:config"
+  "context" $
+) -}}
+
 # You can test the result by running:
 #
 #  SSH_AUTH_SOCK=~/Library/Group\ Containers/2BUA8C4S2C.com.1password/t/agent.sock ssh-add -l
@@ -5,7 +10,13 @@
 # More examples can be found here:
 #  https://developer.1password.com/docs/ssh/agent/config
 
-{{- if ._global.opSignedIn }}
+[[ssh-keys]]
+account = "my.1password.com"
 
-{{ onepasswordDocument "iiasahvzcnh6snpmp4dmliwkei" "64yg7lvccdzebup52w2nmzoady" }}
-{{- end -}}
+{{- includeTemplate "featureFlags/helpers/include" (dict
+  "flag" "ssh::stm:config"
+  "selector" "1password-agent"
+  "beforeLine" 2
+  "afterLine" 1
+  "context" $
+) -}}
