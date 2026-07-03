@@ -52,12 +52,26 @@ data:
   {{- with $platform }}
     {{- $_ := set $global "platform" . }}
   {{- end }}
-  _global: {{- $global | toYaml | nindent 4 }}
-
   {{- $data = mustMergeOverwrite $data (dict "_global" $global) }}
+
+  _global: {{- $global | toYaml | nindent 4 }}
   _overrides:
       {{- $settings := dig "_overrides" "settings" dict . }}
     settings:
+      {{- $age := includeTemplate "global/helpers/getData" (dict
+        "path" (list "settings" "age")
+        "defaults" false
+        "context" $data
+      ) | mustFromJson }}
+      age: {{ ternary true (promptBool "Enable age" $age) $age }}
+
+      {{- $onepassword := includeTemplate "global/helpers/getData" (dict
+        "path" (list "settings" "onepassword")
+        "defaults" false
+        "context" $data
+      ) | mustFromJson }}
+      onepassword: {{ ternary true (promptBool "Enable 1Password" $onepassword) $onepassword }}
+
       {{- $flags := includeTemplate "featureFlags/helpers/list" $data | mustFromJson }}
       ## When is not empty list, this will overrides _base and profile/platform specific
       featureFlags: {{- promptMultichoiceOnce $settings "featureFlags" "Feature Flags" $flags list | toYaml | nindent 8 }}

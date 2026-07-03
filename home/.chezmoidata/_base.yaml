@@ -118,6 +118,8 @@ _base:
         autoupdate: true
 
   settings:
+    age: false ## Enable age encryption template (if disable, all age decrypt will be ignore)
+    onepassword: false ## Enable onepassword* template (if disable, all 1p fetch will be ignore)
     ## All possible featureFlags: _base.yaml => _base.definitions.featureFlags
     featureFlags: []
 
