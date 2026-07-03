@@ -11,11 +11,11 @@
 [blame]
 	coloring = repeatedLines
 
-[commit]
-	gpgsign = true
-
-[tag]
-	gpgsign = true
+{{- includeTemplate "featureFlags/helpers/include" (dict
+  "flag" "git::sign:config"
+  "indent" 0
+  "context" $
+) }}
 
 [color]
 	diff = auto
@@ -55,13 +55,11 @@
 	up = pull --rebase origin
 	pm = push --set-upstream origin main
 
-{{- if includeTemplate "global/helpers/isDarwin" . }}
-
-[gpg]
-	format = ssh
-[gpg "ssh"]
-	program = "/Applications/1Password.app/Contents/MacOS/op-ssh-sign"
-{{- end }}
+{{- includeTemplate "featureFlags/helpers/include" (dict
+  "flag" "git::onepassword:config"
+  "indent" 0
+  "context" $
+) }}
 
 [push]
 	autoSetupRemote = true
@@ -87,14 +85,20 @@
 	required = true
 	clean = git-lfs clean -- %f
 
+## ~/Personal directory, use gitconfig.kc
 [includeIf "gitdir{{ .chezmoi.pathListSeparator }}~{{ .chezmoi.pathSeparator }}Personal{{ .chezmoi.pathSeparator }}"]
   path = ~{{ .chezmoi.pathSeparator }}.git{{ .chezmoi.pathSeparator }}personal{{ .chezmoi.pathSeparator }}.gitconfig.kc
 
+## ~/.local/share/chezmoi directory, use gitconfig.kc
 [includeIf "gitdir{{ .chezmoi.pathListSeparator }}~{{ .chezmoi.pathSeparator }}.local{{ .chezmoi.pathSeparator }}share{{ .chezmoi.pathSeparator }}chezmoi{{ .chezmoi.pathSeparator }}"]
   path = ~{{ .chezmoi.pathSeparator }}.git{{ .chezmoi.pathSeparator }}personal{{ .chezmoi.pathSeparator }}.gitconfig.kc
 
+## /tmp directory, use gitconfig.kc
 [includeIf "gitdir{{ .chezmoi.pathListSeparator }}{{ .chezmoi.pathSeparator }}tmp{{ .chezmoi.pathSeparator }}"]
   path = ~{{ .chezmoi.pathSeparator }}.git{{ .chezmoi.pathSeparator }}personal{{ .chezmoi.pathSeparator }}.gitconfig.kc
 
-[includeIf "gitdir{{ .chezmoi.pathListSeparator }}~{{ .chezmoi.pathSeparator }}Works{{ .chezmoi.pathSeparator }}Smartertravel{{ .chezmoi.pathSeparator }}"]
-  path = ~{{ .chezmoi.pathSeparator }}.git{{ .chezmoi.pathSeparator }}works{{ .chezmoi.pathSeparator }}.gitconfig.st
+{{- includeTemplate "featureFlags/helpers/include" (dict
+  "flag" "git::stm:config"
+  "indent" 0
+  "context" $
+) }}

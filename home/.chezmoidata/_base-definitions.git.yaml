@@ -1,11 +1,15 @@
 _base:
   definitions:
     featureFlags:
+      ## Include Smartertravel specific config
+      git::stm:config:
+        whenEnable:
+          type: file
       ## Enable gpg sign on both commit and tag
-      git::config:gpg-sign: ## TODO: implement this
+      git::sign:config:
         whenEnable:
           type: file
       ## Use 1Password `op-ssh-sign` to sign commit/tag on gitconfig
-      git::config:gpg-op: ## TODO: implement this
+      git::onepassword:config: ## TODO: implement this
         whenEnable:
           type: file
