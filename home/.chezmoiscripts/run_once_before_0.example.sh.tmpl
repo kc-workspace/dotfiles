@@ -30,7 +30,7 @@ printf '>> Current platform: %s\n' "{{ ._global.platform }}"
 
 {{- $settings := includeTemplate "global/helpers/getData" (dict
   "path" (list "settings")
-  "defaults" (list "something")
+  "defaults" dict
   "context" .
 ) | mustFromJson }}
 {{- with $settings }}
