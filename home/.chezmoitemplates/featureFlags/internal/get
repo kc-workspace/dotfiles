@@ -3,7 +3,7 @@
 {{- $enabled := .value -}}
 {{- $mode := ternary "whenEnable" "whenDisable" $enabled -}}
 {{- $selector := dig "selector" "" . -}}
-{{- $hasSelector := hasKey . "selector" -}}
+{{- $hasSelector := ne $selector "" -}}
 
 {{- $definitions := includeTemplate "global/helpers/getData" (dict
   "path" (list "definitions" "featureFlags")
