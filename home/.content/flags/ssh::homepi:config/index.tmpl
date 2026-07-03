@@ -1,0 +1,29 @@
+Host pi00
+	HostName 192.168.1.200
+	User admin
+	IdentityFile ~{{ .chezmoi.pathSeparator }}.ssh{{ .chezmoi.pathSeparator }}pi00_ed25519.pub
+	PubkeyAuthentication yes
+
+Host pi01
+	HostName 192.168.1.201
+	User admin
+	IdentityFile ~{{ .chezmoi.pathSeparator }}.ssh{{ .chezmoi.pathSeparator }}pi01_ed25519.pub
+	PubkeyAuthentication yes
+
+Host pi02
+	HostName 192.168.1.202
+	User admin
+	IdentityFile ~{{ .chezmoi.pathSeparator }}.ssh{{ .chezmoi.pathSeparator }}pi02_ed25519.pub
+	PubkeyAuthentication yes
+
+Host pi03
+	HostName 192.168.1.203
+	User admin
+	IdentityFile ~{{ .chezmoi.pathSeparator }}.ssh{{ .chezmoi.pathSeparator }}pi03_ed25519.pub
+	PubkeyAuthentication yes
+
+Host pi10
+	HostName 192.168.1.210
+	User admin
+	IdentityFile ~{{ .chezmoi.pathSeparator }}.ssh{{ .chezmoi.pathSeparator }}pi10_ed25519.pub
+	PubkeyAuthentication yes

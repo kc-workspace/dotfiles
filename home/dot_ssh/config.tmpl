@@ -23,6 +23,12 @@
 ) }}
 
 {{- includeTemplate "featureFlags/helpers/include" (dict
+  "flag" "ssh::homepi:config"
+  "afterLine" 2
+  "context" $
+) }}
+
+{{- includeTemplate "featureFlags/helpers/include" (dict
   "flag" "ssh::security:config"
   "afterLine" 2
   "context" $

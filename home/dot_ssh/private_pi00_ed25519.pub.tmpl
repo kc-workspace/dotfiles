@@ -1,3 +1,5 @@
-{{- if ._global.opSignedIn -}}
-  {{- onepasswordRead "op://64yg7lvccdzebup52w2nmzoady/2uj5e6bmn6qbhbmwoydtwuk47a/pi00_ed25519.pub" }}
-{{- end -}}
+{{- includeTemplate "featureFlags/helpers/include" (dict
+  "flag" "ssh::homepi:config"
+  "selector" "pi00-public"
+  "context" $
+) -}}

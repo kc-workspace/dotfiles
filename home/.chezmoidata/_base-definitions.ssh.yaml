@@ -26,3 +26,6 @@ _base:
       ssh::onepassword:config:
         whenEnable:
           type: file
+      ssh::homepi:config:
+        whenEnable:
+          type: file
