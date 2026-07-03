@@ -1,0 +1,3 @@
+{{- if eq ._global.profile "machine" -}}
+  true
+{{- end -}}

@@ -1,0 +1,3 @@
+{{- if eq ._global.profile "docker" -}}
+  true
+{{- end -}}

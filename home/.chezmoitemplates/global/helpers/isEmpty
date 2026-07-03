@@ -7,6 +7,4 @@
   true
 {{- else if and (kindIs "map" $value) (eq (len $value) 0) -}}
   true
-{{- else -}}
-  false
 {{- end -}}

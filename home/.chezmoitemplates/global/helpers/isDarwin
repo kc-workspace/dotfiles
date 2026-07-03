@@ -1,0 +1,3 @@
+{{- if eq ._global.platform "darwin" -}}
+  true
+{{- end -}}

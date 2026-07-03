@@ -1,0 +1,3 @@
+{{- if not (includeTemplate "global/helpers/isDefine" $) -}}
+  true
+{{- end -}}
