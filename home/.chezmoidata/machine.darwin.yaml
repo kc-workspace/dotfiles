@@ -7,16 +7,17 @@ machine:
         - aws-vpn::stm:config
         - wd::stm:path
         - wd::vscode-insider:path
-        - git::user:config
+        - git::personal:config
         - git::stm:config
         - git::sign:config
         - git::onepassword:config
+        - ssh::security:config
+        - ssh::onepassword:config
         - ssh::github:config
         - ssh::gitlab:config
         - ssh::bitbucket:config
         - ssh::stm:config
-        - ssh::security:config
-        - ssh::onepassword:config
+        - ssh::homepi:config
 
     preferences:
       defaults:

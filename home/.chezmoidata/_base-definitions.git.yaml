@@ -2,7 +2,7 @@ _base:
   definitions:
     featureFlags:
       ## Include personal user config
-      git::user:config:
+      git::personal:config:
         whenEnable:
           type: file
       ## Include Smartertravel specific config
@@ -10,6 +10,7 @@ _base:
         whenEnable:
           type: file
       ## Enable gpg sign on both commit and tag
+      ## @depends - [ssh::github:config]
       git::sign:config:
         whenEnable:
           type: file

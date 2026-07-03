@@ -1,7 +1,33 @@
-[core]
-	sshCommand = "ssh -i {{ onepasswordRead "op://64yg7lvccdzebup52w2nmzoady/2iypd6l3aemorkw4xhrjhrvdm4/github_key.pub" }} -o IdentitiesOnly=yes -o PubkeyAuthentication=yes"
+{{- includeTemplate "featureFlags/helpers/mustEnable" (dict
+  "flag" "git::personal:config"
+  "context" $
+) -}}
+
+{{- includeTemplate "featureFlags/helpers/include" (dict
+  "flag" "ssh::github:config"
+  "selector" "gitconfig"
+  "afterLine" 2
+  "context" $
+) -}}
 
 [user]
-	name = "{{ onepasswordRead "op://64yg7lvccdzebup52w2nmzoady/2iypd6l3aemorkw4xhrjhrvdm4/name" }}"
-	email = "{{ onepasswordRead "op://64yg7lvccdzebup52w2nmzoady/2iypd6l3aemorkw4xhrjhrvdm4/email" }}"
-	signingkey = "{{ onepasswordRead "op://64yg7lvccdzebup52w2nmzoady/2iypd6l3aemorkw4xhrjhrvdm4/github_signing_key.pub" }}"
+	name = "{{ includeTemplate "featureFlags/helpers/include" (dict
+  "flag" "git::personal:config"
+  "selector" "name"
+  "context" $
+) }}"
+	email = "{{ includeTemplate "featureFlags/helpers/include" (dict
+  "flag" "git::personal:config"
+  "selector" "email"
+  "context" $
+) }}"
+
+{{- includeTemplate "featureFlags/helpers/include" (dict
+  "flag" "git::personal:config"
+  "selector" "path"
+  "indent" 1
+  "indentKey" "tab"
+  "beforeLine" 1
+  "afterLine" 1
+  "context" $
+) -}}
