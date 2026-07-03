@@ -47,7 +47,7 @@ set +x
 
 {{- if dig "settings" "autoremove" false $mas }}
 
-printf '>>> Uninstalling... %s' "mas"
+printf '>>> Uninstalling... %s\n' "mas"
 "$brew_cmd" uninstall mas
 {{- end }}
 

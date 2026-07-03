@@ -31,6 +31,6 @@ printf '>> Starting... %s\n' "preferences-shortcututil.sh"
   {{- printf "</dict>\"" | nindent 0 }}
 {{- end }}
 
-printf '>>> Activating... %s' "shortcut settings"
+printf '>>> Activating... %s\n' "shortcut settings"
 "/System/Library/PrivateFrameworks/SystemAdministration.framework/Resources/activateSettings" -u
 {{- end }}

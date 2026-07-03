@@ -30,6 +30,7 @@ fi
 
 printf '>>> Emptying... %s\n' "dock apps"
 defaults write com.apple.dock persistent-apps -array
+defaults write com.apple.dock persistent-others -array
 {{- end }}
 
 set -x
@@ -61,7 +62,7 @@ killall Dock >/dev/null 2>&1 || true
 
 {{- if dig "settings" "autoremove" false $dockutil }}
 
-printf '>>> Uninstalling... %s' "dockutil"
+printf '>>> Uninstalling... %s\n' "dockutil"
 "$brew_cmd" uninstall dockutil
 {{- end }}
 
