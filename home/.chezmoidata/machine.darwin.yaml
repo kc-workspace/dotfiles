@@ -18,6 +18,8 @@ machine:
         - ssh::bitbucket:config
         - ssh::stm:config
         - ssh::homepi:config
+        - kube::personal:config
+        - kube::stm:config
 
     preferences:
       defaults:

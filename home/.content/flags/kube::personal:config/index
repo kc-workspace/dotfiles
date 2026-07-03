@@ -1,0 +1,30 @@
+apiVersion: v1
+kind: Config
+current-context: ""
+
+contexts: []
+  # - name: dev:kc/a
+  #   context:
+  #     cluster: dev:kc
+  #     user: dev:kc/a
+
+clusters: []
+  # - name: dev:kc
+  #   cluster:
+  #     certificate-authority-data: "<certificate-data>"
+  #     server: "https://<server-url>"
+
+users: []
+  # - name: dev:kc/a
+  #   user:
+  #     exec:
+  #       apiVersion: client.authentication.k8s.io/v1beta1
+  #       command: aws
+  #       args: [eks, get-token, --cluster-name, primary, --output, json]
+  #       env:
+  #         - name: AWS_PROFILE
+  #           value: kc-dev-adm
+  #       interactiveMode: IfAvailable
+  #       provideClusterInfo: false
+
+preferences: {}

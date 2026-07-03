@@ -1,3 +1,5 @@
-{{- if ._global.opSignedIn -}}
-  {{- onepasswordDocument "x5o5eepza5iuxiezeeddcvqgcy" "64yg7lvccdzebup52w2nmzoady" -}}
-{{- end -}}
+{{- includeTemplate "featureFlags/helpers/include" (dict
+  "flag" "kube::stm:config"
+  "afterLine" 1
+  "context" $
+) -}}

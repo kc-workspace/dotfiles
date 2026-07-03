@@ -1,0 +1,9 @@
+_base:
+  definitions:
+    featureFlags:
+      kube::personal:config:
+        whenEnable:
+          type: file
+      kube::stm:config:
+        whenEnable:
+          type: file
