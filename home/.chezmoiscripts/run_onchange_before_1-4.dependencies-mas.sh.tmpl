@@ -14,13 +14,12 @@ printf '>> Starting... %s\n' "dependencies-mas.sh"
 
 {{- if dig "settings" "autoinstall" true $mas }}
 
+{{ includeTemplate "shellVars/brew.tmpl" | nindent 2 }}
+
 printf '>>> Checking... %s\n' "mas"
 if ! command -v mas >/dev/null; then
   printf '>>> Installing... %s\n' "mas"
-  {{ includeTemplate "shellVars/brew.tmpl" | nindent 2 }}
   "$brew_cmd" install mas
-
-  unset brew_bin brew_cmd
 fi
 {{- end }}
 
@@ -52,5 +51,5 @@ printf '>>> Uninstalling... %s' "mas"
 "$brew_cmd" uninstall mas
 {{- end }}
 
-unset mas_cmd
+unset brew_bin brew_cmd mas_cmd
 {{- end }}
