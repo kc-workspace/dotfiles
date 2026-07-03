@@ -763,7 +763,6 @@ unloaded_msg    = "not loaded"
 
 ## https://starship.rs/config/#aws
 [aws]
-## TODO: Need starship/starship#7100 for $duration to works
 disabled          = false
 expiration_symbol = '󱫦'
 format            = '([on](dimmed) [$symbol( $profile)( \[$duration\])]($style) )'

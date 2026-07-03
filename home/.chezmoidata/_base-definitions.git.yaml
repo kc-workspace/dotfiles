@@ -15,6 +15,6 @@ _base:
         whenEnable:
           type: file
       ## Use 1Password `op-ssh-sign` to sign commit/tag on gitconfig
-      git::onepassword:config: ## TODO: implement this
+      git::onepassword:config:
         whenEnable:
           type: file
