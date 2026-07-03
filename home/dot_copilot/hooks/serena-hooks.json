@@ -1,22 +1,23 @@
 {
-    "hooks": {
-        "PreToolUse": [
-            {
-                "type": "command",
-                "command": "mise exec pipx:serena-agent@latest -- serena-hooks remind --client=vscode"
-            }
-        ],
-        "SessionStart": [
-            {
-                "type": "command",
-                "command": "mise exec pipx:serena-agent@latest -- serena-hooks activate --client=vscode"
-            }
-        ],
-        "Stop": [
-            {
-                "type": "command",
-                "command": "mise exec pipx:serena-agent@latest -- serena-hooks cleanup --client=vscode"
-            }
-        ]
-    }
+  "version": 1,
+  "hooks": {
+    "PreToolUse": [
+      {
+        "type": "command",
+        "command": "mise exec pipx:serena-agent@latest -- serena-hooks remind --client=vscode"
+      }
+    ],
+    "SessionStart": [
+      {
+        "type": "command",
+        "command": "mise exec pipx:serena-agent@latest -- serena-hooks activate --client=vscode"
+      }
+    ],
+    "Stop": [
+      {
+        "type": "command",
+        "command": "mise exec pipx:serena-agent@latest -- serena-hooks cleanup --client=vscode"
+      }
+    ]
+  }
 }
