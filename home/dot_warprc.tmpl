@@ -3,17 +3,18 @@ h:~
 pdf:~/.local/share/chezmoi
 p:~/Personal
 w:~/Works
-{{ includeTemplate "featureFlags/helpers/include" (dict
+{{- includeTemplate "featureFlags/helpers/include" (dict
   "flag" "wd::stm:path"
+  "beforeLine" 1
   "context" $
-) }}
+) -}}
 {{- if includeTemplate "global/helpers/isDarwin" . }}
 dl:~/Downloads
 dt:~/Desktop
 {{- includeTemplate "featureFlags/helpers/includeOnly" (dict
   "flags" (list "wd::vscode-insider:path" "wd::vscode:path")
-  "indent" 0
+  "beforeLine" 1
   "context" $
-) }}
+) -}}
 {{- else if includeTemplate "global/helpers/isLinux" . }}
 {{- end }}
