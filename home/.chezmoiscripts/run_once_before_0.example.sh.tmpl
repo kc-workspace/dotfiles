@@ -3,8 +3,8 @@
 set -euo pipefail
 
 printf '>> Starting... %s\n' "example.sh"
-printf '>> Current profile: %s\n' "{{ ._global.profile }}"
-printf '>> Current platform: %s\n' "{{ ._global.platform }}"
+printf '>>> Current profile: %s\n' "{{ ._global.profile }}"
+printf '>>> Current platform: %s\n' "{{ ._global.platform }}"
 
 {{- $deps := includeTemplate "global/helpers/getData" (dict
   "path" (list "dependencies")

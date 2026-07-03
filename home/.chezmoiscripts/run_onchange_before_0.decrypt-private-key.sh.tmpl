@@ -1,3 +1,12 @@
+{{- $age := includeTemplate "global/helpers/getData" (dict
+  "path" (list "settings" "age")
+  "defaults" false
+  "context" $
+) | mustFromJson }}
+{{- if not $age -}}
+  {{- abortEmpty -}}
+{{- end -}}
+
 #!/usr/bin/env sh
 
 set -euo pipefail
