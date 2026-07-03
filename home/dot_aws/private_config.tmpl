@@ -13,7 +13,9 @@ cli_history     = enabled
 retry_mode      = standard
 max_attempts    = 3
 
-{{ includeTemplate "featureFlags/helpers/include" (dict
+{{- includeTemplate "featureFlags/helpers/include" (dict
   "flag" "aws::stm:config"
+  "beforeLine" 2
+  "afterLine" 1
   "context" $
 ) }}
