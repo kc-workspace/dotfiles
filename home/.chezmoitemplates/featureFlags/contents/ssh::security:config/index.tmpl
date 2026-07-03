@@ -6,8 +6,9 @@ Host *
 	## https://github.com/FiloSottile/whoami.filippo.io?tab=readme-ov-file#how-do-i-stop-it
 	PubkeyAuthentication no
 	IdentitiesOnly yes
+
 {{- includeTemplate "featureFlags/helpers/include" (dict
-  "flag" "ssh::security:config"
+  "flag" "ssh::onepassword:config"
   "indent" 1
   "indentKey" "tab"
   "beforeLine" 1
