@@ -13,7 +13,7 @@
 
 {{- includeTemplate "featureFlags/helpers/include" (dict
   "flag" "git::sign:config"
-  "indent" 0
+  "beforeLine" 2
   "context" $
 ) }}
 
@@ -57,7 +57,7 @@
 
 {{- includeTemplate "featureFlags/helpers/include" (dict
   "flag" "git::onepassword:config"
-  "indent" 0
+  "beforeLine" 2
   "context" $
 ) }}
 
@@ -99,6 +99,6 @@
 
 {{- includeTemplate "featureFlags/helpers/include" (dict
   "flag" "git::stm:config"
-  "indent" 0
+  "beforeLine" 2
   "context" $
 ) }}
