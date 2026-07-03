@@ -1,7 +1,11 @@
+{{- $flag := .flag -}}
+{{- $context := .context -}}
+
 {{- $isValid := includeTemplate "featureFlags/internal/isValid" (dict
-  "flag" .flag
-  "context" .context
+  "flag" $flag
+  "context" $context
 ) | mustFromJson -}}
+
 {{- if not $isValid -}}
   {{- fail (printf "Input flag didn't have definition (%s)" .flag) -}}
 {{- end -}}

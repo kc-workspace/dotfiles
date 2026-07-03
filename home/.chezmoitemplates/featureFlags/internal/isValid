@@ -1,5 +1,5 @@
-{{- $context := .context -}}
 {{- $flag := .flag -}}
+{{- $context := .context -}}
 
 {{- $definitions := includeTemplate "global/helpers/getData" (dict
   "path" (list "definitions" "featureFlags")

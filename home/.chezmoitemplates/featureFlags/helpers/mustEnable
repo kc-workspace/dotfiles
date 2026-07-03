@@ -4,6 +4,7 @@
   "flag" .flag
   "context" .context
 ) -}}
+
 {{- if includeTemplate "featureFlags/internal/isDisable" (dict
   "flag" .flag
   "context" .context
