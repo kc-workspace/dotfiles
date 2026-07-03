@@ -2,6 +2,8 @@
 {{- $flag := .flag -}}
 {{- $enabled := .value -}}
 {{- $mode := ternary "whenEnable" "whenDisable" $enabled -}}
+{{- $selector := dig "selector" "" . -}}
+{{- $hasSelector := hasKey . "selector" -}}
 
 {{- $definitions := includeTemplate "global/helpers/getData" (dict
   "path" (list "definitions" "featureFlags")
@@ -16,7 +18,6 @@
   )
   "context" $context
 ) | mustFromJson -}}
-{{- $ageEnabled := dig "age" false $settings -}}
 {{- $onepasswordEnabled := dig "onepassword" false $settings -}}
 
 {{- includeTemplate "featureFlags/internal/validate" (dict
@@ -35,34 +36,24 @@
   {{- $spec := get $definition $mode -}}
   {{- $specType := dig "type" "string" $spec -}}
   {{- $value := toString (dig "value" "" $spec) -}}
+  {{- if and $hasSelector (ne $specType "file") -}}
+    {{- fail (printf "Feature flag '%s' uses helper field 'selector', but type is '%s' (expected 'file')" $flag $specType) -}}
+  {{- end -}}
 
   {{- if eq $specType "string" -}}
     {{- $value -}}
   {{- else if eq $specType "file" -}}
-    {{- $defaultName := ternary "index" "disabled" $enabled -}}
-    {{- $name := dig "name" $defaultName $spec -}}
-    {{- $dirName := joinPath "featureFlags" "contents" $flag -}}
-    {{- $dirPath := joinPath $context.chezmoi.sourceDir ".chezmoitemplates" $dirName -}}
-    {{- $fileName := joinPath $dirName $name -}}
-    {{- $filePath := joinPath $dirPath $name -}}
-
-    {{- $agePath := printf "%s.age" $filePath -}}
-    {{- $tmplName := printf "%s.tmpl" $fileName -}}
-    {{- $tmplPath := printf "%s.tmpl" $filePath -}}
-    {{- $txtPath := printf "%s.txt" $filePath -}}
-    {{- if stat $agePath -}}
-      {{- if $ageEnabled -}}
-        {{- include $agePath | decrypt -}}
-      {{- else -}}
-        {{- "" -}}
-      {{- end -}}
-    {{- else if stat $tmplPath -}}
-      {{- includeTemplate $tmplName $context -}}
-    {{- else if stat $txtPath -}}
-      {{- include $txtPath -}}
-    {{- else if stat $filePath -}}
-      {{- include $filePath -}}
+    {{- $name := coalesce $selector (dig "name" "index" $spec) -}}
+    {{- if eq $name "" -}}
+      {{- fail (printf "Feature flag '%s' type 'file' requires a non-empty helper field 'selector'" $flag) -}}
     {{- end -}}
+
+    {{- includeTemplate "featureFlags/internal/parseFile" (dict
+      "flag" $flag
+      "name" $name
+      "settings" $settings
+      "context" $context
+    ) -}}
   {{- else if eq $specType "opRead" -}}
     {{- if $onepasswordEnabled -}}
       {{- onepasswordRead $value -}}

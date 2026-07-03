@@ -1,0 +1,31 @@
+{{- $flag := .flag -}}
+{{- $name := .name -}}
+{{- $settings := .settings -}}
+{{- $context := .context -}}
+
+{{- $ageEnabled := dig "age" false $settings -}}
+
+{{- $dirName := joinPath "featureFlags" "contents" $flag -}}
+{{- $dirPath := joinPath $context.chezmoi.sourceDir ".chezmoitemplates" $dirName -}}
+{{- $fileName := joinPath $dirName $name -}}
+{{- $filePath := joinPath $dirPath $name -}}
+
+{{- $agePath := printf "%s.age" $filePath -}}
+{{- $tmplPath := printf "%s.tmpl" $filePath -}}
+{{- $txtPath := printf "%s.txt" $filePath -}}
+{{- if stat $agePath -}}
+  {{- if $ageEnabled -}}
+    {{- include $agePath | decrypt -}}
+  {{- else -}}
+    {{- "" -}}
+  {{- end -}}
+{{- else if stat $tmplPath -}}
+  {{- $tmplName := printf "%s.tmpl" $fileName -}}
+  {{- includeTemplate $tmplName $context -}}
+{{- else if stat $txtPath -}}
+  {{- include $txtPath -}}
+{{- else if stat $filePath -}}
+  {{- include $filePath -}}
+{{- else -}}
+  {{- fail (printf "Feature flag '%s' could not find template file '%s' (checked: .age, .tmpl, .txt, and raw file)" $flag $name) -}}
+{{- end -}}
