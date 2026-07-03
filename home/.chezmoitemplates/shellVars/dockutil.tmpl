@@ -4,7 +4,7 @@
 {{- $args := .args -}}
 {{- $settings := .settings }}
 "$dockutil_cmd" --{{ $action }} --section {{ $section }} {{ $name | quote }}
-  {{- $args | join " " }}
+  {{- printf " " -}}{{- $args | join " " }}
   {{- with $settings }}
     {{- range $key, $value := . }}
       {{- printf " " -}}
