@@ -1,23 +1,29 @@
 {{- includeTemplate "featureFlags/helpers/include" (dict
   "flag" "ssh::bitbucket:config"
+  "afterLine" 2
   "context" $
 ) }}
 
 {{- includeTemplate "featureFlags/helpers/include" (dict
   "flag" "ssh::gitlab:config"
-  "beforeLine" 2
+  "afterLine" 2
+  "context" $
+) }}
+
+{{- includeTemplate "featureFlags/helpers/include" (dict
+  "flag" "ssh::github:config"
+  "afterLine" 2
   "context" $
 ) }}
 
 {{- includeTemplate "featureFlags/helpers/include" (dict
   "flag" "ssh::stm:config"
-  "beforeLine" 2
+  "afterLine" 2
   "context" $
 ) }}
 
 {{- includeTemplate "featureFlags/helpers/include" (dict
   "flag" "ssh::security:config"
-  "beforeLine" 2
   "afterLine" 2
   "context" $
 ) -}}

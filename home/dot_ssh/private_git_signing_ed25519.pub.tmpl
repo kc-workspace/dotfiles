@@ -1,3 +1,5 @@
-{{- if ._global.opSignedIn -}}
-  {{- onepasswordRead "op://64yg7lvccdzebup52w2nmzoady/2uj5e6bmn6qbhbmwoydtwuk47a/git_signing_ed25519.pub" }}
-{{- end -}}
+{{- includeTemplate "featureFlags/helpers/include" (dict
+  "flag" "git::sign:config"
+  "selector" "public"
+  "context" $
+) -}}

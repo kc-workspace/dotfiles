@@ -9,6 +9,10 @@ _base:
       ssh::bitbucket:config:
         whenEnable:
           type: file
+      ## Add github ssh and configure .ssh/config
+      ssh::github:config:
+        whenEnable:
+          type: file
       ## Add stm ssh and configure .ssh/config
       ssh::stm:config:
         whenEnable:

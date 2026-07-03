@@ -1,6 +1,10 @@
 _base:
   definitions:
     featureFlags:
+      ## Include personal user config
+      git::user:config:
+        whenEnable:
+          type: file
       ## Include Smartertravel specific config
       git::stm:config:
         whenEnable:
