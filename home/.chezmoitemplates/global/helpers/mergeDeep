@@ -1,21 +1,27 @@
 {{- /* Recursively merge two values ($.src into $.dst): */ -}}
+{{- /* sliceMode: concat | replace                      */ -}}
 {{- /* - dict  + dict  → recurse                        */ -}}
 {{- /* - slice + slice → concatenate (dst first)        */ -}}
 {{- /* - other         → src wins only if not empty     */ -}}
 {{- /* Returns JSON so callers can mustFromJson.        */ -}}
 {{- $dst := .dst -}}
 {{- $src := .src -}}
+{{- $sliceMode := dig "sliceMode" "concat" . -}}
 
 {{- if and (kindIs "map" $dst) (kindIs "map" $src) -}}
   {{- $result := deepCopy $dst -}}
   {{- range $key, $srcVal := $src -}}
     {{- $dstVal := get $dst $key -}}
-    {{- $nested := includeTemplate "global/helpers/mergeDeep" (dict "dst" $dstVal "src" $srcVal) | mustFromJson -}}
+    {{- $nested := includeTemplate "global/helpers/mergeDeep" (dict "dst" $dstVal "src" $srcVal "sliceMode" $sliceMode) | mustFromJson -}}
     {{- $result = set $result $key $nested -}}
   {{- end -}}
   {{- $result | mustToJson -}}
 {{- else if and (kindIs "slice" $dst) (kindIs "slice" $src) -}}
-  {{- concat $dst $src | uniq | mustToJson -}}
+  {{- if eq $sliceMode "replace" -}}
+    {{- $src | mustToJson -}}
+  {{- else -}}
+    {{- concat $dst $src | uniq | mustToJson -}}
+  {{- end -}}
 {{- else if includeTemplate "global/helpers/isDefine" $src -}}
   {{- $src | mustToJson -}}
 {{- else -}}

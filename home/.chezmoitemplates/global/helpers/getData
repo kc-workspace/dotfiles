@@ -35,7 +35,11 @@
   "path" $path
 ) | mustFromJson -}}
 {{- if and $override.found -}}
-  {{- $result = includeTemplate "global/helpers/mergeDeep" (dict "dst" $result "src" $override.value) | mustFromJson -}}
+  {{- $result = includeTemplate "global/helpers/mergeDeep" (dict
+    "dst" $result
+    "src" $override.value
+    "sliceMode" "replace"
+  ) | mustFromJson -}}
 {{- end -}}
 
 {{- if includeTemplate "global/helpers/isDefine" $result -}}
