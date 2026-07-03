@@ -4,6 +4,7 @@
 {{- $indentKey := dig "indentKey" "space" . -}}
 {{- $beforeLine := dig "beforeLine" 0 . -}}
 {{- $afterLine := dig "afterLine" 0 . -}}
+{{- $selector := dig "selector" "" . -}}
 
 {{- $output := "" -}}
 {{- range $flag := $flags -}}
@@ -16,6 +17,7 @@
       "flag" $flag
       "value" true
       "context" $context
+      "selector" $selector
     ) -}}
     {{- break -}}
   {{- end -}}

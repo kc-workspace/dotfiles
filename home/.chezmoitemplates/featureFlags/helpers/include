@@ -4,6 +4,7 @@
 {{- $indentKey := dig "indentKey" "space" . -}}
 {{- $beforeLine := dig "beforeLine" 0 . -}}
 {{- $afterLine := dig "afterLine" 0 . -}}
+{{- $selector := dig "selector" "" . -}}
 
 {{- $isEnable := includeTemplate "featureFlags/internal/isEnable" (dict
   "flag" $flag
@@ -20,12 +21,14 @@
     "flag" $flag
     "value" true
     "context" $context
+    "selector" $selector
   ) -}}
 {{- else if $isDisable -}}
   {{- $output = includeTemplate "featureFlags/internal/get" (dict
     "flag" $flag
     "value" false
     "context" $context
+    "selector" $selector
   ) -}}
 {{- end -}}
 
