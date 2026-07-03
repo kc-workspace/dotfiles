@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-set -euo pipefail
+set -e -u -o pipefail
 
 ## run mise path to ensure tools are available
 eval "$(mise activate bash)"

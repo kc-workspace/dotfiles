@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-set -euo pipefail
+set -e -u -o pipefail
 
 create_manifest() {
   local metadata="$1" image_name="$2"

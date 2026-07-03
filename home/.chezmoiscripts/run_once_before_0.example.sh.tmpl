@@ -1,6 +1,6 @@
 #!/usr/bin/env sh
 
-set -euo pipefail
+set -e -u -o pipefail
 
 printf '>> Starting... %s\n' "example.sh"
 printf '>>> Current profile: %s\n' "{{ ._global.profile }}"

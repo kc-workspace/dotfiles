@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-set -euo pipefail
+set -e -u -o pipefail
 
 main() {
   local key_prefix="$1" key="$2" digest="$3"

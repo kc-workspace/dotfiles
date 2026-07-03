@@ -6,7 +6,7 @@
 {{- if $defaults -}}
 #!/usr/bin/env sh
 
-set -euo pipefail
+set -e -u -o pipefail
 
 printf '>> Starting... %s\n' "preferences-defaults.sh"
 
