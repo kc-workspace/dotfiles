@@ -1,18 +1,8 @@
 {{- $context := .context -}}
 {{- $flag := .flag -}}
-{{- $modeInput := get . "value" -}}
-
-{{- $enabled := false -}}
-{{- if ne $modeInput nil -}}
-  {{- $enabled = eq (toString $modeInput) "true" -}}
-{{- else -}}
-  {{- $enabled = includeTemplate "featureFlags/helpers/isEnable" (dict
-    "flag" $flag
-    "context" $context
-  ) | mustFromJson -}}
-{{- end -}}
-
+{{- $enabled := .value -}}
 {{- $mode := ternary "whenEnable" "whenDisable" $enabled -}}
+
 {{- $definitions := includeTemplate "global/helpers/getData" (dict
   "path" (list "definitions" "featureFlags")
   "defaults" dict
@@ -29,9 +19,10 @@
 {{- $ageEnabled := dig "age" false $settings -}}
 {{- $onepasswordEnabled := dig "onepassword" false $settings -}}
 
-{{- if not (hasKey $definitions $flag) -}}
-  {{- fail (printf "Input flag didn't have definition (%s)" $flag) -}}
-{{- end -}}
+{{- includeTemplate "featureFlags/internal/validate" (dict
+  "flag" $flag
+  "context" $context
+) -}}
 
 {{- $definition := get $definitions $flag -}}
 {{- if not (hasKey $definition $mode) -}}
