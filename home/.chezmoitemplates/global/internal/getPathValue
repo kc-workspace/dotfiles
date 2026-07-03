@@ -1,5 +1,5 @@
 {{- /* Resolve $.path inside $.root. */ -}}
-{{- /* Returns: {"found": bool, "value": any} as JSON. */ -}}
+{{- /* Returns: {"found": bool, "empty": bool, "value": any} as JSON. */ -}}
 {{- $root := .root -}}
 {{- $path := .path -}}
 {{- $current := $root -}}
@@ -17,7 +17,8 @@
   {{- end -}}
 {{- end -}}
 
+{{- $define := includeTemplate "global/helpers/isDefine" $current -}}
 {{- (dict
-  "found" $found
+  "found" (and $found $define)
   "value" $current
 ) | mustToJson -}}

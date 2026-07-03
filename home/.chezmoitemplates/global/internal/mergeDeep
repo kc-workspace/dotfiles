@@ -12,7 +12,7 @@
   {{- $result := deepCopy $dst -}}
   {{- range $key, $srcVal := $src -}}
     {{- $dstVal := get $dst $key -}}
-    {{- $nested := includeTemplate "global/helpers/mergeDeep" (dict "dst" $dstVal "src" $srcVal "sliceMode" $sliceMode) | mustFromJson -}}
+    {{- $nested := includeTemplate "global/internal/mergeDeep" (dict "dst" $dstVal "src" $srcVal "sliceMode" $sliceMode) | mustFromJson -}}
     {{- $result = set $result $key $nested -}}
   {{- end -}}
   {{- $result | mustToJson -}}

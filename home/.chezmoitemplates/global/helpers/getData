@@ -6,13 +6,13 @@
 {{- $overrides := get $context "_overrides" -}}
 
 {{- /* --- Resolve context[_base] --- */ -}}
-{{- $base := includeTemplate "global/helpers/getPathValue" (dict
+{{- $base := includeTemplate "global/internal/getPathValue" (dict
   "root" $context._base
   "path" $path
 ) | mustFromJson -}}
 
 {{- /* --- Resolve context[profile][platform] --- */ -}}
-{{- $specific := includeTemplate "global/helpers/getPathValue" (dict
+{{- $specific := includeTemplate "global/internal/getPathValue" (dict
   "root" (dig $profile $platform dict $context)
   "path" $path
 ) | mustFromJson -}}
@@ -22,7 +22,7 @@
 {{- /* slice + slice → concatenate (base first)              */ -}}
 {{- /* other         → specific wins over base               */ -}}
 {{- if and $base.found $specific.found -}}
-  {{- $result = includeTemplate "global/helpers/mergeDeep" (dict "dst" $base.value "src" $specific.value) | mustFromJson -}}
+  {{- $result = includeTemplate "global/internal/mergeDeep" (dict "dst" $base.value "src" $specific.value) | mustFromJson -}}
 {{- else if $specific.found -}}
   {{- $result = $specific.value -}}
 {{- else if $base.found -}}
@@ -30,18 +30,16 @@
 {{- end -}}
 
 {{- /* --- Resolve context[_overrides] (highest precedence) --- */ -}}
-{{- $override := includeTemplate "global/helpers/getPathValue" (dict
+{{- $override := includeTemplate "global/internal/getPathValue" (dict
   "root" $overrides
   "path" $path
 ) | mustFromJson -}}
 {{- if and $override.found -}}
-  {{- $result = includeTemplate "global/helpers/mergeDeep" (dict
+  {{- $result = includeTemplate "global/internal/mergeDeep" (dict
     "dst" $result
     "src" $override.value
     "sliceMode" "replace"
   ) | mustFromJson -}}
 {{- end -}}
 
-{{- if includeTemplate "global/helpers/isDefine" $result -}}
-  {{- $result | mustToJson -}}
-{{- end -}}
+{{- $result | mustToJson -}}
