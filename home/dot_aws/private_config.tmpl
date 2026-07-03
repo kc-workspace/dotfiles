@@ -1,3 +1,8 @@
+{{- includeTemplate "featureFlags/helpers/mustEnable" (dict
+  "flag" "aws::enable"
+  "context" $
+) -}}
+
 ## https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-files.html#cli-configure-files-settings
 
 [default]

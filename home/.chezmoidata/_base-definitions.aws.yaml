@@ -1,6 +1,7 @@
 _base:
   definitions:
     featureFlags:
+      aws::enable:
       aws::stm:config:
         whenEnable:
           type: file
