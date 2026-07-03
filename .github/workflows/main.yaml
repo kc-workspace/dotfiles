@@ -49,11 +49,9 @@ jobs:
         run: chezmoi --version
       - name: Apply chezmoi config
         run: |
-          chezmoi init --apply --keep-going \
-            --no-pager --no-tty \
-            --purge-binary --force \
-            --exclude=encrypted \
-            --source ${{ github.workspace }} || true
+          chezmoi init --apply --force \
+            --no-pager --no-tty --purge-binary \
+            --source ${{ github.workspace }} --promptDefaults || true
       - name: Run full setup
         run: kdf-setup.sh
         env:
