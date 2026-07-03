@@ -18,6 +18,16 @@
   "defaults" dict
   "context" $context
 ) | mustFromJson -}}
+{{- $settings := includeTemplate "global/helpers/getData" (dict
+  "path" (list "settings")
+  "defaults" (dict
+    "age" false
+    "onepassword" false
+  )
+  "context" $context
+) | mustFromJson -}}
+{{- $ageEnabled := dig "age" false $settings -}}
+{{- $onepasswordEnabled := dig "onepassword" false $settings -}}
 
 {{- if not (hasKey $definitions $flag) -}}
   {{- fail (printf "Input flag didn't have definition (%s)" $flag) -}}
@@ -50,7 +60,11 @@
     {{- $tmplPath := printf "%s.tmpl" $filePath -}}
     {{- $txtPath := printf "%s.txt" $filePath -}}
     {{- if stat $agePath -}}
-      {{- include $agePath | decrypt -}}
+      {{- if $ageEnabled -}}
+        {{- include $agePath | decrypt -}}
+      {{- else -}}
+        {{- "" -}}
+      {{- end -}}
     {{- else if stat $tmplPath -}}
       {{- includeTemplate $tmplName $context -}}
     {{- else if stat $txtPath -}}
@@ -59,12 +73,20 @@
       {{- include $filePath -}}
     {{- end -}}
   {{- else if eq $specType "opRead" -}}
-    {{- onepasswordRead $value -}}
-  {{- else if eq $specType "opDoc" -}}
-    {{- if hasKey $spec "vault" -}}
-      {{- onepasswordDocument $value $spec.vault -}}
+    {{- if $onepasswordEnabled -}}
+      {{- onepasswordRead $value -}}
     {{- else -}}
-      {{- onepasswordDocument $value -}}
+      {{- "" -}}
+    {{- end -}}
+  {{- else if eq $specType "opDoc" -}}
+    {{- if $onepasswordEnabled -}}
+      {{- if hasKey $spec "vault" -}}
+        {{- onepasswordDocument $value $spec.vault -}}
+      {{- else -}}
+        {{- onepasswordDocument $value -}}
+      {{- end -}}
+    {{- else -}}
+      {{- "" -}}
     {{- end -}}
   {{- else -}}
     {{- fail (printf "Unsupported feature flag type '%s' for %s.%s" $specType $flag $mode) -}}
