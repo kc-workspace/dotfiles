@@ -3,7 +3,7 @@
 {{- $section := .section -}}
 {{- $args := .args -}}
 {{- $settings := .settings }}
-"$dockutil_cmd" --{{ $action }} --section {{ $section }} {{ $name | quote }}
+"$dockutil_cmd" --{{ $action }} {{ $name | quote }} --section {{ $section }}
   {{- printf " " -}}{{- $args | join " " }}
   {{- with $settings }}
     {{- range $key, $value := . }}
