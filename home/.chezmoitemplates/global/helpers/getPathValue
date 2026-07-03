@@ -1,5 +1,5 @@
 {{- /* Resolve $.path inside $.root. */ -}}
-{{- /* Returns: {"found": bool, "empty": bool, "value": any} as JSON. */ -}}
+{{- /* Returns: {"found": bool, "value": any} as JSON. */ -}}
 {{- $root := .root -}}
 {{- $path := .path -}}
 {{- $current := $root -}}
@@ -19,6 +19,5 @@
 
 {{- (dict
   "found" $found
-  "empty" (includeTemplate "global/helpers/isEmpty" $current)
   "value" $current
 ) | mustToJson -}}

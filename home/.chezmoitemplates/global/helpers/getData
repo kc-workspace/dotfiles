@@ -5,54 +5,39 @@
 {{- $platform := $context._global.platform -}}
 {{- $overrides := get $context "_overrides" -}}
 
-{{- $found := false -}}
+{{- /* --- Resolve context[_base] --- */ -}}
+{{- $base := includeTemplate "global/helpers/getPathValue" (dict
+  "root" $context._base
+  "path" $path
+) | mustFromJson -}}
 
-{{- /* --- Resolve context[_overrides] (highest precedence, no merge) --- */ -}}
+{{- /* --- Resolve context[profile][platform] --- */ -}}
+{{- $specific := includeTemplate "global/helpers/getPathValue" (dict
+  "root" (dig $profile $platform dict $context)
+  "path" $path
+) | mustFromJson -}}
+
+{{- /* --- Merge base + specific --- */ -}}
+{{- /* dict  + dict  → recursive deep merge (specific wins)  */ -}}
+{{- /* slice + slice → concatenate (base first)              */ -}}
+{{- /* other         → specific wins over base               */ -}}
+{{- if and $base.found $specific.found -}}
+  {{- $result = includeTemplate "global/helpers/mergeDeep" (dict "dst" $base.value "src" $specific.value) | mustFromJson -}}
+{{- else if $specific.found -}}
+  {{- $result = $specific.value -}}
+{{- else if $base.found -}}
+  {{- $result = $base.value -}}
+{{- end -}}
+
+{{- /* --- Resolve context[_overrides] (highest precedence) --- */ -}}
 {{- $override := includeTemplate "global/helpers/getPathValue" (dict
   "root" $overrides
   "path" $path
 ) | mustFromJson -}}
-{{- if and ($override.found) (not $override.empty) -}}
-  {{- $found = true -}}
-  {{- $result = $override.value -}}
+{{- if and $override.found -}}
+  {{- $result = includeTemplate "global/helpers/mergeDeep" (dict "dst" $result "src" $override.value) | mustFromJson -}}
 {{- end -}}
 
-{{- if not $found -}}
-  {{- /* --- Resolve context[_base] --- */ -}}
-  {{- $base := includeTemplate "global/helpers/getPathValue" (dict
-    "root" $context._base
-    "path" $path
-  ) | mustFromJson -}}
-  {{- /* --- Resolve context[profile][platform] --- */ -}}
-  {{- $specific := includeTemplate "global/helpers/getPathValue" (dict
-    "root" (dig $profile $platform dict $context)
-    "path" $path
-  ) | mustFromJson -}}
-
-  {{- /* --- Merge base + specific --- */ -}}
-  {{- /* dict  + dict  → recursive deep merge (specific wins)  */ -}}
-  {{- /* slice + slice → concatenate (base first)              */ -}}
-  {{- /* other         → specific wins over base               */ -}}
-  {{- if and $base.found $specific.found -}}
-    {{- if and (kindIs "map" $base.value) (kindIs "map" $specific.value) -}}
-      {{- $found = true -}}
-      {{- $result = includeTemplate "global/helpers/mergeDeep" (dict "dst" $base.value "src" $specific.value) | mustFromJson -}}
-    {{- else if and (kindIs "slice" $base.value) (kindIs "slice" $specific.value) -}}
-      {{- $found = true -}}
-      {{- $result = concat $base.value $specific.value | uniq -}}
-    {{- else -}}
-      {{- $found = true -}}
-      {{- $result = $specific.value -}}
-    {{- end -}}
-  {{- else if $base.found -}}
-    {{- $found = true -}}
-    {{- $result = $base.value -}}
-  {{- else if $specific.found -}}
-    {{- $found = true -}}
-    {{- $result = $specific.value -}}
-  {{- end -}}
-{{- end -}}
-
-{{- if $found -}}
+{{- if includeTemplate "global/helpers/isDefine" $result -}}
   {{- $result | mustToJson -}}
 {{- end -}}

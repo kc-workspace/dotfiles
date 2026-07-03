@@ -1,20 +1,23 @@
-{{- /* Recursively merge two dicts ($.src into $.dst): */ -}}
-{{- /* - dict  + dict  → recurse                       */ -}}
-{{- /* - slice + slice → concatenate (dst first)       */ -}}
-{{- /* - other         → src wins                      */ -}}
+{{- /* Recursively merge two values ($.src into $.dst): */ -}}
+{{- /* - dict  + dict  → recurse                        */ -}}
+{{- /* - slice + slice → concatenate (dst first)        */ -}}
+{{- /* - other         → src wins only if not empty     */ -}}
 {{- /* Returns JSON so callers can mustFromJson.        */ -}}
 {{- $dst := .dst -}}
 {{- $src := .src -}}
-{{- $result := deepCopy $dst -}}
-{{- range $key, $srcVal := $src -}}
-  {{- $dstVal := get $dst $key -}}
-  {{- if and (kindIs "map" $dstVal) (kindIs "map" $srcVal) -}}
+
+{{- if and (kindIs "map" $dst) (kindIs "map" $src) -}}
+  {{- $result := deepCopy $dst -}}
+  {{- range $key, $srcVal := $src -}}
+    {{- $dstVal := get $dst $key -}}
     {{- $nested := includeTemplate "global/helpers/mergeDeep" (dict "dst" $dstVal "src" $srcVal) | mustFromJson -}}
     {{- $result = set $result $key $nested -}}
-  {{- else if and (kindIs "slice" $dstVal) (kindIs "slice" $srcVal) -}}
-    {{- $result = set $result $key (concat $dstVal $srcVal | uniq) -}}
-  {{- else -}}
-    {{- $result = set $result $key $srcVal -}}
   {{- end -}}
+  {{- $result | mustToJson -}}
+{{- else if and (kindIs "slice" $dst) (kindIs "slice" $src) -}}
+  {{- concat $dst $src | uniq | mustToJson -}}
+{{- else if includeTemplate "global/helpers/isDefine" $src -}}
+  {{- $src | mustToJson -}}
+{{- else -}}
+  {{- $dst | mustToJson -}}
 {{- end -}}
-{{- $result | mustToJson -}}
