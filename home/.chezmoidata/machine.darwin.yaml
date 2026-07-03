@@ -12,6 +12,7 @@ machine:
         - git::onepassword:config
         - ssh::gitlab:config
         - ssh::bitbucket:config
+        - ssh::stm:config
         - ssh::security:config
         - ssh::onepassword:config
 

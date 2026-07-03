@@ -10,6 +10,12 @@
 ) }}
 
 {{- includeTemplate "featureFlags/helpers/include" (dict
+  "flag" "ssh::stm:config"
+  "beforeLine" 2
+  "context" $
+) }}
+
+{{- includeTemplate "featureFlags/helpers/include" (dict
   "flag" "ssh::security:config"
   "beforeLine" 2
   "afterLine" 2

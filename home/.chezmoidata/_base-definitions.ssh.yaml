@@ -9,6 +9,10 @@ _base:
       ssh::bitbucket:config:
         whenEnable:
           type: file
+      ## Add stm ssh and configure .ssh/config
+      ssh::stm:config:
+        whenEnable:
+          type: file
       ## Enable best-practices config for all host
       ssh::security:config:
         whenEnable:
