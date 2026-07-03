@@ -1,0 +1,25 @@
+{{- $context := .context -}}
+{{- $flags := .flags -}}
+{{- $indent := dig "indent" -1 . -}}
+
+{{- $output := "" -}}
+{{- range $flag := $flags -}}
+  {{- $isEnable := includeTemplate "featureFlags/internal/isEnable" (dict
+    "flag" $flag
+    "context" $context
+  ) | mustFromJson -}}
+  {{- if $isEnable -}}
+    {{- $output = includeTemplate "featureFlags/internal/get" (dict
+      "flag" $flag
+      "value" true
+      "context" $context
+    ) -}}
+    {{- break -}}
+  {{- end -}}
+{{- end -}}
+
+{{- if and (ge $indent 0) (ne $output "") -}}
+  {{- nindent $indent $output -}}
+{{- else -}}
+  {{- $output -}}
+{{- end -}}
