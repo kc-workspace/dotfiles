@@ -1,6 +1,7 @@
 {{- $context := .context -}}
 {{- $flag := .flag -}}
 {{- $indent := dig "indent" -1 . -}}
+{{- $indentKey := dig "indentKey" "space" . -}}
 {{- $beforeLine := dig "beforeLine" 0 . -}}
 {{- $afterLine := dig "afterLine" 0 . -}}
 
@@ -31,6 +32,7 @@
 {{- includeTemplate "global/helpers/format" (dict
   "output" $output
   "indent" $indent
+  "indentKey" $indentKey
   "beforeLine" $beforeLine
   "afterLine" $afterLine
 ) -}}

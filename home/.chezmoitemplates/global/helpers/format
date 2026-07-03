@@ -1,5 +1,6 @@
 {{- $output := dig "output" "" . -}}
 {{- $indent := dig "indent" 0 . -}}
+{{- $indentKey := dig "indentKey" "space" . -}}
 {{- $beforeLine := dig "beforeLine" 0 . -}}
 {{- $afterLine := dig "afterLine" 0 . -}}
 
@@ -13,12 +14,21 @@
 {{- if lt $afterLine 0 -}}
   {{- $afterLine = 0 -}}
 {{- end -}}
+{{- if and (ne $indentKey "space") (ne $indentKey "tab") -}}
+  {{- $indentKey = "space" -}}
+{{- end -}}
 
 {{- if eq $output "" -}}
   {{- "" -}}
 {{- else -}}
   {{- $prefix := "\n" | repeat $beforeLine -}}
   {{- $suffix := "\n" | repeat $afterLine -}}
-  {{- $output = indent $indent $output -}}
+  {{- $space := " " -}}
+  {{- if eq $indentKey "tab" -}}
+    {{- $space = "\t" -}}
+  {{- end -}}
+
+  {{- $pad := $space | repeat $indent -}}
+  {{- $output = printf "%s%s" $pad (replace "\n" (printf "\n%s" $pad) $output) -}}
   {{- printf "%s%s%s" $prefix $output $suffix -}}
 {{- end -}}
