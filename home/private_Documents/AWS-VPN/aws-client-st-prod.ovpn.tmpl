@@ -1,3 +1,10 @@
-{{- if ._global.opSignedIn -}}
-  {{- onepasswordDocument "l4wmalxch62jrxcnh563ftvyju" "64yg7lvccdzebup52w2nmzoady" -}}
-{{- end -}}
+{{- includeTemplate "featureFlags/helpers/mustEnable" (dict
+  "flag" "aws::enable"
+  "context" $
+) -}}
+
+{{- includeTemplate "featureFlags/helpers/include" (dict
+  "flag" "aws-vpn::stm:config"
+  "indent" 0
+  "context" $
+) -}}

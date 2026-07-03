@@ -1,5 +1,5 @@
 key.txt.age
 
-{{- if includeTemplate "global/helpers/isDarwin" . }}
+{{- if not (includeTemplate "global/helpers/isDarwin" .) }}
 Documents/
 {{- end }}

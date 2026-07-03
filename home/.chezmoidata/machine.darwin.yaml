@@ -2,7 +2,9 @@ machine:
   darwin:
     settings:
       featureFlags:
+        - aws::enable
         - aws::stm:config
+        - aws-vpn::stm:config
         - wd::stm:path
         - wd::vscode-insider:path
         - git::stm:config
