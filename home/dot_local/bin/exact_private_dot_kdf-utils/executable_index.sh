@@ -13,6 +13,7 @@ source "$KDF_UTILS/logger.sh"
 source "$KDF_UTILS/chezmoi.sh"
 source "$KDF_UTILS/mise.sh"
 source "$KDF_UTILS/nvim.sh"
+source "$KDF_UTILS/zinit.sh"
 
 kdf-main() {
   _kdf-setup
