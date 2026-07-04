@@ -14,7 +14,35 @@ export KDF_OLDPWD KDF_ROOT KDF_CMD
 source "$KDF_ROOT/.kdf-utils/index.sh"
 
 _main() {
-  info 'start setup process\n'
+  _mise_init
+  _chezmoi_init
+  _zinit_init
+  _nvim_init
+}
+
+_mise_init() {
+  progress "Set up mise tools"
+  mise_activate bash
+  mise_install
+  progress_end
+}
+
+_chezmoi_init() {
+  progress "Set up chezmoi config"
+  chezmoi init --apply --promptDefaults
+  progress_end
+}
+
+_zinit_init() {
+  progress "Set up zinit plugins"
+  zsh -ic -- "@zinit-scheduler burst"
+  progress_end
+}
+
+_nvim_init() {
+  progress "Set up Neovim config"
+  nvim_install
+  progress_end
 }
 
 kdf-main

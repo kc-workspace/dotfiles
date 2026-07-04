@@ -46,6 +46,7 @@ _verify_commands() {
   __verify_command "gpg" || exit_code=$?
   __verify_command "zsh" || exit_code=$?
   __verify_command "brew"
+  __verify_command "nvim"
   progress_end
 
   return "$exit_code"
