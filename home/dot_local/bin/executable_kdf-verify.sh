@@ -23,8 +23,8 @@ _main() {
   _verify_zsh || exit_code=$?
   _verify_mise || exit_code=$?
   _verify_zinit || exit_code=$?
+  _verify_neovim || exit_code=$?
 
-  ## TODO: Verify Neovim
   ## TODO: Verify 1Password authentication
   ## TODO: Verify github-cli authentication
   ## TODO: Verify GPG keys
@@ -112,6 +112,21 @@ _verify_zinit() {
   progress "Verify zinit"
   zsh -ic -- "zinit zstatus"
   progress_end
+}
+
+_verify_neovim() {
+  local exit_code=0 nvim_version=""
+
+  progress "Verify Neovim"
+
+  nvim_version="$(nvim --version | sed -n '1p')" || exit_code=$?
+  info "Neovim Version: %s\n" "$nvim_version"
+
+  nvim --headless '+checkhealth' +qa || exit_code=$?
+  echo
+
+  progress_end
+  return "$exit_code"
 }
 
 kdf-main
