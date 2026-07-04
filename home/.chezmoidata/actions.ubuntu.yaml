@@ -13,7 +13,6 @@ actions:
       brew:
         taps: []
         packages:
-          - graphviz
           - nmap
         casks: []
         settings:
