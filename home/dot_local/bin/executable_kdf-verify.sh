@@ -26,8 +26,8 @@ _main() {
 
   ## TODO: Verify Neovim
   ## TODO: Verify 1Password authentication
-  ## TODO: Verify GPG keys
   ## TODO: Verify github-cli authentication
+  ## TODO: Verify GPG keys
 
   return "$exit_code"
 }

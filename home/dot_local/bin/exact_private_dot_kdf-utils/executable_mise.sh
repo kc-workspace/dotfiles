@@ -3,11 +3,18 @@
 
 set -euo pipefail
 
-mise_activate() {
+mise_setup() {
+  progress "Set up mise tools"
+  _mise_activate bash
+  _mise_install
+  progress_end
+}
+
+_mise_activate() {
   local shell_name="${1:-bash}"
   eval "$(mise activate "$shell_name")"
 }
 
-mise_install() {
-  mise install --quiet "$@"
+_mise_install() {
+  mise install --quiet
 }

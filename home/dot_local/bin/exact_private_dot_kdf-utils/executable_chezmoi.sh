@@ -3,6 +3,15 @@
 
 set -euo pipefail
 
+chezmoi_setup() {
+  progress "Set up chezmoi config"
+  _chezmoi_init \
+    --apply \
+    --promptDefaults \
+    --promptBool "Enable 1Password=true,Enable age=true"
+  progress_end
+}
+
 _chezmoi_init() {
   _chezmoi init --promptDefaults "$@"
 }
