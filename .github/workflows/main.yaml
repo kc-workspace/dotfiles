@@ -43,13 +43,3 @@ jobs:
         run: kdf-cleanup.sh
         env:
           CHEZMOI_SOURCE: ${{ github.workspace }}
-  try:
-    runs-on: ubuntu-latest
-    env:
-      INSTALL_SCRIPTS: /tmp/brew.sh
-    steps:
-      - run: curl -fsSLo $INSTALL_SCRIPTS https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh
-      - run: bash "$INSTALL_SCRIPTS"
-      - run: echo '/home/linuxbrew/.linuxbrew/bin' >> $GITHUB_PATH
-      - run: eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv bash)"
-      - run: brew install git
