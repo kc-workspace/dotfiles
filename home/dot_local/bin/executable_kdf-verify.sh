@@ -78,7 +78,7 @@ _verify_chezmoi() {
   tmp="$(mktemp)"
 
   progress "Verify chezmoi status"
-  chezmoi status --force | tee "$tmp"
+  _chezmoi status --force | tee "$tmp"
   if [ -s "$tmp" ]; then
     echo
     error 'chezmoi should be on the clean state\n'
