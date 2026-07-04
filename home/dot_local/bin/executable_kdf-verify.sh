@@ -17,114 +17,173 @@ _main() {
   local exit_code=0
   _mise_activate bash
 
-  _verify_system || :
-  _verify_commands || :
-  _verify_chezmoi || exit_code=$?
+  _verify_commands || exit_code=$?
+
   _verify_zsh || exit_code=$?
-  _verify_mise || exit_code=$?
   _verify_zinit || exit_code=$?
-  _verify_neovim || exit_code=$?
+  _verify_nvim || exit_code=$?
 
-  ## TODO: Verify 1Password authentication
-  ## TODO: Verify github-cli authentication
-  ## TODO: Verify GPG keys
+  _verify_gpg || exit_code=$?
+  _verify_chezmoi || exit_code=$?
+  _verify_brew || exit_code=$?
+  _verify_mise || exit_code=$?
+  _verify_onepassword || exit_code=$?
+  _verify_github || exit_code=$?
 
+  _verify_system || exit_code=$?
+
+  echo "END"
   return "$exit_code"
-}
-
-_verify_system() {
-  if command -v mise >/dev/null 2>&1; then
-    progress "Verify system"
-    mise exec fastfetch -- fastfetch \
-      --logo none
-    progress_end
-  fi
 }
 
 _verify_commands() {
   local exit_code=0
+
   progress "Verify commands"
-  __verify_command "curl" || exit_code=$?
-  __verify_command "git" || exit_code=$?
-  __verify_command "file" || exit_code=$?
-  __verify_command "unzip" || exit_code=$?
-  __verify_command "mise" || exit_code=$?
-  __verify_command "chezmoi" || exit_code=$?
-  __verify_command "op" || exit_code=$?
-  __verify_command "gpg" || exit_code=$?
-  __verify_command "zsh" || exit_code=$?
-  __verify_command "nvim" || exit_code=$?
-
-  __verify_command "brew" || :
-  progress_end
-
-  return "$exit_code"
-}
-__verify_command() {
-  local cmd="$1" cmd_path=""
-  printf '%10s : ' "$cmd"
-
-  cmd_path="$(command -v "$cmd" || true)"
-  if [ -n "$cmd_path" ]; then
-    echo "$cmd_path"
-  else
-    echo "<Not found>"
-    return 2
-  fi
-}
-
-_verify_chezmoi() {
-  local tmp exit_code=0
-  tmp="$(mktemp)"
-
-  progress "Verify chezmoi status"
-  _chezmoi status --force | tee "$tmp"
-  if [ -s "$tmp" ]; then
-    echo
-    error 'chezmoi should be on the clean state\n'
-    exit_code=3
-  else
-    info 'chezmoi is on the clean state\n'
-  fi
-
+  _verify_command curl --version || exit_code=2
+  _verify_command git --version || exit_code=2
+  _verify_command file || exit_code=2
+  _verify_command unzip || exit_code=2
+  _verify_command mktemp || exit_code=2
   progress_end
   return "$exit_code"
 }
 
 _verify_zsh() {
+  local exit_code=0
+
   progress "Verify zsh"
-  info "Zsh Version: %s"
-  zsh -c 'echo "${ZSH_VERSION:?}"'
+  _verify_command zsh --version || exit_code=3
   progress_end
-}
-
-_verify_mise() {
-  progress "Verify mise"
-  info "Mise doctor:\n"
-  mise doctor
-
-  info "Mise tools:\n"
-  mise list
-  progress_end
+  return "$exit_code"
 }
 
 _verify_zinit() {
+  local exit_code=0
+
   progress "Verify zinit"
-  zsh -ic -- "zinit zstatus"
+  MISE_QUIET=1 zsh -ic -- "zinit version" || exit_code=4
+  MISE_QUIET=1 zsh -ic -- "zinit zstatus" || exit_code=4
   progress_end
+  return "$exit_code"
 }
 
-_verify_neovim() {
-  local exit_code=0 nvim_version=""
+_verify_nvim() {
+  local exit_code=0
 
-  progress "Verify Neovim"
+  progress "Verify neovim"
+  if _verify_command nvim --version; then
+    nvim --headless '+checkhealth' +qa 2>&1 | \
+      sed 's/checkhealth/\ncheckhealth/g' || exit_code=5
+    echo
+  else
+    exit_code=5
+  fi
+  progress_end
+  return "$exit_code"
+}
 
-  nvim_version="$(nvim --version | sed -n '1p')" || exit_code=$?
-  info "Neovim Version: %s\n" "$nvim_version"
+_verify_gpg() {
+  local exit_code=0
 
-  nvim --headless '+checkhealth' +qa || exit_code=$?
-  echo
+  progress "Verify gpg"
+  if _verify_command gpg --version; then
+    echo
+    info "GPG keys:\n"
+    gpg --list-keys || exit_code=6
+    echo
+    info "GPG secret keys:\n"
+    gpg --list-secret-keys || exit_code=6
+  else
+    exit_code=6
+  fi
+  progress_end
+  return "$exit_code"
+}
 
+_verify_chezmoi() {
+  local exit_code=0 tmp
+  tmp="$(mktemp)"
+
+  progress "Verify chezmoi"
+  if _verify_command chezmoi --version; then
+    _chezmoi status --force > "$tmp"
+    echo
+    if [ -s "$tmp" ]; then
+      error 'Error: chezmoi is NOT on the clean state\n' &&
+        cat "$tmp" &&
+        exit_code=7
+    else
+      info 'chezmoi is on the clean state\n'
+    fi
+  else
+    exit_code=7
+  fi
+  rm "$tmp"
+  progress_end
+  return "$exit_code"
+}
+
+_verify_brew() {
+  local exit_code=0
+
+  progress "Verify homebrew"
+  if _verify_command brew --version; then
+    echo
+    info "Brew doctor:\n"
+    brew doctor || exit_code=8
+    echo
+    info "Brew configuration:\n"
+    brew config || exit_code=8
+  else
+    exit_code=8
+  fi
+  progress_end
+  return "$exit_code"
+}
+
+_verify_mise() {
+  local exit_code=0
+
+  progress "Verify mise"
+  if _verify_command mise --version; then
+    echo
+    info "Mise configuration:\n"
+    mise doctor || exit_code=9
+    echo
+    info "Mise tools:\n"
+    mise list || exit_code=9
+  else
+    exit_code=9
+  fi
+  progress_end
+  return "$exit_code"
+}
+
+_verify_onepassword() {
+  local exit_code=0
+
+  progress "Verify 1password"
+  if _verify_command op --version; then
+    echo
+    op whoami || : ## Optional, might change in the future
+  else
+    exit_code=10
+  fi
+  progress_end
+  return "$exit_code"
+}
+
+_verify_github() {
+  local exit_code=0
+
+  progress "Verify github"
+  if _verify_command gh --version; then
+    echo
+    gh auth status || : ## Optional, might change in the future
+  else
+    exit_code=11
+  fi
   progress_end
   return "$exit_code"
 }

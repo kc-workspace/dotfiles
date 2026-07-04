@@ -10,6 +10,8 @@ set -euo pipefail
 export KDF_UTILS="$KDF_ROOT/.kdf-utils"
 
 source "$KDF_UTILS/logger.sh"
+source "$KDF_UTILS/verify.sh"
+
 source "$KDF_UTILS/chezmoi.sh"
 source "$KDF_UTILS/mise.sh"
 source "$KDF_UTILS/nvim.sh"
