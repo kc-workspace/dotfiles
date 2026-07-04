@@ -4,7 +4,9 @@
 set -euo pipefail
 
 debug() {
-  _log "DBG" "$@"
+  if [ -n "${DEBUG:-}" ]; then
+    _log "DBG" "$@"
+  fi
 }
 
 info() {
