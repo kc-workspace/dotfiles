@@ -12,7 +12,7 @@ mise_setup() {
 
 _mise_activate() {
   local shell_name="${1:-bash}"
-  eval "$(mise activate "$shell_name")"
+  MISE_QUIET=1 eval "$(mise activate "$shell_name")"
 }
 
 _mise_install() {
