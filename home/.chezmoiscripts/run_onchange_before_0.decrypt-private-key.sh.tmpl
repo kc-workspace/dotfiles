@@ -19,7 +19,7 @@ out="$base/key.txt"
 
 if [ -n "${CHEZMOI_KEY_TXT_BASE64:-}" ]; then
   printf '>>> Decoding... key from environment...\n'
-  base64 --decode <<< "$CHEZMOI_KEY_TXT_BASE64" > "$out"
+  printf '%s' "$CHEZMOI_KEY_TXT_BASE64" | base64 --decode > "$out"
 elif [ -n "$GITHUB_ACTIONS" ]; then
   printf '>>> Skipping... cannot decrypt private key on GitHub Actions\n'
 fi
