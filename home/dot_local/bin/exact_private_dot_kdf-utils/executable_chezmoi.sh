@@ -21,7 +21,7 @@ _chezmoi() {
     --config-format yaml
     --force
   )
-  if [[ -n $CI ]]; then
+  if [[ -n "${CI:-}" ]]; then
     args+=(
       --less-interactive
       --progress false
@@ -41,7 +41,5 @@ _chezmoi() {
     args+=(--verbose)
   fi
 
-  set -x
   chezmoi "${args[@]}" "$@"
-  set +x
 }
