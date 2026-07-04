@@ -1,3 +1,8 @@
+{{- includeTemplate "featureFlags/helpers/mustEnable" (dict
+  "flag" "ai::gemini:enable"
+  "context" $
+) -}}
+
 {
   "security": {
     "auth": {

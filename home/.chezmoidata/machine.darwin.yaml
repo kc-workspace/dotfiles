@@ -3,17 +3,15 @@ machine:
     settings:
       featureFlags:
         - ai::claude:enable
+        - ai::gemini:enable
         - aws::enable
         - aws::stm:config
         - aws-vpn::stm:config
         - wd::stm:path
         - wd::vscode-insider:path
-        - git::personal:config
         - git::stm:config
         - git::sign:config
         - git::onepassword:config
-        - ssh::security:config
-        - ssh::onepassword:config
         - ssh::github:config
         - ssh::gitlab:config
         - ssh::bitbucket:config
