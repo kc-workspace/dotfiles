@@ -32,6 +32,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           CHEZMOI_SOURCE: ${{ github.workspace }}
+          CHEZMOI_KEY_TXT_BASE64: ${{ secrets.CHEZMOI_KEY_TXT_BASE64 }}
       - name: Verify dotfiles
         run: kdf-verify.sh
         env:
