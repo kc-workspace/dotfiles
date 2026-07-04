@@ -9,8 +9,11 @@ _brew() {
   "defaults" "${HOMEBREW_PREFIX:-}/bin"
   "context" .
 ) | mustFromJson }}/brew"
-  if [ -f "$brew_cmd" ]; then
-    "$brew_cmd" "$@"
+
+  if command -v brew >/dev/null 2>&1; then
+    brew "$@"        ## Use brew from PATH if available
+  elif [ -f "$brew_cmd" ]; then
+    "$brew_cmd" "$@" ## Use brew from binpath if available
   else
     error 'Error: brew command not found (%s)\n' "$brew_cmd"
     return 99
