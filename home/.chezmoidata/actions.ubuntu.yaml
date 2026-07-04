@@ -13,7 +13,7 @@ actions:
       brew:
         taps: []
         packages:
-          - nmap
+          - git
         casks: []
         settings:
           env:
