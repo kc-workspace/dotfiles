@@ -19,7 +19,6 @@ _main() {
 
 _chezmoi_cleanup() {
   progress "clean up chezmoi"
-  chezmoi destroy
   chezmoi purge --binary --force
   progress_end
 }
