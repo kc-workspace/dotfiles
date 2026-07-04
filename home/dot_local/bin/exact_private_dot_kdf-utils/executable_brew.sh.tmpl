@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+# shellcheck disable=SC1091
+
+set -euo pipefail
+
+_brew() {
+  local brew_cmd="{{ includeTemplate "global/helpers/getData" (dict
+  "path" (list "dependencies" "brew" "settings" "binpath")
+  "defaults" "${HOMEBREW_PREFIX:-}/bin"
+  "context" .
+) | mustFromJson }}/brew"
+  if [ -f "$brew_cmd" ]; then
+    "$brew_cmd" "$@"
+  else
+    error 'Error: brew command not found (%s)\n' "$brew_cmd"
+    return 99
+  fi
+}
+
+_brew_activate() {
+  local shell_name="${1:-bash}"
+  eval "$(_brew shellenv "$shell_name")"
+}
