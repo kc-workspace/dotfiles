@@ -14,7 +14,14 @@ export KDF_OLDPWD KDF_ROOT KDF_CMD
 source "$KDF_ROOT/.kdf-utils/index.sh"
 
 _main() {
-  info 'start clean up process'
+  _chezmoi_cleanup
+}
+
+_chezmoi_cleanup() {
+  progress "clean up chezmoi"
+  chezmoi destroy
+  chezmoi purge --binary --force
+  progress_end
 }
 
 kdf-main

@@ -27,7 +27,10 @@ jobs:
             --force --purge-binary \
             --promptDefaults \
             --source ${{ github.workspace }}
-      - name: Run full setup
+      - name: Run full dotfiles
         run: kdf-setup.sh
-      - name: Verify the setup
+      - name: Verify dotfiles
         run: kdf-verify.sh
+      - name: Clean up dotfiles
+        if: ${{ always() }}
+        run: kdf-cleanup.sh
