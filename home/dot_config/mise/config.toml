@@ -1,5 +1,6 @@
 [tools]
 1password-cli = "2.30.3"  ## For password management
+age           = "1.3.1"   ## For file encryption
 bun           = "1.3.1"
 github-cli    = "2.86.0"
 go            = "1.25.5"  ## For golang package management
@@ -9,19 +10,22 @@ nodejs        = "24.16.0" ## For node runtime
 python        = "3.13.12" ## For python runtime
 rust          = "1.93.0"
 yq            = "4.48.1"
-chezmoi       = "2.70.0"
+chezmoi       = "2.70.5"  ## For dotfiles management
 usage         = "3.5.3"   ## Required by `mise completion`
 uv            = "0.9.5"
 
-[plugins]
-1password-cli = "https://github.com/kc-workspace/asdf-1password"
+[tool_alias]
+cloc           = "github:AlDanial/cloc"
+forgecode      = "github:tailcallhq/forgecode"
+playwright-cli = "npm:@playwright/cli"
+promptfoo      = "npm:promptfoo"
+skills         = "npm:skills"
 
 [settings]
-disable_backends                    = ["spm", "dotnet", "gem", "ubi"]
+disable_backends                    = ["spm", "dotnet", "gem", "ubi", "asdf"]
 not_found_auto_install              = true
-use_versions_host                   = false ## NOTE: https://github.com/jdx/mise/discussions/4878
 pin                                 = true
-idiomatic_version_file_enable_tools = ["node"]
+idiomatic_version_file_enable_tools = ["node", "bun", "pnpm", "yarn"] ## https://mise.jdx.dev/configuration.html#idiomatic-version-files
 experimental                        = true
 
 [settings.status]

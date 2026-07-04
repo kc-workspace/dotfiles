@@ -325,9 +325,7 @@ machine:
       brew:
         taps: []
         packages:
-          - age             ## For encrypting files
           - ca-certificates ## For SSL certificates
-          - cloc            ## For count lines of code
           - coreutils       ## For advance utilization tools
           - cosign          ## For verify downloaded cli via mise
           - curl            ## For install commands in general
