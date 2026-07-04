@@ -1,42 +1,20 @@
 #!/usr/bin/env bash
 
-set -e
+set -euo pipefail
+# set -x ## DEBUG
 
-printf "\n==============================================
-Verify %s
-==============================================\n" "commands"
-printf 'curl: ' && command -v curl
-printf 'git: ' && command -v git
-printf 'unzip: ' && command -v unzip
-printf 'mise: ' && command -v mise
-printf 'chezmoi: ' && command -v chezmoi
-printf 'op: ' && command -v op
-printf 'gpg: ' && command -v gpg
-printf 'zsh: ' && command -v zsh
+KDF_OLDPWD="$PWD"
+KDF_CMD="$(command -v "$0")"
+cd "$(dirname "$KDF_CMD")"
+KDF_ROOT="$PWD"
 
-printf "\n==============================================
-Verify %s
-==============================================\n" "chezmoi"
-temp="$(mktemp)"
-# shellcheck disable=SC2086
-chezmoi status --no-pager --no-tty $CHEZMOI_ARGUMENTS | tee "$temp"
-if [ -s "$temp" ]; then
-  printf 'chezmoi should be on the clean state' >&2
-  exit 2
-fi
+export KDF_OLDPWD KDF_ROOT KDF_CMD
 
-printf "\n==============================================
-Verify %s
-==============================================\n" "zsh"
-printf 'zsh version: '
-zsh -c 'echo "${ZSH_VERSION:?}"'
+# shellcheck disable=SC1091
+source "$KDF_ROOT/.kdf-utils/index.sh"
 
-printf "\n==============================================
-Verify %s
-==============================================\n" "mise tools"
-mise list
+_main() {
+  info 'start verify process'
+}
 
-printf "\n==============================================
-Verify %s
-==============================================\n" "mise health"
-mise doctor
+kdf-main

@@ -1,15 +1,20 @@
 #!/usr/bin/env bash
 
-set -e
+set -euo pipefail
+# set -x ## DEBUG
 
-## Remove developer commandline tools on macos
-if [[ $(uname -s) == "Darwin" ]]; then
-  if xcode-select -p &>/dev/null; then
-    rm -rf "/Library/Developer/CommandLineTools"
-  fi
-fi
+KDF_OLDPWD="$PWD"
+KDF_CMD="$(command -v "$0")"
+cd "$(dirname "$KDF_CMD")"
+KDF_ROOT="$PWD"
 
-## Delete chezmoi source directory (if exists)
-if [ -d "$HOME/.local/share/chezmoi" ]; then
-  rm -r "$HOME/.local/share/chezmoi"
-fi
+export KDF_OLDPWD KDF_ROOT KDF_CMD
+
+# shellcheck disable=SC1091
+source "$KDF_ROOT/.kdf-utils/index.sh"
+
+_main() {
+  info 'start clean up process'
+}
+
+kdf-main

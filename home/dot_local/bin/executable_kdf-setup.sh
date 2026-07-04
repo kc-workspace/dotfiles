@@ -1,38 +1,20 @@
 #!/usr/bin/env bash
 
 set -euo pipefail
+# set -x ## DEBUG
 
-## run mise path to ensure tools are available
-eval "$(mise activate bash)"
+KDF_OLDPWD="$PWD"
+KDF_CMD="$(command -v "$0")"
+cd "$(dirname "$KDF_CMD")"
+KDF_ROOT="$PWD"
 
-pushd "$(dirname "$0")"
-# shellcheck disable=SC1091
-source "$PWD/kdf-setup-secrets.sh"
-
-printf "\n==============================================
-Initiate and Apply %s
-==============================================\n" "chezmoi config"
-# shellcheck disable=SC2086
-chezmoi init --apply --no-pager --no-tty $CHEZMOI_ARGUMENTS
-
-printf "\n==============================================
-Install %s
-==============================================\n" "mise tools"
-mise install
-
-printf "\n==============================================
-Install %s
-==============================================\n" "zsh plugins"
-zsh -ic -- "@zinit-scheduler burst"
-
-printf "\n==============================================
-Install %s
-==============================================\n" "nvim plugins"
-nvim --headless '+Lazy! sync' +qa \
-  && nvim --headless '+TSInstall all' +qa
-
-"$PWD/kdf-verify.sh"
+export KDF_OLDPWD KDF_ROOT KDF_CMD
 
 # shellcheck disable=SC1091
-source "$PWD/kdf-cleanup-secrets.sh"
-popd
+source "$KDF_ROOT/.kdf-utils/index.sh"
+
+_main() {
+  info 'start setup process\n'
+}
+
+kdf-main
