@@ -7,14 +7,15 @@
 {{- $taps := dig "taps" list $brew -}}
 {{- $packages := dig "packages" list $brew -}}
 {{- $casks := dig "casks" list $brew -}}
-{{- if or $taps $packages $casks -}}
+{{- $autoinstall := (dig "settings" "autoinstall" true $brew) -}}
+{{- if or $taps $packages $casks $autoinstall -}}
 #!/usr/bin/env sh
 
 set -eu
 
 printf '>> Starting... %s\n' "dependencies-brew.sh"
 
-{{- if (dig "settings" "autoinstall" true $brew) }}
+{{- if $autoinstall }}
 
 printf '>>> Checking... %s\n' "Homebrew"
 if ! command -v brew >/dev/null; then
