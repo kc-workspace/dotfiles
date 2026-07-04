@@ -18,9 +18,7 @@ set -eu
 
 printf '>> Starting... %s\n' "preferences-dockutil.sh"
 
-{{- $env := dig "settings" "env" dict $brew }}
-{{ includeTemplate "shellVars/brew-env-set.tmpl" $env }}
-{{ includeTemplate "shellVars/brew.tmpl" }}
+{{ includeTemplate "shell/helpers/brewSetup" . }}
 dockutil_cmd="$brew_bin/dockutil"
 if ! [ -x "$dockutil_cmd" ]; then
   printf '>>> Installing... %s\n' "dockutil"
@@ -42,7 +40,7 @@ defaults write com.apple.dock persistent-others -array
 
 set -x
 {{- range $apps }}
-{{- includeTemplate "shellVars/dockutil.tmpl" (dict
+{{- includeTemplate "shell/helpers/dockutil" (dict
   "name" (dig "name" "" .)
   "action" (dig "action" "add" .)
   "section" "apps"
@@ -52,7 +50,7 @@ set -x
 {{- end }}
 
 {{- range $others }}
-{{- includeTemplate "shellVars/dockutil.tmpl" (dict
+{{- includeTemplate "shell/helpers/dockutil" (dict
   "name" (dig "name" "" .)
   "action" (dig "action" "add" .)
   "section" "others"
@@ -73,6 +71,9 @@ printf '>>> Uninstalling... %s\n' "dockutil"
 "$brew_cmd" uninstall dockutil --quiet
 {{- end }}
 
-unset brew_bin brew_cmd dockutil_cmd
-{{ includeTemplate "shellVars/brew-env-unset.tmpl" $env }}
+unset dockutil_cmd
+{{ includeTemplate "shell/helpers/brewCleanup" (dict
+  "context" .
+  "all" true
+) }}
 {{- end }}

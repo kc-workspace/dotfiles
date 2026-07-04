@@ -14,6 +14,7 @@ docker:
         packages: []
         casks: []
         settings:
+          binpath: /home/linuxbrew/.linuxbrew/bin
           autoinstall: false
       mise:
         packages:

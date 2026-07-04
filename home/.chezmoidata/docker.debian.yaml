@@ -15,6 +15,7 @@ docker:
           - nmap
         casks: []
         settings:
+          binpath: /home/linuxbrew/.linuxbrew/bin
           env:
             HOMEBREW_MAKE_JOBS: "1"
             HOMEBREW_DOWNLOAD_CONCURRENCY: "1"

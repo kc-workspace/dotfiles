@@ -1,0 +1,24 @@
+{{- $context := dig "context" . . -}}
+{{- $setEnv := dig "env" true . -}}
+{{- $brew := includeTemplate "global/helpers/getData" (dict
+  "path" (list "dependencies" "brew")
+  "defaults" dict
+  "context" $context
+) | mustFromJson -}}
+{{- $binpath := dig "settings" "binpath" "${HOMEBREW_PREFIX:-}/bin" $brew -}}
+{{- $env := dig "settings" "env" dict $brew -}}
+
+{{- if $setEnv -}}
+export HOMEBREW_NO_AUTO_UPDATE="true"
+{{- range $key, $value := $env }}
+export {{ $key }}={{ $value | quote }}
+{{- end }}
+{{- end }}
+
+brew_bin={{ $binpath | quote }}
+brew_cmd="$brew_bin/brew"
+
+if ! [ -x "$brew_cmd" ]; then
+  printf '>>> Error: %s\n' "brew command not found"
+  exit 1
+fi

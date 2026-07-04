@@ -80,6 +80,8 @@ _base:
       ## @type - string[]
       casks: []
       settings:
+        ## Path to the brew command (default: ${HOMEBREW_PREFIX:-}/bin)
+        binpath: "${HOMEBREW_PREFIX:-}/bin"
         ## Autoinstall when cannot find brew command
         autoinstall: true
         ## Autoupdate before install any packages

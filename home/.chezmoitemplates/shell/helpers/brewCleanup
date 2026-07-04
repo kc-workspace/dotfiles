@@ -1,0 +1,16 @@
+{{- $context := dig "context" . . -}}
+{{- $all := dig "all" false . -}}
+{{- $brew := includeTemplate "global/helpers/getData" (dict
+  "path" (list "dependencies" "brew")
+  "defaults" dict
+  "context" $context
+) | mustFromJson -}}
+{{- $env := dig "settings" "env" dict $brew -}}
+
+unset brew_bin brew_cmd
+{{- if $all }}
+unset HOMEBREW_NO_AUTO_UPDATE
+{{- range $key, $_ := $env }}
+  {{- printf " " -}}{{- $key -}}
+{{- end }}
+{{- end }}

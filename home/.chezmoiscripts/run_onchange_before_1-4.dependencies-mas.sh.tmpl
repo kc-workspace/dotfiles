@@ -11,7 +11,6 @@
 
 {{- $packages := dig "packages" list $mas -}}
 {{- if $packages -}}
-{{- $env := dig "settings" "env" dict $brew -}}
 #!/usr/bin/env sh
 
 set -eu
@@ -20,9 +19,7 @@ printf '>> Starting... %s\n' "dependencies-mas.sh"
 
 {{- if dig "settings" "autoinstall" true $mas }}
 
-{{ includeTemplate "shellVars/brew-env-set.tmpl" $env }}
-
-{{ includeTemplate "shellVars/brew.tmpl" }}
+{{ includeTemplate "shell/helpers/brewSetup" . }}
 printf '>>> Checking... %s\n' "mas"
 if ! command -v mas >/dev/null; then
   printf '>>> Installing... %s\n' "mas"
@@ -58,6 +55,9 @@ printf '>>> Uninstalling... %s\n' "mas"
 "$brew_cmd" uninstall mas --quiet
 {{- end }}
 
-unset brew_bin brew_cmd mas_cmd
-{{ includeTemplate "shellVars/brew-env-unset.tmpl" $env }}
+unset mas_cmd
+{{ includeTemplate "shell/helpers/brewCleanup" (dict
+  "context" .
+  "all" true
+) }}
 {{- end }}

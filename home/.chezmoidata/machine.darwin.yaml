@@ -356,7 +356,8 @@ machine:
           - slack                         ## For team communication
           - steam                         ## For gaming platform
           - visual-studio-code@insiders   ## For code editor
-        settings: {}
+        settings:
+          binpath: /opt/homebrew/bin
 
       mas:
         packages:
