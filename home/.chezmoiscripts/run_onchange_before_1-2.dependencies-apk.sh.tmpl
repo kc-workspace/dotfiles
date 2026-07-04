@@ -37,14 +37,14 @@ printf '>>> Installing... %s\n' "apk packages"
 
 set -x
 {{- if dig "settings" "autoupdate" true $apk }}
-run_as_root apk update
+run_as_root apk update --quiet
 {{- end }}
-run_as_root apk add --no-cache
+run_as_root apk add --no-cache --quiet
 {{- range $packages }} \
   {{- . | quote | nindent 2 -}}
 {{ end }}
 {{- if dig "settings" "autoupgrade" true $apk }}
-run_as_root apk upgrade --prune
+run_as_root apk upgrade --prune --quiet
 {{- end }}
 set +x
 

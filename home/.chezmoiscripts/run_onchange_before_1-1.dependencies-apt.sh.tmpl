@@ -39,17 +39,17 @@ printf '>>> Installing... %s\n' "$apt_cmd packages"
 
 set -x
 {{- if dig "settings" "autoupdate" true $apt }}
-run_as_root "$apt_cmd" update
+run_as_root "$apt_cmd" update --quiet
 {{- end }}
-run_as_root "$apt_cmd" install -y
+run_as_root "$apt_cmd" install --yes --quiet
 {{- range $packages }} \
   {{- . | quote | nindent 2 -}}
 {{ end }}
 {{- if dig "settings" "autoupgrade" true $apt }}
-run_as_root "$apt_cmd" upgrade -y
+run_as_root "$apt_cmd" upgrade --yes --quiet
 {{- end }}
 {{- if dig "settings" "autoclean" true $apt }}
-run_as_root "$apt_cmd" clean
+run_as_root "$apt_cmd" clean --quiet
 {{- end }}
 set +x
 
