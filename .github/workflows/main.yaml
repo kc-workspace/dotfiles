@@ -23,7 +23,9 @@ jobs:
         uses: ./.github/actions/setup-chezmoi
       - name: Apply chezmoi config
         run: |
-          chezmoi init --one-shot --promptDefaults \
+          chezmoi init --apply \
+            --force --purge-binary \
+            --promptDefaults \
             --source ${{ github.workspace }}
       - name: Run full setup
         run: kdf-setup.sh
