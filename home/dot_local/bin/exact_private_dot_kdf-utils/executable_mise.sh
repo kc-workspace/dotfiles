@@ -12,6 +12,6 @@ mise_activate() {
 
 mise_install() {
   if command -v mise >/dev/null 2>&1; then
-    mise install "$@"
+    mise install --quiet "$@"
   fi
 }
