@@ -1,0 +1,5 @@
+_base:
+  definitions:
+    featureFlags:
+      ## Enable Claude app configuration file generation
+      ai::claude:enable:

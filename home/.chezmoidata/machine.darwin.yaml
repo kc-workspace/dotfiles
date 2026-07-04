@@ -2,6 +2,7 @@ machine:
   darwin:
     settings:
       featureFlags:
+        - ai::claude:enable
         - aws::enable
         - aws::stm:config
         - aws-vpn::stm:config
