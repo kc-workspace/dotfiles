@@ -28,7 +28,7 @@ jobs:
             --promptDefaults \
             --source ${{ github.workspace }}
       - name: Run full dotfiles
-        run: kdf-setup.sh
+        run: kdf-setup-full.sh
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           CHEZMOI_SOURCE: ${{ github.workspace }}

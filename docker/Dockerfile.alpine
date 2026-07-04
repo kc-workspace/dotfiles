@@ -60,19 +60,12 @@ COPY --chown=$USER . $CHEZMOI_HOME
 
 ## Configure dotfiles
 ## We purge binary because we will use mise to install it instead
-RUN --mount=type=secret,id=GITHUB_TOKEN,env=GITHUB_TOKEN,required=false $USER_BIN/chezmoi init --apply \
-  --no-pager --no-tty \
-  --purge-binary --force \
-  --exclude=encrypted
+RUN --mount=type=secret,id=GITHUB_TOKEN,env=GITHUB_TOKEN,required=false $USER_BIN/chezmoi \
+  init --apply \
+  --force --purge-binary \
+  --promptDefaults
 
-## NOTE: To install all zsh plugins regardless of turbo mode is enabled or not
-## ref: https://github.com/zdharma-continuum/zinit/issues/321#issuecomment-1183650509
-RUN zsh -ic -- "@zinit-scheduler burst"
-
-## NOTE: To install all nvim plugins regardless of lazy mode is enabled or not
-## ref:
-RUN nvim --headless '+Lazy! sync' +qa \
-  && nvim --headless '+TSInstall all' +qa
+RUN kdf-setup-lite.sh
 
 ## Reset Dockerfile environment variables
 ENV DEBIAN_FRONTEND= NONINTERACTIVE=
