@@ -1,3 +1,4 @@
+{{- $context := .context -}}
 {{- if and (not (get . "disabled")) (includeTemplate "global/helpers/isDarwin" .) }}
 {{- includeTemplate "zshrc/helpers/h3" "Zinit Plugins - macos-utilities" }}
 

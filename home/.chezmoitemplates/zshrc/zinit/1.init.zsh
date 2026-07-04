@@ -1,3 +1,4 @@
+{{- $context := .context -}}
 {{- includeTemplate "zshrc/helpers/h1" "Zinit configuration" -}}
 
 ## Setup zdharma-continuum/zinit

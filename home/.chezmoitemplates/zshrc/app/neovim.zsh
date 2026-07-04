@@ -1,3 +1,4 @@
+{{- $context := .context -}}
 {{- if not (get . "disabled") }}
 {{- $method := dig "method" "zinit" . }}
 {{- if eq $method "zinit" }}

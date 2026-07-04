@@ -1,3 +1,4 @@
+{{- $context := .context -}}
 {{- if not (get . "disabled") }}
 {{- if eq (get . "channel") "insiders" }}
 

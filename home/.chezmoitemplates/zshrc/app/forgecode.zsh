@@ -1,3 +1,4 @@
+{{- $context := .context -}}
 {{- if not (get . "disabled") }}
 {{- includeTemplate "zshrc/helpers/h3" "ForgeCode" }}
 

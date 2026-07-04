@@ -1,3 +1,4 @@
+{{- $context := .context -}}
 {{- $keys := dict -}}
 {{- $_ := set $keys "^[[C" "vi-forward-char" -}}{{/* arrow-right */}}
 {{- $_ := set $keys "^[[D" "vi-backward-char" -}}{{/* arrow-left */}}
