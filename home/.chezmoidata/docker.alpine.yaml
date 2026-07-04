@@ -13,6 +13,8 @@ docker:
         taps: []
         packages: []
         casks: []
+        settings:
+          autoinstall: false
       mise:
         packages:
           - nodejs

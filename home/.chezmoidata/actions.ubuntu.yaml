@@ -10,10 +10,11 @@ actions:
           - gpg
         settings:
           autoupgrade: false
+      ## Don't install brew on actions, because it randomly fails
+      ## No such file or directory @ rb_sysopen - /<path>
       brew:
         taps: []
-        packages:
-          - git
+        packages: []
         casks: []
         settings:
           env:
