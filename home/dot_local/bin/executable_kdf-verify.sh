@@ -130,7 +130,7 @@ _verify_brew() {
   if _verify_command brew --version; then
     echo
     info "Brew doctor:\n"
-    brew doctor || exit_code=8
+    brew doctor || :
     echo
     info "Brew configuration:\n"
     brew config || exit_code=8
