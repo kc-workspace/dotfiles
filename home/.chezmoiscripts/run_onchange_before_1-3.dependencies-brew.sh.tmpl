@@ -31,6 +31,9 @@ fi
 
 {{ includeTemplate "shellVars/brew.tmpl" }}
 tmp="$(mktemp)"
+
+{{- if or $taps $packages $casks }}
+
 {
   {{- range $taps }}
     {{- printf "echo '%s %s'" "tap" (. | quote) | nindent 2 }}
@@ -44,6 +47,7 @@ tmp="$(mktemp)"
     {{- printf "echo '%s %s'" "cask" (. | quote) | nindent 2 }}
   {{- end }}
 } > "$tmp"
+{{- end }}
 
 {{ $env := dig "settings" "env" dict $brew }}
 {{- includeTemplate "shellVars/brew-env-set.tmpl" $env }}
