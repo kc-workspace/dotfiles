@@ -126,7 +126,7 @@ _verify_brew() {
   local exit_code=0
 
   progress "Verify homebrew"
-  _brew_activate
+  # _brew_activate
   if _verify_command brew --version; then
     echo
     info "Brew doctor:\n"
