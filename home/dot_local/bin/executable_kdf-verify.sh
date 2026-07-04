@@ -124,7 +124,6 @@ _verify_chezmoi() {
 
 _verify_brew() {
   local exit_code=0
-  _brew_activate bash
 
   progress "Verify homebrew"
   if _verify_command brew --version; then
