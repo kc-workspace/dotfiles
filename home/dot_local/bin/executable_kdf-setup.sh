@@ -30,7 +30,7 @@ _mise_init() {
 _chezmoi_init() {
   progress "Set up chezmoi config"
   chezmoi init \
-    --verbose \
+    --debug \
     --promptDefaults \
     --promptBool "Enable 1Password=true,Enable age=true"
   chezmoi apply
