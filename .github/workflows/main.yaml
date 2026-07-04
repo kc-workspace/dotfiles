@@ -29,20 +29,20 @@ jobs:
             --source ${{ github.workspace }}
       - name: Run full dotfiles
         run: kdf-setup-full.sh
-        shell: zsh
+        shell: zsh -ic -- "{0}"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           CHEZMOI_SOURCE: ${{ github.workspace }}
           CHEZMOI_KEY_TXT_BASE64: ${{ secrets.CHEZMOI_KEY_TXT_BASE64 }}
       - name: Verify dotfiles
         run: kdf-verify.sh
-        shell: zsh
+        shell: zsh -ic -- "{0}"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           CHEZMOI_SOURCE: ${{ github.workspace }}
       - name: Clean up dotfiles
         if: ${{ always() }}
         run: kdf-cleanup.sh
-        shell: zsh
+        shell: zsh -ic -- "{0}"
         env:
           CHEZMOI_SOURCE: ${{ github.workspace }}
