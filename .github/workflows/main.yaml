@@ -29,8 +29,16 @@ jobs:
             --source ${{ github.workspace }}
       - name: Run full dotfiles
         run: kdf-setup.sh
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          CHEZMOI_SOURCE: ${{ github.workspace }}
       - name: Verify dotfiles
         run: kdf-verify.sh
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          CHEZMOI_SOURCE: ${{ github.workspace }}
       - name: Clean up dotfiles
         if: ${{ always() }}
         run: kdf-cleanup.sh
+        env:
+          CHEZMOI_SOURCE: ${{ github.workspace }}
