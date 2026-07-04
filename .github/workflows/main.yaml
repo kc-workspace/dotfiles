@@ -50,4 +50,5 @@ jobs:
     steps:
       - run: curl -fsSLo $INSTALL_SCRIPTS https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh
       - run: bash "$INSTALL_SCRIPTS"
+      - run: eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv bash)"
       - run: brew install git
