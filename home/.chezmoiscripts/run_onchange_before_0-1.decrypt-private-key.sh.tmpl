@@ -30,6 +30,8 @@ if [ ! -f "$out" ]; then
   chezmoi --no-tty --no-pager \
     age decrypt "$src" --output "$out" --passphrase
   chmod 600 "$out"
+else
+  printf '>>> Skipping... private key already exists\n'
 fi
 
 unset src base out
