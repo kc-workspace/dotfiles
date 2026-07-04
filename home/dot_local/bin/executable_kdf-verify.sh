@@ -15,7 +15,7 @@ source "$KDF_ROOT/.kdf-utils/index.sh"
 
 _main() {
   local exit_code=0
-  mise_activate bash
+  _mise_activate bash
 
   _verify_system || :
   _verify_commands || :

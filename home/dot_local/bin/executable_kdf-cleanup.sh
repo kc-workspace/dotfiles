@@ -14,7 +14,7 @@ export KDF_OLDPWD KDF_ROOT KDF_CMD
 source "$KDF_ROOT/.kdf-utils/index.sh"
 
 _main() {
-  mise_activate bash
+  _mise_activate bash
   _chezmoi_cleanup
 }
 
