@@ -21,8 +21,6 @@ machine:
         casks: []
         settings:
           binpath: /home/linuxbrew/.linuxbrew/bin
-          autoinstall: true
-          autoclean: true
 
       mise:
         packages: <ALL>
