@@ -1,0 +1,40 @@
+name: Set up chezmoi
+description: Set up chezmoi cli and configure PATH
+
+inputs:
+  bin-path:
+    description: directory where chezmoi command will be save
+    default: /tmp/bin
+  install-path:
+    description: install script file path
+    default: /tmp/chezmoi-install.sh
+
+runs:
+  using: composite
+  steps:
+    - name: Restore chezmoi cache
+      id: cache
+      uses: actions/cache/restore@27d5ce7f107fe9357f9df03efb73ab90386fccae # v5.0.5
+      with:
+        path: ${{ inputs.bin-path }}
+        key: chezmoi-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('.chezmoiversion') }}-${{ hashFiles('mise.toml') }}
+    - name: Download chezmoi install script
+      if: steps.cache.outputs.cache-hit != 'true'
+      run: curl -fsSLo "${{ inputs.install-path }}" get.chezmoi.io
+      shell: bash
+    - name: Install chezmoi
+      if: steps.cache.outputs.cache-hit != 'true'
+      run: sh "${{ inputs.install-path }}" -d -b "${{ inputs.bin-path }}" -t "v$(cat .chezmoiversion)"
+      shell: bash
+    - name: Save chezmoi cache
+      if: steps.cache.outputs.cache-hit != 'true'
+      uses: actions/cache/save@27d5ce7f107fe9357f9df03efb73ab90386fccae # v5.0.5
+      with:
+        path: ${{ inputs.bin-path }}
+        key: chezmoi-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('.chezmoiversion') }}-${{ hashFiles('mise.toml') }}
+    - name: Add chezmoi to PATH variable
+      run: echo "${{ inputs.bin-path }}" >> "$GITHUB_PATH"
+      shell: bash
+    - name: Get chezmoi version
+      run: chezmoi --version
+      shell: bash
