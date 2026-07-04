@@ -20,7 +20,7 @@ jobs:
         with:
           persist-credentials: false
       - name: Set up chezmoi
-        uses: ./actions/setup-chezmoi
+        uses: ./.github/actions/setup-chezmoi
       - name: Apply chezmoi config
         run: |
           chezmoi init --one-shot --promptDefaults \
