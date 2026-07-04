@@ -8,12 +8,11 @@ docker:
           - ncurses ## For tput
         settings:
           autoupgrade: true
+      ## alpine is not supported by homebrew
       brew:
         taps: []
         packages: []
         casks: []
-        settings:
-          autoinstall: false ## alpine is not supported by homebrew
       mise:
         packages:
           - nodejs

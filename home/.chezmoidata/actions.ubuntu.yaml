@@ -12,11 +12,11 @@ actions:
           autoupgrade: false
       brew:
         taps: []
-        packages: []
+        packages:
+          - graphviz
+          - nmap
         casks: []
         settings:
-          autoinstall: true
-          autoclean: true
           env:
             HOMEBREW_MAKE_JOBS: "1"
             HOMEBREW_DOWNLOAD_CONCURRENCY: "1"
