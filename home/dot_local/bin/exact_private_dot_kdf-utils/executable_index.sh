@@ -14,10 +14,8 @@ source "$KDF_UTILS/mise.sh"
 source "$KDF_UTILS/nvim.sh"
 
 kdf-main() {
-  local cb="${1:-_main}"
-
   _kdf-setup
-  _kdf-run "$cb"
+  _kdf-run _main "$@"
   _kdf-cleanup
 }
 
@@ -27,8 +25,7 @@ _kdf-setup() {
 }
 
 _kdf-run() {
-  local cb="$1"
-  "$cb"
+  "$@"
 }
 
 _kdf-cleanup() {

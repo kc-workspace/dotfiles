@@ -15,11 +15,17 @@ source "$KDF_ROOT/.kdf-utils/index.sh"
 
 _main() {
   local exit_code=0
-  _verify_system
-  _verify_commands
+  _verify_system || :
+  _verify_commands || :
   _verify_chezmoi || exit_code=$?
   _verify_zsh || exit_code=$?
   _verify_mise || exit_code=$?
+  _verify_zinit || exit_code=$?
+
+  ## TODO: Verify Neovim
+  ## TODO: Verify 1Password authentication
+  ## TODO: Verify GPG keys
+  ## TODO: Verify github-cli authentication
 
   return "$exit_code"
 }
@@ -45,8 +51,9 @@ _verify_commands() {
   __verify_command "op" || exit_code=$?
   __verify_command "gpg" || exit_code=$?
   __verify_command "zsh" || exit_code=$?
-  __verify_command "brew"
-  __verify_command "nvim"
+  __verify_command "nvim" || exit_code=$?
+
+  __verify_command "brew" || :
   progress_end
 
   return "$exit_code"
@@ -90,12 +97,20 @@ _verify_zsh() {
 }
 
 _verify_mise() {
+  mise_activate bash
+
   progress "Verify mise"
   info "Mise doctor:\n"
   mise doctor
 
   info "Mise tools:\n"
   mise list
+  progress_end
+}
+
+_verify_zinit() {
+  progress "Verify zinit"
+  zsh -ic -- "zinit zstatus"
   progress_end
 }
 
