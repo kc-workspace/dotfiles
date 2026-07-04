@@ -20,7 +20,9 @@ _main() {
 
 _chezmoi_cleanup() {
   progress "clean up chezmoi"
-  _chezmoi purge --binary
+  ## This cause github actions to fail
+  ## because it remove repo directory
+  # _chezmoi purge --binary
   progress_end
 }
 
