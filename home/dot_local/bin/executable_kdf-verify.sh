@@ -15,6 +15,8 @@ source "$KDF_ROOT/.kdf-utils/index.sh"
 
 _main() {
   local exit_code=0
+  mise_activate bash
+
   _verify_system || :
   _verify_commands || :
   _verify_chezmoi || exit_code=$?
@@ -97,8 +99,6 @@ _verify_zsh() {
 }
 
 _verify_mise() {
-  mise_activate bash
-
   progress "Verify mise"
   info "Mise doctor:\n"
   mise doctor
