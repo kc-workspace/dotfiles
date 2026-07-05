@@ -39,14 +39,14 @@ set -x
 "$mise_cmd" self-update --yes
 {{- end }}
 {{- if and (kindIs "string" $packages) (eq $packages "<ALL>") }}
-"$mise_cmd" install --yes --quiet
+"$mise_cmd" install --yes
 {{- else if kindIs "slice" $packages }}
-"$mise_cmd" install --yes --quiet
+"$mise_cmd" install --yes
 {{- range $packages }} \
   {{- . | quote | nindent 2 -}}
 {{ end }}
 {{- else if kindIs "string" $packages }}
-"$mise_cmd" install --yes --quiet {{ $packages | quote }}
+"$mise_cmd" install --yes {{ $packages | quote }}
 {{- end }}
 set +x
 
