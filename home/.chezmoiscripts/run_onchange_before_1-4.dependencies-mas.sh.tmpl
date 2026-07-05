@@ -11,9 +11,9 @@
 
 {{- $packages := dig "packages" list $mas -}}
 {{- if $packages -}}
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 
-set -eu
+set -euo pipefail
 
 printf '>> Starting... %s\n' "dependencies-mas.sh"
 

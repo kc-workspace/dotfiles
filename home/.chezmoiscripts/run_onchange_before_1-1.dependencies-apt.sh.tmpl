@@ -9,9 +9,9 @@
 {{- $autoupgrade := dig "settings" "autoupgrade" true $apt -}}
 {{- $autoclean := dig "settings" "autoclean" true $apt -}}
 {{- if or $packages $autoupdate $autoupgrade $autoclean -}}
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 
-set -eu
+set -euo pipefail
 
 printf '>> Starting... %s\n' "dependencies-apt.sh"
 
@@ -20,7 +20,7 @@ apt_cmd="{{ dig "settings" "command" "apt" $apt }}"
 printf '>>> Checking... %s\n' "$apt_cmd"
 if ! command -v "$apt_cmd" >/dev/null; then
   printf '>>> Error: %s command not found\n' "$apt_cmd"
-  exit 1
+  exit 127
 fi
 
 run_as_root() {

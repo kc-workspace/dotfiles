@@ -6,9 +6,9 @@
 
 {{- $packages := dig "packages" list $mise }}
 {{- if $packages -}}
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 
-set -eu
+set -euo pipefail
 
 printf '>> Starting... %s\n' "dependencies-mise.sh"
 

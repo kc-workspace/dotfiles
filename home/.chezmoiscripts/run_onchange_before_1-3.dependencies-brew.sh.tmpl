@@ -9,9 +9,9 @@
 {{- $casks := dig "casks" list $brew -}}
 {{- $autoinstall := (dig "settings" "autoinstall" true $brew) -}}
 {{- if or $taps $packages $casks $autoinstall -}}
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 
-set -eu
+set -euo pipefail
 
 printf '>> Starting... %s\n' "dependencies-brew.sh"
 

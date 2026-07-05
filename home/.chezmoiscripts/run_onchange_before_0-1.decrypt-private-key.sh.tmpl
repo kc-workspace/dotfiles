@@ -7,9 +7,9 @@
   {{- abortEmpty -}}
 {{- end -}}
 
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 
-set -eu
+set -euo pipefail
 
 printf '>> Starting... %s\n' "decrypt-private-key.sh"
 

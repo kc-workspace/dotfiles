@@ -8,16 +8,16 @@
 {{- $autoupdate := dig "settings" "autoupdate" true $apk -}}
 {{- $autoupgrade := dig "settings" "autoupgrade" true $apk -}}
 {{- if or $packages $autoupdate $autoupgrade -}}
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 
-set -eu
+set -euo pipefail
 
 printf '>> Starting... %s\n' "dependencies-apk.sh"
 
 printf '>>> Checking... %s\n' "apk"
 if ! command -v "apk" >/dev/null; then
   printf '>>> Error: apk command not found\n'
-  exit 1
+  exit 127
 fi
 
 run_as_root() {

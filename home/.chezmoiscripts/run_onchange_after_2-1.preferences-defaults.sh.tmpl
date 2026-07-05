@@ -4,9 +4,9 @@
   "context" .
 ) | mustFromJson }}
 {{- if $defaults -}}
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 
-set -eu
+set -euo pipefail
 
 printf '>> Starting... %s\n' "preferences-defaults.sh"
 
