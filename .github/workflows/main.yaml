@@ -32,6 +32,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} ## For verify gh auth status
           CHEZMOI_SOURCE: ${{ github.workspace }}
+          HOMEBREW_NO_SANDBOX_LINUX: "1"
 
   full:
     runs-on: ubuntu-latest
@@ -58,6 +59,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} ## For verify gh auth status
           CHEZMOI_SOURCE: ${{ github.workspace }}
+          HOMEBREW_NO_SANDBOX_LINUX: "1"
       - name: Clean up dotfiles
         if: ${{ always() }}
         run: kdf-cleanup.sh
