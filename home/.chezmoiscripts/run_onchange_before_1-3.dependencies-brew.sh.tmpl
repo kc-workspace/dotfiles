@@ -58,7 +58,7 @@ set -x
 {{- if dig "settings" "autoupdate" true $brew }}
 "$brew_cmd" update --quiet
 {{- end }}
-"$brew_cmd" bundle install --verbose --file "$tmp"
+"$brew_cmd" bundle install --file "$tmp"
 {{- if dig "settings" "autoclean" true $brew }}
 "$brew_cmd" autoremove --quiet
 "$brew_cmd" cleanup --prune=all --scrub --quiet
