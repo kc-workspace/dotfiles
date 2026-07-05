@@ -3,6 +3,7 @@ machine:
     settings:
       featureFlags:
         - ai::claude:enable
+        - ai::codex:enable
         - ai::gemini:enable
         - aws::enable
         - aws::stm:config

@@ -3,5 +3,7 @@ _base:
     featureFlags:
       ## Enable Claude app configuration file generation
       ai::claude:enable:
+      ## Enable Codex app configuration file generation
+      ai::codex:enable:
       ## Enable Gemini app configuration file generation
       ai::gemini:enable:
