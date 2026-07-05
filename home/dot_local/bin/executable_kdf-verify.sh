@@ -147,8 +147,8 @@ _verify_mise() {
   progress "Verify mise (9)"
   if _verify_command mise --version; then
     echo
-    info "Mise configuration:\n"
-    mise doctor || exit_code=9
+    info "Mise doctor:\n"
+    mise doctor
     echo
     info "Mise tools:\n"
     mise list || exit_code=9
