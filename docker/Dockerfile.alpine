@@ -24,15 +24,19 @@ ENV NONINTERACTIVE=true
 ENV DOCKER=true
 
 ## Install dependencies
-## bash, ca-certificates, curl, git are essential
+## ca-certificates, curl, file, git are essential
+## bash is for automate scripts
+## zsh is primary interactive shell
+## build-base is for compiling source code
 ## sudo and doas are for privilege escalation
 ## shadow is for chsh command
+## ncurses is for tput command
 ## tzdata is for timezone setting
 RUN apk update \
   && apk add --no-cache \
-  bash ca-certificates curl file \
-  git shadow sudo tzdata \
-  doas zsh
+  bash build-base ca-certificates \
+  curl doas file git ncurses \
+  shadow sudo tzdata zsh
 
 ## Setup startup shell
 RUN chsh -s $SHELL
