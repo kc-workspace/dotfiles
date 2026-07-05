@@ -11,7 +11,7 @@ actions:
           - zsh
           - git
           - gpg
-          - bubblewrap ## For HomeBrew (Bubblewrap is required to use the Linux sandbox but was not found.)
+          - bubblewrap ## For HomeBrew (Bubblewrap is required to use the Linux sandbox but was not found)
         settings:
           autoupgrade: false
       ## Don't install brew on actions, because it randomly fails
