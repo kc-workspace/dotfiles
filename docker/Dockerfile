@@ -78,8 +78,6 @@ RUN --mount=type=secret,id=GITHUB_TOKEN,env=GITHUB_TOKEN,required=false $USER_BI
   --force --purge-binary \
   --promptDefaults
 
-RUN $USER_BIN/kdf-setup-lite.sh
-
 ## Reset Dockerfile environment variables
 ENV DEBIAN_FRONTEND= NONINTERACTIVE=
 ENV BREW_HOME= USER_HOME= USER_BIN= CHEZMOI_HOME=

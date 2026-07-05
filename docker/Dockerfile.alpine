@@ -74,8 +74,6 @@ RUN --mount=type=secret,id=GITHUB_TOKEN,env=GITHUB_TOKEN,required=false $USER_BI
   --force --purge-binary \
   --promptDefaults
 
-RUN $USER_BIN/kdf-setup-lite.sh
-
 RUN sudo apk del --no-cache \
   build-base bzip2-dev libffi-dev \
   openssl-dev readline-dev sqlite-dev \
