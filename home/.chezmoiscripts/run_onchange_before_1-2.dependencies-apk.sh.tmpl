@@ -5,7 +5,9 @@
 ) | mustFromJson }}
 
 {{- $packages := dig "packages" list $apk -}}
-{{- if $packages -}}
+{{- $autoupdate := dig "settings" "autoupdate" true $apk -}}
+{{- $autoupgrade := dig "settings" "autoupgrade" true $apk -}}
+{{- if or $packages $autoupdate $autoupgrade -}}
 #!/usr/bin/env sh
 
 set -eu
@@ -20,8 +22,10 @@ fi
 
 run_as_root() {
   if [ "$(id -u)" -eq 0 ]; then
+    printf '>>> $ %s\n' "$*"
     "$@"
   elif command -v sudo >/dev/null; then
+    printf '>>> $ %s %s\n' "sudo $*"
     sudo "$@"
   else
     printf '>>> Error: %s\n' "sudo is required when not running as root"
@@ -29,20 +33,20 @@ run_as_root() {
   fi
 }
 
-printf '>>> Installing... %s\n' "apk packages"
-
-set -x
-{{- if dig "settings" "autoupdate" true $apk }}
+{{- if $autoupdate }}
 run_as_root apk update --quiet
 {{- end }}
+
+{{- if $packages }}
 run_as_root apk add --no-cache --quiet
 {{- range $packages }} \
   {{- . | quote | nindent 2 -}}
 {{ end }}
-{{- if dig "settings" "autoupgrade" true $apk }}
+{{- end }}
+
+{{- if $autoupgrade }}
 run_as_root apk upgrade --prune --quiet
 {{- end }}
-set +x
 
 unset -f run_as_root
 {{- end }}
