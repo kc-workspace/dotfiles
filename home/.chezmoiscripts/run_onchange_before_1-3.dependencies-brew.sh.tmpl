@@ -58,6 +58,14 @@ set -x
 {{- if dig "settings" "autoupdate" true $brew }}
 "$brew_cmd" update --quiet
 {{- end }}
+{{- if $packages }}
+## Best-effort prefetch of all bottles (incl. dependencies) so nothing is
+## downloaded during install: brew's async download queue races bottle pours
+## against in-flight downloads of shared dependencies, randomly failing with
+## "No such file or directory @ rb_sysopen - ...bottle.tar.gz"
+## (even with HOMEBREW_DOWNLOAD_CONCURRENCY=1).
+"$brew_cmd" fetch --retry --deps{{ range $packages }} {{ . | quote }}{{ end }} || true
+{{- end }}
 "$brew_cmd" bundle install --file "$tmp"
 {{- if dig "settings" "autoclean" true $brew }}
 "$brew_cmd" autoremove --quiet
