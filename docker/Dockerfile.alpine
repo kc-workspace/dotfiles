@@ -24,13 +24,13 @@ ENV NONINTERACTIVE=true
 ENV DOCKER=true
 
 ## Install dependencies
-## ca-certificates, curl, git are essential
+## bash, ca-certificates, curl, git are essential
 ## sudo and doas are for privilege escalation
 ## shadow is for chsh command
 ## tzdata is for timezone setting
 RUN apk update \
   && apk add --no-cache \
-  ca-certificates curl file \
+  bash ca-certificates curl file \
   git shadow sudo tzdata \
   doas zsh
 
