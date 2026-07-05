@@ -19,5 +19,13 @@ if ! command -v nvim >/dev/null; then
   printf '>>> Error: %s\n' "nvim command not found"
   exit 127
 fi
-nvim --headless '+Lazy! sync' +qa
-nvim --headless '+TSInstall all' +qa
+sync_log="$(mktemp)" &&
+  printf 'nvim --headless "+Lazy! sync" +qa"' &&
+  nvim --headless '+Lazy! sync' +qa >>"$sync_log" &&
+  printf '>>> Finished sync (%s)\n' "$sync_log"
+install_log="$(mktemp)" &&
+  printf 'nvim --headless "+TSInstall all" +qa"' &&
+  nvim --headless '+TSInstall all' +qa >>"$install_log" &&
+  printf '>>> Finished install (%s)\n' "$install_log"
+
+unset sync_log install_log
