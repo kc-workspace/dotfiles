@@ -29,11 +29,13 @@ RUN grep "ubuntu" /etc/os-release && touch /var/mail/ubuntu \
   && chown ubuntu /var/mail/ubuntu \
   && userdel -r ubuntu || true
 
-RUN apt update && apt-get install -y --no-install-recommends \
+## Install dependencies
+## ca-certificates, curl, file, git are essential
+RUN apt update && apt install -y --no-install-recommends \
   acl bzip2 ca-certificates curl file \
   g++ gawk git less locales make \
   netbase openssh-client patch sudo \
-  unzip uuid-runtime tzdata jq \
+  tzdata unzip uuid-runtime jq \
   g++-12 skopeo zsh
 
 RUN apt autoremove -y --purge \
