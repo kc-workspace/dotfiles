@@ -25,14 +25,6 @@ actions:
             HOMEBREW_MAKE_JOBS: "1"
             HOMEBREW_DOWNLOAD_CONCURRENCY: "1"
       mise:
-        packages:
-          - node
-          - bun
-          - go
-          - python
-          - uv
-          - chezmoi
-          - neovim
+        packages: <ALL>
         settings:
-          autoinstall: true
           autoupdate: false

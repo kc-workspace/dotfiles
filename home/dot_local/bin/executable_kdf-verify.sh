@@ -148,7 +148,7 @@ _verify_mise() {
   if _verify_command mise --version; then
     echo
     info "Mise doctor:\n"
-    mise doctor
+    mise doctor || exit_code=9
     echo
     info "Mise tools:\n"
     mise list || exit_code=9
