@@ -6,6 +6,7 @@
 {{ includeTemplate "shell/helpers/brewSetup" (dict
 	"context" $context
 	"env" false
+  "verify" false
 ) }}
 [ -f "$brew_cmd" ] && eval "$("$brew_cmd" shellenv)"
 {{ includeTemplate "shell/helpers/brewCleanup" (dict

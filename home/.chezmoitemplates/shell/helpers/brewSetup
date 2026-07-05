@@ -1,5 +1,6 @@
 {{- $context := dig "context" . . -}}
 {{- $setEnv := dig "env" true . -}}
+{{- $verify := dig "verify" true . -}}
 {{- $brew := includeTemplate "global/helpers/getData" (dict
   "path" (list "dependencies" "brew")
   "defaults" dict
@@ -18,7 +19,9 @@ export {{ $key }}={{ $value | quote }}
 brew_bin={{ $binpath | quote }}
 brew_cmd="$brew_bin/brew"
 
+{{- if $verify }}
 if ! [ -x "$brew_cmd" ]; then
   printf '>>> Error: %s\n' "brew command not found"
   exit 1
 fi
+{{- end }}
