@@ -10,7 +10,7 @@ actions:
         packages:
           - zsh
           - git
-          - gpg
+          - gnupg
           - bubblewrap ## For HomeBrew (Bubblewrap is required to use the Linux sandbox but was not found)
         settings:
           autoupgrade: false

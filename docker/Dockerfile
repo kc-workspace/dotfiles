@@ -34,7 +34,7 @@ RUN grep "ubuntu" /etc/os-release && touch /var/mail/ubuntu \
 ## build-essential is for homebrew
 RUN apt update && apt install -y --no-install-recommends \
   acl build-essential bzip2 ca-certificates curl file \
-  g++ g++-12 gawk git gpg less locales \
+  g++ g++-12 gawk git gnupg less locales \
   make netbase openssh-client patch \
   procps skopeo sudo tzdata unzip \
   uuid-runtime jq zsh
@@ -74,8 +74,6 @@ COPY --chown=$USER . $CHEZMOI_HOME
 ## Configure dotfiles
 ## We purge binary because we will use mise to install it instead
 RUN --mount=type=secret,id=GITHUB_TOKEN,env=GITHUB_TOKEN,required=false \
-  --mount=type=cache,target=$USER_HOME/.cache,uid="$USER_ID" \
-  --mount=type=cache,target=$USER_HOME/.bundle,uid="$USER_ID" \
   $USER_BIN/chezmoi \
   init --apply \
   --force --purge-binary \
