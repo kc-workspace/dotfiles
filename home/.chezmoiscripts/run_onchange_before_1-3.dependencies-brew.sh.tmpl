@@ -33,6 +33,8 @@ fi
 tmp="$(mktemp)"
 
 {{- if or $taps $packages $casks }}
+printf '>>> Checking... environment\n'
+env | grep HOMEBREW_
 
 {
   {{- range $taps }}
