@@ -27,16 +27,21 @@ ENV DOCKER=true
 ## ca-certificates, curl, file, git are essential
 ## bash is for automate scripts
 ## zsh is primary interactive shell
-## build-base is for compiling source code
+## build-base, bzip2-dev, libffi-dev,
+##   openssl-dev, readline-dev,
+##   sqlite-dev, tk-dev, xz-dev,
+##   zlib-dev, zstd-dev are for compiling Python
 ## sudo and doas are for privilege escalation
 ## shadow is for chsh command
 ## ncurses is for tput command
 ## tzdata is for timezone setting
 RUN apk update \
   && apk add --no-cache \
-  bash build-base ca-certificates \
-  curl doas file git ncurses \
-  shadow sudo tzdata zsh
+  bash build-base bzip2-dev ca-certificates \
+  curl doas file git libffi-dev \
+  ncurses openssl-dev readline-dev \
+  shadow sqlite-dev sudo tk-dev tzdata \
+  xz-dev zlib-dev zsh zstd-dev
 
 ## Setup startup shell
 RUN chsh -s $SHELL
@@ -70,6 +75,11 @@ RUN --mount=type=secret,id=GITHUB_TOKEN,env=GITHUB_TOKEN,required=false $USER_BI
   --promptDefaults
 
 RUN $USER_BIN/kdf-setup-lite.sh
+
+RUN apk del --no-cache \
+  build-base bzip2-dev libffi-dev \
+  openssl-dev readline-dev sqlite-dev \
+  tk-dev xz-dev zlib-dev zstd-dev
 
 ## Reset Dockerfile environment variables
 ENV DEBIAN_FRONTEND= NONINTERACTIVE=
