@@ -37,7 +37,7 @@ _main() {
 _verify_commands() {
   local exit_code=0
 
-  progress "Verify commands"
+  progress "Verify commands (2)"
   _verify_command curl --version || exit_code=2
   _verify_command git --version || exit_code=2
   _verify_command file || exit_code=2
@@ -50,7 +50,7 @@ _verify_commands() {
 _verify_zsh() {
   local exit_code=0
 
-  progress "Verify zsh"
+  progress "Verify zsh (3)"
   _verify_command zsh --version || exit_code=3
   progress_end
   return "$exit_code"
@@ -59,7 +59,7 @@ _verify_zsh() {
 _verify_zinit() {
   local exit_code=0
 
-  progress "Verify zinit"
+  progress "Verify zinit (4)"
   MISE_QUIET=1 zsh -ic -- "zinit version" || exit_code=4
   MISE_QUIET=1 zsh -ic -- "zinit zstatus" || exit_code=4
   progress_end
@@ -69,7 +69,7 @@ _verify_zinit() {
 _verify_nvim() {
   local exit_code=0
 
-  progress "Verify neovim"
+  progress "Verify neovim (5)"
   if _verify_command nvim --version; then
     nvim --headless '+checkhealth' +qa 2>&1 | \
       sed 's/checkhealth/\ncheckhealth/g' || exit_code=5
@@ -84,7 +84,7 @@ _verify_nvim() {
 _verify_gpg() {
   local exit_code=0
 
-  progress "Verify gpg"
+  progress "Verify gpg (6)"
   if _verify_command gpg --version; then
     echo
     info "GPG keys:\n"
@@ -103,7 +103,7 @@ _verify_chezmoi() {
   local exit_code=0 tmp
   tmp="$(mktemp)"
 
-  progress "Verify chezmoi"
+  progress "Verify chezmoi (7)"
   if _verify_command chezmoi --version; then
     _chezmoi status --force > "$tmp"
     echo
@@ -125,7 +125,7 @@ _verify_chezmoi() {
 _verify_brew() {
   local exit_code=0
 
-  progress "Verify homebrew"
+  progress "Verify homebrew (8)"
   _brew_activate
   if _verify_command brew --version; then
     echo
@@ -144,7 +144,7 @@ _verify_brew() {
 _verify_mise() {
   local exit_code=0
 
-  progress "Verify mise"
+  progress "Verify mise (9)"
   if _verify_command mise --version; then
     echo
     info "Mise configuration:\n"
@@ -162,12 +162,10 @@ _verify_mise() {
 _verify_onepassword() {
   local exit_code=0
 
-  progress "Verify 1password"
+  progress "Verify 1password (10)"
   if _verify_command op --version; then
     echo
     op whoami || : ## Optional, might change in the future
-  else
-    exit_code=10
   fi
   progress_end
   return "$exit_code"
@@ -176,12 +174,10 @@ _verify_onepassword() {
 _verify_github() {
   local exit_code=0
 
-  progress "Verify github"
+  progress "Verify github (11)"
   if _verify_command gh --version; then
     echo
     gh auth status || : ## Optional, might change in the future
-  else
-    exit_code=11
   fi
   progress_end
   return "$exit_code"
