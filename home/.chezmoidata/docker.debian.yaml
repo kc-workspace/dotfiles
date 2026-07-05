@@ -23,7 +23,7 @@ docker:
             HOMEBREW_DOWNLOAD_CONCURRENCY: "1"
       mise:
         packages:
-          - nodejs
+          - node
           - bun
           - go
           - python
