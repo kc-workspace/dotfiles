@@ -114,6 +114,7 @@ _base:
       ## @type - [string[] | "<ALL>"]
       packages: []
       settings:
+        binpath: "$HOME/.local/bin"
         ## Autoinstall mise when cannot find mise command
         autoinstall: true
         ## Autoupdate mise before install any packages

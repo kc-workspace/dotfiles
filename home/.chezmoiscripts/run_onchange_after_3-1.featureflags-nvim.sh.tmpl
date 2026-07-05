@@ -2,6 +2,11 @@
   "flag" "nvim::plugins:install"
   "context" $
 ) -}}
+{{- $binpath := includeTemplate "global/helpers/getData" (dict
+  "path" (list "dependencies" "mise" "settings" "binpath")
+  "defaults" "$XDG_BIN_HOME"
+  "context" $
+) | mustFromJson -}}
 
 #!/usr/bin/env bash
 
@@ -9,11 +14,12 @@ set -euo pipefail
 
 printf '>> Starting... %s\n' "featureflags-nvim.sh"
 
-if ! command -v mise >/dev/null; then
-  printf '>>> Error: %s\n' "mise command not found"
+mise_cmd="{{ $binpath }}/mise"
+if ! command -v "$mise_cmd" >/dev/null; then
+  printf '>>> Error: %s (%s)\n' "mise command not found" "$mise_cmd"
   exit 127
 fi
-MISE_QUIET=1 eval "$(mise activate bash)"
+MISE_QUIET=1 eval "$("$mise_cmd" activate bash)"
 
 if ! command -v nvim >/dev/null; then
   printf '>>> Error: %s\n' "nvim command not found"

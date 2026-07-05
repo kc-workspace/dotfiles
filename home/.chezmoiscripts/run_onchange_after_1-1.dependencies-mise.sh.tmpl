@@ -14,7 +14,7 @@ printf '>> Starting... %s\n' "dependencies-mise.sh"
 
 {{- if dig "settings" "autoinstall" true $mise }}
 printf '>>> Checking... %s\n' "mise"
-mise_cmd="$HOME/.local/bin/mise" ## Use by mise.run script
+mise_cmd="{{ $mise.settings.binpath }}/mise" ## Use by mise.run script
 if ! [ -f "$mise_cmd" ]; then
   tmp="$(mktemp)"
 
