@@ -31,8 +31,9 @@ RUN grep "ubuntu" /etc/os-release && touch /var/mail/ubuntu \
 
 ## Install dependencies
 ## ca-certificates, curl, file, git are essential
+## build-essential is for homebrew
 RUN apt update && apt install -y --no-install-recommends \
-  acl bzip2 ca-certificates curl file \
+  acl build-essential bzip2 ca-certificates curl file \
   g++ gawk git less locales make \
   netbase openssh-client patch sudo \
   tzdata unzip uuid-runtime jq \
