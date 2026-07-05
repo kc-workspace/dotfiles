@@ -4,8 +4,7 @@ docker:
     preferences: {}
     dependencies:
       apk:
-        packages:
-          - ncurses ## For tput
+        packages: []
         settings:
           autoupgrade: true
       ## alpine is not supported by homebrew
