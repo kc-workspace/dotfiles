@@ -35,8 +35,8 @@ RUN grep "ubuntu" /etc/os-release && touch /var/mail/ubuntu \
 RUN apt update && apt install -y --no-install-recommends \
   acl build-essential bzip2 ca-certificates curl file \
   g++ gawk git less locales make \
-  netbase openssh-client patch sudo \
-  tzdata unzip uuid-runtime jq \
+  netbase openssh-client patch procps \
+  sudo tzdata unzip uuid-runtime jq \
   g++-12 skopeo zsh
 
 RUN apt autoremove -y --purge \
