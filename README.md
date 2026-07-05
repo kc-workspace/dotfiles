@@ -5,185 +5,177 @@ Personal dotfiles configuration for [kamontat][gh:home].
 - [Terminology](#terminology)
   - [Target/Destination](#targetdestination)
   - [Source](#source)
-  - [Local repository](#local-repository)
-  - [Remote repository](#remote-repository)
-  - [Lite setup](#lite-setup)
-  - [Full setup](#full-setup)
+  - [Local Repository](#local-repository)
+  - [Remote Repository](#remote-repository)
+  - [Lite Setup](#lite-setup)
+  - [Full Setup](#full-setup)
 - [Usage](#usage)
-  - [Prerequisite](#prerequisite)
-  - [Get start](#get-start)
+  - [Prerequisites](#prerequisites)
+  - [Getting Started](#getting-started)
   - [Actions](#actions)
-  - [To update target directory](#to-update-target-directory)
-  - [To uninstall dotfiles](#to-uninstall-dotfiles)
+  - [Update Target Directory](#update-target-directory)
+  - [Uninstall Dotfiles](#uninstall-dotfiles)
 - [Features](#features)
   - [Zinit](#zinit)
-    - [To upgrade zinit](#to-upgrade-zinit)
-    - [To upgrade plugins](#to-upgrade-plugins)
-  - [LazyVim (neovim)](#lazyvim-neovim)
-    - [To upgrade plugins](#to-upgrade-plugins-1)
+    - [Upgrade Zinit](#upgrade-zinit)
+    - [Upgrade Plugins](#upgrade-plugins)
+  - [LazyVim (Neovim)](#lazyvim-neovim)
+    - [Upgrade Plugins](#upgrade-plugins-1)
   - [Homebrew](#homebrew)
-    - [To upgrade packages](#to-upgrade-packages)
+    - [Upgrade Packages](#upgrade-packages)
   - [Mise](#mise)
   - [1Password](#1password)
   - [Alfred](#alfred)
-    - [Set up](#set-up)
+    - [Setup](#setup)
   - [TablePlus](#tableplus)
   - [Okta Verify](#okta-verify)
   - [Keybase](#keybase)
   - [Docker](#docker)
-    - [To verify docker image](#to-verify-docker-image)
-      - [To verify Docker Hub image](#to-verify-docker-hub-image)
-      - [To verify GitHub Container Registry image](#to-verify-github-container-registry-image)
-  - [KDF helper scripts](#kdf-helper-scripts)
-- [Gap](#gap)
-  - [MacOS](#macos)
+    - [Verify Docker Image](#verify-docker-image)
+      - [Verify Docker Hub Image](#verify-docker-hub-image)
+      - [Verify GitHub Container Registry Image](#verify-github-container-registry-image)
+  - [KDF Helper Scripts](#kdf-helper-scripts)
+- [Known Gaps](#known-gaps)
+  - [macOS](#macos)
 - [Contributing](#contributing)
 
 ## Terminology
 
-> Please refer additional terminology on [chezmoi][cz:reference]
+> For additional terminology, see [chezmoi reference][cz:reference].
 
 ### Target/Destination
 
-- `Destination Directory`: The destination being managed (typically `~`).
-- `Target`: Individual files, directories, or symlinks within the target directory.
-- `Target State`: The computed desired state for your Destination Directory.
+- `Destination Directory`: The directory being managed (typically `~`).
+- `Target`: Individual files, directories, or symlinks inside the destination directory.
+- `Target State`: The computed desired state for your destination directory.
 
 ### Source
 
-- `Source Directory`: Where chezmoi stores the source state (`~/.local/share/chezmoi` by default).
-- `Source State`: The desired state definition (includes templates and machine-specific data).
+- `Source Directory`: Where chezmoi stores source state (`~/.local/share/chezmoi` by default).
+- `Source State`: The desired state definition (including templates and machine-specific data).
 
-### Local repository
+### Local Repository
 
-The git repository on your local machine (usually will be your [Source Directory](#source)),
-which contains the source state and configuration.
+The Git repository on your local machine (usually your [Source Directory](#source)),
+which contains your source state and configuration.
 
-### Remote repository
+### Remote Repository
 
-An external git repository (e.g. GitHub)
-that you push your local changes to and pull updates from.
-This allows you to sync your dotfiles across multiple machines.
+An external Git repository (for example, GitHub) that you push local changes to and pull updates from.
+This is how you sync your dotfiles across multiple machines.
 
-### Lite setup
+### Lite Setup
 
-This is **default** set up mode when install from Dockerfile.
-Lite set up will ignore all encrypted files and only install sharable
-configuration.
+Install only non-encrypted data based on data flags.
 
-### Full setup
+```shell
+chezmoi init kc-workspace --apply --force --purge-binary --promptDefaults
+```
 
-This only apply to [Lite setup](#lite-setup).
-When use machine with `lite setup`,
-you will have option to convert to full setup via `kdf-*` script.
+### Full Setup
+
+Install all configured data based on data flags.
+
+Requirement:
+- `$HOME/.config/chezmoi/key.txt` (otherwise, setup scripts will prompt for the encryption password).
+
+```shell
+chezmoi init kc-workspace --apply --force --purge-binary \
+  --promptDefaults --promptBool "Enable 1Password=true,Enable age=true"
+```
 
 ## Usage
 
-### Prerequisite
+### Prerequisites
 
-1. Login to App Store
+1. Sign in to the App Store.
 
-### Get start
+### Getting Started
 
-1. Open `Terminal` app
-2. Install Homebrew (macOS only)
+1. Open the `Terminal` app.
+2. Install Homebrew (macOS only).
 
 ```shell
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 ```
 
-3. Install prerequisite dependencies
+3. Install prerequisite dependencies.
 
 ```shell
-## MacOS:
+## macOS
 brew install git
 
-## Debian based:
+## Debian-based
 apt install -y git curl
+
+## Alpine-based
+apk add -y git curl
 ```
 
-4. Install chezmoi temporary via direct download
+4. Install chezmoi temporarily via direct download.
 
 ```shell
 sh -c "$(curl -fsSL get.chezmoi.io)" -- -b "$HOME/.local/bin" -t "v2.70.5"
 ```
 
-5. Initiate chezmoi repository
+5. Initialize the chezmoi repository.
 
 ```shell
-## Only initiate chezmoi.yaml file
-"$HOME/.local/bin/chezmoi" init kc-workspace --include=none
-```
-
-6. Run `lite-setup` to initiate basic configs
-
-```shell
-## Add --dry-run for check expected result first
-## Expected error about not signin to 1password yet
+## Add --dry-run to check the expected result first
 "$HOME/.local/bin/chezmoi" init kc-workspace \
-  --apply --keep-going --purge-binary \
-  --exclude=encrypted --verbose
+  --apply --force --purge-binary --promptDefaults
 ```
 
-7. Sign in to your 1Password account (Optional)
-    - [1] Login to your account on 1Password Application
-
-    ```shell
-    eval $(op signin --account my)
-    ```
-
-    - [2] Copy `Service Account Token` from 1Password (`tux7ro2pvj3jr36wl3xr4iaq54`)
-
-    ```shell
-    ## If signed in on `op` cli
-    export OP_SERVICE_ACCOUNT_TOKEN="$(op read \
-      --account my \
-      "op://h75rks2xxgluyljikha4oforri/tux7ro2pvj3jr36wl3xr4iaq54/credential")"
-    ## If not sign in
-    export OP_SERVICE_ACCOUNT_TOKEN="ops_..."
-    ```
-
-8. Enable Developer mode on 1Password ([learn more][1p:cli])
-    - Enable `Show 1Password Developer experience`
-    - Enable `Integrate with 1Password CLI`
-    - Enable `Integrate with other apps`
-    - Enable `Check for developer credentials on disk`
-9.  Open new `terminal` window/tab, you should see zinit start downloading dependencies
-10. Validate the `op` status (Optional)
+6. Sign in to your account in the 1Password app.
+7. Enable Developer mode in 1Password ([learn more][1p:cli]).
+   - Enable `Show 1Password Developer experience`.
+   - Enable `Integrate with 1Password CLI`.
+   - Enable `Integrate with other apps`.
+   - Enable `Check for developer credentials on disk`.
+8. Open a new terminal window or tab. Zinit should start downloading dependencies.
+9. Validate `op` status (optional).
 
 ```shell
-## Validate the account
+## Validate account status
 op whoami
-# URL:               https://my.1password.com
-# Integration ID:    XXXXYYYYZZZZXXXXYYYYZZZZXX
-# User Type:         SERVICE_ACCOUNT
+# URL:        https://my.1password.com/
+# Email:      <your-email>
+# User ID:    <your-user-id>
 ```
 
-11. Run `full-setup` (Optional)
+10. Get the full-setup encryption password from 1Password (optional).
 
 ```shell
-## Add --dry-run for check expected result first
-## You should have chezmoi installed from mise by now
-chezmoi update --init --apply --verbose
+## Use app search bar
+# 7qxsqxktd3qziyp2m2hzw7bpp4
+
+## Use 1Password CLI
+op read --account my "op://h75rks2xxgluyljikha4oforri/7qxsqxktd3qziyp2m2hzw7bpp4/password"
 ```
 
-12. Restart your computer at least once to apply all changes
+11. Run full setup.
+
+```shell
+## This prompts for the encryption password from step 10
+kdf-setup-full.sh
+```
+
+12. Restart your computer at least once to apply all changes.
 
 ### Actions
 
-> https://www.chezmoi.io/user-guide/daily-operations/
->
-> https://www.chezmoi.io/user-guide/command-overview/
+- https://www.chezmoi.io/user-guide/daily-operations/
+- https://www.chezmoi.io/user-guide/command-overview/
 
-Below are a list of actions you might perform when use this repository.
+Common actions you might perform with this repository:
 
-### To update target directory
+### Update Target Directory
 
 ```shell
 chezmoi update --init --apply
 ```
 
-### To uninstall dotfiles
+### Uninstall Dotfiles
 
 ```shell
 chezmoi purge
@@ -192,16 +184,16 @@ chezmoi purge
 ## Features
 
 - [Zsh][zsh:home] configuration: [here][local:zshrc]
-  - [Zinit](#zinit) - Zsh plugin manager
+  - [Zinit](#zinit) as the Zsh plugin manager
 - [Git][git:home] configuration: [here][local:gitconfig]
-- Application and packages (via [Homebrew][hb:home] or [apt][apt:home])
-  - [Homebrew][#homebrew] - Package manager
-  - View installed applications [here][local:packages]
-- Commandline tools (via [mise][mi:home])
-  - View install tools [here][local:mise]
-- Working directory layout:
-  - [Personal][local:personal] directory for personal projects
-  - [Works][local:works] directory for work projects, organized by workplace
+- Applications and packages (via [Homebrew][hb:home] or [apt][apt:home])
+  - [Homebrew](#homebrew) as package manager
+  - Installed applications list: [here][local:packages]
+- Command-line tools (via [mise][mi:home])
+  - Installed tools: [here][local:mise]
+- Working directory layout
+  - [Personal][local:personal] for personal projects
+  - [Works][local:works] for work projects, organized by workplace
 - Encrypted files via [gpg][cz:gpg]
 - Password manager via [1Password][1p:home]
 
@@ -209,25 +201,25 @@ chezmoi purge
 
 **Installation method**: [chezmoi/external][cz:external]
 
-#### To upgrade zinit
+#### Upgrade Zinit
 
 ```shell
 zinit self-update
 ```
 
-#### To upgrade plugins
+#### Upgrade Plugins
 
 ```shell
 zinit update --all
 ```
 
-### LazyVim (neovim)
+### LazyVim (Neovim)
 
 **Installation method**: [mise](#mise)
 
-This is for manage plugins and configuration for neovim.
+Used to manage Neovim plugins and configuration.
 
-#### To upgrade plugins
+#### Upgrade Plugins
 
 ```shell
 nvim --headless -c '+Lazy! sync' +qa
@@ -237,9 +229,9 @@ nvim --headless -c '+Lazy! sync' +qa
 
 **Installation method**: [chezmoi/external][cz:external]
 
-#### To upgrade packages
+#### Upgrade Packages
 
-`--greedy` will also upgrade cask with `:latest` or `:auto-upgrade`.
+`--greedy` also upgrades casks with `:latest` or `:auto-upgrade`.
 
 ```shell
 brew upgrade --greedy
@@ -247,18 +239,21 @@ brew upgrade --greedy
 
 ### Mise
 
-<!-- TODO: Add mise relate documents -->
+<!-- TODO: Add mise-related documents -->
 
-We have main config at `$HOME/.config/mise/config.toml`. Then we have 2 separate folders:
-- `~/Works/<name>/mise.toml` - contains work related config
-- `~/Personal/mise.toml` - contains personal related config
+Main config:
+- `$HOME/.config/mise/config.toml`
+
+Additional configs:
+- `~/Works/<name>/mise.toml` for work-related config
+- `~/Personal/mise.toml` for personal-related config
 
 ### 1Password
 
-**Installation method**: [Homebrew](#homebrew) ([mise](#mise) for cli)
+**Installation method**: [Homebrew](#homebrew) ([mise](#mise) for CLI)
 
-The fundamental application tied the configuration together.
-All secrets, private documents are saved on 1Password
+This is the core app that ties the configuration together.
+All secrets and private documents are stored in 1Password.
 
 ### Alfred
 
@@ -267,16 +262,16 @@ All secrets, private documents are saved on 1Password
 - License location: [1Password](#1password)
 - Preference location: iCloud
 
-#### Set up
+#### Setup
 
-1. Enter your license (if any)
-2. Enable couple of permissions requested by the application
-3. Go to `Perferences > Advanced > Reveal in Finder`
-4. Copy your existing configuration and replace on current location
+1. Enter your license (if any).
+2. Enable the permissions requested by the app.
+3. Go to `Preferences > Advanced > Reveal in Finder`.
+4. Copy your existing configuration and replace the current one.
 
 ### TablePlus
 
-**Installation method**: [Setapp](#setapp)
+**Installation method**: Setapp
 
 - Connections file: iCloud
 - Connection passwords: 1Password
@@ -285,38 +280,39 @@ All secrets, private documents are saved on 1Password
 
 **Installation method**: [Homebrew](#homebrew)
 
-> IMPORTANT!: You need previous device to transfer an account,
-> If you resetted/sold your device. You have to use recovery method.
+> Important: You need your previous device to transfer an account.
+> If your device was reset or sold, use the account recovery method.
 
 ### Keybase
 
 **Installation method**: [Homebrew](#homebrew)
 
-> IMPORTANT!: You need previous device to transfer an account,
-> If you resetted/sold your device. You have to use recovery method.
+> Important: You need your previous device to transfer an account.
+> If your device was reset or sold, use the account recovery method.
 
 ### Docker
 
-dotfiles inside docker have 2 stage setup. By default, it will only have [lite-setup](#lite-setup).
-To use full-setup, run `kdf-setup.sh` on docker instance.
+Dotfiles in Docker have a two-stage setup.
+By default, only [Lite Setup](#lite-setup) is applied.
+To use full setup, run `kdf-setup.sh` in the Docker instance.
 
 ```shell
-## initiate zsh shell session
+## Start an interactive shell session
 docker run -it --rm kamontat/dotfiles:local
 ```
 
-#### To verify docker image
+#### Verify Docker Image
 
-All docker image have attestations. You can verify the integrity and provenance
-of an artifact using its associated cryptographically signed attestations.
+All Docker images include attestations. You can verify integrity and provenance
+using the associated cryptographically signed attestations.
 
-The output of the verify command should contains as following information:
+Verification output should include:
 
-- Verify status: `✓ Verification succeeded!`
-- **Repository** where image was created
-- **Workflow** and **Git Reference** where image was created
+- Status: `✓ Verification succeeded!`
+- The **repository** where the image was created
+- The **workflow** and **Git reference** used to create the image
 
-##### To verify Docker Hub image
+##### Verify Docker Hub Image
 
 ```shell
 # gh attestation verify oci://kamontat/dotfiles:latest --owner kc-workspace
@@ -327,11 +323,11 @@ $ gh attestation verify "oci://kamontat/dotfiles:<tag-name>" --owner kc-workspac
 ...
 ```
 
-##### To verify GitHub Container Registry image
+##### Verify GitHub Container Registry Image
 
 ```shell
-## Add read:packages scope to read image from ghcr.
-## You may need to login first: https://cli.github.com/manual/gh_auth_login
+## Add read:packages scope to read images from GHCR
+## You may need to log in first: https://cli.github.com/manual/gh_auth_login
 $ gh auth refresh --scopes "read:packages"
 
 # gh auth token | docker login "ghcr.io" --username "kamontat" --password-stdin
@@ -345,22 +341,22 @@ $ gh attestation verify "oci://ghcr.io/kc-workspace/dotfiles:<tag-name>" --owner
 ...
 ```
 
-### KDF helper scripts
+### KDF Helper Scripts
 
-We provide couple of helper scripts on `kdf-*.sh` which should available to everyone.
-If you cannot use `kdf-*.sh`, please check `~/.local/bin` directory.
+The repository provides helper scripts named `kdf-*.sh` that should be available to everyone.
+If you cannot run `kdf-*.sh`, check your `~/.local/bin` directory.
 
-## Gap
+## Known Gaps
 
-There are a several things we cannot make it automated.
+There are still a few things we cannot automate.
 
-### MacOS
+### macOS
 
-- Menubar items: `System Settings > Menu Bar > Menu Bar Controls`
+- Menu bar items: `System Settings > Menu Bar > Menu Bar Controls`
 
 ## Contributing
 
-Please refer to [CONTRIBUTING][local:contributing] guide.
+Please refer to the [CONTRIBUTING][local:contributing] guide.
 
 <!-- LINKS SECTION -->
 
@@ -385,3 +381,16 @@ Please refer to [CONTRIBUTING][local:contributing] guide.
 [local:packages]: ./home/.chezmoidata/packages.yaml
 [local:mise]: ./home/dot_config/mise/config.toml
 [local:contributing]: ./CONTRIBUTING.md
+
+<!-- START Actions
+- Deploy files: unencrypted files | all files
+  - use settings.age and settings.onepassword data flag with prompt* helper
+- mise: all tools | selected tools | no tools
+  - use dependencies.mise data flag with chezmoiscript
+- zinit: lazy plugins | preinstall plugins
+  - use dependencies.zinit data flag with chezmoiscript
+- nvim: lazy plugins | preinstall plugins
+  - use dependencies.nvim data flag with chezmoiscript
+- github, onepassword
+  - use kdf-setup.sh script to set up secret value
+END Actions -->
