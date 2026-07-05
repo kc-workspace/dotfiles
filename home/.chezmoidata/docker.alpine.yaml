@@ -1,6 +1,8 @@
 docker:
   linux/alpine:
-    settings: {}
+    settings:
+      featureFlags:
+        - mise::node:unofficial-builds
     preferences: {}
     dependencies:
       apk:

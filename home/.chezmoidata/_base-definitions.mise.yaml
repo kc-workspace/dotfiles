@@ -1,0 +1,7 @@
+_base:
+  definitions:
+    featureFlags:
+      ## Enable unofficial builds for nodejs installation
+      mise::node:unofficial-builds:
+        whenEnable:
+          type: file

@@ -37,6 +37,14 @@ truncate      = false
 [settings.npm]
 package_manager = "bun"
 
+[settings.node]
+{{- includeTemplate "featureFlags/helpers/include" (dict
+  "flag" "mise::node:unofficial-builds"
+  "beforeLine" 1
+  "afterLine" 0
+  "context" $
+) }}
+
 [settings.pipx]
 uvx = true
 
