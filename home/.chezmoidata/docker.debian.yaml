@@ -1,6 +1,9 @@
 docker:
   linux/debian:
-    settings: {}
+    settings:
+      featureFlags:
+        - nvim::plugins:install
+        - zinit::plugins:install
     preferences: {}
     dependencies:
       apt:

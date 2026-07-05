@@ -1,6 +1,9 @@
 actions:
   linux/ubuntu:
-    settings: {}
+    settings:
+      featureFlags:
+        - nvim::plugins:install
+        - zinit::plugins:install
     preferences: {}
     dependencies:
       apt:

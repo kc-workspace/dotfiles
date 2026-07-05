@@ -3,6 +3,8 @@ docker:
     settings:
       featureFlags:
         - mise::node:unofficial-builds
+        - nvim::plugins:install
+        - zinit::plugins:install
     preferences: {}
     dependencies:
       apk:

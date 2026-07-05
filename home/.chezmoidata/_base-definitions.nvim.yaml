@@ -1,0 +1,7 @@
+_base:
+  definitions:
+    featureFlags:
+      ## Force install nvim plugins instead of lazy load when use
+      nvim::plugins:install:
+        whenEnable:
+          type: file

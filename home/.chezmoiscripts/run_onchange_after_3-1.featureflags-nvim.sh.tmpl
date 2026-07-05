@@ -1,0 +1,23 @@
+{{- includeTemplate "featureFlags/helpers/mustEnable" (dict
+  "flag" "nvim::plugins:install"
+  "context" $
+) -}}
+
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+printf '>> Starting... %s\n' "featureflags-nvim.sh"
+
+if ! command -v mise >/dev/null; then
+  printf '>>> Error: %s\n' "mise command not found"
+  exit 127
+fi
+MISE_QUIET=1 eval "$(mise activate bash)"
+
+if ! command -v nvim >/dev/null; then
+  printf '>>> Error: %s\n' "nvim command not found"
+  exit 127
+fi
+nvim --headless '+Lazy! sync' +qa
+nvim --headless '+TSInstall all' +qa
