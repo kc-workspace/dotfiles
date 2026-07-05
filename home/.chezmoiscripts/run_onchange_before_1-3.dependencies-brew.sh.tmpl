@@ -64,9 +64,9 @@ set -x
 ## against in-flight downloads of shared dependencies, randomly failing with
 ## "No such file or directory @ rb_sysopen - ...bottle.tar.gz"
 ## (even with HOMEBREW_DOWNLOAD_CONCURRENCY=1).
-"$brew_cmd" fetch --retry --deps{{ range $packages }} {{ . | quote }}{{ end }} || true
+# "$brew_cmd" fetch --retry --deps{{ range $packages }} {{ . | quote }}{{ end }} || true
 {{- end }}
-"$brew_cmd" bundle install --file "$tmp"
+"$brew_cmd" bundle install --verbose --jobs 1 --file "$tmp"
 {{- if dig "settings" "autoclean" true $brew }}
 "$brew_cmd" autoremove --quiet
 "$brew_cmd" cleanup --prune=all --scrub --quiet
