@@ -102,7 +102,8 @@ chezmoi init kc-workspace --apply --force --purge-binary \
 3. Install prerequisite dependencies.
 
 ```shell
-## macOS
+## macOS (you will see <path> from step 2 output)
+eval "$("/<path>/brew" shellenv)"
 brew install git
 
 ## Debian-based
