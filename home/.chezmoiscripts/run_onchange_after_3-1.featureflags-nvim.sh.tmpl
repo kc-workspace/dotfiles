@@ -26,12 +26,12 @@ if ! command -v nvim >/dev/null; then
   exit 127
 fi
 sync_log="$(mktemp)" &&
-  printf 'nvim --headless "+Lazy! sync" +qa"' &&
-  nvim --headless '+Lazy! sync' +qa >>"$sync_log" &&
+  printf 'nvim --headless "+Lazy! sync" +qa"\n' &&
+  nvim --headless '+Lazy! sync' +qa >>"$sync_log" 2>&1 &&
   printf '>>> Finished sync (%s)\n' "$sync_log"
 install_log="$(mktemp)" &&
-  printf 'nvim --headless "+TSInstall all" +qa"' &&
-  nvim --headless '+TSInstall all' +qa >>"$install_log" &&
+  printf 'nvim --headless "+TSInstall all" +qa"\n' &&
+  nvim --headless '+TSInstall! all' +qa >>"$install_log" 2>&1 &&
   printf '>>> Finished install (%s)\n' "$install_log"
 
 unset sync_log install_log
