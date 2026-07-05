@@ -56,18 +56,18 @@ _base:
       ## @type - string[]
       packages: []
       settings:
-        command: apt      ## Use `apt` command to execute (possible values: apt, apt-get)
-        autoupdate: true  ## Run `apt update` before install packages
-        autoupgrade: true ## Run `apt upgrade` after install packages
-        autoclean: true   ## Run `apt clean` after install packages
+        command: apt       ## Use `apt` command to execute (possible values: apt, apt-get)
+        autoupdate: false  ## Run `apt update` before install packages
+        autoupgrade: false ## Run `apt upgrade` after install packages
+        autoclean: false   ## Run `apt clean` after install packages
 
     apk:
       ## List of packages to install
       ## @type - string[]
       packages: []
       settings:
-        autoupdate: true  ## Run `apk update` before install packages
-        autoupgrade: true ## Run `apk upgrade` after install packages
+        autoupdate: false  ## Run `apk update` before install packages
+        autoupgrade: false ## Run `apk upgrade` after install packages
 
     brew:
       ## List of brew tap to install

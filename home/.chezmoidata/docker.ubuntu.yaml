@@ -6,7 +6,9 @@ docker:
       apt:
         packages: []
         settings:
+          autoupdate: true
           autoupgrade: true
+          autoclean: true
       brew:
         taps: []
         packages:

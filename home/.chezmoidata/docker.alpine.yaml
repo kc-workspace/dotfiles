@@ -6,6 +6,7 @@ docker:
       apk:
         packages: []
         settings:
+          autoupdate: true
           autoupgrade: true
       ## alpine is not supported by homebrew
       brew:
