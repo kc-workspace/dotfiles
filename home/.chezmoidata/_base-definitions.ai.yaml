@@ -7,3 +7,5 @@ _base:
       ai::codex:enable:
       ## Enable Gemini app configuration file generation
       ai::gemini:enable:
+      ## Enable Copilot app configuration file generation
+      ai::copilot:enable:

@@ -22,12 +22,18 @@ Use this workflow when the request includes:
 
 Do not use this skill for git commit/push/release tasks.
 
+## Naming Convention
+- Format: `<namespace>::<domain>:<type>`
+- `:enable` — whole-app on/off toggle (e.g. `ai::copilot:enable`)
+- `:config` — optional sub-configuration within an already-enabled app (e.g. `git::sign:config`)
+
 ## Procedure
 1. Discover current wiring.
 - Search for existing feature flag conventions and helper usage.
 - Confirm where definitions live (for this repo: `home/.chezmoidata/_base-definitions.*.yaml`).
 - Confirm where machine defaults live (for this repo: `home/.chezmoidata/machine.darwin.yaml`).
-- Confirm whether target file is currently unconditional.
+- Confirm whether target file(s) are currently unconditional.
+- Note whether any target files are plain (non-`.tmpl`) — they must be renamed before gating.
 
 2. Decide flag placement and behavior.
 - If flag belongs to a domain group that already exists, append there.
@@ -36,7 +42,7 @@ Do not use this skill for git commit/push/release tasks.
 
 3. Implement definition.
 - Add the key under `_base.definitions.featureFlags`.
-- Follow naming convention: `<namespace>::<domain>:<type>`.
+- Follow the naming convention above.
 - Keep comments short and purpose-driven.
 
 4. Implement machine enablement (if requested).
@@ -44,12 +50,16 @@ Do not use this skill for git commit/push/release tasks.
 - Keep ordering consistent with nearby entries.
 
 5. Gate target template/config.
-- For full-file gating: add `featureFlags/helpers/mustEnable` at top.
+- If the target file is not yet a `.tmpl`, rename it first: `mv file file.tmpl`.
+- Gate every managed file in a feature's directory with the same flag.
+- For full-file gating: add `featureFlags/helpers/mustEnable` at the very top.
 - For partial snippets: use `featureFlags/helpers/include` or `includeOnly`.
+- Non-text configs (JSON, TOML, YAML) work fine — chezmoi strips template directives before writing the output file.
 - Reuse patterns already present in repo templates.
 
 6. Verify before completion.
 - Check changed files in diff.
+- Run a dry-run render: `chezmoi execute-template < <file>.tmpl` to catch template-logic errors.
 - Validate edited files with diagnostics.
 - Confirm no unrelated changes were introduced.
 
@@ -58,11 +68,13 @@ Do not use this skill for git commit/push/release tasks.
 - Enable by default or definition-only?
 - Existing definitions file or new domain definitions file?
 - `mustEnable` vs `include` vs `includeOnly` based on target output shape.
+- Are any target files plain (non-`.tmpl`) and need renaming first?
 
 ## Completion Criteria
 - New flag exists in definitions and is syntactically valid.
 - Requested machine/profile enablement is present.
-- Target config/template is actually controlled by the new flag.
+- All managed files in the feature's directory are gated by the flag.
+- `chezmoi execute-template` dry-run produces expected output.
 - Diagnostics show no new file errors.
 - Final summary includes changed paths and what each path now does.
 

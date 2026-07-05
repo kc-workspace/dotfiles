@@ -5,6 +5,7 @@ machine:
         - ai::claude:enable
         - ai::codex:enable
         - ai::gemini:enable
+        - ai::copilot:enable
         - aws::enable
         - aws::stm:config
         - aws-vpn::stm:config
