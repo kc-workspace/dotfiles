@@ -12,7 +12,7 @@ env:
   CHEZMOI_BIN: /tmp/bin
 
 jobs:
-  main:
+  lite:
     runs-on: ubuntu-latest
     steps:
       - name: Set up repository
@@ -27,16 +27,33 @@ jobs:
             --force --purge-binary \
             --promptDefaults \
             --source ${{ github.workspace }}
-      - name: Run full dotfiles
-        run: kdf-setup-full.sh
+      - name: Verify dotfiles
+        run: kdf-verify.sh
+        env:
+          CHEZMOI_SOURCE: ${{ github.workspace }}
+
+  full:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set up repository
+        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+        with:
+          persist-credentials: false
+      - name: Set up chezmoi
+        uses: ./.github/actions/setup-chezmoi
+      - name: Apply chezmoi config
+        run: |
+          chezmoi init --apply \
+            --force --purge-binary \
+            --promptDefaults \
+            --promptBool "Enable 1Password=true,Enable age=true" \
+            --source ${{ github.workspace }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          CHEZMOI_SOURCE: ${{ github.workspace }}
           CHEZMOI_KEY_TXT_BASE64: ${{ secrets.CHEZMOI_KEY_TXT_BASE64 }}
       - name: Verify dotfiles
         run: kdf-verify.sh
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           CHEZMOI_SOURCE: ${{ github.workspace }}
       - name: Clean up dotfiles
         if: ${{ always() }}

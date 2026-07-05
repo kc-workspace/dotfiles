@@ -32,6 +32,8 @@
 {{- /* build overrides settings from user input (or cache) */ -}}
 {{- $settings := dig "_overrides" "settings" dict $ }}
 
+# {{ $ }}
+
 {{- $age := includeTemplate "global/helpers/getData" (dict
   "path" (list "settings" "age")
   "defaults" false
