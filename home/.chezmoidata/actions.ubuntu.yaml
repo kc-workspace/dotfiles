@@ -18,7 +18,8 @@ actions:
       ## No such file or directory @ rb_sysopen - /<path>
       brew:
         taps: []
-        packages: []
+        packages:
+          - git
         casks: []
         settings:
           binpath: /home/linuxbrew/.linuxbrew/bin
