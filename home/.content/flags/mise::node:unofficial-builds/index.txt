@@ -1,2 +1,3 @@
+compile    = false
 mirror_url = "https://unofficial-builds.nodejs.org/download/release/"
 flavor     = "musl"
