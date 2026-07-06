@@ -341,7 +341,7 @@ machine:
           - 1password@beta                ## For password management
           - alfred                        ## For productivity booster
           - aws-vpn-client                ## For AWS VPN connection
-          - brave-browser                 ## For web browsing
+          - brave-origin@beta             ## For web browsing
           - chatgpt                       ## For AI chat assistant
           - claude                        ## For AI chat assistant
           - codex-app                     ## For AI code assistant
