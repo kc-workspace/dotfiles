@@ -9,7 +9,8 @@ zinit ice {{- if hasKey . "lazy" | ternary (get . "lazy") true }} wait lucid{{- 
 zinit {{ get . "act" | default "light" }} lsd-rs/lsd
 
 ## Setup ls alternative alias
-alias l="lsd"
+alias l="lsd --total-size"
 alias la="lsd --almost-all --long"
+alias tree="lsd --tree --depth 3"
 
 {{ end -}}
