@@ -31,8 +31,10 @@ experimental                        = true
 [settings.status]
 show_env      = true
 show_tools    = true
-missing_tools = "always"
 truncate      = false
+{{- if includeTemplate "global/helpers/isMachine" $ }}
+missing_tools = "always"
+{{- end }}
 
 [settings.npm]
 package_manager = "bun"
