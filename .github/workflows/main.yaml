@@ -27,6 +27,8 @@ jobs:
             --force --purge-binary \
             --promptDefaults \
             --source ${{ github.workspace }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} ## For increase rate-limit of GitHub API
       - name: Verify dotfiles
         run: kdf-verify.sh
         env:
