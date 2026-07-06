@@ -310,7 +310,7 @@ machine:
           - name: "/System/Applications/Messages.app"
           - name: "/Applications/Slack.app"
           - name: "/Applications/Setapp/Spark Mail.app" ## Requires installing from Setapp
-          - name: "/Applications/Brave Origin.app"
+          - name: "/Applications/Brave Origin Beta.app"
           - name: "/Applications/Visual Studio Code - Insiders.app"
           - name: "/Applications/Ghostty.app"
         others:
