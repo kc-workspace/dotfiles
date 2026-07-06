@@ -375,8 +375,8 @@ machine:
             id: 361309726
           - name: Yubico Authenticator
             id: 1497506650
-          - name: Final Cut Pro
-            id: 424389933
+          # - name: Final Cut Pro
+          #   id: 424389933
           # - name: Xcode
           #   id: 497799835
           # - name: Compressor
