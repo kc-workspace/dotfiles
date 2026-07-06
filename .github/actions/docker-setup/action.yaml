@@ -24,17 +24,17 @@ inputs:
 runs:
   using: composite
   steps:
-    - uses: docker/setup-qemu-action@c7c53464625b32c7a7e944ae62b3e17d2b600130 # v3.7.0
+    - uses: docker/setup-qemu-action@96fe6ef7f33517b61c61be40b68a1882f3264fb8 # v4.2.0
       with:
         platforms: ${{ inputs.platforms }}
-    - uses: docker/setup-buildx-action@8d2750c68a42422c14e847fe6c8ac0403b4cbd6f # v3.12.0
+    - uses: docker/setup-buildx-action@bb05f3f5519dd87d3ba754cc423b652a5edd6d2c # v4.2.0
       with:
         platforms: ${{ inputs.platforms }}
-    - uses: docker/login-action@5e57cd118135c172c3672efd75eb46360885c0ef # v3.6.0
+    - uses: docker/login-action@af1e73f918a031802d376d3c8bbc3fe56130a9b0 # v4.4.0
       with:
         username: ${{ inputs.dh_username }}
         password: ${{ inputs.dh_token }}
-    - uses: docker/login-action@5e57cd118135c172c3672efd75eb46360885c0ef # v3.6.0
+    - uses: docker/login-action@af1e73f918a031802d376d3c8bbc3fe56130a9b0 # v4.4.0
       with:
         registry: ${{ inputs.gh_registry }}
         username: ${{ inputs.gh_username }}
