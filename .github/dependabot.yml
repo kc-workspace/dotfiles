@@ -17,3 +17,8 @@ updates:
       interval: weekly
     cooldown:
       default-days: 7
+    groups:
+      cache-actions:
+        patterns:
+          - actions/cache
+          - actions/cache/*
