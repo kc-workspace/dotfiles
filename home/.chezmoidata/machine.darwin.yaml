@@ -205,14 +205,173 @@ machine:
               value: false
             - key: scroll-to-open ## Scroll up on a Dock icon to show all opened windows
               value: true
+            - key: expose-group-apps ## If true, groups windows by app in Mission Control
+              value: true
+            - key: mru-spaces ## If true, automatically rearranges Spaces based on most recent use
+              value: false
+              ## top-left hot corner
+              ## corner value:
+              ##   1: No Action
+              ##   2: Mission Control
+              ##   3: Application Windows
+              ##   4: Desktop
+              ##   5: Start Screen Saver
+              ##   6: Disable Screen Saver
+              ##   10: Put Display to Sleep
+              ##   11: Apps
+              ##   12: Notification Center
+              ##   13: Lock Screen
+              ##   14: Quick Note
+            - key: wvous-tl-corner
+              value: 1
+            - key: wvous-tl-modifier
+              value: 0
+              ## top-right hot corner
+            - key: wvous-tr-corner
+              value: 1
+            - key: wvous-tr-modifier
+              value: 0
+              ## bottom-left hot corner
+            - key: wvous-bl-corner
+              value: 5
+            - key: wvous-bl-modifier
+              value: 0
+            - key: wvous-br-corner
+              ## bottom-right hot corner
+              value: 14
+            - key: wvous-br-modifier
+              value: 0
 
+        ## `NSStatusItem VisibleCC *` is flag to show/hide Control Center items in menu bar.
+        ## `NSStatusItem Preferred Position *` is the preferred position of the item in menu bar
+        ##   - recommended to set the position manually and copy position value here
+        ##   - use command: `defaults read com.apple.controlcenter | grep 'NSStatusItem Preferred Position'``
         - domain: com.apple.controlcenter
           hooks:
             after: killall ControlCenter
           settings:
             - key: AutoHideMenuBarOption ## Auto-hide menu bar (0: always, 1: desktop only, 2: full screen only, 3: never)
               value: 2
-            - key: RemoteLiveActivitiesEnabled ## If true, enables Live Activities in Control Center on Mac
+            - key: RemoteLiveActivitiesEnabled ## If true, enables Live Activities
+              value: true
+            - key: NumberOfRecents ## Number of recent items
+              value: 0
+            - key: "NSStatusItem VisibleCC WiFi" ## If true, shows WiFi in menubar (position increase by 34)
+              value: false
+            - key: "NSStatusItem VisibleCC Bluetooth" ## If true, shows Bluetooth in menubar
+              value: false
+            - key: "NSStatusItem VisibleCC AirDrop" ## If true, shows AirDrop in menubar
+              value: false
+            - key: "NSStatusItem VisibleCC Battery" ## If true, shows Battery in menubar
+              value: false
+            - key: "NSStatusItem VisibleCC UserSwitcher" ## If true, shows User Switcher in menubar
+              value: false
+            - key: "NSStatusItem VisibleCC FocusModes" ## If true, shows Focus Modes in menubar
+              value: false
+            - key: "NSStatusItem VisibleCC KeyboardBrightness" ## If true, shows Keyboard Brightness in menubar
+              value: false
+            - key: Siri ## Toggle Siri in Control Center (8: off, 2: on)
+              host: current
+              value: 8
+            - key: Spotlight ## Toggle Spotlight in Control Center (8: off, 2: on)
+              host: current
+              value: 8
+            - key: WiFi ## Toggle WiFi in Control Center (8: off, 2: on)
+              host: current
+              value: 8
+            - key: Bluetooth ## Toggle Bluetooth in Control Center (8: off, 2: on)
+              host: current
+              value: 8
+            - key: Battery ## Toggle Battery in Control Center (8: off, 2: on)
+              host: current
+              value: 8
+            - key: AirDrop ## Toggle AirDrop in Control Center (8: off, 2: on)
+              host: current
+              value: 8
+            - key: FocusModes ## Toggle Focus Modes in Control Center (8: off, 2: on, 18: always on)
+              host: current
+              value: 8
+            - key: ScreenMirroring ## Toggle Screen Mirroring in Control Center (8: off, 2: on, 18: always on)
+              host: current
+              value: 8
+            - key: Display ## Toggle Display in Control Center (8: off, 2: on, 18: always on)
+              host: current
+              value: 8
+            - key: Sound ## Toggle Sound in Control Center (8: off, 2: on, 18: always on)
+              host: current
+              value: 8
+            - key: NowPlaying ## Toggle Now Playing in Control Center (8: off, 2: on, 18: always on)
+              host: current
+              value: 8
+            - key: UserSwitcher ## Toggle User Switcher in Control Center (8: off, 2: on)
+              host: current
+              value: 8
+            - key: TimeMachine ## Toggle Time Machine in Control Center (8: off, 2: on)
+              host: current
+              value: 8
+            - key: KeyboardBrightness ## Toggle Keyboard Brightness in Control Center (8: off, 2: on)
+              host: current
+              value: 8
+            - key: Timer ## Toggle Timer in Control Center (8: off, 2: on, 18: always on)
+              host: current
+              value: 8
+            - key: Weather ## Toggle Weather in Control Center (8: off, 2: on)
+              host: current
+              value: 8
+
+        - domain: com.apple.Siri
+          settings:
+            - key: StatusMenuVisible ## If true, shows Siri in menu bar
+              value: false
+
+        - domain: com.apple.Spotlight
+          settings:
+            - key: "NSStatusItem VisibleCC Item-0" ## If true, shows Spotlight in menu bar
+              value: false
+
+        - domain: com.apple.menuextra.clock
+          hooks:
+            after: killall SystemUIServer
+          settings:
+            - key: IsAnalog ## If true, shows analog clock in menu bar
+              value: true
+            - key: Show24Hour ## If true, shows 24-hour time format
+              value: true
+            - key: ShowAMPM ## If true, shows AM/PM suffix
+              value: false
+            - key: ShowDate ## Date visibility in menu bar (0: off, 1: on, 2: when space allows)
+              value: 1
+            - key: ShowDayOfWeek ## If true, shows day of week in menu bar
+              value: true
+            - key: ShowSeconds ## If true, shows seconds in menu bar clock
+              value: true
+            - key: FlashDateSeparators ## If true, flashes time separators (for example, the colon)
+              value: false
+            - key: TimeAnnouncementsEnabled ## If true, enables time announcements
+              value: false
+            - key: TimeAnnouncementsIntervalIdentifier ## Time announcement interval identifier
+              value: EveryHourInterval
+
+        - domain: com.apple.WindowManager
+          settings:
+            - key: EnableTopTilingByEdgeDrag ## If true, drag windows to menu bar to fill screen
+              value: true
+            - key: EnableTilingByEdgeDrag ## If true, drag windows to screen edges to tile
+              value: true
+            - key: EnableTilingOptionAccelerator ## If true, Hold ⌥ while dragging to tile
+              value: true
+            - key: EnableTiledWindowMargins ## If true, adds margins to tiled windows
+              value: false
+            - key: EnableStandardClickToShowDesktop ## If true, click wallpaper to show desktop
+              value: true
+            - key: HideDesktop ## If true, hide items in Stage Manager
+              value: false
+            - key: StandardHideDesktopIcons ## If true, hide items on desktop
+              value: false
+
+        - domain: com.apple.spaces
+          settings:
+            - key: spans-displays ## If true, displays have separate Spaces
               value: true
 
         - domain: com.apple.finder
@@ -247,29 +406,6 @@ machine:
               value: null
             - key: FXDefaultSearchScope ## Default Finder search scope ("SCev", "SCcf", "SCsp")
               value: SCcf
-
-        - domain: com.apple.menuextra.clock
-          hooks:
-            after: killall SystemUIServer
-          settings:
-            - key: IsAnalog ## If true, shows analog clock in menu bar
-              value: true
-            - key: Show24Hour ## If true, shows 24-hour time format
-              value: true
-            - key: ShowAMPM ## If true, shows AM/PM suffix
-              value: false
-            - key: ShowDate ## Date visibility in menu bar (0: off, 1: on, 2: when space allows)
-              value: 1
-            - key: ShowDayOfWeek ## If true, shows day of week in menu bar
-              value: true
-            - key: ShowSeconds ## If true, shows seconds in menu bar clock
-              value: true
-            - key: FlashDateSeparators ## If true, flashes time separators (for example, the colon)
-              value: false
-            - key: TimeAnnouncementsEnabled ## If true, enables time announcements
-              value: false
-            - key: TimeAnnouncementsIntervalIdentifier ## Time announcement interval identifier
-              value: EveryHourInterval
 
       shortcututil:
         - name: Save screenshot of screen

@@ -28,7 +28,7 @@ printf '>> Starting... %s\n' "preferences-defaults.sh"
 {{- if eq $host "current" }}
   {{- $hostFlag = "-currentHost" }}
 {{- else if ne $host "" }}
-  {{- $hostFlag = printf "-host %s" $host }}
+  {{- $hostFlag = printf "-host '%s'" $host }}
 {{- end }}
 
 {{- /* --- Resolve value type and value representation --- */ -}}
@@ -65,9 +65,9 @@ printf '>> Starting... %s\n' "preferences-defaults.sh"
 {{- /* --- Build command arguments --- */ -}}
 {{- $args := list }}
 {{- if eq .value nil }}
-  {{- $args = list "defaults" $hostFlag "delete" $domain .key ">/dev/null" "2>&1" "||" "true" }}
+  {{- $args = list "defaults" $hostFlag "delete" ($domain | squote) (.key | squote) ">/dev/null" "2>&1" "||" "true" }}
 {{- else }}
-  {{- $args = list "defaults" $hostFlag "write" $domain .key $valueType $value }}
+  {{- $args = list "defaults" $hostFlag "write" ($domain | squote) (.key | squote) $valueType $value }}
 {{- end }}
 {{ compact $args | join " " }}
 {{- end }}
