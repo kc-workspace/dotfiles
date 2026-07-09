@@ -3,6 +3,7 @@
   "context" $
 ) -}}
 
+{{- if includeTemplate "global/helpers/isDarwin" $ }}
 {
   "hooks" : {
     "PostToolUse" : [
@@ -60,3 +61,4 @@
     ]
   }
 }
+{{- end }}

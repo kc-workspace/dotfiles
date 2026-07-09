@@ -23,17 +23,17 @@ persistence = "save-all"
 enabled = false
 
 [mcp_servers.context7]
-args    = ["exec", "npm:@upstash/context7-mcp", "--", "context7-mcp"]
 command = "mise"
+args    = ["exec", "npm:@upstash/context7-mcp", "--", "context7-mcp"]
 
 [mcp_servers.memory]
+command = "mise"
 args = [
   "exec",
   "npm:@modelcontextprotocol/server-memory",
   "--",
   "mcp-server-memory",
 ]
-command = "mise"
 
 [mcp_servers.sequential-thinking]
 command = "mise"
@@ -47,6 +47,7 @@ args = [
 [mcp_servers.svelte]
 url = "https://mcp.svelte.dev/mcp"
 
+{{- if includeTemplate "global/helpers/isDarwin" $ }}
 [mcp_servers.node_repl]
 args = []
 command = "/Applications/Codex.app/Contents/Resources/node_repl"
@@ -65,6 +66,7 @@ NODE_REPL_INSTRUCTIONS_USE_CASE_CHROME = "Control the Chrome browser in conjunct
 BROWSER_USE_CODEX_APP_BUILD_FLAVOR = "prod"
 BROWSER_USE_CODEX_APP_VERSION = "26.602.30954"
 CODEX_CLI_PATH = "/Applications/Codex.app/Contents/Resources/codex"
+{{- end }}
 
 [plugins."documents@openai-primary-runtime"]
 enabled = true
