@@ -81,6 +81,12 @@ enabled = true
 [plugins."browser-use@openai-bundled"]
 enabled = true
 
+[plugins."pdf@openai-primary-runtime"]
+enabled = true
+
+[plugins."template-creator@openai-primary-runtime"]
+enabled = true
+
 [plugins."google-calendar@openai-curated"]
 enabled = true
 
@@ -108,6 +114,7 @@ source = "{{ .chezmoi.homeDir }}/.cache/codex-runtimes/codex-primary-runtime/plu
 
 [features]
 memories = true
+js_repl  = true
 
 [desktop]
 conversationDetailMode = "STEPS_COMMANDS"
