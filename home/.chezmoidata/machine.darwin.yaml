@@ -122,6 +122,12 @@ machine:
             - key: com.apple.trackpad.enableSecondaryClick ## If true, enables right-click on trackpad
               host: current
               value: true
+            - key: com.apple.trackpad.twoFingerDoubleTapGesture ## Smart zoom (two-finger double-tap). (0: disabled, 1: enabled)
+              host: current
+              value: 1
+            - key: com.apple.trackpad.twoFingerFromRightEdgeSwipeGesture ## Notification Center edge swipe. (0: disabled, 3: enabled)
+              host: current
+              value: 3
             - key: com.apple.trackpad.threeFingerTapGesture ## Three-finger tap gesture (0: Force-Click-delegated, 2: tap with three fingers)
               host: current
               value: 0
@@ -149,6 +155,10 @@ machine:
               value: true
             - key: TrackpadCornerSecondaryClick ## Right-click corner (0: disabled, 1: bottom-right corner)
               value: 0
+            - key: TrackpadTwoFingerDoubleTapGesture ## Same as NSGlobalDomain com.apple.trackpad.twoFingerDoubleTapGesture
+              value: 1
+            - key: TrackpadTwoFingerFromRightEdgeSwipeGesture ## Same as NSGlobalDomain com.apple.trackpad.twoFingerFromRightEdgeSwipeGesture
+              value: 3
             - key: TrackpadThreeFingerTapGesture ## Same as NSGlobalDomain com.apple.trackpad.threeFingerTapGesture
               value: 0
             - key: TrackpadThreeFingerDrag ## Same as NSGlobalDomain com.apple.trackpad.threeFingerDragGesture
@@ -166,6 +176,10 @@ machine:
               value: true
             - key: TrackpadCornerSecondaryClick ## Right-click corner (0: disabled, 1: bottom-right corner)
               value: 0
+            - key: TrackpadTwoFingerDoubleTapGesture ## Same as NSGlobalDomain com.apple.trackpad.twoFingerDoubleTapGesture
+              value: 1
+            - key: TrackpadTwoFingerFromRightEdgeSwipeGesture ## Same as NSGlobalDomain com.apple.trackpad.twoFingerFromRightEdgeSwipeGesture
+              value: 3
             - key: TrackpadThreeFingerTapGesture ## Same as NSGlobalDomain com.apple.trackpad.threeFingerTapGesture
               value: 0
             - key: TrackpadThreeFingerDrag ## Same as NSGlobalDomain com.apple.trackpad.threeFingerDragGesture
