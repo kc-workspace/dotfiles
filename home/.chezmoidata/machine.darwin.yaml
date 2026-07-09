@@ -208,6 +208,14 @@ machine:
               value: 0
             - key: TrackpadThreeFingerVertSwipeGesture ## Same as NSGlobalDomain com.apple.trackpad.threeFingerVertSwipeGesture (conflicts with TrackpadThreeFingerDrag)
               value: 0
+            - key: TrackpadFourFingerHorizSwipeGesture ## Same as NSGlobalDomain com.apple.trackpad.fourFingerHorizSwipeGesture
+              value: 2
+            - key: TrackpadFourFingerPinchGesture ## Same as NSGlobalDomain com.apple.trackpad.fourFingerPinchSwipeGesture
+              value: 2
+            - key: TrackpadFourFingerVertSwipeGesture ## Same as NSGlobalDomain com.apple.trackpad.fourFingerVertSwipeGesture
+              value: 2
+            - key: TrackpadFiveFingerPinchGesture ## Same as NSGlobalDomain com.apple.trackpad.fiveFingerPinchSwipeGesture
+              value: 2
 
         - domain: com.apple.AppleMultitouchMouse
           settings: []
