@@ -64,6 +64,8 @@ machine:
               value: false
             - key: AppleWindowTabbingMode ## Window tabbing mode for new documents ("manual", "always", "fullscreen")
               value: always
+            - key: AppleEnableSwipeNavigateWithScrolls ## If true, enables swipe navigation with scroll gestures
+              value: true
             - key: InitialKeyRepeat ## Delay until key repeat (input * 15ms)
               value: 25
             - key: KeyRepeat ## Key repeat rate (input * 15ms)
@@ -209,6 +211,8 @@ machine:
               value: true
             - key: mru-spaces ## If true, automatically rearranges Spaces based on most recent use
               value: false
+            - key: showAppExposeGestureEnabled ## If true, enables App Exposé gesture (swipe down with four fingers)
+              value: true
               ## top-left hot corner
               ## corner value:
               ##   1: No Action
