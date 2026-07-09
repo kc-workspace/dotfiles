@@ -140,6 +140,18 @@ machine:
             - key: com.apple.trackpad.threeFingerVertSwipeGesture ## Three-finger vertical swipe gesture (0: disabled, 2: enabled)
               host: current
               value: 0
+            - key: com.apple.trackpad.fourFingerHorizSwipeGesture ## Four-finger horizontal swipe gesture (0: disabled, 2: enabled)
+              host: current
+              value: 2
+            - key: com.apple.trackpad.fourFingerPinchSwipeGesture ## Four-finger pinch gesture (0: disabled, 2: enabled)
+              host: current
+              value: 2
+            - key: com.apple.trackpad.fourFingerVertSwipeGesture ## Four-finger vertical swipe gesture (0: disabled, 2: enabled)
+              host: current
+              value: 2
+            - key: com.apple.trackpad.fiveFingerPinchSwipeGesture ## Five-finger pinch gesture (0: disabled, 2: enabled)
+              host: current
+              value: 2
 
         - domain: com.apple.AppleMultitouchTrackpad
           settings:
@@ -167,6 +179,14 @@ machine:
               value: 0
             - key: TrackpadThreeFingerVertSwipeGesture ## Same as NSGlobalDomain com.apple.trackpad.threeFingerVertSwipeGesture (conflicts with TrackpadThreeFingerDrag)
               value: 0
+            - key: TrackpadFourFingerHorizSwipeGesture ## Same as NSGlobalDomain com.apple.trackpad.fourFingerHorizSwipeGesture
+              value: 2
+            - key: TrackpadFourFingerPinchGesture ## Same as NSGlobalDomain com.apple.trackpad.fourFingerPinchSwipeGesture
+              value: 2
+            - key: TrackpadFourFingerVertSwipeGesture ## Same as NSGlobalDomain com.apple.trackpad.fourFingerVertSwipeGesture
+              value: 2
+            - key: TrackpadFiveFingerPinchGesture ## Same as NSGlobalDomain com.apple.trackpad.fiveFingerPinchSwipeGesture
+              value: 2
 
         - domain: com.apple.driver.AppleBluetoothMultitouch.trackpad
           settings:
