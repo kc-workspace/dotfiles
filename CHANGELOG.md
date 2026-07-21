@@ -1,5 +1,25 @@
 # Changelog
 
+## [0.9.0](https://github.com/kc-workspace/dotfiles/compare/v0.8.0...v0.9.0) (2026-07-21)
+
+
+### Features
+
+* **codex:** enable pdf/template-creator plugins and js_repl feature ([1d23e58](https://github.com/kc-workspace/dotfiles/commit/1d23e58bf36ecbf189c9ea3bf213c3e4d218ff53))
+* **codex:** update desktop UI settings (STEPS_PROSE, font sizes, alignment) ([f7d2370](https://github.com/kc-workspace/dotfiles/commit/f7d23709c2f3de9fa5c35ad582225db500688624))
+* **config:** add forceDisabled option for featureFlags/helpers/include to force disable with reason why ([d25b6d5](https://github.com/kc-workspace/dotfiles/commit/d25b6d5c609a50e443cc87472b0a867db00ba20b))
+* **macos:** add 4-finger and 5-finger trackpad gestures ([c0c08ea](https://github.com/kc-workspace/dotfiles/commit/c0c08eae80596a6b6beebce6e4b5e2427d0eedb0))
+* **macos:** add two-finger trackpad gestures (smart zoom, notification center) ([d010ff1](https://github.com/kc-workspace/dotfiles/commit/d010ff1c1653985f290027c34f46e288dfae4c15))
+* **macos:** enable swipe navigation with scrolls and App Exposé gesture ([48eba77](https://github.com/kc-workspace/dotfiles/commit/48eba774135b2bef64af1ad33288572bdf76f181))
+
+
+### Bug Fixes
+
+* **codex:** add missing whitespace trim marker in darwin gate ([c23bdf3](https://github.com/kc-workspace/dotfiles/commit/c23bdf3551d07809a4cb8b319459403f66f88f7c))
+* **codex:** gate of darwin specific feature in codex config ([e349c8b](https://github.com/kc-workspace/dotfiles/commit/e349c8bd21db73d67fea811ec1b6ebb8addd08e4))
+* **codex:** update node_repl paths for cua_node bundle ([40416d6](https://github.com/kc-workspace/dotfiles/commit/40416d69b930477456aca0f5463a15c4a038dd5c))
+* **ssh:** public key got renamed ([4cd2fc1](https://github.com/kc-workspace/dotfiles/commit/4cd2fc11e61db76e0c272f9ad5ba11a76cd7c6e1))
+
 ## [0.8.0](https://github.com/kc-workspace/dotfiles/compare/v0.7.0...v0.8.0) (2026-07-08)
 
 
