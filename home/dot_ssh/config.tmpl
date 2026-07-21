@@ -11,6 +11,7 @@
 ) }}
 
 {{- includeTemplate "featureFlags/helpers/include" (dict
+  "forceDisabled" "we use gitconfig includeIf instead for multi-accounts"
   "flag" "ssh::github:config"
   "afterLine" 2
   "context" $

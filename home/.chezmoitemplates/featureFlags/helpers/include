@@ -5,6 +5,7 @@
 {{- $beforeLine := dig "beforeLine" 0 . -}}
 {{- $afterLine := dig "afterLine" 0 . -}}
 {{- $selector := dig "selector" "" . -}}
+{{- $forceDisabled := dig "forceDisabled" false . -}}
 
 {{- $isEnable := includeTemplate "featureFlags/internal/isEnable" (dict
   "flag" $flag
@@ -32,10 +33,12 @@
   ) -}}
 {{- end -}}
 
-{{- includeTemplate "global/helpers/format" (dict
-  "output" $output
-  "indent" $indent
-  "indentKey" $indentKey
-  "beforeLine" $beforeLine
-  "afterLine" $afterLine
-) -}}
+{{- if not $forceDisabled -}}
+  {{- includeTemplate "global/helpers/format" (dict
+    "output" $output
+    "indent" $indent
+    "indentKey" $indentKey
+    "beforeLine" $beforeLine
+    "afterLine" $afterLine
+  ) -}}
+{{- end -}}
