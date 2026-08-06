@@ -5,7 +5,7 @@
 {
   "renderMarkdown": true,
   "theme": "auto",
-  "model": "auto",
+  "model": "gpt-5.6-luna",
   "includeCoAuthoredBy": false,
   "showTipsOnStartup": false,
   "updateTerminalTitle": true,
@@ -23,5 +23,18 @@
     "showYolo": false,
     "showCustom": false
   },
-  "allowedUrls": ["https://docs.github.com"]
+  "allowedUrls": [
+    "https://docs.github.com"
+  ],
+  "extraKnownMarketplaces": {
+    "superpowers-marketplace": {
+      "source": {
+        "source": "github",
+        "repo": "obra/superpowers-marketplace"
+      }
+    }
+  },
+  "enabledPlugins": {
+    "superpowers@superpowers-marketplace": true
+  }
 }
