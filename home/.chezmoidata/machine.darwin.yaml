@@ -409,7 +409,7 @@ machine:
             - key: EnableTiledWindowMargins ## If true, adds margins to tiled windows
               value: false
             - key: EnableStandardClickToShowDesktop ## If true, click wallpaper to show desktop
-              value: true
+              value: false
             - key: HideDesktop ## If true, hide items in Stage Manager
               value: false
             - key: StandardHideDesktopIcons ## If true, hide items on desktop
