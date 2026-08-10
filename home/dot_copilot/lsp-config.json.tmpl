@@ -1,0 +1,50 @@
+{{- includeTemplate "featureFlags/helpers/mustEnable" (dict
+  "flag" "ai::copilot:enable"
+  "context" $
+) -}}
+
+{
+  "lspServers": {
+    "typescript": {
+      "command": "typescript-language-server",
+      "args": ["--stdio"],
+      "fileExtensions": {
+        ".ts": "typescript",
+        ".tsx": "typescriptreact",
+        ".js": "javascript",
+        ".jsx": "javascriptreact"
+      }
+    },
+    "python": {
+      "command": "pyright-langserver",
+      "args": ["--stdio"],
+      "fileExtensions": {
+        ".py": "python"
+      }
+    },
+    "go": {
+      "command": "gopls",
+      "args": ["serve"],
+      "fileExtensions": {
+        ".go": "go"
+      }
+    },
+    "yaml": {
+      "command": "yaml-language-server",
+      "args": ["--stdio"],
+      "fileExtensions": {
+        ".yaml": "yaml",
+        ".yml": "yaml"
+      }
+    },
+    "bash": {
+      "command": "bash-language-server",
+      "args": ["start"],
+      "fileExtensions": {
+        ".sh": "shellscript",
+        ".bash": "shellscript",
+        ".zsh": "shellscript"
+      }
+    }
+  }
+}
