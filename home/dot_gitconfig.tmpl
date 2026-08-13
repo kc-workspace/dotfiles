@@ -67,8 +67,21 @@
 [pull]
 	rebase = false
 
+{{- $mise := includeTemplate "global/helpers/getData" (dict
+  "path" (list "dependencies" "mise")
+  "defaults" dict
+  "context" .
+) | mustFromJson }}
+
 [credential "https://github.com"]
 	useHttpPath = true
+	helper      =
+	helper      = /{{ $mise.settings.binpath }}/mise x github-cli@latest -- gh auth git-credential
+
+[credential "https://gist.github.com"]
+	useHttpPath = true
+	helper      =
+	helper      = /{{ $mise.settings.binpath }}/mise x github-cli@latest -- gh auth git-credential
 
 [column]
 	ui = auto
