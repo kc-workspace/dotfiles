@@ -9,25 +9,23 @@
     "allow": [
       "Bash(git add:*)",
       "Bash(git commit:*)",
-      "Bash(git push:*)"
-    ],
-    "ask": [
+      "Bash(git push:*)",
       "Bash(gh pr create:*)"
     ],
+    "ask": [],
     "defaultMode": "auto"
   },
   "statusLine": {
     "type": "command",
-    "command": "bash \"$HOME/.claude/plugins/cache/caveman/caveman/655b7d9c5431/src/hooks/caveman-statusline.sh\""
+    "command": "bash \"$HOME/.claude/statusline-command.sh\""
   },
   "enabledPlugins": {
     "caveman@caveman": true,
     "context7@claude-plugins-official": true,
     "superpowers@claude-plugins-official": true,
-
-    "typescript-lsp@claude-plugins-official": true,
-    "gopls-lsp@claude-plugins-official": true,
-    "pyright-lsp@claude-plugins-official": true
+    "typescript-lsp@claude-plugins-official": false,
+    "gopls-lsp@claude-plugins-official": false,
+    "pyright-lsp@claude-plugins-official": false
   },
   "extraKnownMarketplaces": {
     "caveman": {
@@ -44,8 +42,13 @@
     }
   },
   "effortLevel": "xhigh",
+  "askUserQuestionTimeout": "5m",
+  "dialogExpiry": "never",
   "tui": "fullscreen",
   "skipDangerousModePermissionPrompt": true,
   "theme": "auto",
+  "editorMode": "normal",
+  "autoCompactEnabled": true,
+  "switchModelsOnFlag": false,
   "skipAutoPermissionPrompt": true
 }
