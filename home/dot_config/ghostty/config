@@ -34,8 +34,7 @@ unfocused-split-opacity = 0.40
 background-opacity = 0.85
 background-blur    = 20
 
-macos-titlebar-style      = tabs
-macos-titlebar-proxy-icon = hidden
+# macos-titlebar-style      = tabs
+# macos-titlebar-proxy-icon = hidden
 ## https://zenn.dev/kawarimidoll/articles/5f219b4409424b
 macos-icon                = xray
-
