@@ -13,6 +13,7 @@ actions:
           - gnupg
           - bubblewrap ## For HomeBrew (Bubblewrap is required to use the Linux sandbox but was not found)
         settings:
+          autoupdate: true
           autoupgrade: false
       ## Don't install brew on actions, because it randomly fails
       ## No such file or directory @ rb_sysopen - /<path>
