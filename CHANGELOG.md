@@ -1,5 +1,49 @@
 # Changelog
 
+## [0.9.0](https://github.com/kc-workspace/dotfiles/compare/v0.8.0...v0.9.0) (2026-09-19)
+
+
+### Features
+
+* **claude:** add statusline command ([c781a3f](https://github.com/kc-workspace/dotfiles/commit/c781a3f19b8fffab09b2cd63ce1a83f725662f51))
+* **codex:** enable pdf/template-creator plugins and js_repl feature ([1d23e58](https://github.com/kc-workspace/dotfiles/commit/1d23e58bf36ecbf189c9ea3bf213c3e4d218ff53))
+* **codex:** update desktop UI settings (STEPS_PROSE, font sizes, alignment) ([f7d2370](https://github.com/kc-workspace/dotfiles/commit/f7d23709c2f3de9fa5c35ad582225db500688624))
+* **config:** add forceDisabled option for featureFlags/helpers/include to force disable with reason why ([d25b6d5](https://github.com/kc-workspace/dotfiles/commit/d25b6d5c609a50e443cc87472b0a867db00ba20b))
+* **macos:** add 4-finger and 5-finger trackpad gestures ([c0c08ea](https://github.com/kc-workspace/dotfiles/commit/c0c08eae80596a6b6beebce6e4b5e2427d0eedb0))
+* **macos:** add two-finger trackpad gestures (smart zoom, notification center) ([d010ff1](https://github.com/kc-workspace/dotfiles/commit/d010ff1c1653985f290027c34f46e288dfae4c15))
+* **macos:** enable swipe navigation with scrolls and App Exposé gesture ([48eba77](https://github.com/kc-workspace/dotfiles/commit/48eba774135b2bef64af1ad33288572bdf76f181))
+
+
+### Bug Fixes
+
+* **codex:** add missing whitespace trim marker in darwin gate ([c23bdf3](https://github.com/kc-workspace/dotfiles/commit/c23bdf3551d07809a4cb8b319459403f66f88f7c))
+* **codex:** gate of darwin specific feature in codex config ([e349c8b](https://github.com/kc-workspace/dotfiles/commit/e349c8bd21db73d67fea811ec1b6ebb8addd08e4))
+* **codex:** update node_repl paths for cua_node bundle ([40416d6](https://github.com/kc-workspace/dotfiles/commit/40416d69b930477456aca0f5463a15c4a038dd5c))
+* **ghostty:** current config have bug om macos 27 ([40fc4c4](https://github.com/kc-workspace/dotfiles/commit/40fc4c4bb621f3f3d8493134987edb9a5c12b505))
+* **git:** git clone http didn't work currently ([dfc1c42](https://github.com/kc-workspace/dotfiles/commit/dfc1c42e6b2c3ccdd529d882fec5292ddb1771eb))
+* remove bartender notch it seem to have performance issue ([29feee6](https://github.com/kc-workspace/dotfiles/commit/29feee6c68c1e03d02a21f300a1f0054656f51cc))
+* **ssh:** public key got renamed ([4cd2fc1](https://github.com/kc-workspace/dotfiles/commit/4cd2fc11e61db76e0c272f9ad5ba11a76cd7c6e1))
+* **zsh:** invalid git stash icon ([2e0cb0a](https://github.com/kc-workspace/dotfiles/commit/2e0cb0a70717cd2f762972f524fb7e91dace00c3))
+
+
+### Performance Improvements
+
+* **aws:** add bedrock accounts for poweruser and admin ([2445375](https://github.com/kc-workspace/dotfiles/commit/24453756e374d0bafc551c92cc71a28b748a70e3))
+* **chatgpt:** update config.toml ([604646a](https://github.com/kc-workspace/dotfiles/commit/604646a60d391a64485f92f33d73fa2a23bb0177))
+* **claude:** update settings.json file ([2ae7d6e](https://github.com/kc-workspace/dotfiles/commit/2ae7d6e6f973b5defcc88decc6876acfa3fb0120))
+* **claude:** use lsp instead of serena ([99c5de4](https://github.com/kc-workspace/dotfiles/commit/99c5de462321794ec0dbde525bcfb6b03bedbe1c))
+* **codex:** use gpt-5.6 instead ([5382676](https://github.com/kc-workspace/dotfiles/commit/5382676cf104ee35a9c9afd408cacb1e0d90d518))
+* **config:** use gpt-5.6-luna as default model on copilot cli instead ([e0a537b](https://github.com/kc-workspace/dotfiles/commit/e0a537b94a97c3e923c7b969e6385e04e54ee0aa))
+* **copilot:** re-enable some plugins to matches with claude and chatgpt ([e6ddb08](https://github.com/kc-workspace/dotfiles/commit/e6ddb08ab9d7a2e79b63687daf752ac5b3fc5bbf))
+* **copilot:** update plugins and default lsp ([544fbd8](https://github.com/kc-workspace/dotfiles/commit/544fbd81d61922b24e1a6dd6664ff8aed7f78ed7))
+* **deps:** upgrade bun in Personal from v1.3.1 to v1.4.2 ([be58981](https://github.com/kc-workspace/dotfiles/commit/be58981aed5028b4bef4182c65afe38f8ce990e6))
+* **deps:** upgrade system level usage from v3 to v5 ([22a6fb7](https://github.com/kc-workspace/dotfiles/commit/22a6fb7f8b17ca5fdb9d892c2c416319e7c6ba24))
+* disable click wallpater to show desktop ([9eca065](https://github.com/kc-workspace/dotfiles/commit/9eca06530573f9481cfc181b57d62d765d12e00b))
+* **mise:** alias codex to npm:@openai/codex ([e4c4d16](https://github.com/kc-workspace/dotfiles/commit/e4c4d16c7434aeafd7eae40aca1ef0ac4f20b78d))
+* remove .env load on root mise config ([7e83028](https://github.com/kc-workspace/dotfiles/commit/7e83028e5915acbe9b44d24d6b4055fff796730d))
+* remove serena hook from copilot we no longer use it ([fc404a1](https://github.com/kc-workspace/dotfiles/commit/fc404a121227ca422d0e58e96a37d9b9c49a9f17))
+* remove serena, most harness support lsp server now ([bd71f7c](https://github.com/kc-workspace/dotfiles/commit/bd71f7cfbf50b0042e4c1c9f427f473d3c473449))
+
 ## [0.8.0](https://github.com/kc-workspace/dotfiles/compare/v0.7.0...v0.8.0) (2026-07-08)
 
 
