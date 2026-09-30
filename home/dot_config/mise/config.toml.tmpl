@@ -1,18 +1,19 @@
 [tools]
-1password-cli = "2.34.1"  ## For password management
-age           = "1.3.1"   ## For file encryption
+1password-cli = "2.34.1"   ## For password management
+age           = "1.3.1"    ## For file encryption
 bun           = "1.3.14"
 github-cli    = "2.96.0"
-go            = "1.25.5"  ## For golang package management
+go            = "1.25.5"   ## For golang runtime
 jq            = "1.8.2"
-neovim        = "0.12.3"  ## For terminal editor
-node          = "24.18.0" ## For node runtime
-python        = "3.14.6"  ## For python runtime
+neovim        = "0.12.3"   ## For terminal editor
+node          = "24.18.0"  ## For node runtime
+python        = "3.14.6"   ## For python runtime
 rust          = "1.96.0"
 yq            = "4.53.3"
-chezmoi       = "2.70.5"  ## For dotfiles management
-usage         = "5.0.0"   ## Required by `mise completion`
+chezmoi       = "2.70.5"   ## For dotfiles management
+usage         = "5.0.0"    ## Required by `mise completion`
 uv            = "0.11.26"
+dotnet        = "10.0.401" ## For dotnot runtime
 
 [tool_alias]
 cloc           = "github:AlDanial/cloc"
@@ -23,7 +24,7 @@ skills         = "npm:skills"
 codex          = "npm:@openai/codex"
 
 [settings]
-disable_backends                    = ["spm", "dotnet", "gem", "ubi", "asdf"]
+disable_backends                    = ["spm", "gem", "ubi", "asdf"]
 not_found_auto_install              = true
 pin                                 = true
 idiomatic_version_file_enable_tools = ["node", "bun", "pnpm", "yarn"] ## https://mise.jdx.dev/configuration.html#idiomatic-version-files
@@ -50,4 +51,8 @@ package_manager = "bun"
 
 [settings.pipx]
 uvx = true
+
+[settings.dotnet]
+cli_telemetry_optout = true
+isolated             = true
 
