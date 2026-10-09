@@ -250,7 +250,7 @@ machine:
             - key: scroll-to-open ## Scroll up on a Dock icon to show all opened windows
               value: true
             - key: expose-group-apps ## If true, groups windows by app in Mission Control
-              value: true
+              value: false
             - key: mru-spaces ## If true, automatically rearranges Spaces based on most recent use
               value: false
             - key: showAppExposeGestureEnabled ## If true, enables App Exposé gesture (swipe down with four fingers)
