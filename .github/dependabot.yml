@@ -22,3 +22,10 @@ updates:
         patterns:
           - actions/cache
           - actions/cache/*
+      artifact-actions:
+        patterns:
+          - actions/download-artifact
+          - actions/upload-artifact
+      docker-actions:
+        patterns:
+          - docker/*
