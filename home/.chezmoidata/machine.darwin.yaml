@@ -417,8 +417,8 @@ machine:
 
         - domain: com.apple.spaces
           settings:
-            - key: spans-displays ## If true, displays have separate Spaces
-              value: true
+            - key: spans-displays ## If false, displays have separate Spaces
+              value: false
 
         - domain: com.apple.finder
           hooks:
@@ -453,6 +453,26 @@ machine:
             - key: FXDefaultSearchScope ## Default Finder search scope ("SCev", "SCcf", "SCsp")
               value: SCcf
 
+        - domain: com.apple.Safari
+          hooks:
+            after: killall Safari
+          settings:
+            - key: ShowFullURLInSmartSearchField ## If true, shows the full URL in the search field
+              value: true
+            - key: TabClusteringPolicy ## Sets the tab clustering behavior (0: never, 1: Show Related Tabs, 2: Automatically Create Topics)
+              value: 2
+            - key: CloseTabsAutomatically ## Sets the automatic tab closing behavior (0: manually, 1: after one day, 2: after one week, 3: after one month)
+              value: 2
+            - key: SearchProviderShortName ## Sets the default search provider ("Google", "Bing", "DuckDuckGo", "Ecosia")
+              value: DuckDuckGo
+            - key: PrivateSearchEngineUsesNormalSearchEngineToggle ## If true, uses normal search engine on private browsing
+              value: false
+            - key: PrivateSearchProviderShortName ## Sets the default private search provider ("Google", "Bing", "DuckDuckGo", "Ecosia")
+              value: DuckDuckGo
+            - key: HistoryAgeInDaysLimit ## Sets the maximum age of history items (in days, use 365000 for effectively never)
+              value: 365
+            - key: DownloadsClearingPolicy ## Sets the clearing policy for downloads (0: manually, 1: When Safari quits, 2: Upon successful download, 3: After one day)
+              value: 1
       shortcututil:
         - name: Save screenshot of screen
           key: 28
