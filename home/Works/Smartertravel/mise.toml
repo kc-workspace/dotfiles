@@ -3,10 +3,15 @@ AWS_PROFILE = "cognius-dev"
 KUBECONFIG  = "{{env.HOME}}/.kube/works/config.st"
 
 [shell_alias]
-ka = "kubectl --context prd:smt2/a"
-ha = "helm --kube-context prd:smt2/a"
-kshell = "kubectl --context prd:smt2/a run debug-shell --namespace default --image=kamontat/dotfiles:latest --image-pull-policy=Always --restart=Never -it --rm"
-kdebug = "kubectl --context prd:smt2/a run debug-pod --namespace default --image=kamontat/dotfiles:latest --image-pull-policy=Always --restart=Never --command -- sleep infinity"
+ka1 = "kubectl --context prd:smt2/a"
+h1 = "helm --kube-context prd:smt2/a"
+kshell1 = "kubectl --context prd:smt2/a run debug-shell --namespace default --image=kamontat/dotfiles:latest --image-pull-policy=Always --restart=Never -it --rm"
+kdebug1 = "kubectl --context prd:smt2/a run debug-pod --namespace default --image=kamontat/dotfiles:latest --image-pull-policy=Always --restart=Never --command -- sleep infinity"
+
+ka = "kubectl --context prd:hog/a"
+ha = "helm --kube-context prd:hog/a"
+kshell = "kubectl --context prd:hog/a run debug-shell --namespace default --image=kamontat/dotfiles:latest --image-pull-policy=Always --restart=Never -it --rm"
+kdebug = "kubectl --context prd:hog/a run debug-pod --namespace default --image=kamontat/dotfiles:latest --image-pull-policy=Always --restart=Never --command -- sleep infinity"
 
 [tools]
 aws-cli = "2.31.20"
