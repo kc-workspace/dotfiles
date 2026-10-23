@@ -116,7 +116,7 @@ apk add -y git curl
 4. Install chezmoi temporarily via direct download.
 
 ```shell
-sh -c "$(curl -fsSL get.chezmoi.io)" -- -b "$HOME/.local/bin" -t "v2.70.5"
+sh -c "$(curl -fsSL get.chezmoi.io)" -- -b "$HOME/.local/bin" -t "v2.73.3"
 ```
 
 5. Initialize the chezmoi repository.
