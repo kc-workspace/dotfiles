@@ -1,5 +1,21 @@
 # Changelog
 
+## [0.10.0](https://github.com/kc-workspace/dotfiles/compare/v0.9.0...v0.10.0) (2026-10-26)
+
+
+### Features
+
+* **shell:** add new `czp` for chezmoi push command on v2.73 ([2db5c59](https://github.com/kc-workspace/dotfiles/commit/2db5c59b1957ec53e35fa8ff82cd5813ceea498d))
+
+
+### Performance Improvements
+
+* **dep:** upgrade couple of dependencies ([11b2b89](https://github.com/kc-workspace/dotfiles/commit/11b2b8978144c98ecc4fef85d13ddb01c008df14))
+* **dep:** upgrade installed chezmoi from v2.70.5 to v2.73.3 ([5b0cd72](https://github.com/kc-workspace/dotfiles/commit/5b0cd72f76cc3bd88839b4c752493daa2f150466))
+* **dep:** upgrade uv from v0.10 to v0.13 ([60cb5b8](https://github.com/kc-workspace/dotfiles/commit/60cb5b81325a0d5a89782f3d3469e0b0e7ec2fd8))
+* **mise:** move legacy cluster to *1, and default to new cluster instead ([166e49f](https://github.com/kc-workspace/dotfiles/commit/166e49f0f6dcfb37dd3d7a63708f7f8145714f7f))
+* sync target and source directories ([0b478bf](https://github.com/kc-workspace/dotfiles/commit/0b478bfe821e3c981655b2b551bd314ccb1c17f7))
+
 ## [0.9.0](https://github.com/kc-workspace/dotfiles/compare/v0.8.0...v0.9.0) (2026-10-19)
 
 
