@@ -15,6 +15,10 @@ Personal dotfiles configuration for [kamontat][gh:home].
   - [Actions](#actions)
   - [Update Target Directory](#update-target-directory)
   - [Uninstall Dotfiles](#uninstall-dotfiles)
+  - [Docker Image](#docker-image)
+    - [Image Tags](#image-tags)
+    - [Run Container](#run-container)
+    - [Full Setup in Container](#full-setup-in-container)
 - [Features](#features)
   - [Zinit](#zinit)
     - [Upgrade Zinit](#upgrade-zinit)
@@ -182,6 +186,70 @@ chezmoi update --init --apply
 chezmoi purge
 ```
 
+### Docker Image
+
+Prebuilt images are published to both registries on every release:
+
+- Docker Hub: `kamontat/dotfiles`
+- GitHub Container Registry: `ghcr.io/kc-workspace/dotfiles`
+
+Each image runs as user `kamontat` (UID `1000`) with passwordless `sudo`,
+starts `zsh` by default, and comes with [Lite Setup](#lite-setup) already applied.
+
+#### Image Tags
+
+Base image is selected by tag suffix:
+
+| Base image      | Suffix    | Example         |
+| --------------- | --------- | --------------- |
+| `ubuntu:latest` | (none)    | `latest`        |
+| `debian:latest` | `-debian` | `latest-debian` |
+| `alpine:latest` | `-alpine` | `latest-alpine` |
+
+Available tag names (combine with suffix above):
+
+- `latest`: latest release
+- `<major>`, `<major>.<minor>`, `<version>`: specific release (e.g. `1`, `1.2`, `1.2.3`)
+- `edge`: latest commit on default branch
+- `sha-<short-sha>`: specific commit
+
+#### Run Container
+
+```shell
+## Start an interactive shell session (removed on exit)
+docker run -it --rm kamontat/dotfiles:latest
+
+## Use other base image or registry
+docker run -it --rm kamontat/dotfiles:latest-alpine
+docker run -it --rm ghcr.io/kc-workspace/dotfiles:latest-debian
+
+## Mount current directory as workspace
+docker run -it --rm -v "$PWD:/home/kamontat/workspace" \
+  -w /home/kamontat/workspace kamontat/dotfiles:latest
+
+## Run a single command instead of interactive shell
+## (-i loads .zshrc, which sets up PATH)
+docker run -it --rm kamontat/dotfiles:latest -ic 'chezmoi status'
+```
+
+To build image locally, see [CONTRIBUTING][local:contributing].
+To verify image integrity, see [Verify Docker Image](#verify-docker-image).
+
+#### Full Setup in Container
+
+Run [Full Setup](#full-setup) inside a running container.
+It prompts for the encryption password unless `$HOME/.config/chezmoi/key.txt` exists.
+
+```shell
+## Mount age key from host to skip password prompt (optional)
+docker run -it --rm \
+  -v "$HOME/.config/chezmoi/key.txt:/home/kamontat/.config/chezmoi/key.txt:ro" \
+  kamontat/dotfiles:latest
+
+## Inside container
+kdf-setup-full.sh
+```
+
 ## Features
 
 - [Zsh][zsh:home] configuration: [here][local:zshrc]
@@ -295,12 +363,8 @@ All secrets and private documents are stored in 1Password.
 
 Dotfiles in Docker have a two-stage setup.
 By default, only [Lite Setup](#lite-setup) is applied.
-To use full setup, run `kdf-setup.sh` in the Docker instance.
-
-```shell
-## Start an interactive shell session
-docker run -it --rm kamontat/dotfiles:local
-```
+To use full setup, run `kdf-setup-full.sh` in the Docker instance.
+See [Docker Image](#docker-image) for usage.
 
 #### Verify Docker Image
 
