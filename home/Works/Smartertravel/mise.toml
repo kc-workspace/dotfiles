@@ -11,7 +11,7 @@ KUBECONFIG  = "{{env.HOME}}/.kube/works/config.st"
 
 [shell_alias]
 ka1 = "kubectl --context prd:smt2/a"
-h1 = "helm --kube-context prd:smt2/a"
+ha1 = "helm --kube-context prd:smt2/a"
 kshell1 = "kubectl --context prd:smt2/a run debug-shell --namespace default --image=kamontat/dotfiles:latest --image-pull-policy=Always --restart=Never -it --rm"
 kdebug1 = "kubectl --context prd:smt2/a run debug-pod --namespace default --image=kamontat/dotfiles:latest --image-pull-policy=Always --restart=Never --command -- sleep infinity"
 
