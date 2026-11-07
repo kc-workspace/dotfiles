@@ -8,7 +8,8 @@ machine:
         - ai::copilot:enable
         - aws::enable
         - aws::stm:config
-        - aws-vpn::stm:config
+        - aws-vpn::stm:use1-config
+        - aws-vpn::stm:use2-config
         - wd::stm:path
         - wd::vscode-insider:path
         - git::stm:config

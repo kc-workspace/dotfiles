@@ -1,0 +1,10 @@
+{{- includeTemplate "featureFlags/helpers/mustEnable" (dict
+  "flag" "aws::enable"
+  "context" $
+) -}}
+
+{{- includeTemplate "featureFlags/helpers/include" (dict
+  "flag" "aws-vpn::stm:use2-config"
+  "indent" 0
+  "context" $
+) -}}

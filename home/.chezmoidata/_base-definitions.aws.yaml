@@ -5,6 +5,9 @@ _base:
       aws::stm:config:
         whenEnable:
           type: file
-      aws-vpn::stm:config:
+      aws-vpn::stm:use1-config:
+        whenEnable:
+          type: file
+      aws-vpn::stm:use2-config:
         whenEnable:
           type: file
